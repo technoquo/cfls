@@ -1,48 +1,53 @@
+@props(['breadcrumb' => []])
+
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="themeToggle()" x-bind:class="theme">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="themeSwitcher()" :class="{ 'dark': theme === 'dark', 'light': theme === 'light' }">
+
 <head>
-    <link rel="canonical" href="https://www.cfls.be" />
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFLS - Centre Francophone de la Langue des Signes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Meta SEO -->
-    <meta name="title" content="CFLS - Centre Francophone de la Langue des Signes">
-    <meta name="description" content="Le Centre Francophone de la Langue des Signes s'est donné pour mission de diffuser la langue des signes par des cours, des publications et de la recherche en L.S.">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="French">
-    <meta name="author" content="CLFS">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Social media share -->
-    <meta property="og:title" content="CFLS - Centre Francophone de la Langue des Signes">
-    <meta property="og:site_name" content="CFLS">
-    <meta property="og:url" content="https://www.cfls.be">
-    <meta property="og:description" content="Le Centre Francophone de la Langue des Signes s'est donné pour mission de diffuser la langue des signes par des cours, des publications et de la recherche en L.S.">
-    <meta property="og:type" content="web">
-    <meta property="og:image" content="">
-    {{-- <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@themesberg" />
-    <meta name="twitter:creator" content="@themesberg" /> --}}
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="">
-    <link rel="icon" type="image/png" sizes="32x32" href="">
-    <link rel="icon" type="image/png" sizes="16x16" href="">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/ccc950231e.js" crossorigin="anonymous"></script>
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
+
 </head>
-<body x-data="{ open: false }"
-:class="{ 'overflow-hidden': open }"
-class="sm:overflow-auto">
 
-    {{ $slot }}
+<body x-data="{ open: false }" :class="{ 'overflow-hidden': open }" class="sm:overflow-auto">
 
+    @include('layouts.includes.navegation')
+    @include('layouts.includes.sidebar')
+
+
+
+
+
+
+    <div
+        class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 max-w-screen-xl px-4 mx-auto">
+        {{ $slot }}
+    </div>
+
+
+    <div x-cloak x-on:click="open = false" x-show="open"
+        class="bg-gray-900 bg-opacity-50 fixed inset-0 z-30 sm:hidden"></div>
     @stack('scripts')
+
+
+
 </body>
+
 </html>
