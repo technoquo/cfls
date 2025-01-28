@@ -8,4 +8,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        cors: {
+            origin: 'http://cfls.test',
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true,
+          },
+    },
 });

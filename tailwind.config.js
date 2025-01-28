@@ -15,7 +15,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto Condensed', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                csfl: '#008bcf', // Define tu color personalizado aquí
             },
         },
     },

@@ -1,0 +1,32 @@
+<section class=" bg-gray-100 dark:bg-gray-900 mb-4">
+    <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12">
+        <!-- Row -->
+        <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+            <div class="text-gray-700 sm:text-lg dark:text-gray-400">
+                <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">CFLS</h2>
+                <p class="mb-8 font-medium lg:text-xl">Créé pour favoriser l’épanouissement des sourds au sein de la société, le C.F.L.S. n’a cessé depuis plus de 40 ans de travailler pour la reconnaissance de la langue des signes, pour sa diffusion et son apprentissage.</p>
+                <!-- List -->
+             
+            </div>
+            <div>
+              <span class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white flex justify-center">Notre histoire</span> 
+            <iframe 
+            src="https://player.vimeo.com/video/1047122935" 
+            class="w-full aspect-video"
+            frameborder="0" 
+            allow="autoplay; fullscreen" 
+            allowfullscreen>
+           </iframe>
+           </div>
+           
+        </div>
+    
+    </div>
+  </section>
+{{-- <section class="bg-center bg-no-repeat bg-[url('http://cfls.test/img/course_2.jpg')] bg-gray-700 bg-blend-multiply mb-20">
+    <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">CFLS </h1>
+        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-3xl sm:px-16 lg:px-48">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui numquam, incidunt delectus, nisi beatae hic modi repellendus ipsum distinctio consectetur corrupti, veritatis architecto ratione sed quae minus dolor autem alias?</p>
+ 
+    </div>
+</section> --}}
