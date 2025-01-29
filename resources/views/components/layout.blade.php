@@ -44,7 +44,13 @@
 
     <div x-cloak x-on:click="open = false" x-show="open"
         class="bg-gray-900 bg-opacity-50 fixed inset-0 z-30 sm:hidden"></div>
-    @stack('scripts')
+   
+   
+       @include('layouts.includes.footer');
+   
+   
+   
+        @stack('scripts')
 
 
 

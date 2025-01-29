@@ -1,7 +1,7 @@
    @push('css')
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.core.min.css">    
    @endpush
-    <section class="bg-gray-100 dark:bg-gray-900">
+    <section class="bg-gray-100 dark:bg-gray-900 mb-4">
         <div class="glide max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">

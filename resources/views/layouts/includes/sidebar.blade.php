@@ -24,11 +24,32 @@
              </a>
          </li>
          <li>
-             <a href="#"
-                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
-                 <span class="ms-3">Video</span>
-             </a>
-         </li>
+            <!-- Parent item (Ressources) -->
+            <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
+                <span class="ms-3">Ressources</span>
+            </div>
+            <!-- Nested list -->
+            <ul class="pl-4">
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
+                        <span class="ms-3">Vidéos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
+                        <span class="ms-3">Mots Croisés</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
+                        <span class="ms-3">Vue Sur L'info</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
          <li>
             <a href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
