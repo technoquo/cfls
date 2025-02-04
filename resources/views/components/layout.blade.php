@@ -26,7 +26,7 @@
 
 </head>
 
-<body x-data="{ open: false }" :class="{ 'overflow-hidden': open }" class="sm:overflow-auto">
+<body x-data="{ open: false }" :class="{ 'overflow-hidden': open }" class="sm:overflow-auto dark:bg-slate-900" >
 
     @include('layouts.includes.navegation')
     @include('layouts.includes.sidebar')

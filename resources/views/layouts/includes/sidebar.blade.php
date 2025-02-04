@@ -18,6 +18,12 @@
              </a>
          </li>
          <li>
+            <a href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
+                <span class="ms-3">Qui sommes</span>
+            </a>
+        </li>
+         <li>
              <a href="{{ route('formations.index') }}"
                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
                  <span class="ms-3">Formations</span>
@@ -50,12 +56,13 @@
                 </li>
             </ul>
         </li>
-         <li>
+        <li>
             <a href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
-                <span class="ms-3">Qui sommes</span>
+                <span class="ms-3">Boutique</span>
             </a>
         </li>
+        
         <li>
             <a href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">

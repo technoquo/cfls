@@ -45,12 +45,15 @@
       </button>
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 text-2xl">
+      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white  dark:hover:text-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 text-2xl">
         <li>
-          <a href="/" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-csfl md:p-0 md:dark:text-blue-500" aria-current="page">Accueil</a>
+          <a href="/" class="block py-2 px-3 {{ request()->routeIs('home') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Accueil</a>
         </li>
         <li>
-          <a href="{{ route('formations.index') }}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white">Formations</a>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Qui sommes-nous</a>
+        </li>
+        <li>          
+          <a href="{{ route('formations.index') }}" class="block py-2 px-3 {{ request()->routeIs('formations.index') ? 'md:text-csfl' : ' md:text-black' }} rounded md:bg-transparent md:p-0  md:hover:text-csfl">Formations</a>
         </li>
         <li x-data="{ open: false }">
           <!-- Enlace principal de "Ressources" -->
@@ -78,8 +81,8 @@
           </ul>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Qui sommes-nous</a>
-        </li>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Boutique</a>
+        </li>       
         <li>
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
         </li>
