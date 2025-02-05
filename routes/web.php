@@ -7,7 +7,7 @@ use App\Http\Controllers\FormationsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
-Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.index');
+Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 
 // Route::get('/', function () {
 //     return view('welcome');

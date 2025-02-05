@@ -5,6 +5,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
     @endpush
+    <x-slot name="title">Formations</x-slot>
  <section>
     <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
         <img class="w-full rounded-lg" src="{{ asset('img/formations/DSC01820.png') }}" alt="dashboard image">       
