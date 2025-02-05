@@ -1,6 +1,12 @@
 <x-layout>
+    @push('css')
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    @endpush
  <section>
-    <div class="bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)" x-show="show" x-transition:enter="transition ease-out duration-2000" x-transition:enter-start="opacity-0 transform translate-y-10" x-transition:enter-end="opacity-100 transform translate-y-0">
+    <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
         <img class="w-full rounded-lg" src="{{ asset('img/formations/DSC01820.png') }}" alt="dashboard image">       
         <div class="mt-4 md:mt-0">
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Formations accélérées</h2>
@@ -12,7 +18,7 @@
             </a>
         </div>
     </div>
-    <div class="bg-gray-200 dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">         
+    <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">       
         <div class="mt-4 md:mt-0">
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Formations à l'année</h2>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">Une autre de nos formules d'apprentissage est la formation à l'année. A la différence de la formation accélérée, elle se dispense toutes les semaines durant 1h30.</p>
@@ -24,7 +30,7 @@
         </div>
         <img class="w-full rounded-lg" src="{{ asset('img/formations/IMG_0526.png') }}" alt="dashboard image">     
     </div>
-    <div class="bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
+    <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
         <img class="w-full rounded-lg" src="{{ asset('img/formations/CFLS_EIM-3.png') }}" alt="dashboard image">       
         <div class="mt-4 md:mt-0">
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Sensibilisations</h2>
@@ -37,7 +43,7 @@
             </a>
         </div>
     </div>
-    <div class="bg-gray-200 dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">         
+    <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">         
         <div class="mt-4 md:mt-0">
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Cours privés</h2>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">
@@ -56,7 +62,7 @@
         </div>
         <img class="w-full rounded-lg" src="{{ asset('img/formations/IMG-20230201-WA0011.png') }}" alt="dashboard image">     
     </div>
-    <div class="bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
+    <div class="wow animate__animated animate__fadeInUp bg-white dark:bg-gray-900 gap-8 items-center py-8 px-4  xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 mb-4">
         <img class="w-full rounded-lg" src="{{ asset('img/formations/Affiche_table_conversation_2025.png') }}" alt="dashboard image">       
         <div class="mt-4 md:mt-0">
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Tables de conversation</h2>
@@ -69,4 +75,17 @@
         </div>
     </div>
 </section>
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script>
+   
+    new WOW({
+        boxClass: 'wow', // Clase que activa la animación
+        animateClass: 'animate__animated', // Clase de animación de Animate.css
+        offset: 100, // Distancia desde la parte inferior de la pantalla para activar la animación
+        mobile: true, // Activar en dispositivos móviles
+        live: true // Detectar cambios en el DOM y animar elementos añadidos dinámicamente
+    }).init();
+</script>
+@endpush
 </x-layout>

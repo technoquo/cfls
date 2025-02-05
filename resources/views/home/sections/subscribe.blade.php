@@ -1,4 +1,4 @@
-<section class=" bg-gray-100 dark:bg-gray-900 mb-4">
+<section class=" bg-white dark:bg-gray-900 mb-4">
     <div class="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">

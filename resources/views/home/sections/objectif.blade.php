@@ -1,4 +1,4 @@
-<section class=" bg-gray-100 dark:bg-gray-900 mb-4">
+<section class=" bg-white dark:bg-gray-900 mb-4">
     <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12">
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">

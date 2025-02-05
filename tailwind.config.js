@@ -15,7 +15,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Roboto Condensed', ...defaultTheme.fontFamily.sans],
+                sans: ['Alata', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 csfl: '#008bcf', // Define tu color personalizado aquí
