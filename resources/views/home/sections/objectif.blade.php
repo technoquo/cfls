@@ -1,5 +1,6 @@
 <section class=" bg-white dark:bg-gray-900 mb-4">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12">
+    <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
+         <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">Le CFLS, c'est:</h2>
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
             <div>
@@ -10,7 +11,7 @@
             </div>
             <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
 
-                <p class="mb-8 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Le CFLS, c'est:</p>
+              
 
 
                 <div x-data="{ active: 1 }" class="mx-auto min-h-[16rem] w-full max-w-3xl">
@@ -92,9 +93,8 @@
                         </h2>
 
                         <div x-show="expanded" x-collapse>
-                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl">Nous proposons des sensibilisations aux personnes
-                                désireuses de découvrir le monde de la surdité. Elles permettent de mieux appréhender la
-                                culture sourde et comprennent aussi une initiation à la langue des signes.</div>
+                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl">Ces ateliers de découverte de la culture sourde permettent de mieux appréhender la surdité.
+                                Ils comprennent également une initiation à la langue des signes.</div>
                         </div>
                     </div>
 

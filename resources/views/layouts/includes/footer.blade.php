@@ -5,7 +5,7 @@
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
               <a href="/" class="flex items-center">
-                  <img src="https://static.wixstatic.com/media/beceb7_a29f3ea1b7394a1bb6cde1098f48bfdf~mv2.png/v1/fill/w_106,h_154,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo_cfls.png"  alt="FlowBite Logo" />
+                <img  class="object-contain w-32 h-auto" src="{{ asset('img/cfls.png') }}"  alt="CLFS Logo" />
                   
               </a>
           </div>

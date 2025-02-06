@@ -1,16 +1,16 @@
 <section class=" bg-white dark:bg-gray-900 mb-4">
-    <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12">
+    <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
+        <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">CFLS</h2>
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-            <div class="text-gray-700 sm:text-lg dark:text-gray-400">
-                <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">CFLS</h2>
+            <div class="text-gray-700 sm:text-lg dark:text-gray-400">               
                 <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
-                <p class="mb-8 font-medium lg:text-xl">Créé pour favoriser l’épanouissement des sourds au sein de la société, le C.F.L.S. n’a cessé depuis plus de 40 ans de travailler pour la reconnaissance de la langue des signes, pour sa diffusion et son apprentissage.</p>
+                <p class="mb-8 font-medium lg:text-2xl">Créé pour favoriser l’épanouissement des sourds au sein de la société, le C.F.L.S. n’a cessé depuis plus de 40 ans de travailler pour la reconnaissance de la langue des signes, pour sa diffusion et son apprentissage.</p>
                 <!-- List -->
              
             </div>
             <div>
-              <span class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white flex justify-center">Notre histoire</span> 
+            
             <iframe 
             src="https://player.vimeo.com/video/1047122935" 
             class="w-full aspect-video"

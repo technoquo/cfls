@@ -2,8 +2,8 @@
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 mb-7">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="http://cfls.be/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://static.wixstatic.com/media/beceb7_a29f3ea1b7394a1bb6cde1098f48bfdf~mv2.png/v1/fill/w_106,h_154,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo_cfls.png"  alt="CLFS Logo" />
+    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img  class="object-contain w-32 h-auto" src="{{ asset('img/cfls.png') }}"  alt="CLFS Logo" />
       
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -33,8 +33,8 @@
           </ul>
         </div>
         <div x-data="themeSwitcher()" class="flex justify-end py-4 px-3">
-            <button @click="toggleTheme()" class="border rounded p-2 ml-7">
-                <img class="w-16 h-16" x-bind:src="image" id="switch" alt="Theme Icon" />
+            <button @click="toggleTheme()" class="ml-7">
+                <img class="w-16 h-16" x-bind:src="image" id="switch" alt="Theme Icon"  />
             </button>
         </div>
         <button x-on:click="open = !open"  data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
@@ -74,7 +74,7 @@
               x-transition:leave="transition ease-in duration-200"
               x-transition:leave-start="opacity-100 transform scale-100"
               x-transition:leave-end="opacity-0 transform scale-95"
-              class="absolute mt-2 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 md:mt-0 md:shadow-none md:bg-csfl md:dark:bg-transparent">
+              class="absolute mt-2 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 md:mt-0 md:shadow-none md:bg-csfl md:dark:bg-transparent z-10">
             <li class="text-xl"><a href="#" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Vidéos</a></li>
             <li class="text-xl"><a href="#" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mots Croisés</a></li>
             <li class="text-xl"><a href="{{ route('ressources.videoinfo') }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Vue Sur L'info</a></li>
