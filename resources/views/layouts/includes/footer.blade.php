@@ -16,7 +16,7 @@
                       <li class="mb-4">
                           <a href="" class="hover:underline">Vidéos</a>
                       </li>
-                      <li>
+                      <li  class="mb-4">
                           <a href="" class="hover:underline">Mots Croisés</a>
                       </li>
                       <li>
