@@ -1,7 +1,14 @@
 @props(['breadcrumb' => []])
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="themeSwitcher()" :class="{ 'dark': theme === 'dark', 'light': theme === 'light' }">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: false }" x-bind:class="{'dark' : darkMode === true}"  x-init="
+    if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.setItem('darkMode', JSON.stringify(true));
+    }
+    darkMode = JSON.parse(localStorage.getItem('darkMode'));
+    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))">
+
+
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +22,7 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/ccc950231e.js" crossorigin="anonymous"></script>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
     
 
     <!-- Scripts -->
@@ -51,7 +58,7 @@
    
         @stack('scripts')
         @livewireScripts
-        
+       
 
 </body>
 
