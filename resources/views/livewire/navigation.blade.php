@@ -30,8 +30,8 @@
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-95"
             class="absolute  mt-2 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 md:mt-0 md:shadow-none md:bg-csfl md:dark:bg-transparent z-10">
-          <li class="text-xl"><a href="#" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Vidéos</a></li>
-          <li class="text-xl"><a href="#" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mots Croisés</a></li>
+          <li class="text-xl"><a wire:navigate href="{{ route('ressources.poemes-signes') }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Poesies et contes signes</a></li>
+          <li class="text-xl"><a href="{{ route('ressources.mots-croises') }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mots Croisés</a></li>
           <li class="text-xl"><a wire:navigate href="{{ route('ressources.videoinfo') }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Vue Sur L'info</a></li>
         </ul>
       </li>

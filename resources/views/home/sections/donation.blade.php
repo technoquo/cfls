@@ -11,14 +11,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         <div class="text-gray-700 sm:text-lg dark:text-gray-400  wow animate__animated animate__backInLeft">
             <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">DON</h2>
             <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
-            <p class="mb-8 font-medium lg:text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore modi voluptas impedit doloremque possimus ratione sit, similique eaque facilis perspiciatis quo dicta cumque culpa minus alias eius maxime cupiditate iure.</p>
+            <p class="mb-8 font-medium lg:text-xl">Depuis sa fondation, le CFLS a pour objectif la promotion, la diffusion et la recherche en langue des signes. </br>
+                Notre but est ainsi de permettre l'inclusion de la personne sourde au sein de notre société, en favorisant la communication entre sourds et entendants.</br>
+                Grâce à votre don, nous pouvons poursuivre nos actions et atteindre nos objectifs !</p>
             <!-- List -->
          
         </div>
-        <div class="wow animate__animated animate__backInRight">
-         
+        <div class="wow animate__animated animate__backInRight">         
           <img class="w-1/2 h-auto max-w-none rounded-md"
-          src="{{ asset('img/FEMME-DON.png') }}" alt="Don">
+          src="{{ asset('img/FEMME-DON_3.png') }}" alt="Don">
        </div>
        
     </div>

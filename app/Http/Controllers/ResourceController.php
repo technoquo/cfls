@@ -10,4 +10,14 @@ class ResourceController extends Controller
     {
         return view('ressources.videoinfo');
     }
+
+    public function video()
+    {
+        return view('ressources.video');
+    }
+
+    public function mots()
+    {
+        return view('ressources.mots');
+    }
 }

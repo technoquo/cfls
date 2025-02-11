@@ -5,6 +5,7 @@
     @include('home.sections.commader')
     @include('home.sections.subscribe')
     @include('home.sections.donation')
+    @include('home.sections.membre')
     @include('home.sections.subsides')
     @include('home.sections.testimonial')
 </x-layout>

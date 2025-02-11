@@ -3,7 +3,7 @@
     open: {{ $this->showModal ? 'true' : 'false' }}, 
     videoSrc: '{{ $this->videoSrc }}'
 }" 
-class="max-w-sm bg-white rounded-lg dark:bg-gray-800">
+class="max-w-sm bg-white rounded-lg dark:bg-gray-800" >
 
     <!-- Button to Open Modal -->
     <button type="button" @click="open = true" 
@@ -14,7 +14,9 @@ class="max-w-sm bg-white rounded-lg dark:bg-gray-800">
     </button>
 
     <!-- Overlay & Modal -->
-    <div x-show="open" 
+    <div 
+         style="display: none;"
+         x-show="open" 
          x-transition:enter="transition-opacity ease-out duration-300"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
