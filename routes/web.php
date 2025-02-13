@@ -12,6 +12,9 @@ Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');
 Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
+Route::get('/contact', function() {
+    return view('contact');
+})->name('contact');
 
 // Route::get('/', function () {
 //     return view('welcome');

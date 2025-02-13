@@ -1,6 +1,6 @@
 <section class=" bg-white dark:bg-gray-900 mb-4">
     <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
-         <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">Le CFLS, c'est:</h2>
+         <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white">Le CFLS, c'est:</h2>
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
             <div>
