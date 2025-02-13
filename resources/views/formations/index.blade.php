@@ -13,7 +13,7 @@
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Formations accélérées</h2>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">Nos formations sont une ouverture sur une culture et sur une langue riche et complexe possédant sa propre grammaire et ses subtilités. </p>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">Au-delà du vocabulaire, l'apprentissage de l'iconicité, des transferts de situation et de personne, les expressions pi-sourd, la grammaire, les classificateurs,.. vous immergent directement dans la richesse et la complexité de la langue des signes.</p>
-            <a href="#" class="inline-flex items-center text-gray-900 dark:text-csfl bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900">
+            <a href="{{ route('formations.slug', ['slug' => 'formationsaccelerees']) }}" wire:navigate class="inline-flex items-center text-gray-900 dark:text-csfl bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900">
                 Voir plus d'informations
                 <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>
@@ -24,7 +24,7 @@
             <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white">Formations à l'année</h2>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">Une autre de nos formules d'apprentissage est la formation à l'année. A la différence de la formation accélérée, elle se dispense toutes les semaines durant 1h30.</p>
             <p class="mb-6 font-light text-gray-500 md:text-2xl dark:text-gray-400">Elle laisse ainsi plus de place à la communication et aux exercices pratiques, tout en suivant le même programme que pour les formations accélérées.</p>
-            <a href="#" class="inline-flex items-center text-gray-900 dark:text-csfl bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900">
+            <a href="{{  route('formations.slug', ['slug' => 'formationsalanee']) }}" class="inline-flex items-center text-gray-900 dark:text-csfl bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900">
                 Voir plus d'informations
                 <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\FormationsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
+Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');

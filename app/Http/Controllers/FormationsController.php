@@ -10,4 +10,10 @@ class FormationsController extends Controller
 
         return view('formations.index');
     }
+
+    public function formations($slug){
+       
+        $title = $slug;
+        return view('formations.'.$slug, compact('title'));
+    }
 }
