@@ -28,7 +28,7 @@
                 </a>
             </div>
         </div>
-        <div class="w-full md:h-[280px] dark:bg-slate-900">
+        <div class="w-full md:h-[280px] dark:bg-slate-900 pb-32">
             <!-- Tabs -->
             <div x-data="{
                 selectedId: null,
