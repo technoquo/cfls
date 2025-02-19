@@ -16,4 +16,8 @@ class FormationsController extends Controller
         $title = $slug;
         return view('formations.'.$slug, compact('title'));
     }
+
+    public function inscription($id){
+        return view('formations.inscription.tableconversation', compact('id'));
+    }
 }
