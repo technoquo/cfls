@@ -9,7 +9,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     <!-- Row -->
     <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
         <div class="text-gray-700 sm:text-lg dark:text-gray-400  wow animate__animated animate__backInLeft">
-            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">DON</h2>
+            <h2 class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white text-black">DON</h2>
             <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
             <p class="mb-8 font-medium lg:text-xl">Depuis sa fondation, le CFLS a pour objectif la promotion, la diffusion et la recherche en langue des signes. </br>
                 Notre but est ainsi de permettre l'inclusion de la personne sourde au sein de notre société, en favorisant la communication entre sourds et entendants.</br>

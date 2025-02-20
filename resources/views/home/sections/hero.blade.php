@@ -11,7 +11,7 @@
              
             </div>
             <div>
-                <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">Notre Historie</h2>
+                <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">Notre Historie</h2>
             <iframe 
             src="https://player.vimeo.com/video/1047122935" 
             class="w-full aspect-video"

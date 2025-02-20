@@ -1,6 +1,6 @@
 <section class=" bg-white dark:bg-gray-900 mb-4">
     <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
-         <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white">Le CFLS, c'est:</h2>
+         <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white uppercase">Le CFLS, c'est:</h2>
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
             <div>
@@ -51,7 +51,7 @@
                         </h2>
 
                         <div x-show="expanded" x-collapse>
-                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl">Formations accélérées durant les vacances
+                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl text-2xl">Formations accélérées durant les vacances
                                 scolaires, ou formations hebdomadaires durant toute l'année. Nous proposons aussi des
                                 cours privés. </div>
                         </div>
@@ -93,7 +93,7 @@
                         </h2>
 
                         <div x-show="expanded" x-collapse>
-                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl">Ces ateliers de découverte de la culture sourde permettent de mieux appréhender la surdité.
+                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl text-2xl">Ces ateliers de découverte de la culture sourde permettent de mieux appréhender la surdité.
                                 Ils comprennent également une initiation à la langue des signes.</div>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                         </h2>
 
                         <div x-show="expanded" x-collapse>
-                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl">Des publications d’apprentissage de la langue des
+                            <div class="pt-2 text-gray-600 dark:text-white max-w-xl text-2xl">Des publications d’apprentissage de la langue des
                                 signes destinées aux élèves des cours de promotion sociale, ainsi que de nombreuses
                                 publications sur des thèmes variés et spécifiques.</div>
                         </div>

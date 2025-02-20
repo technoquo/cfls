@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot name="title">{{ $slug }}</x-slot>
 
-    <div x-data="{ isOpen: false }" class="min-h-screen">
+    <div  x-data="{ isOpen: false }" class="min-h-screen">
         <div class="container mx-auto p-8">
             <div class="flex flex-col md:flex-row gap-8 mt-6">
                 <!-- Image Section -->
@@ -19,16 +19,32 @@
                 <!-- Details Section -->
                 <div class="w-full md:w-1/2 space-y-4">
                     <h2 class="text-3xl font-bold">Syllabus UE 1</h2>
-                    <p class="text-xl font-semibold">30,00€</p>
+                    <p class="text-xl font-semibold" id="price">30,00€</p>
+                    <div x-data="{ qty: 1 }" class="flex items-center gap-4">
+                        <!-- Decrease Button -->
+                        <button @click="if (qty > 1) qty--" class="px-4 py-2 bg-gray-200 rounded">-</button>                    
+                        <!-- Quantity Display -->
+                        <span class="text-lg font-bold" x-text="qty"></span>                    
+                        <!-- Increase Button -->
+                        <button @click="qty++" class="px-4 py-2 bg-gray-200 rounded">+</button>
+                    </div>
+                    
                     <p class="text-gray-500 dark:text-gray-300">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minus provident facilis eligendi at necessitatibus. Laborum nesciunt est nobis voluptates illum officia obcaecati hic error nemo vero? Numquam, quod pariatur!
                     </p>
-                    <button class="w-full bg-csfl text-white py-3 rounded-lg" @click="isOpen = true">Ajouter au panier</button>
+                       <!-- Botón con tamaño uniforme -->
+                       <div x-data="{ isOpen: false }" class="flex-1">
+                        <button class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center" 
+                                @click="isOpen = true; $dispatch('add-to-cart', { id: 1 })">
+                            Ajouter au panier
+                        </button>
+                        <x-slide-over x-show="isOpen" @close="isOpen = false" />
+                    </div>
                 </div>
             </div>
         </div>        
+
     </div>
 
-    <!-- Slide-over component -->
-    <x-slide-over x-show="isOpen" />
+    
 </x-layout>

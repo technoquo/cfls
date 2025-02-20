@@ -17,6 +17,7 @@ Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->n
 Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
+Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
 Route::get('/contact', function() {
     return view('contact');
 })->name('contact');

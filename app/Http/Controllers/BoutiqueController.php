@@ -17,4 +17,9 @@ class BoutiqueController extends Controller
     {
         return view('boutique.detail', compact('slug'));
     }
+
+    public function checkout()    
+    {
+        return view('boutique.checkout');
+    }
 }
