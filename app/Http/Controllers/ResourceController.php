@@ -20,4 +20,12 @@ class ResourceController extends Controller
     {
         return view('ressources.mots');
     }
+
+
+    public function vimeo($slug)
+    {
+        return view('ressources.vimeo');
+    }
+
+
 }

@@ -18,6 +18,7 @@ Route::get('/formations/tableconverstation/{id}', [FormationsController::class, 
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');
+Route::get('/ressources/poemes-signes/{slug}', [ResourceController::class, 'vimeo'])->name('ressources.vimeo');
 Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
