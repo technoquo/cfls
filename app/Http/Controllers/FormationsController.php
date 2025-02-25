@@ -13,11 +13,32 @@ class FormationsController extends Controller
 
     public function formations($slug){
        
-        $title = $slug;
-        return view('formations.'.$slug, compact('title'));
+       
+        return view('formations.'.$slug, compact('slug'));
     }
 
     public function inscription($id){
+
         return view('formations.inscription.tableconversation', compact('id'));
+    }
+
+    public function calendrier($slug){      
+
+        return view('formations.calendrier', compact('slug'));
+    }
+
+    public function formation($slug, $formation){      
+
+        return view('formations.inscription.formation', compact('slug', 'formation'));
+    }
+
+    public function courses($slug){      
+
+        return view('formations.courses', compact('slug'));
+    }
+
+    public function niveau($slug, $niveau){      
+
+        return view('formations.inscription.niveau', compact('slug', 'niveau'));
     }
 }

@@ -4,7 +4,7 @@
         <a href="/" wire:navigate class="block py-2 px-3 {{ request()->routeIs('home') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Accueil</a>
       </li>
       <li>
-        <a href="{{ route('equipe') }}" wire:navigate class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Qui sommes-nous</a>
+        <a href="{{ route('equipe') }}" wire:navigate class="block py-2 px-3 {{ request()->routeIs('equipe') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Qui sommes-nous</a>
       </li>
       <li>          
         <a  wire:navigate href="{{ route('formations.index') }}" class="block py-2 px-3 {{ request()->routeIs('formations.index') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Formations</a>
@@ -14,7 +14,8 @@
         <a 
         href="#" 
         @click.prevent="open = !open" 
-        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+        :class="open ? 'text-csfl' : 'dark:text-white'" 
+        class="block py-2 px-3 rounded md:bg-transparent md:p-0 md:hover:text-csfl"
          >
           Ressources
         </a>
@@ -36,10 +37,10 @@
         </ul>
       </li>
       <li>
-        <a wire:navigate href="{{ route('boutique.index') }}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Boutique</a>
+        <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Boutique</a>
       </li>       
       <li>
-        <a wire:navigate href="{{ route('contact') }}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-csfl md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+        <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-csfl' : 'dark:text-white' }}  rounded md:bg-transparent md:p-0  md:hover:text-csfl">Contact</a>
       </li>
     </ul>
   </div>

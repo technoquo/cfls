@@ -1,7 +1,7 @@
 <x-layout>
-    <x-slot name="title">{{ $title }}</x-slot>
+    <x-slot name="title">{{ $slug }}</x-slot>
     <section class="bg-white dark:bg-gray-900">
-        <x-menuformation />
+        <x-menuformation :slug="$slug" />
         <div class="mx-auto max-w-screen-2xl px-4 2xl:px-0">
             <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">Tables de
                 conversation</h2>

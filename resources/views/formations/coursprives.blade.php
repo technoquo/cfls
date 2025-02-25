@@ -2,10 +2,10 @@
     @push('css')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @endpush
-    <x-slot name="title">{{ $title }}</x-slot>
+    <x-slot name="title">{{ $slug }}</x-slot>
     <section class=" bg-white dark:bg-gray-900 mb-4">
-        <x-menuformation />
-        <h2 class="mb-4 text-7xl uppercase tracking-tight font-extrabold text-gray-900 dark:text-white text-center mt-9">Cours privés</h2>
+        <x-menuformation :slug="$slug" />
+        <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">Cours privés</h2>
         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
           
             <!-- Row -->

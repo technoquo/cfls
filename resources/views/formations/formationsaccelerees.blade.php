@@ -1,13 +1,14 @@
 <x-layout>
-    <x-slot name="title">{{ $title }}</x-slot>
+    <x-slot name="title">{{ $slug }}</x-slot>
     <section class="bg-white dark:bg-gray-900">
-        <x-menuformation />
+       
+        <x-menuformation :slug="$slug" />
         <div
             class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-7xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img class="w-full" src="{{ asset('img/formations/DSC01820.png') }}" alt="">
 
             <div class="mt-4 md:mt-0">
-                <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ $title }}</h2>
+                <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ $slug }}</h2>
                 <p class="mb-6 font-light text-gray-500 text-lg dark:text-gray-400 md:text-2xl">
                     Nos formations sont une ouverture sur une culture et sur une langue riche et complexe possédant sa
                     propre grammaire et ses subtilités.
@@ -16,7 +17,8 @@
                     les expressions pi-sourd, la grammaire, les classificateurs,.. vous immergent directement dans la
                     richesse et la complexité de la langue des signes.
                 </p>
-                <a href="#"
+                <a href="{{ route('calendrier', ['slug' => 'formationsaccelerees']) }}"
+                    wire:navigate
                     class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900  bg-blue-700 hover:bg-blue-800">
                     Calendrier 2024 - 2025
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
