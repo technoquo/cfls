@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\FormationsController;
+use App\Http\Controllers\SyllabusController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
@@ -23,9 +24,13 @@ Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->nam
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
 Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
+Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
 Route::get('/contact', function() {
     return view('contact');
 })->name('contact');
+
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');

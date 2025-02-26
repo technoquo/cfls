@@ -6,6 +6,7 @@
    'translate-x-0': open,
    '-translate-x-full': !open,
  }"
+ x-cloak
  aria-hidden="true"
  aria-label="Sidebar"
 >

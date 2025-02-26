@@ -20,10 +20,10 @@ $titles = [
 ];
 @endphp
 <x-layout>
-    <x-slot name="title">Poésie et contes signés</x-slot>
+    <x-slot name="title">Vue sur l'info</x-slot>
 
     <h1 class="flex justify-center uppercase text-5xl font-bold dark:text-white">
-        Poésie et contes signés
+        Vue sur l'info
     </h1>
 
     <section class="flex justify-evenly flex-wrap gap-4 mt-8">
