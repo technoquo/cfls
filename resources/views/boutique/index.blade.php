@@ -33,7 +33,7 @@
             <?php foreach ($categories as $category => $products): ?>
                 <div class="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
                     <div>
-                        <h2 class="mt-3 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"><?php echo $category; ?></h2>
+                        <h2 class="mt-3 text-xl font-semibold dark:text-white sm:text-2xl"><?php echo $category; ?></h2>
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
 
-                                <a  wire:navigate href="{{ route('boutique.detail', ['slug' => 'syllabus-ue-1']) }}
+                                <a  wire:navigate href="{{ route('boutique.detail', ['slug' => 'syllabus-ue-1']) }}"
                                 class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white 
                                        line-clamp-2 h-12 block overflow-hidden">
                                  <?php echo $product['name']; ?>

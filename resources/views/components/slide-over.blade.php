@@ -1,6 +1,6 @@
 <!-- Slide-Over Component -->
 <div x-show="isOpen" x-data="cart()" @add-to-cart.window="addToCart($event.detail.id)" x-transition
-    class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak>
     <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
 
     <div class="fixed inset-0 overflow-hidden">

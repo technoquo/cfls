@@ -34,11 +34,6 @@
 
     <!-- Carte Google -->
     <div class="mt-6 flex justify-center">
-        <iframe 
-            class="w-full h-64 rounded-lg"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d322324.86358627415!2d3.802642822265628!3d50.865182115041506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dcb538236b31%3A0xe5000de8f1f24093!2sAv.%20du%20Four%20%C3%A0%20Briques%203A%2C%201140%20Evere!5e0!3m2!1ses-419!2sbe!4v1739437547852!5m2!1ses-419!2sbe"
-            allowfullscreen=""
-            loading="lazy">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2518.1628409406094!2d4.412368!3d50.865185!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dcb538236b31%3A0xe5000de8f1f24093!2sAv.%20du%20Four%20%C3%A0%20Briques%203A%2C%201140%20Evere!5e0!3m2!1ses-419!2sbe!4v1740644675689!5m2!1ses-419!2sbe"class="w-full h-64 rounded-lg" loading="lazy"></iframe>
     </div>
 </section>
