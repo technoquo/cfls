@@ -1,15 +1,12 @@
 <x-layout>
-    @push('css')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    @endpush
-    <x-slot name="title">{{ $slug }}</x-slot>
+     <x-slot name="title">{{ $slug }}</x-slot>
     <section class=" bg-white dark:bg-gray-900 mb-4">
         <x-menuformation :slug="$slug" />
         <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">Cours privés</h2>
         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
           
             <!-- Row -->
-            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16 wow animate__animated animate__backInLeft">
+            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
                 <div class="text-gray-700 sm:text-lg dark:text-gray-400">
 
                     <p class="mb-8 font-medium lg:text-2xl">
@@ -25,7 +22,7 @@
         </div>
         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
             <!-- Row -->
-            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16 wow animate__animated animate__backInRight">
+            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
                 <div>
                     <img class="h-auto max-w-full rounded-lg" src="{{ asset('img/2courseprive.png') }}" alt="">
                 </div>
@@ -45,7 +42,7 @@
         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
 
             <!-- Row -->
-            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16 wow animate__animated animate__backInUp">
+            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
                 <div class="text-gray-700 sm:text-lg dark:text-gray-400">
 
                     <p class="mb-8 font-medium lg:text-2xl">
@@ -94,17 +91,5 @@
             </div>
         </div>
 
-    </section>
-    @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-        <script>
-            new WOW({
-                boxClass: 'wow', // Clase que activa la animación
-                animateClass: 'animate__animated', // Clase de animación de Animate.css
-                offset: 100, // Distancia desde la parte inferior de la pantalla para activar la animación
-                mobile: true, // Activar en dispositivos móviles
-                live: true // Detectar cambios en el DOM y animar elementos añadidos dinámicamente
-            }).init();
-        </script>
-    @endpush
+    </section> 
 </x-layout>
