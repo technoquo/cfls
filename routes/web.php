@@ -29,6 +29,21 @@ Route::get('/contact', function() {
     return view('contact');
 })->name('contact');
 
+Route::get('/vimeo', function() {
+    return view('syllabus.vimeo');
+});
+
+Route::get('/gifs', function() {
+    return view('syllabus.gifs');
+});
+
+Route::get('/video', function() {
+    return view('syllabus.videos');
+});
+
+Route::get('/cloudinary', function() {
+    return view('syllabus.cloudinary');
+});
 
 
 
