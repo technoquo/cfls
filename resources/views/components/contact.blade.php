@@ -1,6 +1,5 @@
 <section class="max-w-screen-2xl mx-auto dark:bg-gray-900 p-6 shadow-lg rounded-lg">
     <h2 class="text-7xl font-bold mb-8 text-center dark:text-white">Contactez-nous</h2>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center dark:text-white max-w-4xl mx-auto">
         <!-- Adresse -->
         <div class="mb-4 text-center">
