@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :logo="$image">
     <x-slot name="title">Inscriptions</x-slot>
     <section class="bg-white dark:bg-gray-900">
         <x-menuformation :slug="'tableconversation'" />

@@ -3,8 +3,10 @@
 <nav class="bg-white border-gray-200 dark:bg-gray-900 mb-7">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img  class="object-contain w-32 h-auto" src="{{ asset('img/cfls.png') }}"  alt="CLFS Logo" />
-      
+       
+      <img class="object-contain w-32 h-auto" src="{{ asset('storage/' . $logo) }}" alt="CLFS Logo" />
+
+        
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         {{-- <button  type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">

@@ -9,6 +9,9 @@ use App\Http\Controllers\FormationsController;
 use App\Http\Controllers\SyllabusController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
+Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
+
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
 Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
 Route::get('/formations/{slug}/calendrier', [FormationsController::class, 'calendrier'])->name('calendrier');
@@ -16,7 +19,6 @@ Route::get('/formations/{slug}/calendrier/{formation}', [FormationsController::c
 Route::get('/formations/{slug}/courses', [FormationsController::class, 'courses'])->name('courses');
 Route::get('/formations/{slug}/courses/{nivel}', [FormationsController::class, 'niveau'])->name('niveau');
 Route::get('/formations/tableconverstation/{id}', [FormationsController::class, 'inscription'])->name('inscription');
-Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');
 Route::get('/ressources/poemes-signes/{slug}', [ResourceController::class, 'vimeo'])->name('ressources.vimeo');
@@ -25,9 +27,11 @@ Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.in
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
 Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
 Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
-Route::get('/contact', function() {
-    return view('contact');
-})->name('contact');
+
+
+
+
+
 
 Route::get('/vimeo', function() {
     return view('syllabus.vimeo');

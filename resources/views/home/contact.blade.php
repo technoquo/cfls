@@ -1,4 +1,4 @@
 <x-layout>
     <x-slot name="title">Contacto</x-slot>
-    <x-contact />
+    <x-contact :data="$data" />
 </x-layout>

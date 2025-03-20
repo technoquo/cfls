@@ -1,12 +1,7 @@
-@props(['breadcrumb' => []])
 
+@props(['logo' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
-
-
-
-
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,8 +25,8 @@
 </head>
 
 <body x-data="{ open: false }" :class="{ 'overflow-hidden': open }" class="sm:overflow-auto dark:bg-slate-900" >
-
-    @include('layouts.includes.navegation')
+   
+     @include('layouts.includes.navegation', ['logo' => $logo])
     @include('layouts.includes.sidebar')
 
 
@@ -49,7 +44,7 @@
         class="bg-gray-900 bg-opacity-50 fixed inset-0 z-30 sm:hidden"></div>
    
    
-       @include('layouts.includes.footer');
+       @include('layouts.includes.footer', ['logo' => $logo]);
    
        @stack('modals')
    
