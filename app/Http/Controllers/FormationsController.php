@@ -3,21 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\CoursPrive;
+use App\Models\FormationAccelere;
+use App\Models\FormationAnne;
+use App\Models\Formations;
 use Illuminate\Http\Request;
+use App\Models\Sensibilisation;
+use App\Models\TableConversation;
 
 class FormationsController extends Controller
 {
     public function index(){
 
-        
-        return view('formations.index');
+        $formations = Formations::all();    
+        return view('formations.index', compact('formations'));
     }
 
     public function formations($slug){
-      
-      
-       
-        return view('formations.'.$slug, compact('slug'));
+            $formation = Formations::where('slug', $slug)->first();
+            return view('formations.formation', compact('slug','formation'));
     }
 
     public function inscription($id){

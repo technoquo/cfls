@@ -53,7 +53,7 @@ class MissionResource extends Resource
                     ->itemLabel(fn (array $state): ?string => $state['title'] ?? null) // Etiqueta para cada ítem
                     ->addActionLabel('Ajouter un objectif') // Texto del botón para agregar
                     ->deletable() // Permite eliminar objetivos
-                    ->reorderable() // Permite reordenar
+                    
             ]);
     }
 
