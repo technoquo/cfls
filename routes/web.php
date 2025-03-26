@@ -18,7 +18,7 @@ Route::get('/formations/{slug}/calendrier', [FormationsController::class, 'calen
 Route::get('/formations/{slug}/calendrier/{formation}', [FormationsController::class, 'formation'])->name('formation');
 Route::get('/formations/{slug}/courses', [FormationsController::class, 'courses'])->name('courses');
 Route::get('/formations/{slug}/courses/{nivel}', [FormationsController::class, 'niveau'])->name('niveau');
-Route::get('/formations/tableconverstation/{id}', [FormationsController::class, 'inscription'])->name('inscription');
+Route::get('/formations/{slug}/{id}', [FormationsController::class, 'inscription'])->name('inscription');
 Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
 Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');
 Route::get('/ressources/poemes-signes/{slug}', [ResourceController::class, 'vimeo'])->name('ressources.vimeo');

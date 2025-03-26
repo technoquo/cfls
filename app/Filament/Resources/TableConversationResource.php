@@ -18,7 +18,7 @@ class TableConversationResource extends Resource
     protected static ?string $model = TableConversation::class;
 
     protected static ?string $navigationLabel = 'Tables de conversation';
-    protected static ?string $label = 'Tables de conversation';   
+    protected static ?string $label = 'Tables de conversation';
     protected static ?string $navigationGroup = 'Formations';
     protected static ?int $navigationSort = 4;
 
@@ -27,35 +27,42 @@ class TableConversationResource extends Resource
     {
         return $form
             ->schema([
-            Forms\Components\DatePicker::make('date_start')
-                ->required()
-                ->locale('fr'),
-            Forms\Components\DatePicker::make('date_end')
-                ->required(),
-            Forms\Components\DateTimePicker::make('hour_start')
-            ->required()
-            ->locale('fr')
-            ->format('H:i')
-            ->extraAttributes([
-                'data-flatpickr' => json_encode([
-                    'time_24hr' => true,  // Forces 24-hour format in the picker
-                ]),
-            ]),
-            Forms\Components\DateTimePicker::make('hour_end')
-                ->required()
-                ->locale('fr')
-                ->format('H:i'),
-            Forms\Components\TextInput::make('inscription')
-                ->numeric()
-                ->default(0),
-            Forms\Components\TextInput::make('open')
-                ->numeric()
-                ->default(1),
-            Forms\Components\Toggle::make('status')
-                ->default(true),
-            Forms\Components\Hidden::make('formations_id')
-                ->default(8)
-            ]);
+                Forms\Components\DatePicker::make('date_start')
+                    ->label('date de début')
+                    ->required(),               
+                Forms\Components\TextInput::make('hour_start')
+                    ->label('Heure de début')
+                    ->required()
+                    ->inputMode('numeric') // Suggests numeric keyboard on mobile
+                    ->mask('99:99') // Enforces HH:MM pattern (e.g., 14:30)
+                    ->placeholder('HH:MM') // Visual hint for the user
+                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),  
+                Forms\Components\TextInput::make('hour_end')
+                    ->label('Heure de fin')
+                    ->required()
+                    ->inputMode('numeric') // Suggests numeric keyboard on mobile
+                    ->mask('99:99') // Enforces HH:MM pattern (e.g., 14:30)
+                    ->placeholder('HH:MM') // Visual hint for the user
+                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),             
+                Forms\Components\TextInput::make('price')
+                    ->label('prix')
+                    ->numeric()
+                    ->default(0)
+                    ->suffix('€'),
+                Forms\Components\TextInput::make('inscription')
+                    ->label('inscription')
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\Toggle::make('open')
+                    ->label('Ouverture')
+                    ->default(true) // Sets the toggle to "on" by default
+                    ->required(), //
+                Forms\Components\Toggle::make('status')
+                    ->label('statut')
+                    ->default(true),
+                Forms\Components\Hidden::make('formations_id')
+                    ->default(8)
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -63,20 +70,24 @@ class TableConversationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('date_start')
+                    ->label('Date de début')
                     ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('date_end')
-                    ->date()
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable(),              
                 Tables\Columns\TextColumn::make('hour_start')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('hour_end')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('inscription'),
-                Tables\Columns\TextColumn::make('open'),
+                    ->label('Heure de début')
+                    ->time('H:i A')
+                    ->searchable()
+                    ->sortable(),           
+                Tables\Columns\TextColumn::make('inscription')
+                    ->searchable()
+                    ->label('Inscription'),
+                Tables\Columns\IconColumn::make('open')
+                    ->searchable()
+                    ->boolean()
+                    ->label('Ouverture'),
                 Tables\Columns\IconColumn::make('status')
+                    ->label('Statut')
                     ->boolean(),
             ])
             ->filters([

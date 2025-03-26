@@ -77,5 +77,5 @@
 x-show="open"
 x-on:click="open = false"
 class="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
-style="display: none;"
+style="display: none"
 ></div>

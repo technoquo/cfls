@@ -24,10 +24,13 @@ class FormationsController extends Controller
             return view('formations.formation', compact('slug','formation'));
     }
 
-    public function inscription($id){
+    public function inscription($slug, $id){
 
        
-        return view('formations.inscription.tableconversation', compact('id'));
+        $inscription = TableConversation::FindOrFail($id);
+        $availables =  TableConversation::where('status',1)->get();
+        $company = Company::first();
+        return view('formations.inscription.tableconversation', compact('slug','inscription','company','availables'));
     }
 
     public function calendrier($slug){      

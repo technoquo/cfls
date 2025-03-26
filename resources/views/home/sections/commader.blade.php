@@ -101,6 +101,6 @@
             focusAt: 'center', // Enfoca al centro
             gap: 0, // Espacio entre slides
             autoplay: 3000, // Autoplay cada 3 segundos (opcional)
-        }).mount();
+        }).mount()
     </script>
     @endpush

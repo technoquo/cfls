@@ -33,6 +33,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         offset: 100, // Distancia desde la parte inferior de la pantalla para activar la animación
         mobile: true, // Activar en dispositivos móviles
         live: true // Detectar cambios en el DOM y animar elementos añadidos dinámicamente
-    }).init();
+    }).init()
 </script>
 @endpush

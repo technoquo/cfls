@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('table_conversations', function (Blueprint $table) {
             $table->id();
-            $table->date('date_start');
-            $table->date('date_end');
-            $table->datetime('hour_start');
-            $table->datetime('hour_end');
+            $table->date('date_start');           
+            $table->datetime('hour_start');           
+            $table->integer('price');
             $table->integer('inscription')->default(0);
             $table->integer('open')->default(1);
             $table->boolean('status')->default(1); 
