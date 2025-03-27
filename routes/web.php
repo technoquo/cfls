@@ -19,10 +19,11 @@ Route::get('/formations/{slug}/calendrier/{formation}', [FormationsController::c
 Route::get('/formations/{slug}/courses', [FormationsController::class, 'courses'])->name('courses');
 Route::get('/formations/{slug}/courses/{nivel}', [FormationsController::class, 'niveau'])->name('niveau');
 Route::get('/formations/{slug}/{id}', [FormationsController::class, 'inscription'])->name('inscription');
-Route::get('/ressources/vue-sur-l-info-1', [ResourceController::class, 'index'])->name('ressources.videoinfo');
-Route::get('/ressources/poemes-signes', [ResourceController::class, 'video'])->name('ressources.poemes-signes');
-Route::get('/ressources/poemes-signes/{slug}', [ResourceController::class, 'vimeo'])->name('ressources.vimeo');
-Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
+
+Route::get('/ressources/{slug}', [ResourceController::class, 'index'])->name('ressources.slug');
+Route::get('/ressources/{category}/{slug}', [ResourceController::class, 'vimeo'])->name('ressources.vimeo');
+
+// Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
 Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');

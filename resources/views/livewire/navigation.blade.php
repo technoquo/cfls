@@ -33,7 +33,7 @@
             class="absolute  mt-2 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 md:mt-0 md:shadow-none md:bg-csfl md:dark:bg-transparent z-10">
 
           @foreach($this->submenus as $submenu)
-          <li class="text-xl"><a wire:navigate href="ressources/{{ $submenu->slug }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ $submenu->name }}</a></li>
+          <li class="text-xl"><a wire:navigate href="{{ route('ressources.slug',[ 'slug' => $submenu->slug]) }}" class="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ $submenu->name }}</a></li>
          
            @endforeach
         </ul>
