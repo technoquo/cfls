@@ -6,6 +6,7 @@
     </h1>
 
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8 mx-auto max-w-screen-2xl">
+        @foreach($videos as $croise)
         <div x-data="{ active: 'mots' }"
             class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
@@ -21,22 +22,22 @@
                 </div>
                 <div class="text-center">
                     <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
+                         {{ $croise->title }}
                     </div>
                 </div>
             </div>
 
             <!-- Imágenes con Alpine.js -->
             <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
+                src="{{ asset($croise->image_mot) }}"
+                alt="{{ $croise->title }}" />
 
             <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
+                src="{{ asset($croise->image_solution) }}"
                 alt="Solutions" />
 
             <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267" frameborder="0"
+                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/{{ $croise->code_vimeo }}" frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
                 </iframe>
             </div>
@@ -57,269 +58,9 @@
                 </button>
             </div>
         </div>
-        <div x-data="{ active: 'mots' }"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        @endforeach
 
-            <div class="relative">
-                <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf"
-                        target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-16 bg-red-500 rounded-full p-2 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
-
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
-                alt="Solutions" />
-
-            <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267" frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- Botones de navegación -->
-            <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
-                <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mots croisés
-                </button>
-                <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions
-                </button>
-                <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions signées
-                </button>
-            </div>
-        </div>
-        <div x-data="{ active: 'mots' }"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-
-            <div class="relative">
-                <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf"
-                        target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-16 bg-red-500 rounded-full p-2 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
-
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
-                alt="Solutions" />
-
-            <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267"
-                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- Botones de navegación -->
-            <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
-                <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mots croisés
-                </button>
-                <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions
-                </button>
-                <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions signées
-                </button>
-            </div>
-        </div>
-        <div x-data="{ active: 'mots' }"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-
-            <div class="relative">
-                <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf"
-                        target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor"
-                            class="size-16 bg-red-500 rounded-full p-2 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
-
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
-                alt="Solutions" />
-
-            <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267"
-                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- Botones de navegación -->
-            <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
-                <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mots croisés
-                </button>
-                <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions
-                </button>
-                <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions signées
-                </button>
-            </div>
-        </div>
-        <div x-data="{ active: 'mots' }"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-
-            <div class="relative">
-                <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf"
-                        target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor"
-                            class="size-16 bg-red-500 rounded-full p-2 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
-
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
-                alt="Solutions" />
-
-            <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267"
-                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- Botones de navegación -->
-            <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
-                <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mots croisés
-                </button>
-                <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions
-                </button>
-                <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions signées
-                </button>
-            </div>
-        </div>
-        <div x-data="{ active: 'mots' }"
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-
-            <div class="relative">
-                <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf"
-                        target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor"
-                            class="size-16 bg-red-500 rounded-full p-2 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Saint Nicolas
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_8742c80452bc4a549c0f6aaaa39da34a~mv2.jpg/v1/fill/w_741,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mots%20crois%C3%A9s%20capitales.jpg"
-                alt="Mots Croisés" />
-
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
-                src="https://static.wixstatic.com/media/beceb7_26d4d2accb3c4f739706a7f14f32c5c6~mv2.jpg/v1/crop/x_1,y_0,w_840,h_595/fill/w_739,h_523,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/solutions%20saint%20nicolas.jpg"
-                alt="Solutions" />
-
-            <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/827615267"
-                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- Botones de navegación -->
-            <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
-                <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mots croisés
-                </button>
-                <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions
-                </button>
-                <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solutions signées
-                </button>
-            </div>
-        </div>
+       
 
 
 

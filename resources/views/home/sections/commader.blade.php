@@ -92,15 +92,16 @@
     </section>
 
     @push('scripts')
-    <!-- Scripts de Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/glide.min.js"></script>
     <script>
-        new Glide('.glide', {
-            type: 'carousel', // Tipo de carrusel
-            perView: 1, // Muestra un slide a la vez
-            focusAt: 'center', // Enfoca al centro
-            gap: 0, // Espacio entre slides
-            autoplay: 3000, // Autoplay cada 3 segundos (opcional)
-        }).mount()
+        document.addEventListener('livewire:init', () => {
+            new Glide('.glide', {
+                type: 'carousel',
+                perView: 1,
+                focusAt: 'center',
+                gap: 0,
+                autoplay: 3000,
+            }).mount();
+        });
     </script>
-    @endpush
+@endpush

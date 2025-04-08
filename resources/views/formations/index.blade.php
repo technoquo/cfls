@@ -60,15 +60,17 @@
         @endforeach    
     </section>
     @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-        <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        document.addEventListener('livewire:init', () => {
             new WOW({
-                boxClass: 'wow', // Clase que activa la animación
-                animateClass: 'animate__animated', // Clase de animación de Animate.css
-                offset: 100, // Distancia desde la parte inferior de la pantalla para activar la animación
-                mobile: true, // Activar en dispositivos móviles
-                live: true // Detectar cambios en el DOM y animar elementos añadidos dinámicamente
-            }).init()
-        </script>
-    @endpush
+                boxClass: 'wow',
+                animateClass: 'animate__animated',
+                offset: 100,
+                mobile: true,
+                live: true
+            }).init();
+        });
+    </script>
+@endpush
 </x-layout>

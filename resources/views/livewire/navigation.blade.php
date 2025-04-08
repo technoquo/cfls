@@ -17,7 +17,7 @@
         :class="open ? 'text-csfl' : 'dark:text-white'" 
         class="block py-2 px-3 rounded md:bg-transparent md:p-0 md:hover:text-csfl"
          >
-          Ressources
+          Videos
         </a>
         <!-- Submenú -->
         <ul 

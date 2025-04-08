@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+
 use App\Models\Vimeo;
 use App\Models\Category;
 use Filament\Forms\Form;
@@ -39,8 +40,12 @@ class VimeoResource extends Resource
                         $set('slug', \Illuminate\Support\Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                        ->required()
+                        ->maxLength(255)
+                        ->unique(table: Vimeo::class, column: 'slug')
+                        ->validationMessages([
+                            'unique' => 'Cette Slug est déjà utilisée. Veuillez en choisir un autre.',
+                        ]),
                 Forms\Components\RichEditor::make('description')
                     ->label('Description')
                     ->columnSpanFull(),
@@ -48,8 +53,7 @@ class VimeoResource extends Resource
                     ->label('Image')
                     ->image()
                     ->maxSize(1024)
-                    ->acceptedFileTypes(['image/jpeg', 'image/png'])
-                    ->required(),
+                    ->acceptedFileTypes(['image/jpeg', 'image/png']),                    
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
                     ->required(),

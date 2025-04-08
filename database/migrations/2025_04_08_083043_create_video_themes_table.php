@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vimeos', function (Blueprint $table) {
+        Schema::create('video_themes', function (Blueprint $table) {
             $table->id();
-            $table->integer('code_vimeo');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->boolean('status');
-            $table->foreignId('categories_id')->constrained()->onDelete('cascade');
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->foreignId('theme_id')->constrained('themes')->onDelete('cascade');
+            $table->foreignId('syllabu_id')->constrained('syllabus')->onDelete('cascade');
+            $table->string('code_video')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vimeos');
+        Schema::dropIfExists('video_themes');
     }
 };

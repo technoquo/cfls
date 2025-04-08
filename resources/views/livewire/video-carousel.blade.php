@@ -24,7 +24,7 @@ x-data="{
 
         // Check if the stored basePath matches the current basePath
         const storedBasePath = localStorage.getItem('currentBasePath');
-
+        
         if (storedBasePath !== this.basePath) {
             // If different, reset the glide position to zero and store the new basePath
             localStorage.setItem('glidePosition', 0);
@@ -46,6 +46,12 @@ x-data="{
                 bullet.classList.toggle('bg-gray-200', index !== activeIndex);
             });
             localStorage.setItem('glidePosition', this.glide.index);
+        });
+
+        // Agregar listener para limpiar localStorage al cambiar de página
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem('currentBasePath'); // Borrar storedBasePath
+            localStorage.removeItem('glidePosition');   // Opcional: borrar también la posición
         });
     }
 }"

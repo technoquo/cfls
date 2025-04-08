@@ -16,7 +16,7 @@ class VideoCarousel extends Component
         
         if ($category) {
             $this->category = $category->toArray(); // Convert category to array
-            $this->vimeos = $category->videos()->paginate(5); // Paginate videos
+            $this->vimeos = $category->videos(); // Paginate videos
         }
     }
 

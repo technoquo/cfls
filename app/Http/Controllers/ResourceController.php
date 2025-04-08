@@ -3,20 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\MotsCroise;
 use App\Models\Vimeo;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
     public function index($slug)
     {
+        // Array de vistas especiales
+        $specialViews = [
+            'mots-croises' => 'ressources.mots',
+            'vocabulaire' => 'ressources.vocabulaire',
+        ];
     
-        $category = Category::where('slug', $slug)->first();
-        $videos = Category::where('slug', $slug)->first()->videos;
-      
-        return view('ressources.index', compact('category','videos'));       
+        // Si es una vista especial, retornarla directamente
+        if (array_key_exists($slug, $specialViews)) {
+            switch ($slug) {
+                case 'vocabulaire':
+                    $category = Category::where('slug', $slug)
+                               ->where('status', 1)
+                               ->get();  
+                            
+                    $videos = Vimeo::where('status', 1)
+                              ->where('categories_id', $category[0]->id)
+                              ->get();       
+                    break;                
+                case 'mots-croises':
+                    $videos = MotsCroise::where('status', 1)->get();;
+                    break;
+                default:
+                    abort(404);
+            }
+                 
+          
+            return view($specialViews[$slug], compact('videos'));
+        }
+    
+        // Manejo estándar de categorías
+        $category = Category::with('videos')->where('slug', $slug)->firstOrFail();
+        
+        return view('ressources.index')->with([
+            'category' => $category,
+            'videos' => $category->videos
+        ]);
     }
-
+    
     public function video()
     {
        
@@ -36,7 +69,9 @@ class ResourceController extends Controller
        
         $vimeo = Vimeo::where('slug', $slug)->first();
         
-        $vimeos = $category->videos;  
+        
+        $vimeos = $category->videos->sortBy('title');
+       
         if (!$vimeo) {
             // Handle case where no videos exist
             $vimeo = null; // Or set a default video object if desired
@@ -44,5 +79,7 @@ class ResourceController extends Controller
         return view('ressources.vimeo', compact('category','vimeo', 'vimeos'));
     }
 
+
+   
 
 }

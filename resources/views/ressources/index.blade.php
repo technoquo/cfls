@@ -2,9 +2,9 @@
 $vimeos = $videos->map(function ($video) {
     return [
         'title' => $video->title,
-        'videoId' => $video->code_video,
+        'videoId' => $video->code_vimeo,
         'slug' => $video->slug,
-        'img' => asset($video->image),
+        'img' => $video->image ? asset($video->image) : " ",
     ];
 })->all();
 @endphp
@@ -19,9 +19,10 @@ $vimeos = $videos->map(function ($video) {
 
     <section class="flex justify-evenly flex-wrap gap-4 mt-8">
         @foreach ($vimeos as $video)
+        
             <x-vimeo-thumbnail 
                 :title="$video['title']" 
-                :vimeo-id="$video['videoId']" 
+                :vimeo="$video['videoId']" 
                 :img="$video['img']" 
                 :video-slug="$video['slug']" 
                 :category="$category->slug" 

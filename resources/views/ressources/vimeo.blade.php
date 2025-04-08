@@ -16,7 +16,7 @@
                     class="md:w-1/2 lg:w-1/2 w-full aspect-video"
                     frameborder="0" 
                     allow="autoplay; fullscreen" 
-                    allowfullscreen>
+                    >
                 </iframe>
             </div>
         </div>
