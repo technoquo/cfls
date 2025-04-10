@@ -95,7 +95,15 @@
                     </div>
 
                     <!-- Video Player -->
+
                     <div class="w-full max-w-2xl p-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                        <div class="flex justify-center mb-10">
+                            <button
+                                @click="togglePlayPause"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                                x-text="isPlaying ? '⏸ Pause' : '▶ Reanudar'">
+                            </button>
+                        </div>
                         <iframe
                             :src="'https://player.vimeo.com/video/' + currentVideo + '?autoplay=1'"
                             class="w-full aspect-video"
@@ -104,13 +112,7 @@
                         </iframe>
                         <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
                             x-text="currentTitle"></h2>
-                        <div class="flex justify-center mt-4">
-                            <button
-                                @click="togglePlayPause"
-                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                                x-text="isPlaying ? '⏸ Pause' : '▶ Reanudar'">
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -132,6 +134,7 @@
                     currentIndex: 0,
                     isPlaying: true,
                     autoPlayNext: true,
+                    repeatOnce: false,
 
                     get currentVideo() {
                         return this.videos[this.currentIndex]?.code || '';
@@ -149,8 +152,16 @@
 
                                 player.on('ended', () => {
                                     if (this.autoPlayNext) {
-                                        this.nextVideo();
-                                        player.loadVideo(this.videos[this.currentIndex].code);
+                                        if (!this.repeatOnce) {
+                                            // Primera vez que termina → repetir el mismo video
+                                            this.repeatOnce = true;
+                                            player.setCurrentTime(0).then(() => player.play());
+                                        } else {
+                                            // Segunda vez que termina → pasar al siguiente
+                                            this.repeatOnce = false;
+                                            this.nextVideo();
+                                            player.loadVideo(this.videos[this.currentIndex].code);
+                                        }
                                     }
                                 });
 
@@ -211,15 +222,15 @@
                             const currentItem = items[this.currentIndex];
                             if (!currentItem) return;
 
-                            // Solo hacemos scroll si es múltiplo de 5 o si es el primero
+                            // We only move if it is a multiple of 5 or if it is the first one.
                             //  if ((this.currentIndex + 1) % 5 === 0 || this.currentIndex === 0) {
                             const containerRect = container.getBoundingClientRect();
                             const itemRect = currentItem.getBoundingClientRect();
 
-                            // Posición actual del item dentro del contenedor
+                            // Current position of the item inside the container
                             const offset = currentItem.offsetTop - container.offsetTop;
 
-                            // Centrado vertical
+                            // Vertical centering
                             const scrollTop = offset - (container.clientHeight / 2) + (currentItem.offsetHeight / 2);
 
                             container.scrollTo({

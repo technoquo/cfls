@@ -37,4 +37,28 @@ class SyllabusController extends Controller
             'themes' => $themes,
         ]);
     }
+
+
+    public function syllabu($slug, $mot)
+    {
+        $syllabus = Syllabu::where('slug', $slug)
+            ->where('status', 1)
+            ->first();
+
+        $syllabu = $syllabus->themes()->where('status', 1)->with('videos')->first();
+
+        $videofirst = $syllabus->themes()->where('status', 1)->with('videos')->first();
+
+        $themes = $syllabus->themes()->where('status', 1)->with('videos')->get();
+        $video = $syllabus->themes()->where('status', 1)->with('videos')->where('slug', $mot)->first();
+
+        return view('syllabus.show', [
+            'syllabus' => $syllabus,
+            'syllabu' => $syllabu,
+            'videofirst' => $videofirst->videos->first(),
+            'themes' => $themes,
+            'video' => $video,
+
+        ]);
+    }
 }
