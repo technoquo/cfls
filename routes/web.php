@@ -28,7 +28,7 @@ Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.in
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
 Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
-Route::get('/syllabus/{slug}', [SyllabusController::class, 'syllabus'])->name('syllabus.slug');
+Route::get('/{slug}', [SyllabusController::class, 'syllabus'])->name('syllabus.slug');
 //Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
 
 
