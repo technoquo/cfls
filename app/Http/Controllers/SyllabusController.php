@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Syllabu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SyllabusController extends Controller
 {
@@ -39,15 +40,42 @@ class SyllabusController extends Controller
     }
 
 
-    public function syllabu($slug, $mot)
+    public function cloudinary()
     {
-        $syllabus = Syllabu::where('slug', $slug)
+        $syllabus = Syllabu::where('slug', 'ue1-themes')
             ->where('status', 1)
             ->first();
 
         $syllabu = $syllabus->themes()->where('status', 1)->with('videos')->first();
 
-        $videofirst = $syllabus->themes()->where('status', 1)->with('videos')->first();
+        $videofirst = DB::table('video_themes_cloudinary')
+            ->select('url')
+            ->first();
+
+
+        $themes = DB::table('video_themes_cloudinary')
+            ->select('url as url_video', 'title')
+            ->orderBy('title', 'asc')
+            ->get()
+            ->map(function ($item) {
+                return (array) $item;
+            })
+            ->toArray();
+
+
+        return view('syllabus.cloudinary', [
+            'syllabus' => $syllabus,
+            'syllabu' => $syllabu,
+            'videofirst' => $videofirst,
+            'themes' => $themes,
+        ]);
+
+    }
+
+
+    public function syllabu($slug, $mot)
+    {
+
 
         $themes = $syllabus->themes()->where('status', 1)->with('videos')->get();
         $video = $syllabus->themes()->where('status', 1)->with('videos')->where('slug', $mot)->first();

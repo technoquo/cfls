@@ -1,204 +1,200 @@
 <x-layout>
-    <x-slot name="title">Liste de Syllabus</x-slot>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
+    <x-slot name="title">Syllabus</x-slot>
 
-        .main-container {
-            display: flex;
-            gap: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
+    <!-- Include Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-        .video-section {
-            flex: 2;
-            min-width: 0;
-            text-align: center;
-        }
+    <div x-data="{ open: false }"
+         @keydown.window.escape="open = false"
+         class="flex flex-col lg:flex-row min-h-screen gap-4 px-4">
+        <!-- Hamburger Button (Mobile Only) -->
+        <button
+            x-on:click="open = !open"
+            type="button"
+            class="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        >
+            <span class="sr-only">Open sidebar</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"/>
+            </svg>
+        </button>
 
-        .current-word {
-            font-size: 28px;
-            font-weight: bold;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-
-        .video-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-            overflow: hidden;
-            border-radius: 6px;
-        }
-
-        .video-wrapper video {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 6px;
-        }
-
-        .word-section {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 500px;
-            border-left: 1px solid #e0e0e0;
-            padding-left: 20px;
-        }
-
-        .word-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .word {
-            padding: 12px 15px;
-            background-color: #ecf0f1;
-            border-radius: 6px;
-            color: #7f8c8d;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .word:hover {
-            background-color: #d5dbdb;
-        }
-
-        .word.active {
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-        }
-
-        .controls {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .controls button {
-            padding: 10px 15px;
-            font-size: 16px;
-            border: none;
-            background-color: #3498db;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-
-        .controls button:hover {
-            background-color: #2980b9;
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
-
-            .word-section {
-                border-left: none;
-                border-top: 1px solid #e0e0e0;
-                padding-left: 0;
-                padding-top: 20px;
-                max-height: 200px;
-            }
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <body>
-        <div class="main-container">
-             <h1>Cloudinary</h1>
-            <div class="video-section">
-                <div class="current-word" id="currentWord">Végétarien</div>
-                <div class="video-wrapper" id="videoWrapper">
-                    <video id="videoPlayer" autoplay muted></video>
-                </div>
-                <div class="controls">
-                    <button id="pauseButton">Pause</button>
-                </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-4" @mouseenter="open = false">
+            <div class="flex justify-center">
+                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $syllabus->formatted_title }}</h2>
             </div>
-            <div class="word-section">
-                <div class="word-section-title">Liste des vocabulaires</div>
-                <div class="word-list" id="wordList"></div>
+            <div class="mt-2 md:text-3xl text-2xl dark:text-white text-center mb-10">{{ $syllabus->id }} - {{ $syllabus->title }}</div>
+            <div class="flex flex-col lg:flex-row justify-center gap-6 w-full"
+                 x-data="videoPlaylist({{ Js::from($themes) }})">
+
+                <!-- Scrollable List -->
+                <div class="flex flex-col w-full lg:w-80 mt-10 ml-10">
+                    <div class="flex justify-center mb-4">
+                        <button
+                            @click="autoPlayNext = !autoPlayNext"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                            x-text="autoPlayNext ? '⏩ Automatique' : '🖱 Manuelle'">
+                        </button>
+                    </div>
+                    <div
+                        x-ref="scrollContainer"
+                        class="w-full max-w-md mx-auto space-y-4 overflow-y-auto px-2 max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96"
+                    >
+                        @foreach ($themes as $video)
+                            @php
+                                $extension = pathinfo($video['url_video'], PATHINFO_EXTENSION);
+                            @endphp
+
+
+
+                                <div
+                                    @click="setVideoByUrl('{{ $video['url_video'] }}')"
+                                    x-bind:ref="currentVideo === '{{ $video['url_video'] }}' ? 'activeVideo' : null"
+                                    :class="currentVideo === '{{ $video['url_video'] }}' ? 'bg-blue-100 dark:bg-blue-900' : ''"
+                                    class="item pb-3 sm:pb-4 hover:bg-gray-200 rounded-lg dark:hover:bg-gray-700 p-2 cursor-pointer relative transition"
+                                >
+                                    <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-base font-medium text-gray-900 truncate dark:text-white">
+                                                {{ $video['title'] }} - {{  $extension }}
+                                            </p>
+                                        </div>
+                                        <template x-if="currentVideo === '{{ $video['url_video'] }}'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 viewBox="0 0 24 24" class="size-5 text-green-500 animate-pulse">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </template>
+                                    </div>
+                                </div>
+
+                        @endforeach
+
+                    </div>
+                </div>
+
+                <!-- Video Player -->
+                <div class="w-full max-w-2xl p-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                    <div class="flex justify-center mb-10">
+                        <button
+                            @click="togglePlayPause"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                            x-text="isPlaying ? '⏸ Pause' : '▶ Reanudar'">
+                        </button>
+                    </div>
+                    <video
+                        x-ref="videoPlayer"
+                        class="w-full aspect-video"
+
+                        autoplay
+                        @ended="handleEnded"
+                    >
+                        <source :src="currentVideo" type="video/mp4">
+                        Tu navegador no soporta el video.
+                    </video>
+                    <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
+                        x-text="currentTitle"></h2>
+                </div>
             </div>
         </div>
+    </div>
+
+    @push('scripts')
         <script>
-            $(document).ready(function () {
-                const wordsList = [
-                    "Végétarien", "Sucre en poudre"
-                ];
+            function videoPlaylist(themes) {
+                const allVideos = themes.map(video => ({
+                    url: video.url_video,
+                    title: video.title
+                }));
 
-                const videoUrls = {!! json_encode([
-                    'Végétarien' =>  'https://res.cloudinary.com/acceso-visual/video/upload/v1741687723/V%C3%A9g%C3%A9tarien_ewcs4i.mp4',
-                    'Sucre en poudre' => 'https://res.cloudinary.com/acceso-visual/video/upload/v1741687723/Sucre_en_poudre_x2h5s3.mp4',
-                ]) !!};
-                const $wordList = $('#wordList');
-                wordsList.forEach((word, index) => {
-                    $wordList.append(`<div class="word" data-id="${index}">${word}</div>`);
-                });
+                return {
+                    videos: allVideos,
+                    currentIndex: 0,
+                    isPlaying: true,
+                    autoPlayNext: true,
+                    repeatOnce: false,
 
-                $('.word[data-id="0"]').addClass('active');
-                let currentIndex = 0;
-                let repeatCount = 0;
-                let isPaused = false;
-                let videoPlayer = document.getElementById("videoPlayer");
+                    get currentVideo() {
+                        return this.videos[this.currentIndex]?.url || '';
+                    },
+                    get currentTitle() {
+                        return this.videos[this.currentIndex]?.title || '';
+                    },
 
-                function updateVideo() {
-                    if (isPaused) return;
+                    init() {
+                        this.playCurrent();
+                    },
 
-                    const currentWord = wordsList[currentIndex];
-                    $('#currentWord').text(currentWord);
-                    $('.word').removeClass('active');
-                    $(`.word[data-id="${currentIndex}"]`).addClass('active');
-
-                    videoPlayer.src = videoUrls[currentWord];
-                    videoPlayer.play();
-
-                    // Manejar la repetición del video
-                    videoPlayer.onended = function () {
-                        if (repeatCount < 1) {
-                            repeatCount++;
-                            videoPlayer.play();
-                        } else {
-                            repeatCount = 0;
-                            currentIndex = (currentIndex + 1) % wordsList.length;
-                            updateVideo();
+                    handleEnded() {
+                        if (this.autoPlayNext) {
+                            if (!this.repeatOnce) {
+                                this.repeatOnce = true;
+                                this.$refs.videoPlayer.currentTime = 0;
+                                this.$refs.videoPlayer.play();
+                            } else {
+                                this.repeatOnce = false;
+                                this.nextVideo();
+                            }
                         }
-                    };
-                }
+                    },
 
-                updateVideo();
+                    playCurrent() {
+                        const player = this.$refs.videoPlayer;
+                        const source = player.querySelector('source');
+                        source.src = this.currentVideo;
+                        player.load();
+                        //player.play();
+                    },
 
-                $(document).on('click', '.word', function () {
-                    const newIndex = $(this).data('id');
-                    if (newIndex !== currentIndex) {
-                        currentIndex = newIndex;
-                        repeatCount = 0;
-                        updateVideo();
+                    nextVideo() {
+                        this.currentIndex = (this.currentIndex + 1) % this.videos.length;
+                        this.playCurrent();
+                        this.scrollToActive();
+                    },
+
+                    setVideoByUrl(url) {
+                        const index = this.videos.findIndex(video => video.url === url);
+
+                        if (index !== -1) {
+                            if (index === this.currentIndex) {
+                                this.togglePlayPause();
+                                return;
+                            }
+
+                            this.currentIndex = index;
+                            this.repeatOnce = false;
+                            this.playCurrent();
+                            this.scrollToActive();
+                        }
+                    },
+
+                    togglePlayPause() {
+                        const player = this.$refs.videoPlayer;
+                        if (player.paused) {
+                            player.play();
+                            this.isPlaying = true;
+                        } else {
+                            player.pause();
+                            this.isPlaying = false;
+                        }
+                    },
+
+                    scrollToActive() {
+                        this.$nextTick(() => {
+                            const container = this.$refs.scrollContainer;
+                            const items = container.querySelectorAll('div.item');
+                            const currentItem = items[this.currentIndex];
+                            if (container && currentItem) {
+                                const offset = currentItem.offsetTop - container.offsetTop;
+                                const scrollTop = offset - (container.clientHeight / 2) + (currentItem.offsetHeight / 2);
+                                container.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                            }
+                        });
                     }
-                });
-
-                $('#pauseButton').click(function () {
-                    if (isPaused) {
-                        isPaused = false;
-                        $(this).text('Pause');
-                        videoPlayer.play();
-                    } else {
-                        isPaused = true;
-                        $(this).text('Reanudar');
-                        videoPlayer.pause();
-                    }
-                });
-            });
+                };
+            }
         </script>
+    @endpush
 </x-layout>
