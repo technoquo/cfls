@@ -19,6 +19,6 @@ class Syllabu extends Model
 
     public function getFormattedTitleAttribute()
     {
-        return strtoupper(Str::of($this->title)->replace(['themes', 'theme'], 'por Theme'));
+        return strtoupper(Str::of($this->title)->replace(['themes', 'theme'], 'par thèmes'));
     }
 }

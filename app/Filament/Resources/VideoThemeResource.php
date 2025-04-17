@@ -51,8 +51,8 @@ class VideoThemeResource extends Resource
                     ->options(Syllabu::all()->pluck('title', 'id')->toArray())
                     ->required()
                     ->searchable(),
-                Forms\Components\TextInput::make('code_video')
-                    ->label('Code vidéo')
+                Forms\Components\TextInput::make('url')
+                    ->label('Url Cloudinary')
                     ->maxLength(255),
                 Forms\Components\Toggle::make('active')
                     ->label('Statut')
@@ -79,9 +79,9 @@ class VideoThemeResource extends Resource
                     ->label('Syllabus')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code_video')
-                    ->label('Code vidéo')
-                    ->searchable(),
+//                Tables\Columns\TextColumn::make('url')
+//                    ->label('Url Cloudinary')
+//                    ->searchable(),
                 Tables\Columns\IconColumn::make('active')
                     ->label('Statut')
                     ->boolean()

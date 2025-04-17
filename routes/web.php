@@ -30,10 +30,12 @@ Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('bou
 Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
-Route::get('/syllabus/cloudinary', [SyllabusController::class, 'cloudinary']);
-Route::get('/{slug}', [SyllabusController::class, 'syllabus'])->name('syllabus.slug');
-Route::get('/{slug}/{mot}', [SyllabusController::class, 'syllabu'])->name('syllabus.mot');
+Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
+Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');
+
 Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
+
+
 
 
 

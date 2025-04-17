@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VideoTheme extends Model
 {
+    protected $table = 'video_themes_cloudinary';
 
     public function syllabus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

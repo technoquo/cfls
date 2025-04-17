@@ -4,38 +4,61 @@
     <!-- Include Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <div
+    <div x-data="{ open: false }"
+         @keydown.window.escape="open = false"
          class="flex flex-col lg:flex-row min-h-screen gap-4 px-4">
-        <!-- Main Content -->
-        <div class="flex-1 p-4">
-            <div class="flex justify-center">
+        <!-- Hamburger Button (Mobitheme.blade.phple Only) -->
+        <button
+            x-on:click="open = !open"
+            type="button"
+            class="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        >
+            <span class="sr-only">Open sidebar</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"/>
+            </svg>
+        </button>
 
-                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $theme->title }}</h2>
+        <!-- Sidebar -->
+        <aside
+            id="default-sidebar"
+            class="w-full md:w-[280px] h-auto transition-transform md:translate-x-0 fixed md:static top-0 left-0 z-40 shrink-0"
+            :class="{ 'translate-x-0': open, '-translate-x-full': !open }"
+            x-cloak
+        >
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-400 dark:bg-gray-800 rounded-md">
+                <ul class="space-y-2 font-medium">
+
+                    @foreach($themes as $index => $theme)
+
+                        <li>
+                            <a href="{{route('syllabus.theme', ['slug' => $syllabu->slug, 'theme' => $theme->slug])}}"
+                               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">{{ $index + 1 }} - {{ $theme->title }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
+        </aside>
 
-            <div class="flex flex-col lg:flex-row justify-center items-start gap-x-4 w-full"
+        <!-- Main Content -->
+        <div class="flex-1 p-4" @mouseenter="open = false">
+            <div class="flex justify-center">
+                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $syllabu->formatted_title }}</h2>
+            </div>
+            <div class="mt-2 md:text-3xl text-2xl dark:text-white text-center mb-10 underline">{{ $theme->title }}</div>
+            <div class="flex flex-col lg:flex-row justify-center gap-6 w-full"
                  x-data="videoPlaylist({{ Js::from($videos) }})">
 
-                    <button
-                        onclick="window.history.back()"
-                        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
-                    >
-                        ⬅ Retourn
-                    </button>
-
                 <!-- Scrollable List -->
-                <div class="flex flex-col w-full max-w-xs lg:w-80 mt-4">
-
-                <div class="flex justify-center mb-4 gap-4">
+                <div class="flex flex-col w-full lg:w-80 mt-10 ml-10">
+                    <div class="flex justify-center mb-4">
                         <button
                             @click="autoPlayNext = !autoPlayNext"
                             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                             x-text="autoPlayNext ? '⏩ Automatique' : '🖱 Manuelle'">
-                        </button>
-                        <button
-                            @click="toggleSpeed"
-                            class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
-                            x-text="isSlow ? '⏱ Lent' : '🚀 Normal'">
                         </button>
                     </div>
                     <div
@@ -58,7 +81,7 @@
                                 <div class="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div class="flex-1 min-w-0">
                                         <p class="text-base font-medium text-gray-900 truncate dark:text-white">
-                                            {{ $video['title'] }}
+                                            {{ $video['title'] }} - {{  $extension }}
                                         </p>
                                     </div>
                                     <template x-if="currentVideo === '{{ $video['url_video'] }}'">
@@ -76,7 +99,7 @@
                 </div>
 
                 <!-- Video Player -->
-                <div class="p-4 bg-white rounded-md shadow-md dark:bg-gray-800 w-full max-w-3xl">
+                <div class="w-full max-w-2xl p-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
                     <div class="flex justify-center mb-10">
                         <button
                             @click="togglePlayPause"
@@ -115,7 +138,6 @@
                     isPlaying: true,
                     autoPlayNext: true,
                     repeatOnce: false,
-                    isSlow: false,
 
                     get currentVideo() {
                         return this.videos[this.currentIndex]?.url || '';
@@ -146,14 +168,6 @@
                         const source = player.querySelector('source');
                         source.src = this.currentVideo;
                         player.load();
-
-                        // Reaplicar velocidad lenta si está activa
-                        player.onloadedmetadata = () => {
-                            player.playbackRate = this.isSlow ? 0.5 : 1.0;
-                            if (this.isPlaying) {
-                                player.play();
-                            }
-                        };
                         //player.play();
                     },
 
@@ -188,16 +202,6 @@
                             player.pause();
                             this.isPlaying = false;
                         }
-                    },
-
-                    toggleSpeed() {
-                        const player = this.$refs.videoPlayer;
-                        if (this.isSlow) {
-                            player.playbackRate = 1.0;
-                        } else {
-                            player.playbackRate = 0.5;
-                        }
-                        this.isSlow = !this.isSlow;
                     },
 
                     scrollToActive() {

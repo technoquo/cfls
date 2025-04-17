@@ -20,6 +20,29 @@
             </svg>
         </button>
 
+        <!-- Sidebar -->
+        <aside
+            id="default-sidebar"
+            class="w-full md:w-[280px] h-auto transition-transform md:translate-x-0 fixed md:static top-0 left-0 z-40 shrink-0"
+            :class="{ 'translate-x-0': open, '-translate-x-full': !open }"
+            x-cloak
+        >
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-400 dark:bg-gray-800 rounded-md">
+                <ul class="space-y-2 font-medium">
+
+                    @foreach($syllabu as $index => $theme)
+
+                        <li>
+                            <a href=""
+                               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">{{ $index + 1 }} - {{ $theme->title }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </aside>
+
         <!-- Main Content -->
         <div class="flex-1 p-4" @mouseenter="open = false">
             <div class="flex justify-center">

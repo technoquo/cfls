@@ -16,45 +16,53 @@ class SyllabusController extends Controller
         ]);
     }
 
-    public function syllabus($slug)
+    public function syllabu($slug)
     {
-        $syllabus = Syllabu::where('slug', $slug)
-                             ->where('status', 1)
-                             ->first();
-
-        $syllabu = $syllabus->themes()->where('status', 1)->with('videos')->first();
-
-        $videofirst = $syllabus->themes()->where('status', 1)->with('videos')->first();
-
-         $themes = $syllabus->themes()->where('status', 1)->with('videos')->get();
-
-
-
-
-        return view('syllabus.show', [
-            'syllabus' => $syllabus,
-            'syllabu' => $syllabu,
-            'videofirst' => $videofirst->videos->first(),
-            'themes' => $themes,
-        ]);
-    }
-
-
-    public function cloudinary()
-    {
-        $syllabus = Syllabu::where('slug', 'ue1-themes')
+        $syllabu = Syllabu::where('slug', $slug)
             ->where('status', 1)
             ->first();
 
-        $syllabu = $syllabus->themes()->where('status', 1)->with('videos')->first();
+        $themes = $syllabu
+                    ->themes()
+                    ->where('status', 1)
+                     ->get();
 
-        $videofirst = DB::table('video_themes_cloudinary')
-            ->select('url')
+//        $videos = DB::table('video_themes_cloudinary')
+//            ->select('url as url_video', 'title')
+//            ->where('syllabu_id', $syllabu->id)
+//            ->orderBy('title', 'asc')
+//            ->get()
+//            ->map(function ($item) {
+//                return (array) $item;
+//            })
+//            ->toArray();
+
+        return view('syllabus.theme',compact('syllabu','slug','themes'));
+    }
+
+    public function theme($slug,$theme)
+    {
+        $syllabu = Syllabu::where('slug', $slug)
+            ->where('status', 1)
+            ->first();
+
+        $theme = $syllabu->themes()
+            ->where('slug', $theme)
+            ->where('status', 1)
             ->first();
 
 
-        $themes = DB::table('video_themes_cloudinary')
+        $themes = $syllabu
+                    ->themes()
+                    ->where('status', 1)
+                    ->get();
+
+
+
+        $videos = DB::table('video_themes_cloudinary')
             ->select('url as url_video', 'title')
+            ->where('syllabu_id', $syllabu->id)
+            ->where('theme_id', $theme->id)
             ->orderBy('title', 'asc')
             ->get()
             ->map(function ($item) {
@@ -62,31 +70,8 @@ class SyllabusController extends Controller
             })
             ->toArray();
 
-
-        return view('syllabus.cloudinary', [
-            'syllabus' => $syllabus,
-            'syllabu' => $syllabu,
-            'videofirst' => $videofirst,
-            'themes' => $themes,
-        ]);
-
+        return view('syllabus.show',compact('syllabu','themes','theme','videos'));
     }
 
 
-    public function syllabu($slug, $mot)
-    {
-
-
-        $themes = $syllabus->themes()->where('status', 1)->with('videos')->get();
-        $video = $syllabus->themes()->where('status', 1)->with('videos')->where('slug', $mot)->first();
-
-        return view('syllabus.show', [
-            'syllabus' => $syllabus,
-            'syllabu' => $syllabu,
-            'videofirst' => $videofirst->videos->first(),
-            'themes' => $themes,
-            'video' => $video,
-
-        ]);
-    }
 }
