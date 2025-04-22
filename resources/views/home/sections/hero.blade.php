@@ -20,9 +20,9 @@
                 <h2 class="mb-4  sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">{{ $history->title }}</h2>
             <iframe
             src="https://player.vimeo.com/video/{{ $history->video }}"
-            class="w-full aspect-video"
-            frameborder="0"
-            allow="autoplay; fullscreen"
+            width="640"
+            height="360"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen>
            </iframe>
            </div>

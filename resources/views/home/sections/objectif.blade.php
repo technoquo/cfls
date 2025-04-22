@@ -5,8 +5,13 @@
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
             <div>
-                <iframe src="https://player.vimeo.com/video/{{ $mission->video }}" class="w-full aspect-video"
-                    frameborder="0" allow="autoplay; fullscreen" allowfullscreen>
+                <iframe src="https://player.vimeo.com/video/{{ $mission->video }}"
+                        width="640"
+                        height="360"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen>
+
+
                 </iframe>
             </div>
             <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
