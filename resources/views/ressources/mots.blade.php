@@ -1,18 +1,19 @@
 <x-layout>
     <x-slot name="title">Mots croisés</x-slot>
 
-    <h1 class="flex justify-center uppercase text-5xl font-bold dark:text-white">
+    <h1 class="flex justify-center uppercase text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold dark:text-white">
         Mots croisés
     </h1>
 
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8 mx-auto max-w-screen-2xl">
+
         @foreach($videos as $croise)
         <div x-data="{ active: 'mots' }"
             class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
             <div class="relative">
                 <div class="absolute right-0 top-0 p-2">
-                    <a href="https://www.cfls.be/_files/ugd/beceb7_e4a17f43823b4ec7b7162d83dd702c99.pdf" target="_blank">
+                    <a href="{{asset('storage/'.$croise->pdf)}}" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-16 bg-red-500 rounded-full p-2 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -21,7 +22,7 @@
                     </a>
                 </div>
                 <div class="text-center">
-                    <div class="mb-2 mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <div class="mb-2 mt-3 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                          {{ $croise->title }}
                     </div>
                 </div>
@@ -45,22 +46,22 @@
             <!-- Botones de navegación -->
             <div class="flex justify-center items-center mt-3 mb-3 space-x-2">
                 <button @click="active = 'mots'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Mots croisés
                 </button>
                 <button @click="active = 'solutions'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Solutions
                 </button>
                 <button @click="active = 'solutions-signees'"
-                    class="px-3 py-2 text-base font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Solutions signées
                 </button>
             </div>
         </div>
         @endforeach
 
-       
+
 
 
 

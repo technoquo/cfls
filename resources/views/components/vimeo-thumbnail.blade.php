@@ -2,8 +2,8 @@
 
     <img class="rounded-t-lg" src="{{ $img }}"  />
     <div class="p-5">
-        <h5 class="mb-2 text-[22px] font-bold tracking-tight text-gray-900 dark:text-white capitalize">
-            {{ $title }}</h5>
+        <h5 class="mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white capitalize text-center">
+                {{ $title }}</h5>
             <div class="text-center mt-4">
                 <a href="{{ $category }}/{{ $videoSlug }}"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 inline-flex items-center">

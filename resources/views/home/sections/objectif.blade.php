@@ -1,6 +1,6 @@
 <section class=" bg-white dark:bg-gray-900 mb-4" {{ $mission->status ? '' : 'hidden' }}>
     <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
-        <h2 class="mb-4 text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white uppercase">
+        <h2 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white uppercase">
             {{ $mission->title }}</h2>
         <!-- Row -->
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
@@ -24,7 +24,7 @@
                             class="block border-b border-gray-800/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0">
                             <h2>
                                 <button type="button" x-on:click="expanded = !expanded" :aria-expanded="expanded"
-                                    class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-csfl font-bold text-2xl">
+                                    class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-csfl font-bold text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                                     <span class="flex-1">{{ $objective->title }}</span>
 
                                     <!-- Heroicons mini chevron-up -->
@@ -50,7 +50,7 @@
                             </h2>
 
                             <div x-show="expanded" x-collapse>
-                                <div class="pt-2 text-gray-600 dark:text-white max-w-xl text-2xl">
+                                <div class="pt-2 text-gray-600 dark:text-white max-w-xl lg:text-2xl">
                                     {{ $objective->description }} </div>
                             </div>
                         </div>

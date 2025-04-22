@@ -1,15 +1,15 @@
 <x-layout>
     <x-slot name="title">Vocabulaires</x-slot>
-    <h1 class="flex justify-center uppercase text-5xl font-bold dark:text-white">
+    <h1 class="flex justify-center uppercase text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold dark:text-white">
         Vocabulaires
     </h1>
     <section class="bg-white dark:bg-gray-900 mb-4">
         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
-            @foreach ($videos as $vimeo) 
-               
+            @foreach ($videos as $vimeo)
+
             <div class="mt-4 mb-4">
                 <h2
-                    class="mb-4 sm:text-sm  md:text-2xl lg:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
+                    class="mb-4 md:text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
                     {{ $vimeo->title }}
                 </h2>
 

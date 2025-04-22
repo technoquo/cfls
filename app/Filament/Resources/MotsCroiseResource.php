@@ -17,7 +17,7 @@ class MotsCroiseResource extends Resource
 {
     protected static ?string $model = MotsCroise::class;
     protected static ?string $navigationLabel = 'Mots croisés';
-    protected static ?string $label = 'Mots croisés';   
+    protected static ?string $label = 'Mots croisés';
     protected static ?string $navigationGroup = 'Vidéos';
     protected static ?int $navigationSort = 3;
 
@@ -28,15 +28,20 @@ class MotsCroiseResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('code_vimeo')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\FileUpload::make('image_mot')
                     ->image()
                     ->required(),
                 Forms\Components\FileUpload::make('image_solution')
                     ->image()
                     ->required(),
-                Forms\Components\TextInput::make('code_vimeo')
+                Forms\Components\FileUpload::make('pdf')
+                    ->label('PDF')
                     ->required()
-                    ->maxLength(255),
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->maxSize(1024),
                 Forms\Components\Toggle::make('status')
                     ->label('Actif')
                     ->default(true),
@@ -52,7 +57,7 @@ class MotsCroiseResource extends Resource
                 Tables\Columns\ImageColumn::make('image_mot'),
                 Tables\Columns\ImageColumn::make('image_solution'),
                 Tables\Columns\TextColumn::make('code_vimeo')
-                    ->searchable(),  
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->label('Actif')
                     ->boolean()

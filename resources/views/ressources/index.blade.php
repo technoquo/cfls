@@ -13,7 +13,7 @@ $vimeos = $videos->map(function ($video) {
 
     <x-slot name="title">{!! $category->name !!}</x-slot>
 
-    <h1 class="flex justify-center uppercase text-5xl font-bold dark:text-white">
+    <h1 class="flex justify-center uppercase text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold dark:text-white">
         {{ $category->name }}
     </h1>
 
