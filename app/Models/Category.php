@@ -18,4 +18,14 @@ class Category extends Model
      {
         return $this->belongsTo(User::class);
      }
+
+    public function subCategories(): HasMany
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

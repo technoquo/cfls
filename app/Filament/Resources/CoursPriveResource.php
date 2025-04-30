@@ -26,15 +26,15 @@ class CoursPriveResource extends Resource
     protected static ?string $model = CoursPrive::class;
 
     protected static ?string $navigationLabel = 'Cours Privé';
-    protected static ?string $label = 'Cour Privé';   
+    protected static ?string $label = 'Cour Privé';
     protected static ?string $navigationGroup = 'Formations';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 4;
 
 
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([           
+        ->schema([
             RichEditor::make('description')
                 ->label('Description')
                 ->required()
@@ -50,22 +50,22 @@ class CoursPriveResource extends Resource
                 ->columnSpan(1),
             Hidden::make('formations_id')
                 ->default(7), // Valor predefinido para formations_id
-     
+
         ])
         ->columns(2); // 2 columns for the main form
     }
     public static function table(Table $table): Table
     {
         return $table
-        ->columns([          
+        ->columns([
             TextColumn::make('description')
-                ->label('Description')                   
+                ->label('Description')
                 ->searchable()
                 ->html()
                 ->limit(40)
                 ->sortable(),
             ImageColumn::make('image')
-                ->label('Image'),                    
+                ->label('Image'),
             IconColumn::make('status')
                 ->label('Actif')
                 ->boolean()

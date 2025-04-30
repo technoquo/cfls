@@ -16,6 +16,7 @@ Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
 Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
 Route::get('/formations/{slug}/calendrier', [FormationsController::class, 'calendrier'])->name('calendrier');
+//Route::get('/formations/{slug}/semain', [FormationsController::class, 'semain'])->name('semain');
 Route::get('/formations/{slug}/calendrier/{formation}', [FormationsController::class, 'formation'])->name('formation');
 Route::get('/formations/{slug}/courses', [FormationsController::class, 'courses'])->name('courses');
 Route::get('/formations/{slug}/courses/{nivel}', [FormationsController::class, 'niveau'])->name('niveau');

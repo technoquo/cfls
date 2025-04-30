@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Product;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class ProductResource extends Resource
+{
+    protected static ?string $model = Product::class;
+    protected static ?string $navigationLabel = 'Produits';
+    protected static ?string $label = 'Produit';
+    protected static ?string $navigationGroup = 'Catégories';
+    protected static ?int $navigationSort = 3;
+
+
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true) // Updates the slug as you type or on blur
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $set('slug', \Illuminate\Support\Str::slug($state));
+                    }),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('category_id')
+                    ->label('Catégorie')
+                    ->relationship('category', 'name', function ($query) {
+                        $query->where('type', 'product');
+                    })
+                    ->required()
+                    ->reactive(), // 👈 important for cascading
+
+                Forms\Components\Select::make('sub_category_id')
+                    ->label('Sous-catégorie')
+                    ->options(function (callable $get) {
+                        $categoryId = $get('category_id');
+
+                        if (!$categoryId) {
+                            return []; // No category selected yet
+                        }
+
+                        return \App\Models\SubCategory::where('category_id', $categoryId)
+                            ->pluck('name', 'id');
+                    })
+                    ->required()
+                    ->disabled(fn (callable $get) => !$get('category_id'))
+                    ->reactive(),
+                Forms\Components\RichEditor::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('€'),
+                Forms\Components\TextInput::make('stock')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\FileUpload::make('image')
+                    ->image(),
+                Forms\Components\TextInput::make('video')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('weight')
+                    ->numeric(),
+                Forms\Components\Toggle::make('status')
+                    ->label('Statut')
+                    ->default(true)
+                    ->required(),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Catégorie')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('subCategory.name')
+                    ->label('Sous-catégorie')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->money()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('stock')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('status')
+                    ->boolean(),
+
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListProducts::route('/'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
+        ];
+    }
+}

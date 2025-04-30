@@ -26,9 +26,9 @@ class FormationsResource extends Resource
     protected static ?string $model = Formations::class;
 
     protected static ?string $navigationLabel = 'Formation';
-    protected static ?string $label = 'Formation';   
+    protected static ?string $label = 'Formation';
     protected static ?string $navigationGroup = 'Formations';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
 
     public static function form(Form $form): Form
@@ -46,7 +46,7 @@ class FormationsResource extends Resource
                 TextInput::make('slug')
                 ->disabled() // Optional: prevents manual editing of the slug
                 ->dehydrated(true),
-                
+
             RichEditor::make('description')
                 ->label('Description')
                 ->required()
@@ -66,7 +66,7 @@ class FormationsResource extends Resource
                 ->relationship('info_formation')
                 ->schema([
                     TextInput::make('title')
-                        ->label('Titre')                        
+                        ->label('Titre')
                         ->maxLength(255)
                         ->columnSpan(1),
                     RichEditor::make('description')
@@ -91,23 +91,23 @@ class FormationsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->columns([              
+        ->columns([
             TextColumn::make('title')
-                 ->label('Titre')                    
+                 ->label('Titre')
                  ->searchable()
                  ->sortable(),
              TextColumn::make('description')
-                 ->label('Description')                   
+                 ->label('Description')
                  ->searchable()
                  ->html()
                  ->limit(40)
                  ->sortable(),
              ImageColumn::make('image')
-                 ->label('Image'),                    
+                 ->label('Image'),
              IconColumn::make('status')
                  ->label('Actif')
                  ->boolean()
-                 
+
          ])
             ->filters([
                 //

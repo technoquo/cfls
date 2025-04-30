@@ -20,7 +20,7 @@ class TableConversationResource extends Resource
     protected static ?string $navigationLabel = 'Tables de conversation';
     protected static ?string $label = 'Tables de conversation';
     protected static ?string $navigationGroup = 'Formations';
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 6;
 
 
     public static function form(Form $form): Form
@@ -29,21 +29,21 @@ class TableConversationResource extends Resource
             ->schema([
                 Forms\Components\DatePicker::make('date_start')
                     ->label('date de début')
-                    ->required(),               
+                    ->required(),
                 Forms\Components\TextInput::make('hour_start')
                     ->label('Heure de début')
                     ->required()
                     ->inputMode('numeric') // Suggests numeric keyboard on mobile
                     ->mask('99:99') // Enforces HH:MM pattern (e.g., 14:30)
                     ->placeholder('HH:MM') // Visual hint for the user
-                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),  
+                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),
                 Forms\Components\TextInput::make('hour_end')
                     ->label('Heure de fin')
                     ->required()
                     ->inputMode('numeric') // Suggests numeric keyboard on mobile
                     ->mask('99:99') // Enforces HH:MM pattern (e.g., 14:30)
                     ->placeholder('HH:MM') // Visual hint for the user
-                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),             
+                    ->rules(['regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/']),
                 Forms\Components\TextInput::make('price')
                     ->label('prix')
                     ->numeric()
@@ -73,12 +73,12 @@ class TableConversationResource extends Resource
                     ->label('Date de début')
                     ->date()
                     ->searchable()
-                    ->sortable(),              
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('hour_start')
                     ->label('Heure de début')
                     ->time('H:i A')
                     ->searchable()
-                    ->sortable(),           
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('inscription')
                     ->searchable()
                     ->label('Inscription'),

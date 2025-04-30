@@ -15,10 +15,10 @@
                 </p>
                 <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
 
-                    Formation accélérée - Carnaval Niv.2
+            {{$formation->title}} - {{ $inscription->levels->name }}
                 </p>
                 <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
-                    Commence le 3 mars 2025 à 09:00
+                    Commence:  {{ \Carbon\Carbon::parse($inscription->start_date)->format('d/m/Y') }} à {{ \Carbon\Carbon::createFromFormat('H:i', $inscription->hour_start)->format('g:i A') }}
                 </p>
                 <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
                     Avenue du Four à Briques
@@ -27,11 +27,18 @@
                     Anaïs
                 </p>
                 <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
-                    5 séances au total
+                    @php
+
+
+                        $start = \Carbon\Carbon::parse($inscription->start_date);
+                        $end = \Carbon\Carbon::parse($inscription->end_date);
+                        $totalDays = $start->diffInDays($end) + 1;
+                    @endphp
+                    {{$totalDays}} séances au total
                 </p>
-                </p>
+
                 <p class="max-w-2xl mb-2  font-semibold lg:mb-4 md:text-lg lg:text-xl dark:text-gray-400 mt-3">
-                    Détails du paiement <span class="text-blue-500">175 €</span>
+                    Détails du paiement <span class="text-blue-500"> {{ $inscription->price }} €</span>
                 </p>
             <div>
                 <form class="max-w-md mx-auto">
@@ -85,7 +92,7 @@
             </div>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="{{ asset('img/formations/PHOTO_FORMATION.png') }}" alt="mockup">
+            <img src="{{ asset('storage/'.$inscription->image) }}" alt="mockup">
         </div>
     </div>
 </x-layout>

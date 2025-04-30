@@ -19,9 +19,9 @@ class VimeoResource extends Resource
 {
     protected static ?string $model = Vimeo::class;
     protected static ?string $navigationLabel = 'Vimeo';
-    protected static ?string $label = 'Vimeo';   
+    protected static ?string $label = 'Vimeo';
     protected static ?string $navigationGroup = 'Vidéos';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -42,7 +42,7 @@ class VimeoResource extends Resource
                 Forms\Components\TextInput::make('slug')
                         ->required()
                         ->maxLength(255)
-                        ->unique(table: Vimeo::class, column: 'slug')
+                        ->unique(table: Vimeo::class, column: 'slug', ignorable: fn ($record) => $record)
                         ->validationMessages([
                             'unique' => 'Cette Slug est déjà utilisée. Veuillez en choisir un autre.',
                         ]),
@@ -53,16 +53,17 @@ class VimeoResource extends Resource
                     ->label('Image')
                     ->image()
                     ->maxSize(1024)
-                    ->acceptedFileTypes(['image/jpeg', 'image/png']),                    
+                    ->acceptedFileTypes(['image/jpeg', 'image/png']),
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
+                    ->default(true)
                     ->required(),
                     Forms\Components\Select::make('categories_id')
                     ->label('Catégorie')
                     ->options(Category::all()->pluck('name', 'id')->toArray())
                     ->required()
                     ->searchable()
-               
+
             ]);
     }
 
@@ -88,7 +89,7 @@ class VimeoResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-              
+
             ])
             ->filters([
                 //

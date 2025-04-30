@@ -15,7 +15,7 @@
                 <div class="absolute right-0 top-0 p-2">
                     <a href="{{asset('storage/'.$croise->pdf)}}" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-16 bg-red-500 rounded-full p-2 text-white">
+                            stroke="currentColor" class="size-10 bg-red-500 rounded-full p-2 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
                         </svg>
@@ -29,11 +29,11 @@
             </div>
 
             <!-- Imágenes con Alpine.js -->
-            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px]"
+            <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px] bg-white"
                 src="{{ asset($croise->image_mot) }}"
                 alt="{{ $croise->title }}" />
 
-            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px]"
+            <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px] bg-white"
                 src="{{ asset($croise->image_solution) }}"
                 alt="Solutions" />
 

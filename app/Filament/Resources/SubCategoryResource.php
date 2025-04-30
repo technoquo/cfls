@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Filament\Resources\SubCategoryResource\Pages;
+use App\Filament\Resources\SubCategoryResource\RelationManagers;
+use App\Models\SubCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CategoryResource extends Resource
+class SubCategoryResource extends Resource
 {
-    protected static ?string $model = Category::class;
-    protected static ?string $navigationLabel = 'Catégory';
-    protected static ?string $label = 'Catégory';
+    protected static ?string $model = SubCategory::class;
+    protected static ?string $navigationLabel = 'Sous-catégories';
+    protected static ?string $label = 'Sous-catégorie';
     protected static ?string $navigationGroup = 'Catégories';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
+
 
     public static function form(Form $form): Form
     {
@@ -29,24 +30,30 @@ class CategoryResource extends Resource
                     ->label('Nom')
                     ->required()
                     ->maxLength(255)
+                    ->required()
                     ->live(onBlur: true) // Updates the slug as you type or on blur
                     ->afterStateUpdated(function (callable $set, $state) {
                         $set('slug', \Illuminate\Support\Str::slug($state));
                     }),
-                Forms\Components\TextInput::make('slug'),
-                Forms\Components\Select::make('type') // Aquí corregido
-                ->label('Type')
-                    ->options([
-                        'video' => 'Video',
-                        'product' => 'Produit',
-                        'download' => 'Télécharger',
-                    ])
-                    ->required(),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('category_id')
+                    ->label('Catégorie')
+                    ->relationship('category', 'name', function ($query) {
+                        $query->where('type', 'product');
+                    })
+                    ->required()
+                    ->searchable()
+                    ->preload()
+                    ->reactive()
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $set('category_id', $state);
+                    }),
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
-                   ->default(true),
+                    ->required(),
             ]);
-
     }
 
     public static function table(Table $table): Table
@@ -54,23 +61,18 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('nom')
+                    ->label('Nom')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
-                    ->label('Slug'),
-                Tables\Columns\TextColumn::make('type')
-                    ->label('Type')
-                    ->formatStateUsing(function ($state) {
-                        return match($state) {
-                            'video' => 'Video',
-                            'product' => 'Produit',
-                            'download' => 'Télécharger',
-                            default => 'Inconnu',
-                        };
-                    }),
+                    ->label('Slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Catégorie')
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('status')
-                    ->label('statut')
+                    ->label('Statut')
                     ->boolean(),
+
             ])
             ->filters([
                 //
@@ -95,9 +97,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListSubCategories::route('/'),
+            'create' => Pages\CreateSubCategory::route('/create'),
+            'edit' => Pages\EditSubCategory::route('/{record}/edit'),
         ];
     }
 }

@@ -39,6 +39,11 @@ class SyllabuResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->image()
+                    ->required()
+                    ->maxSize(1024),
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
                     ->required(),

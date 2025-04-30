@@ -24,11 +24,11 @@ class ClientPrivateResource extends Resource
 {
     protected static ?string $model = ClientPrivate::class;
 
-    
+
     protected static ?string $navigationLabel = 'Clients privés';
-    protected static ?string $label = 'Clients privés';   
+    protected static ?string $label = 'Clients privés';
     protected static ?string $navigationGroup = 'Formations';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 5;
 
 
     public static function form(Form $form): Form
@@ -65,7 +65,7 @@ class ClientPrivateResource extends Resource
                 TextColumn::make('url')->label('URL'),
                 IconColumn::make('status')
                 ->label('Statut')
-                ->boolean(),   
+                ->boolean(),
             ])
             ->filters([
                 //
