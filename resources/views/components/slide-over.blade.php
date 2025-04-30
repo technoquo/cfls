@@ -97,7 +97,8 @@
                 if (productExists) {
                     productExists.quantity++;
                 } else {
-                    // Simulación de datos del producto (deberías obtenerlos de una API real)
+                    $data = App/Models/Product::find(productId);
+                    console.log($data);
                     const product = {
                         id: productId,
                         name: "Syllabus UE 1",

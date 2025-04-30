@@ -12,13 +12,13 @@ class BoutiqueController extends Controller
     }
 
     public function detail($slug)
-
-    
     {
-        return view('boutique.detail', compact('slug'));
+        $product = \App\Models\Product::where('slug', $slug)->first();
+        $imagefirst = $product->images->first()?->image_path;
+        return view('boutique.detail', compact('product', 'imagefirst'));
     }
 
-    public function checkout()    
+    public function checkout()
     {
         return view('boutique.checkout');
     }

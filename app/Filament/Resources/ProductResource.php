@@ -6,6 +6,8 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -70,8 +72,13 @@ class ProductResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
-                Forms\Components\FileUpload::make('image')
-                    ->image(),
+                Repeater::make('images')
+                    ->relationship('images')
+                    ->schema([
+                        FileUpload::make('image_path')->image()->directory('products'),
+                    ])
+                    ->label('Product Images')
+                    ->columns(1),
                 Forms\Components\TextInput::make('video')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('weight')
@@ -89,8 +96,7 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Catégorie')
                     ->sortable(),
@@ -98,7 +104,7 @@ class ProductResource extends Resource
                     ->label('Sous-catégorie')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('EUR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
                     ->numeric()
