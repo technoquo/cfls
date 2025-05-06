@@ -18,8 +18,15 @@ class BoutiqueController extends Controller
         return view('boutique.detail', compact('product', 'imagefirst'));
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
-        return view('boutique.checkout');
+        $cart = [];
+
+        if ($request->has('cart_data')) {
+            $cart = json_decode($request->input('cart_data'), true);
+        }
+
+
+        return view('boutique.checkout', compact('cart'));
     }
 }

@@ -34,8 +34,8 @@
                                 <div class="h-56 w-full">
                                     <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}">
                                         @foreach ($product->images as $image)
-                                            <img class="mx-auto h-full dark:hidden" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
-                                            <img class="mx-auto hidden h-full dark:block" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
+                                            <img class="mx-auto h-full dark:hidden object-cover" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
+                                            <img class="mx-auto hidden h-full dark:block  object-cover" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
                                         @endforeach
                                     </a>
                                 </div>

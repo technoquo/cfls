@@ -28,7 +28,7 @@ Route::get('/ressources/{category}/{slug}', [ResourceController::class, 'vimeo']
 // Route::get('/ressources/mots-croises', [ResourceController::class, 'mots'])->name('ressources.mots-croises');
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
-Route::get('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
+Route::post('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
 Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
