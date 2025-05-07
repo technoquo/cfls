@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoutiqueController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,6 +30,7 @@ Route::get('/ressources/{category}/{slug}', [ResourceController::class, 'vimeo']
 Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
 Route::get('/boutique/{slug}', [BoutiqueController::class, 'detail'])->name('boutique.detail');
 Route::post('/checkout', [BoutiqueController::class, 'checkout'])->name('boutique.checkout');
+Route::post('/cart/clear', [BoutiqueController::class, 'clear'])->name('cart.clear');
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
 Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
@@ -37,6 +39,7 @@ Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('sylla
 Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
 
 
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
 
 

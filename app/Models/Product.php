@@ -20,18 +20,25 @@ class Product extends Model
         'status',
     ];
 
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function subCategory()
+    public function subCategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(SubCategory::class);
     }
 
-    public function images()
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'product_orders')
+            ->withPivot('quantity', 'unit_price')
+            ->withTimestamps();
     }
 }

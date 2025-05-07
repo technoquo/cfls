@@ -38,7 +38,9 @@
             <!-- Nested list -->
             <ul class="pl-4">
                 @php
-                    $categories = App\Models\Category::where('status', 1)->get();
+                    $categories = App\Models\Category::whereStatus(1)
+                                    ->whereType('video')
+                                     ->get();
                 @endphp
                 @foreach ($categories as $category)
                     <li>
@@ -48,7 +50,7 @@
                         </a>
                     </li>
                 @endforeach
-             
+
             </ul>
         </li>
         <li>
@@ -57,7 +59,7 @@
                 <span class="ms-3">Boutique</span>
             </a>
         </li>
-        
+
         <li>
             <a href="{{ route('contact') }}"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">

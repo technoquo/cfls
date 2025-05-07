@@ -11,8 +11,10 @@ class Navigation extends Component
 
     public function mount()
     {
-        $this->submenus = Category::where('status', 1)->get();
-       
+        $this->submenus = Category::whereStatus(1)
+                                    ->whereType('video')
+                                     ->get();
+
     }
     public function render()
     {

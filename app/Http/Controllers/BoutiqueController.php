@@ -27,6 +27,13 @@ class BoutiqueController extends Controller
         }
 
 
+
         return view('boutique.checkout', compact('cart'));
+    }
+
+    public function clear(Request $request)
+    {
+        session()->forget('cart'); // o el método que uses
+        return response()->json(['status' => 'ok']);
     }
 }
