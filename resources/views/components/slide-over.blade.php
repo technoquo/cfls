@@ -2,11 +2,11 @@
 <div
     x-show="isOpen"
     x-data="cart()"
-    x-init="init()"
+    x-init="init();"
     @add-to-cart.window="addToCart($event.detail.id, $event.detail.quantity)"
     @keydown.escape.window="isOpen = false"
     x-transition
-    class="relative z-10"
+    class="relative z-10 "
     aria-labelledby="slide-over-title"
     role="dialog"
     aria-modal="true"
@@ -23,13 +23,13 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
         </svg>
         <span x-text="notification"></span>
-    </div>>
+    </div>
     <div class="fixed inset-0 bg-gray-500/75 transition-opacity"></div>
 
 
     <div class="fixed inset-0 overflow-hidden">
         <div class="absolute inset-0 overflow-hidden">
-            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 dark:bg-gray-900">
                 <div
                     class="pointer-events-auto w-screen max-w-md transform transition ease-in-out duration-300"
                     x-transition:enter="translate-x-full"
@@ -40,10 +40,10 @@
                     x-transition:leave-end="translate-x-full"
                     @click.away="isOpen = false"
                     >
-                    <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl dark:bg-gray-800">
                         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                             <div class="flex items-start justify-between">
-                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Mon Panier</h2>
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-white" id="slide-over-title">Mon Panier</h2>
                                 <div class="ml-3 flex h-7 items-center">
                                     <button @click="isOpen = false" type="button"
                                             class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
@@ -74,9 +74,9 @@
                                                 <div class="ml-4 flex flex-1 flex-col">
                                                     <!-- Name and price in a row -->
                                                     <a :href="'{{ url('boutique') }}/' + item.slug" x-text="item.name"
-                                                       class="text-blue-500 hover:underline"></a>
+                                                       class="text-blue-500 hover:underline dark:text-white"></a>
                                                     <div
-                                                        class="flex justify-between items-center text-base font-medium text-gray-900">
+                                                        class="flex justify-between items-center text-base font-medium text-gray-900 dark:text-white">
 
                                                         <span x-text="item.totalPrice.toFixed(2) + ' €'"></span>
                                                     </div>
@@ -115,7 +115,7 @@
 
                         <!-- Cart Total and Checkout -->
                         <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
-                            <div class="flex justify-between text-base font-medium text-gray-900">
+                            <div class="flex justify-between text-base font-medium text-gray-900 dark:text-white">
                                 <p>Sous-total</p>
                                 <p x-text="total.toFixed(2) + ' €'"></p>
                             </div>
@@ -124,7 +124,7 @@
                             <div class="mt-4">
                                 <button
                                     @click="clearCart()"
-                                    class="w-full text-red-600 hover:text-red-800 font-medium text-sm underline"
+                                    class="w-full text-red-600 hover:text-red-800 font-medium text-sm underline "
                                 >
                                     Vider le panier
                                 </button>
@@ -135,10 +135,14 @@
                                     <input type="hidden" name="cart_data" x-model="JSON.stringify(items)">
                                 </form>
                                 <button
+                                    x-text="items.length > 0 ? 'Passer à la caisse' : 'Voir le panier'"
                                     @click="$nextTick(() => { document.getElementById('checkout-form').submit() })"
-                                    class="flex items-center justify-center w-full rounded-md bg-csfl px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    :disabled="items.length === 0"
+                                    :class="items.length === 0
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-csfl hover:bg-indigo-700'"
+                                    class="flex items-center justify-center w-full rounded-md px-6 py-3 text-base font-medium text-white shadow-sm transition"
                                 >
-                                    Voir le panier
                                 </button>
                             </div>
                         </div>
@@ -153,12 +157,16 @@
 
         function cart() {
             return {
+
                 items: [],
                 total: 0,
                 notification: '',
 
+
                 init() {
-                    const savedItems = localStorage.getItem('cart-items');
+
+
+                    const savedItems = localStorage.getItem('cart');
                     const savedTotal = localStorage.getItem('cart-total');
 
                     if (savedItems) {
@@ -176,6 +184,7 @@
                 },
 
                 async addToCart(productId, quantity = 1) {
+
                     const existing = this.items.find(item => item.id === productId);
 
                     if (existing) {
@@ -200,10 +209,11 @@
                             quantity: quantity
                         };
 
-                        this.items.push(product);
+                        this.items = [...this.items, product];
                     }
 
                     this.updateTotal();
+                    this.isOpen = true; // 👈 abrir el slide-over
                     this.showNotification('Produit ajouté au panier');
                 },
 
@@ -213,8 +223,9 @@
                         item.totalPrice = item.price * item.quantity;
                     });
 
-                    localStorage.setItem('cart-items', JSON.stringify(this.items));
+                    localStorage.setItem('cart', JSON.stringify(this.items));
                     localStorage.setItem('cart-total', this.total.toFixed(2));
+                    window.dispatchEvent(new CustomEvent('cart-updated'));
                 },
 
                 increaseQuantity(id) {
@@ -249,10 +260,11 @@
                 clearCart() {
                     this.items = [];
                     this.total = 0;
-                    localStorage.removeItem('cart-items');
+                    localStorage.removeItem('cart');
                     localStorage.removeItem('cart-total');
                     this.showNotification('Produits supprimés');
-                    // Esperar 5 segundos antes de cerrar el slide-over
+                    window.dispatchEvent(new CustomEvent('cart-updated'));
+
                     setTimeout(() => {
                         this.isOpen = false;
                     }, 3000);

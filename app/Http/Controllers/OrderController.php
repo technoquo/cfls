@@ -13,12 +13,16 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+
+
+
         $data = $request->validate([
             'prenom' => 'required|string',
             'nom' => 'required|string',
             'email' => 'required|email',
             'tel' => 'required|string',
             'delivery' => 'required|string',
+            'adresse' => 'required|array',
             'total' => 'required|numeric',
             'produits' => 'required|array',
         ]);
@@ -30,7 +34,7 @@ class OrderController extends Controller
             'email' => $data['email'],
             'telephone' => $data['tel'],
             'delivery' => $data['delivery'] === 'livraison',
-            'address' => $request->input('address'),
+            'address' => json_encode($data['adresse']),
             'total' => $data['total'],
         ]);
 

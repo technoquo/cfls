@@ -18,8 +18,8 @@
                 </div>
                 <!-- Details Section -->
                 <div class="w-full md:w-1/2 space-y-4">
-                    <h2 class="text-3xl font-bold">{{ $product->name }}</h2>
-                    <p class="text-xl font-semibold" id="price">{{ $product->price }}€</p>
+                    <h2 class="text-3xl font-bold dark:text-white">{{ $product->name }}</h2>
+                    <p class="text-xl font-semibold dark" id="price">{{ $product->price }}€</p>
                     <div class="flex gap-4 mb-4">
                         <button @click="if (qty > 1) qty--" class="bg-gray-200 px-3 py-1 rounded">-</button>
                         <span x-text="qty" class="text-xl font-bold"></span>

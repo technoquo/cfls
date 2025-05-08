@@ -2,10 +2,11 @@
     x-data="{ isOpen: false, selectedProductId: null }"
     @open-slide-over.window="
         isOpen = true;
-        selectedProductId = $event.detail.id;
+        selectedProductId = $event.detail?.id;
     "
     @close="isOpen = false"
 >
+
 
     <form class="max-w-sm mx-auto justify-end mb-6">
         <label for="products" class="block mb-2 font-medium text-gray-900 dark:text-white text-2xl text-center">
@@ -30,18 +31,24 @@
 
                     <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                         @foreach ($products as $product)
-                            <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                            <div
+                                class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                                 <div class="h-56 w-full">
                                     <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}">
                                         @foreach ($product->images as $image)
-                                            <img class="mx-auto h-full dark:hidden object-cover" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
-                                            <img class="mx-auto hidden h-full dark:block  object-cover" src="{{ asset('storage/'.$image->image_path) }}" alt="{{$product->name}}" />
+                                            <img class="mx-auto h-full dark:hidden object-cover"
+                                                 src="{{ asset('storage/'.$image->image_path) }}"
+                                                 alt="{{$product->name}}"/>
+                                            <img class="mx-auto hidden h-full dark:block  object-cover"
+                                                 src="{{ asset('storage/'.$image->image_path) }}"
+                                                 alt="{{$product->name}}"/>
                                         @endforeach
                                     </a>
                                 </div>
 
                                 <div class="pt-6">
-                                    <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}" class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white line-clamp-2 h-12 block overflow-hidden">
+                                    <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}"
+                                       class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white line-clamp-2 h-12 block overflow-hidden">
                                         {{$product->name}}
                                     </a>
 
@@ -50,10 +57,19 @@
                                         {{$product->price}} €
                                     </span>
 
-                                            <button class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
-                                                    @click="isOpen = true; $dispatch('add-to-cart', { id: {{ $product->id }} })">
-                                                Ajouter au panier
-                                            </button>
+                                        <button
+                                            @click="
+                                                    window.dispatchEvent(new CustomEvent('add-to-cart', {
+                                                        detail: { id: {{ $product->id }}, quantity: 1 }
+                                                    }));
+                                                    window.dispatchEvent(new CustomEvent('open-slide-over', {
+                                                        detail: { id: {{ $product->id }} }
+                                                    }));
+                                                    "
+                                              class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
+                                              >
+                                            Ajouter au panier
+                                        </button>
 
 
                                     </div>
@@ -66,6 +82,6 @@
         </div>
     @endif
 
-    <x-slide-over x-show="isOpen" @close="isOpen = false" />
+
 
 </div>
