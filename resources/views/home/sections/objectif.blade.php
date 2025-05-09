@@ -1,17 +1,18 @@
-<section class=" bg-white dark:bg-gray-900 mb-4" {{ $mission->status ? '' : 'hidden' }}>
-    <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
-        <h2 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white uppercase">
-            {{ $mission->title }}</h2>
+<section class=" bg-white dark:bg-gray-900 " {{ $mission->status ? '' : 'hidden' }}>
+    <div class="max-w-screen-2xl  mx-auto">
+        <div>
+            <h2 class="text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white md:text-left text-center uppercase mb-5">
+                {{ $mission->title }}
+            </h2>
+
         <!-- Row -->
-        <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-            <div>
+          <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+            <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg">
                 <iframe src="https://player.vimeo.com/video/{{ $mission->video }}"
-                        width="640"
-                        height="360"
+                        class="absolute top-0 left-0 w-full h-full"
+                        frameborder="0"
                         allow="autoplay; fullscreen; picture-in-picture"
                         allowfullscreen>
-
-
                 </iframe>
             </div>
             <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
@@ -62,6 +63,7 @@
                     @endforeach
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </section>

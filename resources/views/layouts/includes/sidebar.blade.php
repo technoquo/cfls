@@ -21,7 +21,7 @@
          <li>
             <a href="{{ route('equipe') }}"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
-                <span class="ms-3">Qui sommes</span>
+                <span class="ms-3">Qui sommes-nous</span>
             </a>
         </li>
          <li>
@@ -30,29 +30,36 @@
                  <span class="ms-3">Formations</span>
              </a>
          </li>
-         <li>
-            <!-- Parent item (Ressources) -->
-            <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
-                <span class="ms-3">Videos</span>
-            </div>
-            <!-- Nested list -->
-            <ul class="pl-4">
-                @php
-                    $categories = App\Models\Category::whereStatus(1)
-                                    ->whereType('video')
-                                     ->get();
-                @endphp
-                @foreach ($categories as $category)
-                    <li>
-                        <a href="{{ route('ressources.slug', $category->slug) }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">
-                            <span class="ms-3">{{ $category->name }}</span>
-                        </a>
-                    </li>
-                @endforeach
+         <li x-data="{ openVideos: false }">
+             <!-- Botón de toggle -->
+             <button
+                 @click="openVideos = !openVideos"
+                 class="flex items-center justify-between w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group"
+             >
+                 <span class="ms-3">Videos</span>
+                 <svg :class="{ 'rotate-90': openVideos }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+                      stroke-width="2" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                 </svg>
+             </button>
 
-            </ul>
-        </li>
+             <!-- Submenú desplegable -->
+             <ul x-show="openVideos" x-collapse class="pl-6 mt-2 space-y-1">
+                 @php
+                     $categories = App\Models\Category::whereStatus(1)
+                         ->whereType('video')
+                         ->get();
+                 @endphp
+                 @foreach ($categories as $category)
+                     <li>
+                         <a href="{{ route('ressources.slug', $category->slug) }}"
+                            class="block p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700">
+                             {{ $category->name }}
+                         </a>
+                     </li>
+                 @endforeach
+             </ul>
+         </li>
         <li>
             <a href="{{ route('boutique.index') }}"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-csfl dark:hover:bg-gray-700 group">

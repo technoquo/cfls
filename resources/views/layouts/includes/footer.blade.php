@@ -5,7 +5,11 @@
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
               <a href="/" class="flex items-center">
-                <img class="object-contain w-32 h-auto" src="{{ asset('storage/' . $logo) }}" alt="CLFS Logo" />
+                  <img
+                      class="object-contain w-20 sm:w-24 md:w-32 h-auto"
+                      src="{{ asset('storage/' . $logo) }}"
+                      alt="CFLS Logo"
+                  />
 
               </a>
           </div>
