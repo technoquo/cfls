@@ -22,7 +22,7 @@ class VideoController extends Controller
             'url' => ['secure' => true]
         ]);
         // Replace 'your-folder-name' with your actual folder name
-        $folderPath = "Syllabus 2/THEME 8";
+        $folderPath = "Syllabus 2/THEME 10";
 
         $search = new SearchApi();
 
@@ -30,13 +30,13 @@ class VideoController extends Controller
 
         $response = $search->expression("resource_type:video AND folder:\"$folderPath\"")
             ->sortBy('created_at','desc')
-            ->maxResults(30)
+            ->maxResults(200)
             ->execute();
         foreach ($response['resources'] as $video) {
             DB::table('video_themes_cloudinary')->insert([
                 'title' => $video['display_name'] ?? $video['public_id'], // por si no existe display_name
                 'slug' => Str::slug($video['display_name'] ?? $video['public_id']),
-                'theme_id' => 18, //Je Mange
+                'theme_id' => 19, //10. À l'école
                 'syllabu_id' => 2, // Syllabus 2
                 'url' => $video['url'],
                 'active' => 1,
