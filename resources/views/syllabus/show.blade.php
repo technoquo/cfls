@@ -18,9 +18,13 @@
 
                     <button
                         onclick="window.history.back()"
-                        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+
                     >
-                        ⬅ Retourn
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+
                     </button>
 
                 <!-- Scrollable List -->
