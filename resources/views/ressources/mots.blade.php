@@ -30,11 +30,11 @@
 
             <!-- Imágenes con Alpine.js -->
             <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px] bg-white"
-                src="{{ asset($croise->image_mot) }}"
+                src="{{ asset('storage/'.$croise->image_mot) }}"
                 alt="{{ $croise->title }}" />
 
             <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px] bg-white"
-                src="{{ asset($croise->image_solution) }}"
+                src="{{ asset('storage/'.$croise->image_solution) }}"
                 alt="Solutions" />
 
             @php

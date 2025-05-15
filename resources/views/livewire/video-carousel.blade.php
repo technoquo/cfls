@@ -6,7 +6,7 @@
 <style>
 
 </style>
- 
+
 <div
 x-data="{
     glide: null,
@@ -24,7 +24,7 @@ x-data="{
 
         // Check if the stored basePath matches the current basePath
         const storedBasePath = localStorage.getItem('currentBasePath');
-        
+
         if (storedBasePath !== this.basePath) {
             // If different, reset the glide position to zero and store the new basePath
             localStorage.setItem('glidePosition', 0);
@@ -62,9 +62,9 @@ x-data="{
                 @foreach ($vimeos as $vimeo)
                 <li class="glide__slide flex flex-col items-center justify-center pb-6">
                     <a wire:navigate href="{{ route('ressources.vimeo', ['category' => $vimeo->category->slug, 'slug' => $vimeo->slug]) }}"
-                        @click="localStorage.setItem('glidePosition', glide.index)" 
+                        @click="localStorage.setItem('glidePosition', glide.index)"
                         >
-                    <img class="w-full" src="{{ asset($vimeo['image']) }}" alt="{{ $vimeo['title'] }}">
+                    <img class="w-full" src="{{ asset('storage/'.$vimeo['image']) }}" alt="{{ $vimeo['title'] }}">
                     <div class="text-center mt-2">
                         <h3 class="text-lg font-semibold text-gray-800">{{ $vimeo['title'] }}</h3>
                     </div>
