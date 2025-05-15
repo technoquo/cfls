@@ -19,7 +19,7 @@ class CompanyResource extends Resource
 
 
     protected static ?string $navigationLabel = 'Sociétés';
-    protected static ?string $label = 'Société';   
+    protected static ?string $label = 'Société';
     protected static ?string $navigationGroup = 'Gestion des sociétés';
     protected static ?int $navigationSort = 1;
 
@@ -70,7 +70,7 @@ class CompanyResource extends Resource
                 Forms\Components\Textarea::make('scheduler')
                     ->label('Horaires de la société')
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('transport')
+                Forms\Components\RichEditor::make('transport')
                     ->label('Transport de la société')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('website')
@@ -88,7 +88,7 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('bank')
                     ->label('Banque de la société')
                     ->maxLength(255),
-               
+
             ]);
     }
 
@@ -104,7 +104,7 @@ class CompanyResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mobile')
-                    ->searchable(),              
+                    ->searchable(),
             ])
             ->filters([
                 //

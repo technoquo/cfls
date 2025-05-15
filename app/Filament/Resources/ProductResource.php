@@ -83,10 +83,16 @@ class ProductResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('weight')
                     ->numeric(),
-                Forms\Components\Toggle::make('status')
+                Forms\Components\Select::make('status')
                     ->label('Statut')
-                    ->default(true)
-                    ->required(),
+                    ->options([
+                        3 => 'Épuisé',
+                        2 => 'Nouveau',
+                        1 => 'Actif',
+                        0 => 'Inactif',
+                    ])
+                    ->default(1) // Puedes cambiar a 2 o 0 según lo que necesites por defecto
+                    ->required()
             ]);
     }
 

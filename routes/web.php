@@ -3,6 +3,7 @@
 use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VideoController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\SyllabusController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
+
+
 
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
 Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
@@ -40,13 +43,6 @@ Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name
 
 
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-
-
-
-
-
-
-
 
 
 Route::middleware([

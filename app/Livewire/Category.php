@@ -17,8 +17,16 @@ class Category extends Component
 
     public function mount()
     {
+        // Actualizar productos que ya no son nuevos
+        Product::where('status', 2)
+            ->where('created_at', '<=', now()->subMonths(2))
+            ->update(['status' => 1]);
+
+
+
+       // Luego continúa con tu lógica actual
         $this->categories = CategoryModel::where('type', 'product')
-            ->where('status', 1)
+            ->whereStatus(1)
             ->orderBy('name', 'desc')
             ->get();
 

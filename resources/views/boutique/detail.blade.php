@@ -11,9 +11,9 @@
                     </div>
                     <div class="flex gap-2 mt-4">
                         <!-- Thumbnails -->
-                        <img src="{{ asset('storage/'.$imagefirst) }}" alt="Thumbnail 1" class="w-36 h-auto rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500" @click="fade = true; setTimeout(() => selectedImage = '{{ asset('storage/'.$imagefirst) }}', 200)"/>
-                        <img src="https://static.wixstatic.com/media/beceb7_f878cfbc95e0473c87b89dae969895ae~mv2.jpg/v1/fill/w_500,h_750,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/beceb7_f878cfbc95e0473c87b89dae969895ae~mv2.jpg" alt="Thumbnail 2" class="w-36 h-auto rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500" @click="fade = true; setTimeout(() => selectedImage = 'https://static.wixstatic.com/media/beceb7_f878cfbc95e0473c87b89dae969895ae~mv2.jpg/v1/fill/w_500,h_750,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/beceb7_f878cfbc95e0473c87b89dae969895ae~mv2.jpg', 200)"/>
-                        <img src="https://static.wixstatic.com/media/beceb7_f9e9ecf17b7f4993a59d20a5a25142aa~mv2.jpg/v1/fill/w_500,h_750,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/beceb7_f9e9ecf17b7f4993a59d20a5a25142aa~mv2.jpg" alt="Thumbnail 3" class="w-36 h-auto rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500" @click="fade = true; setTimeout(() => selectedImage = 'https://static.wixstatic.com/media/beceb7_f9e9ecf17b7f4993a59d20a5a25142aa~mv2.jpg/v1/fill/w_500,h_750,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/beceb7_f9e9ecf17b7f4993a59d20a5a25142aa~mv2.jpg', 200)"/>
+                        @foreach($images as $image)
+                        <img src="{{ asset('storage/'.$image->image_path) }}" alt="Thumbnail 1" class="w-36 h-auto rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500" @click="fade = true; setTimeout(() => selectedImage = '{{ asset('storage/'.$image->image_path) }}', 200)"/>
+                        @endforeach
                     </div>
                 </div>
                 <!-- Details Section -->

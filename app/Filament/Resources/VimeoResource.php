@@ -27,9 +27,9 @@ class VimeoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code_vimeo')
+                Forms\Components\TextInput::make('url_cloudinary')
                     ->required()
-                    ->numeric(),
+                    ->label('URL Cloudinary'),
                 Forms\Components\TextInput::make('title')
                     ->label('Titre')
                     ->required()
@@ -71,9 +71,6 @@ class VimeoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('code_vimeo')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Titre')
                     ->searchable(),

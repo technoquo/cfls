@@ -13,7 +13,7 @@
         <!-- Transport public -->
         <div class="mb-4 text-center">
             <h3 class="md:text-2xl font-semibold dark:text-gray-400">Transport public</h3>
-            {{ $data->transport }}
+            {!! $data->transport !!}
         </div>
 
         <!-- Informations de contact -->

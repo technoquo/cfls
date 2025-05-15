@@ -37,8 +37,16 @@
                 src="{{ asset($croise->image_solution) }}"
                 alt="Solutions" />
 
+            @php
+                $url =$croise->code_vimeo;
+                $path = parse_url($url, PHP_URL_PATH);
+                $filename = basename($path);
+                $publicIdEncoded = pathinfo($filename, PATHINFO_FILENAME);
+                $publicId = urldecode($publicIdEncoded);
+            @endphp
+
             <div x-show="active === 'solutions-signees'" x-cloak class="w-full h-[350px]">
-                <iframe class="w-full h-full rounded-lg" src="https://player.vimeo.com/video/{{ $croise->code_vimeo }}" frameborder="0"
+                <iframe class="w-full h-full rounded-lg" src="https://player.cloudinary.com/embed/?cloud_name={{ config('services.cloudinary.cloud_name') }}&public_id={{ $publicId }}&profile=cld-default" frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
                 </iframe>
             </div>

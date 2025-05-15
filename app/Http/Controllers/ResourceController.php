@@ -69,16 +69,16 @@ class ResourceController extends Controller
 
         $category = Category::where('slug', $category)->first();
 
-        $vimeo = Vimeo::where('slug', $slug)->first();
+        $video = Vimeo::where('slug', $slug)->first();
 
 
-        $vimeos = $category->videos->sortBy('title');
+        $videos = $category->videos->sortBy('title');
 
-        if (!$vimeo) {
+        if (!$video) {
             // Handle case where no videos exist
-            $vimeo = null; // Or set a default video object if desired
+            $video = null; // Or set a default video object if desired
         }
-        return view('ressources.vimeo', compact('category','vimeo', 'vimeos'));
+        return view('ressources.vimeo', compact('category','video', 'videos'));
     }
 
 

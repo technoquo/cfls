@@ -1,24 +1,24 @@
 <section class=" bg-white dark:bg-gray-900 " {{ $mission->status ? '' : 'hidden' }}>
     <div class="max-w-screen-2xl  mx-auto">
-        <div>
-            <h2 class="text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white md:text-left text-center uppercase mb-5">
-                {{ $mission->title }}
-            </h2>
-
-        <!-- Row -->
-          <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-            <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg">
-                <iframe src="https://player.vimeo.com/video/{{ $mission->video }}"
-                        class="absolute top-0 left-0 w-full h-full"
-                        frameborder="0"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-            </div>
-            <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
-                <div x-data="{ active: 1 }" class="mx-auto min-h-[16rem] w-full max-w-3xl">
-                    @foreach ($mission->objectives as $key => $objective)
-                        <div x-data="{
+            <!-- Row -->
+            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+              <div>
+                  <h2 class="mb-4 mt-8   md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
+                      {{ $mission->title }}
+                  </h2>
+                  <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg">
+                      <iframe src="https://player.vimeo.com/video/{{ $mission->video }}"
+                              class="absolute top-0 left-0 w-full h-full"
+                              frameborder="0"
+                              allow="autoplay; fullscreen; picture-in-picture"
+                              allowfullscreen>
+                      </iframe>
+                  </div>
+              </div>
+                <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
+                    <div x-data="{ active: 1 }" class="mx-auto min-h-[16rem] w-full max-w-3xl">
+                        @foreach ($mission->objectives as $key => $objective)
+                            <div x-data="{
                             id: {{ $key + 1 }},
                             get expanded() {
                                 return this.active === this.id
@@ -27,43 +27,43 @@
                                 this.active = value ? this.id : null
                             },
                         }" role="region"
-                            class="block border-b border-gray-800/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0">
-                            <h2>
-                                <button type="button" x-on:click="expanded = !expanded" :aria-expanded="expanded"
-                                    class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-csfl font-bold text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
-                                    <span class="flex-1">{{ $objective->title }}</span>
+                                 class="block border-b border-gray-800/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0">
+                                <h2>
+                                    <button type="button" x-on:click="expanded = !expanded" :aria-expanded="expanded"
+                                            class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-csfl font-bold text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+                                        <span class="flex-1">{{ $objective->title }}</span>
 
-                                    <!-- Heroicons mini chevron-up -->
-                                    <svg x-show="expanded" x-cloak
-                                        class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
+                                        <!-- Heroicons mini chevron-up -->
+                                        <svg x-show="expanded" x-cloak
+                                             class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
+                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                             fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                  d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
 
-                                    <!-- Heroicons mini chevron-down -->
-                                    <svg x-show="!expanded"
-                                        class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                        fill="currentColor" data-slot="icon">
-                                        <path fill-rule="evenodd"
-                                            d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </h2>
+                                        <!-- Heroicons mini chevron-down -->
+                                        <svg x-show="!expanded"
+                                             class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
+                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                             fill="currentColor" data-slot="icon">
+                                            <path fill-rule="evenodd"
+                                                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                </h2>
 
-                            <div x-show="expanded" x-collapse>
-                                <div class="pt-2 text-gray-600 dark:text-white max-w-xl lg:text-2xl">
-                                    {{ $objective->description }} </div>
+                                <div x-show="expanded" x-collapse>
+                                    <div class="pt-2 text-gray-600 dark:text-white max-w-xl lg:text-2xl">
+                                        {{ $objective->description }} </div>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
+
     </div>
 </section>

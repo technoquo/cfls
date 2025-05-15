@@ -15,7 +15,8 @@ class BoutiqueController extends Controller
     {
         $product = \App\Models\Product::where('slug', $slug)->first();
         $imagefirst = $product->images->first()?->image_path;
-        return view('boutique.detail', compact('product', 'imagefirst'));
+        $images = $product->images;
+        return view('boutique.detail', compact('product', 'imagefirst', 'images'));
     }
 
     public function checkout(Request $request)

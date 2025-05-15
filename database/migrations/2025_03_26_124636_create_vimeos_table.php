@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vimeos', function (Blueprint $table) {
             $table->id();
-            $table->integer('code_vimeo');
+            $table->string('url_cloudinary');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
