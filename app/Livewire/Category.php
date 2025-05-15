@@ -5,7 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Category as CategoryModel;
 use App\Models\Product;
-use App\Models\Subcategory;
+use App\Models\SubCategory;
 
 class Category extends Component
 {
@@ -34,7 +34,7 @@ class Category extends Component
             $this->selectedCategory = $this->categories->first()->id;
 
             // Cargar subcategorías
-            $this->subcategories = Subcategory::where('category_id', $this->selectedCategory)->get();
+            $this->subcategories = SubCategory::where('category_id', $this->selectedCategory)->get();
             // Agrupar productos por subcategoría
             $this->groupedProducts = [];
             foreach ($this->subcategories as $subcategory) {
@@ -50,7 +50,7 @@ class Category extends Component
     public function updatedSelectedCategory($value)
     {
         if ($value) {
-            $this->subcategories = Subcategory::where('category_id', $value)->get();
+            $this->subcategories = SubCategory::where('category_id', $value)->get();
 
             // Agrupar productos por subcategoría
             $this->groupedProducts = [];
