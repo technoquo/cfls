@@ -78,9 +78,6 @@
                   </svg>
                   <span class="sr-only">WhatsApp</span>
               </a>
-
-
-              </a>
           </div>
       </div>
     </div>

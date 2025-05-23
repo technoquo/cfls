@@ -1,8 +1,8 @@
 <!-- Darkmode Toggler -->
-<button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+<button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-3 bg-white dark:bg-gray-800">
     <img id="theme-toggle-dark-icon" src="{{ asset('img/sombre.png') }}" class="w-16 h-auto" alt="Darkmode Icon" />
     <img id="theme-toggle-light-icon" src="{{ asset('img/clair.png') }}" class="w-16 h-auto hidden" alt="Lightmode Icon" />
-   
+
 </button>
 @push('scripts')
 <script>
@@ -46,7 +46,7 @@ themeToggleBtn.addEventListener('click', function() {
             localStorage.setItem('color-theme', 'dark');
         }
     }
-    
+
 });
 </script>
 @endpush

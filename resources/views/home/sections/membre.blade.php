@@ -27,7 +27,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
             </a>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex wow animate__animated animate__backInDown">
-            <img src="{{ asset('storage/'. $members->image ) }}" alt="mockup">
+            <img src="{{ asset('storage/'. $members->image ) }}" alt="membre" class="w-50 h-auto rounded-lg shadow-lg" />
         </div>
     </div>
 </section>

@@ -16,7 +16,7 @@
           >
         <img src="{{ asset('storage/'. $calendar->image) }}" alt="placeholder"  class="w-full max-w-[150px] sm:max-w-[200px] h-auto object-cover rounded-lg mb-4">
 
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$formation->title}} - {{$calendar->levels->name}}</h5>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ str_replace('Formations accélérées', 'Formation accélérée', $formation->title) }} - {{$calendar->levels->name}}</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400 mb-3">Niveau  {{$calendar->levels->level}}, du {{ \Carbon\Carbon::parse($calendar->start_date)->format('d/m/Y') }}
             au {{ \Carbon\Carbon::parse($calendar->end_date)->format('d/m/Y') }}
              @if($calendar->day) ({{$calendar->day}}) @endif </p>

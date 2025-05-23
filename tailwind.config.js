@@ -19,6 +19,7 @@ export default {
             },
             colors: {
                 csfl: '#008bcf', // Define tu color personalizado aquí
+                csfllight: '#92D5FF', // Define tu color personalizado aquí
             },
         },
     },
