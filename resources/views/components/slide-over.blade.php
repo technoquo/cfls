@@ -3,7 +3,7 @@
     x-show="isOpen"
     x-data="cart()"
     x-init="init();"
-    @add-to-cart.window="addToCart($event.detail.id, $event.detail.quantity)"
+    @add-to-cart.window="addToCart($event.detail.id, $event.detail.quantity, $event.detail.choix)"
     @keydown.escape.window="isOpen = false"
     x-transition
     class="relative z-10 "
@@ -61,7 +61,7 @@
                             <div class="mt-8">
                                 <div class="flow-root">
                                     <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                        <template x-for="item in items" :key="item.id">
+                                        <template x-for="item in items" :key="item.id + '-' + (item.choix ?? '')">
                                             <li class="flex py-6">
                                                 <!-- Product image -->
                                                 <div
@@ -75,6 +75,11 @@
                                                     <!-- Name and price in a row -->
                                                     <a :href="'{{ url('boutique') }}/' + item.slug" x-text="item.name"
                                                        class="text-blue-500 hover:underline dark:text-white"></a>
+                                                    <div class="flex justify-between items-center mt-2">
+                                                        <p class="text-sm text-gray-500 dark:text-gray-300"
+                                                           x-text="item.choix ? 'Choix: ' + item.choix : ''"></p>
+                                                    </div>
+
                                                     <div
                                                         class="flex justify-between items-center text-base font-medium text-gray-900 dark:text-white">
 
@@ -183,9 +188,12 @@
                     });
                 },
 
-                async addToCart(productId, quantity = 1) {
+                async addToCart(productId, quantity = 1, choix = null) {
 
-                    const existing = this.items.find(item => item.id === productId);
+
+                    const existing = this.items.find(
+                        item => item.id === productId && item.choix === choix
+                    );
 
                     if (existing) {
                         // ✅ Sumar la nueva cantidad a la existente
@@ -203,6 +211,7 @@
                             slug: data.slug,
                             weight: weight * qty,
                             price: parseFloat(data.price),
+                            choix: choix,
                             image: data.images.length
                                 ? `/storage/${data.images[0].image_path}`
                                 : '/img/default.jpg',

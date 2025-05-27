@@ -23,7 +23,7 @@ class DonResource extends Resource
     protected static ?string $model = Don::class;
 
     protected static ?string $navigationLabel = 'Don';
-    protected static ?string $label = 'Don';   
+    protected static ?string $label = 'Don';
     protected static ?string $navigationGroup = 'Gestion des sociétés';
     protected static ?int $navigationSort = 4;
 
@@ -34,7 +34,7 @@ class DonResource extends Resource
                 TextInput::make('title')
                     ->label('Titre')
                     ->required(),
-                RichEditor::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Description')
                     ->required(),
                 FileUpload::make('image')
@@ -58,14 +58,14 @@ class DonResource extends Resource
                 ->label('Description')
                 ->html()
                 ->searchable()
-                ->limit(80),                
+                ->limit(80),
               Tables\Columns\ImageColumn::make('image')
                 ->label('Image')
                 ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                  ->label('Statut')
                  ->boolean(),
-             
+
             ])
             ->filters([
                 //

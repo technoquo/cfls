@@ -9,7 +9,18 @@
 p {
     font-size: 1.5rem;
     line-height: 2rem;
+    color: black;
 }
+
+html.dark p {
+    color: white;
+}
+
+html.light p {
+    color: black;
+}
+
+
 @media (max-width: 768px) {
     p {
         font-size: 1.125rem; /* 18px */

@@ -27,6 +27,8 @@ class OrderController extends Controller
             'produits' => 'required|array',
         ]);
 
+
+
         $commande = \App\Models\Order::create([
             'user_id' => auth()->id(),
             'first_name' => $data['prenom'],
@@ -38,9 +40,11 @@ class OrderController extends Controller
             'total' => $data['total'],
         ]);
 
+
         foreach ($data['produits'] as $produit) {
             $commande->products()->attach($produit['id'], [
                 'quantity' => $produit['quantity'],
+                'choix' => $produit['choix'] ?? null,
                 'unit_price' => $produit['price'],
             ]);
         }

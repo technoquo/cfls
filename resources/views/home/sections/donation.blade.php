@@ -11,7 +11,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         <div class="text-gray-700 sm:text-lg dark:text-gray-400  wow animate__animated animate__backInLeft">
             <h2 class="mb-4 font-extrabold tracking-tight leading-none text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl dark:text-white text-black">{{ $don->title }}</h2>
             <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
-            <p class="mb-8 font-medium lg:text-xl">{!! $don->description !!}</p>
+            <p class="mb-8 font-medium lg:text-xl text-gray-800 dark:text-white">{!! $don->description !!}</p>
             <!-- List -->
 
         </div>

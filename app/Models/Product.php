@@ -13,6 +13,7 @@ class Product extends Model
         'sub_category_id',
         'description',
         'price',
+        'choix',
         'stock',
         'image',
         'video',
@@ -40,5 +41,10 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'product_orders')
             ->withPivot('quantity', 'unit_price')
             ->withTimestamps();
+    }
+
+    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductOption::class);
     }
 }

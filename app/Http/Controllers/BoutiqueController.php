@@ -16,7 +16,8 @@ class BoutiqueController extends Controller
         $product = \App\Models\Product::where('slug', $slug)->first();
         $imagefirst = $product->images->first()?->image_path;
         $images = $product->images;
-        return view('boutique.detail', compact('product', 'imagefirst', 'images'));
+        $options = $product->options;
+        return view('boutique.detail', compact('product', 'imagefirst', 'images', 'options'));
     }
 
     public function checkout(Request $request)
@@ -26,6 +27,7 @@ class BoutiqueController extends Controller
         if ($request->has('cart_data')) {
             $cart = json_decode($request->input('cart_data'), true);
         }
+
 
 
 

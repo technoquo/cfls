@@ -1,7 +1,7 @@
 
 @props(['logo' => null])
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,11 +9,23 @@
     <title>{{ $title . ' - ' .  config('app.name', 'Laravel') ?? config('app.name', 'Laravel') }}</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=alata:400,500&display=swap" rel="stylesheet" />
+{{--    <link href="https://fonts.bunny.net/css?family=alata:400,500&display=swap" rel="stylesheet" />--}}
+    <link href="https://fonts.bunny.net/css?family=assistant:200,300,400,500,600,700,800" rel="stylesheet" />
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/ccc950231e.js" crossorigin="anonymous"></script>
+    <script>
+        const html = document.documentElement;
+        const theme = localStorage.getItem('color-theme');
 
+        if (theme === 'dark') {
+            html.classList.add('dark');
+            html.classList.remove('light');
+        } else {
+            html.classList.add('light');
+            html.classList.remove('dark');
+        }
+    </script>
 
 
 

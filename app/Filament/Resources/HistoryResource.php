@@ -25,7 +25,7 @@ class HistoryResource extends Resource
     protected static ?string $model = History::class;
 
     protected static ?string $navigationLabel = 'Historie';
-    protected static ?string $label = 'Historie';   
+    protected static ?string $label = 'Historie';
     protected static ?string $navigationGroup = 'Gestion des sociétés';
     protected static ?int $navigationSort = 2;
 
@@ -36,7 +36,7 @@ class HistoryResource extends Resource
                  TextInput::make('title')
                     ->label('Titre')
                     ->required(),
-                RichEditor::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('')
                     ->required(),
                 TextInput::make('video')
@@ -52,7 +52,7 @@ class HistoryResource extends Resource
     {
         return $table
             ->columns([
-               TextColumn::make('title')                   
+               TextColumn::make('title')
                     ->searchable()
                     ->label('Titre'),
                 TextColumn::make('description')
@@ -61,7 +61,7 @@ class HistoryResource extends Resource
                     ->label('Description')
                     ->limit(80)
                     ->html(),
-                    
+
                IconColumn::make('status')
                     ->label('Statut')
                     ->boolean(),

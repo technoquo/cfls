@@ -41,6 +41,7 @@
 
                     <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                         @foreach ($products as $product)
+
                             <div
                                 @class([
                                     'rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800',
@@ -84,6 +85,20 @@
                                         {{$product->name}}
                                     </a>
 
+                                    @if($product->options->isNotEmpty())
+                                        <div class="space-y-4 mt-2">
+                                            <label for="choice" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sélectionner:</label>
+                                            <div class="flex items-center gap-2">
+                                                <select x-ref="choice" id="choice" name="choice"
+                                                        class="border rounded px-4 py-2 w-full sm:w-64 text-base bg-white dark:bg-gray-800 dark:text-white">
+                                                    @foreach($product->options as $option)
+                                                        <option value="{{ $option->option_name }}">{{ $option->option_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="mt-3 flex items-center justify-between gap-4 min-h-[50px]">
                                     <span class="text-lg font-semibold text-gray-900 dark:text-white whitespace-nowrap">
                                         {{$product->price}} €
@@ -98,8 +113,9 @@
                                         @else
                                             <button
                                                 @click="
+                                                const selected = $refs.choice?.value ?? null;
                                                 window.dispatchEvent(new CustomEvent('add-to-cart', {
-                                                detail: { id: {{ $product->id }}, quantity: 1 }
+                                                detail: { id: {{ $product->id }}, quantity: 1,  choix: selected }
                                                 }));
                                                 window.dispatchEvent(new CustomEvent('open-slide-over', {
                                                 detail: { id: {{ $product->id }} }

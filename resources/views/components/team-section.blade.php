@@ -6,7 +6,7 @@
                     <img class=" rounded  mt-4" src="{{ asset('storage/'. $member['image']) }}" alt="{{ $member->user->name }}">
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-semibold dark:text-white">{{ $member->user->name }}</h3>
-                        <p class="mt-2 text-base dark:text-gray-400">{{ $member->position->name }}</p>
+                        <p class="mt-2 text-base text-black dark:text-gray-400">{{ $member->position->name }}</p>
                     </div>
                 </div>
             @endforeach

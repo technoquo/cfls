@@ -111,6 +111,12 @@
                                         : {{ $product['quantity'] }}</p>
                                 </div>
                             </div>
+                            @if($product['choix'] > 0)
+                                <div>
+                                <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
+                                </div>
+                            @endif
+
                             <p class="text-lg font-semibold dark:text-white">{{ number_format($product['totalPrice'], 2) }}
                                 €</p>
                         </div>

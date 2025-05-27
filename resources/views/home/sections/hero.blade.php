@@ -12,7 +12,7 @@
         <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
             <div class="text-gray-700 sm:text-lg dark:text-gray-400">
                 <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
-                <p class="font-medium lg:text-2xl">{!! $history->description !!}</p>
+                <p class="font-medium lg:text-2xl text-gray-800 dark:text-white">{!! $history->description !!}</p>
                 <!-- List -->
 
             </div>

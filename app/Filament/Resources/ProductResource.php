@@ -79,6 +79,16 @@ class ProductResource extends Resource
                     ])
                     ->label('Product Images')
                     ->columns(1),
+                Forms\Components\Repeater::make('options')
+                    ->relationship('options')
+                    ->schema([
+                        Forms\Components\TextInput::make('option_name')
+                            ->label('Nom de l\'option')
+                            ->required()
+                            ->maxLength(255),
+                    ])
+                    ->label('Options du produit')
+                    ->columns(1),
                 Forms\Components\TextInput::make('video')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('weight')
