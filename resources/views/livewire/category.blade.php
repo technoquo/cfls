@@ -112,17 +112,16 @@
                                             </button>
                                         @else
                                             <button
-                                                @click="
-                                                const selected = $refs.choice?.value ?? null;
-                                                window.dispatchEvent(new CustomEvent('add-to-cart', {
-                                                detail: { id: {{ $product->id }}, quantity: 1,  choix: selected }
-                                                }));
-                                                window.dispatchEvent(new CustomEvent('open-slide-over', {
-                                                detail: { id: {{ $product->id }} }
-                                                }));
-                                                "
                                                 class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
-                                            >
+                                                @click="
+                                                   window.dispatchEvent(new CustomEvent('add-to-cart', {
+                                                        detail: {
+                                                            id: {{ $product->id }},
+                                                            quantity: 1,
+                                                            choix: $refs.choice?.value ?? null
+                                                        }
+                                                    }));
+                                                ">
                                                 Ajouter au panier
                                             </button>
                                         @endif

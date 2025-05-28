@@ -14,17 +14,18 @@
         </div>
 
         <div class="max-w-4xl mx-auto space-y-8">
+            <!-- Información Personal -->
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations Personnelles</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Prénom</label>
-                        <input type="text" placeholder="Prénom"
+                        <input type="text" placeholder="Prénom" name="first_name"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom</label>
-                        <input type="text" placeholder="Nom"
+                        <input type="text" placeholder="Nom" name="second_name"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     </div>
                     <div>
@@ -34,15 +35,51 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Téléphone</label>
-                        <input type="tel" placeholder="Téléphone"
+                        <input type="tel" placeholder="Téléphone" name="telephone"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
                     </div>
                 </div>
             </div>
 
-            <!-- Formulaire visible seulement si livraison standard -->
-            <div x-show="delivery === 'livraison'" x-transition
-                 class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mt-4">
+            <!-- Opciones de Entrega -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 class="text-3xl font-semibold mb-4 dark:text-white">Mode de Livraison</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <input type="radio"
+                               x-model="delivery"
+                               value="retrait"
+                               id="pickup"
+                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="pickup" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
+                            Retrait en magasin (Gratuit)
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="radio"
+                               x-model="delivery"
+                               value="livraison"
+                               id="delivery"
+                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="delivery" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
+                            Livraison à domicile
+                            <span class="text-sm text-gray-500 dark:text-gray-400" x-show="delivery === 'livraison'">
+                                (+<span x-text="deliveryFee.toFixed(2)"></span> €)
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire de livraison (visible seulement si livraison standard) -->
+            <div x-show="delivery === 'livraison'"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations de livraison</h2>
 
                 <div class="space-y-4">
@@ -91,13 +128,10 @@
                             </template>
                         </select>
                     </div>
-
-
                 </div>
             </div>
 
-
-
+            <!-- Productos -->
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-7">
                 <h2 class="text-3xl font-semibold mb-4 dark:text-white">Vos Produits</h2>
                 <div class="space-y-4">
@@ -113,7 +147,7 @@
                             </div>
                             @if($product['choix'] > 0)
                                 <div>
-                                <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
                                 </div>
                             @endif
 
@@ -121,7 +155,14 @@
                                 €</p>
                         </div>
                     @endforeach
+
+                    <!-- Resumen de precios -->
                     <div class="mt-4 pt-4 border-t dark:border-gray-600">
+                        <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+                            <span>Subtotal :</span>
+                            <span x-text="`${baseTotal.toFixed(2)} €`"></span>
+                        </div>
+
                         <template x-if="delivery === 'livraison'">
                             <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
                                 <span>Frais de livraison :</span>
@@ -129,37 +170,19 @@
                             </div>
                         </template>
 
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-semibold dark:text-white">Total :</span>
-                            <span class="text-xl font-bold dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
+                        <template x-if="delivery === 'recoger'">
+                            <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
+                                <span>Retrait en magasin :</span>
+                                <span>Gratuit</span>
+                            </div>
+                        </template>
+
+                        <div class="flex justify-between items-center text-xl font-bold">
+                            <span class="dark:text-white">Total :</span>
+                            <span class="dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
                         </div>
                     </div>
                 </div>
-
-{{--                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mt-5">--}}
-{{--                    <h2 class="font-semibold mb-4 dark:text-white text-3xl">Méthode de Paiement</h2>--}}
-{{--                    <div class="space-y-4">--}}
-{{--                        <div class="flex items-center space-x-2">--}}
-{{--                            <input type="radio" name="payment" id="creditCard" checked class="accent-blue-500">--}}
-{{--                            <label for="creditCard" class="dark:text-white">Carte de Crédit</label>--}}
-{{--                        </div>--}}
-{{--                        <div class="flex items-center space-x-2">--}}
-{{--                            <input type="radio" name="payment" id="paypal" class="accent-blue-500">--}}
-{{--                            <label for="paypal" class="dark:text-white">PayPal</label>--}}
-{{--                        </div>--}}
-
-{{--                        <div id="cardDetails" class="space-y-4 mt-4">--}}
-{{--                            <input type="text" placeholder="Numéro de Carte"--}}
-{{--                                   class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">--}}
-{{--                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">--}}
-{{--                                <input type="text" placeholder="MM/AA"--}}
-{{--                                       class="p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">--}}
-{{--                                <input type="text" placeholder="CVV"--}}
-{{--                                       class="p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
 
                 <div class="flex flex-col md:flex-row gap-4 mt-5">
                     <button
@@ -181,14 +204,16 @@
     @push('scripts')
         <script>
             function checkout() {
-
                 return {
                     notification: '',
                     notificationType: 'success',
-                    delivery: 'livraison',
+                    delivery: 'retrait', // Valor por defecto
                     baseTotal: {{ collect($cart)->sum('totalPrice') }},
                     totalWeight: {{ collect($cart)->sum('weight') }}, // peso en kilogramos o gramos
+
                     get deliveryFee() {
+                        if (this.delivery === 'retrait') return 0; // Sin costo para recoger
+
                         const weight = this.totalWeight; // en gramos, por ejemplo
 
                         if (weight <= 100) return 3.00;
@@ -201,10 +226,9 @@
 
                         return 0; // fuera de rango o entrega especial
                     },
+
                     get finalTotal() {
-                        return this.delivery === 'livraison'
-                            ? this.baseTotal + this.deliveryFee
-                            : this.baseTotal;
+                        return this.baseTotal + this.deliveryFee;
                     },
 
                     region: '',
@@ -227,77 +251,124 @@
                         }
                     ],
                     provinces: [],
+
                     mettreAJourProvinces() {
                         const regionChoisie = this.regionsDisponibles.find(r => r.code === this.region);
                         this.provinces = regionChoisie ? regionChoisie.provinces : [];
                         this.province = '';
                     },
-                    confirmerAchat() {
 
-                        // Validations basiques
-                        const prenom = document.querySelector('input[placeholder="Prénom"]').value;
-                        const nom = document.querySelector('input[placeholder="Nom"]').value;
-                        const email = document.querySelector('input[placeholder="Adresse E-mail"]').value;
-                        const tel = document.querySelector('input[placeholder="Téléphone"]').value;
+                    async confirmerAchat() {
+                        try {
+                            // Validations basiques
+                            const first_name = document.querySelector('input[name="first_name"]').value.trim();
+                            const second_name = document.querySelector('input[name="second_name"]').value.trim();
+                            const email = document.querySelector('input[placeholder="Adresse E-mail"]').value.trim();
+                            const telephone = document.querySelector('input[name="telephone"]').value.trim();
 
-                        if (!prenom || !nom || !email || !tel) {
-                            this.showNotification("Veuillez remplir tous les champs personnels.", 'error');
-                            return;
-                        }
-
-                        if (this.delivery === 'livraison') {
-                            const rue = document.getElementById('rue').value;
-                            const ville = document.getElementById('ville').value;
-                            const codepostal = document.getElementById('codepostal').value;
-
-                            if (!rue || !ville || !codepostal) {
-                                this.showNotification("Veuillez remplir les informations de livraison.", 'error');
+                            if (!first_name || !second_name || !email || !telephone ) {
+                                this.showNotification("Veuillez remplir tous les champs personnels.", 'error');
                                 return;
-
                             }
-                        }
 
+                            // Validation email
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailRegex.test(email)) {
+                                this.showNotification("Veuillez entrer une adresse email valide.", 'error');
+                                return;
+                            }
 
-                        // Envoyer vers le backend
-                        fetch("{{ route('order.store') }}", {
-                            method: "POST",
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                prenom, nom, email, tel,
-                                delivery: this.delivery,
-                                region: this.region,
-                                province: this.province,
-                                adresse: this.delivery === 'livraison' ? {
-                                    rue: document.getElementById('rue').value,
-                                    ville: document.getElementById('ville').value,
-                                    etat: document.getElementById('etat').value,
-                                    codepostal: document.getElementById('codepostal').value
-                                } : null,
-                                produits: @json($cart), // Laravel pass PHP data to JS
-                                total: this.finalTotal,
-                            })
-                        }).then(res => res.json())
-                            .then(data => {
-                                if (data.error) {
-                                    this.showNotification(data.error, 'error');
+                            if (this.delivery === 'livraison') {
+                                const rue = document.getElementById('rue').value.trim();
+                                const ville = document.getElementById('ville').value.trim();
+                                const codepostal = document.getElementById('codepostal').value.trim();
+
+                                if (!rue || !ville || !codepostal) {
+                                    this.showNotification("Veuillez remplir les informations de livraison.", 'error');
                                     return;
                                 }
-                                // Réinitialise le panier
-                                this.items = [];
-                                this.total = 0;
-                                localStorage.removeItem('cart-items');
-                                localStorage.removeItem('cart-total');
-                                // Redirection vers la page de confirmation
-                                this.showNotification("Commande enregistrée avec succès !");
-                                setTimeout(() => {
-                                    window.location.href = "{{ route('boutique.index') }}";
-                                }, 2000);
-                                })
 
+                                if (!this.region || !this.province) {
+                                    this.showNotification("Veuillez sélectionner la région et la province.", 'error');
+                                    return;
+                                }
+                            }
+
+                            // Preparar los productos con el formato correcto
+                            const products = @json($cart).map(product => ({
+                                ...product,
+                                choix: product.choix || 0 // Asegurar que choix sea un número
+                            }));
+
+
+
+                            // Préparer les données
+                            const orderData = {
+                                first_name,
+                                second_name,
+                                email,
+                                telephone,
+                                delivery: this.delivery,
+                                products: products,
+                                total: Number(parseFloat(this.finalTotal).toFixed(2)),
+                                deliveryFee: Number(parseFloat(this.deliveryFee).toFixed(2))
+                            };
+
+                            // Solo agregar datos de dirección si es entrega
+                            if (this.delivery === 'livraison') {
+                                orderData.region = this.region;
+                                orderData.province = this.province;
+                                orderData.adresse = {
+                                    rue: document.getElementById('rue').value.trim(),
+                                    ville: document.getElementById('ville').value.trim(),
+                                    etat: document.getElementById('etat').value.trim(),
+                                    codepostal: document.getElementById('codepostal').value.trim()
+                                };
+                            }
+
+                         //   console.log('Sending order data:', orderData); // Para debug
+
+
+                            // Envoyer vers le backend
+                            const response = await fetch("{{ route('order.store') }}", {
+                                method: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                },
+                                body: JSON.stringify(orderData)
+                            });
+
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+
+                            const data = await response.json();
+
+                            if (data.error) {
+                                this.showNotification(data.error, 'error');
+                                return;
+                            }
+
+                            // Éxito
+                            this.showNotification("Commande enregistrée avec succès !");
+
+                            // Limpiar carrito
+                            localStorage.removeItem('cart');
+                            localStorage.removeItem('cart-total');
+
+                            // Redirección después de un breve delay
+                            setTimeout(() => {
+                                window.location.href = "{{ route('boutique.index') }}";
+                            }, 2000);
+
+                        } catch (error) {
+                            console.error('Error:', error);
+                            this.showNotification("Une erreur est survenue lors de l'enregistrement de la commande.", 'error');
+                        }
                     },
+
                     annulerAchat() {
                         if (confirm("Voulez-vous vraiment annuler l'achat ? Les produits seront supprimés du panier.")) {
                             fetch("{{ route('cart.clear') }}", {
@@ -307,16 +378,18 @@
                                     'Content-Type': 'application/json',
                                 }
                             }).then(() => {
+
                                 // Réinitialise les données locales
                                 this.items = [];
                                 this.total = 0;
-                                localStorage.removeItem('cart-items');
+                                localStorage.removeItem('cart');
                                 localStorage.removeItem('cart-total');
                                 // Redirection vers la boutique
                                 window.location.href = "{{ route('boutique.index') }}";
                             });
                         }
                     },
+
                     showNotification(message, type = 'success') {
                         this.notification = message;
                         this.notificationType = type;
@@ -326,11 +399,8 @@
                             }, 3000);
                         });
                     },
-
                 };
             }
-
         </script>
     @endpush
 </x-layout>
-

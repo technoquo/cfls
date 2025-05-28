@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('second_name');
             $table->string('email');
             $table->string('telephone');
-            $table->boolean('delivery'); // true: livraison, false: retrait
+            $table->string('delivery'); // livraison,  retrait
+            $table->decimal('delivery_fee', 8, 2)->default(0.00); // Frais de livraison
             $table->json('address')->nullable(); // JSON pour les champs d'adresse
             $table->decimal('total', 8, 2);
             $table->timestamps();

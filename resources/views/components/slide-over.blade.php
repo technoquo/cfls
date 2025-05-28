@@ -164,6 +164,7 @@
             return {
 
                 items: [],
+                recentlyAdded: {}, // 🧠 prevent rapid duplicate adds
                 total: 0,
                 notification: '',
 
@@ -188,42 +189,49 @@
                     });
                 },
 
-                async addToCart(productId, quantity = 1, choix = null) {
-
+                addToCart(productId, quantity = 1, choix = null) {
 
                     const existing = this.items.find(
-                        item => item.id === productId && item.choix === choix
+                        item => item.id === productId && JSON.stringify(item.choix) === JSON.stringify(choix)
                     );
 
+                    console.log(existing);
+
                     if (existing) {
-                        // ✅ Sumar la nueva cantidad a la existente
                         existing.quantity += quantity;
-                    } else {
-                        const response = await fetch(`/api/product/${productId}`);
-                        const data = await response.json();
-
-                        const weight = parseFloat(data.weight ?? 0);
-                        const qty = parseInt(quantity ?? 0);
-
-                        const product = {
-                            id: data.id,
-                            name: data.name,
-                            slug: data.slug,
-                            weight: weight * qty,
-                            price: parseFloat(data.price),
-                            choix: choix,
-                            image: data.images.length
-                                ? `/storage/${data.images[0].image_path}`
-                                : '/img/default.jpg',
-                            quantity: quantity
-                        };
-
-                        this.items = [...this.items, product];
+                        this.updateTotal();
+                        this.showNotification('Quantité mise à jour');
+                        this.isOpen = true;
+                        return;
                     }
 
-                    this.updateTotal();
-                    this.isOpen = true; // 👈 abrir el slide-over
-                    this.showNotification('Produit ajouté au panier');
+                    // Fetch full product data and add to cart
+                    fetch(`/api/product/${productId}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            const newItem = {
+                                id: data.id,
+                                name: data.name,
+                                slug: data.slug,
+                                price: parseFloat(data.price),
+                                quantity: quantity,
+                                choix: choix,
+                                totalPrice: parseFloat(data.price) * quantity,
+                                image: data.images?.[0]
+                                    ? `/storage/${data.images[0].image_path}`
+                                    : '/img/default.jpg'
+                            };
+
+                            console.log(newItem);
+                            this.items.push(newItem);
+                            this.updateTotal();
+                            this.showNotification('Produit ajouté au panier');
+                            this.isOpen = true;
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            this.showNotification('Erreur lors de l’ajout.');
+                        });
                 },
 
                 updateTotal() {
@@ -288,17 +296,21 @@
                     });
                 },
                 removeItem(id) {
-                    this.items = this.items.filter(i => i.id !== id);
-                    this.updateTotal();
-                    this.showNotification('Produit supprimé');
 
-                    if (this.items.length === 0) {
-                        // Esperar 5 segundos antes de cerrar el slide-over si ya no hay productos
+                    if (this.items.length === 1 && this.items[0].id === id) {
+                        // Si solo queda ese producto → limpiar todo
+                        this.clearCart();
                         setTimeout(() => {
                             this.isOpen = false;
                         }, 3000);
+                    } else {
+
+                        // Si hay más de un producto, eliminar solo uno
+                        this.items = this.items.filter(i => i.id !== id);
+                        this.updateTotal();
+                        this.showNotification('Produit supprimé');
                     }
-                },
+                }
 
             };
         }

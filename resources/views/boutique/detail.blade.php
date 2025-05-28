@@ -52,16 +52,16 @@
 
                     <!-- Botón unificado con mismo x-data -->
                     <div class="flex-1">
-                        <button class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
-                                @click="
-                                const selected = $refs.choice?.value ?? null;
-                                isOpen = true;
-                                $dispatch('add-to-cart', {
+                        <button
+                           class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
+                           @click="
+                            window.dispatchEvent(new CustomEvent('add-to-cart', {
+                                detail: {
                                     id: {{ $product->id }},
-                                    quantity: qty,
-                                    choix: selected,
-                                })
-                            ">
+                                    quantity: 1,
+                                    choix: $refs.choice?.value ?? null
+                                }
+                            }));">
                             Ajouter au panier
                         </button>
 
