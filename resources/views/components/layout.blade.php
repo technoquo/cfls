@@ -36,7 +36,16 @@
 
 </head>
 
-<body x-data="{ open: false,  isOpen: false }" :class="{ 'overflow-hidden': open || isOpen }" class="sm:overflow-auto dark:bg-slate-900" >
+<body
+    x-data="{
+        open: false,
+        isOpen: false,
+        ...cart()
+    }"
+    :class="{ 'overflow-hidden': open || isOpen }"
+    @add-to-cart.window="addToCart($event.detail.id, $event.detail.quantity, $event.detail.choix)"
+    class="sm:overflow-auto dark:bg-slate-900"
+>
 
      @include('layouts.includes.navegation', ['logo' => $logo])
      @include('layouts.includes.sidebar')

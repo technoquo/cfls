@@ -1,9 +1,6 @@
 <!-- Slide-Over Component -->
 <div
     x-show="isOpen"
-    x-data="cart()"
-    x-init="init();"
-    @add-to-cart.window="addToCart($event.detail.id, $event.detail.quantity, $event.detail.choix)"
     @keydown.escape.window="isOpen = false"
     x-transition
     class="relative z-10 "
@@ -191,42 +188,39 @@
 
                 addToCart(productId, quantity = 1, choix = null) {
 
-                    const existing = this.items.find(
-                        item => item.id === productId && JSON.stringify(item.choix) === JSON.stringify(choix)
-                    );
-
-                    console.log(existing);
-
-                    if (existing) {
-                        existing.quantity += quantity;
-                        this.updateTotal();
-                        this.showNotification('Quantité mise à jour');
-                        this.isOpen = true;
-                        return;
-                    }
-
                     // Fetch full product data and add to cart
                     fetch(`/api/product/${productId}`)
                         .then(res => res.json())
                         .then(data => {
-                            const newItem = {
-                                id: data.id,
-                                name: data.name,
-                                slug: data.slug,
-                                price: parseFloat(data.price),
-                                quantity: quantity,
-                                choix: choix,
-                                totalPrice: parseFloat(data.price) * quantity,
-                                image: data.images?.[0]
-                                    ? `/storage/${data.images[0].image_path}`
-                                    : '/img/default.jpg'
-                            };
+                            const existingItem = this.items.find(
+                                item => item.id === data.id && JSON.stringify(item.choix) === JSON.stringify(choix)
+                            );
 
-                            console.log(newItem);
-                            this.items.push(newItem);
-                            this.updateTotal();
-                            this.showNotification('Produit ajouté au panier');
-                            this.isOpen = true;
+                            if (existingItem) {
+                                existingItem.quantity += quantity;
+                                existingItem.totalPrice = existingItem.price * existingItem.quantity;
+                                this.updateTotal();
+                                this.showNotification('Quantité mise à jour');
+                                this.isOpen = true;
+                            } else {
+                                const newItem = {
+                                    id: data.id,
+                                    name: data.name,
+                                    slug: data.slug,
+                                    price: parseFloat(data.price),
+                                    quantity: quantity,
+                                    choix: choix,
+                                    totalPrice: parseFloat(data.price) * quantity,
+                                    image: data.images?.[0]
+                                        ? `/storage/${data.images[0].image_path}`
+                                        : '/img/default.jpg'
+                                };
+
+                                this.items.push(newItem);
+                                this.updateTotal();
+                                this.showNotification('Produit ajouté au panier');
+                                this.isOpen = true;
+                            }
                         })
                         .catch(error => {
                             console.error('Erreur:', error);
