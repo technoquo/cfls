@@ -30,7 +30,7 @@ class MemberResource extends Resource
     protected static ?string $model = Member::class;
 
     protected static ?string $navigationLabel = 'Membres';
-    protected static ?string $label = 'Membres';   
+    protected static ?string $label = 'Membres';
     protected static ?string $navigationGroup = 'Gestion des sociétés';
     protected static ?int $navigationSort = 5;
 
@@ -68,6 +68,8 @@ class MemberResource extends Resource
                     ]);
                 }
             }),
+          TextInput::make('video_url')
+              ->label('Video URL'),
           Toggle::make('status')
             ->label('Statut')
             ->default(true),

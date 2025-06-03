@@ -80,11 +80,12 @@
                                 </div>
 
                                 <div class="pt-6">
-                                    <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}"
-                                       class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white line-clamp-2 h-12 block overflow-hidden">
-                                        {{$product->name}}
-                                    </a>
-
+                                    <div>
+                                        <a wire:navigate href="{{route('boutique.detail', ['slug' => $product->slug])}}"
+                                           class="text-2xl font-semibold leading-tight text-gray-900 hover:underline dark:text-white line-clamp-2 min-h-[3rem] block overflow-hidden">
+                                            {{$product->name}}
+                                        </a>
+                                    </div>
                                     @if($product->options->isNotEmpty())
                                         <div class="space-y-4 mt-2">
                                             <label for="choice" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sélectionner:</label>
@@ -100,7 +101,7 @@
                                     @endif
 
                                     <div class="mt-3 flex items-center justify-between gap-4 min-h-[50px]">
-                                    <span class="text-lg font-semibold text-gray-900 dark:text-white whitespace-nowrap">
+                                    <span class="text-2xl font-semibold text-gray-900 dark:text-white whitespace-nowrap">
                                         {{$product->price}} €
                                     </span>
 

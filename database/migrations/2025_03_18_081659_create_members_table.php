@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('download');
+            $table->string('video_url')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

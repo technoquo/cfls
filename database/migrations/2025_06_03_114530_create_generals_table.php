@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dons', function (Blueprint $table) {
+        Schema::create('generals', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->string('image');
-            $table->string('video_url')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('title')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dons');
+        Schema::dropIfExists('generals');
     }
 };

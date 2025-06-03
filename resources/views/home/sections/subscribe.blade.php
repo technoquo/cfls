@@ -5,7 +5,7 @@
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
             <div class="max-w-xl lg:max-w-lg">
               <h2 class="text-4xl font-semibold tracking-tight text-white">S'abonner à notre newsletter</h2>
-              <p class="mt-4 text-lg text-gray-300">Recevez nos dernières actualités, informations pertinentes et conseils exclusifs directement par courrier électronique. Restez informé en toute simplicité en vous abonnant dès aujourd’hui.</p>
+              <div class="mt-4 text-lg text-white">Recevez nos dernières actualités, informations pertinentes et conseils exclusifs directement par courrier électronique. Restez informé en toute simplicité en vous abonnant dès aujourd’hui.</div>
               <div class="mt-6 flex max-w-md gap-x-4">
                   @livewire('subscribe-form')
               </div>

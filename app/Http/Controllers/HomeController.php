@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Don;
 use App\Models\Feature;
+use App\Models\General;
 use App\Models\Member;
 use App\Models\Company;
 use App\Models\History;
@@ -25,6 +26,8 @@ class HomeController extends Controller
         $soutens = Soutien::where('status', 1)->get();
         $testimonials = Testimonial::where('status', 1)->get();
 
+
+
         return view('home.index', compact('data','features','history','mission','don','members','soutens','testimonials'));
     }
 
@@ -35,6 +38,12 @@ class HomeController extends Controller
         $data = Company::first();
         return view('home.contact', compact('data'));
 
+    }
+
+    public function general()
+    {
+        $data = General::first();
+        return view('home.general', compact('data'));
     }
 
 

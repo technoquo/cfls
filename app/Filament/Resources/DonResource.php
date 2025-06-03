@@ -41,6 +41,8 @@ class DonResource extends Resource
                     ->label('Image')
                     ->image()
                     ->required(),
+                TextInput::make('video_url')
+                    ->label('URL de la vidéo'),
                 Toggle::make('status')
                     ->label('Status')
                     ->default(false),

@@ -221,6 +221,11 @@
                                 this.showNotification('Produit ajouté au panier');
                                 this.isOpen = true;
                             }
+
+                            // 👇 Add this to close the slide-over after 5 seconds
+                            setTimeout(() => {
+                                this.isOpen = false;
+                            }, 5000);
                         })
                         .catch(error => {
                             console.error('Erreur:', error);

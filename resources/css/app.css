@@ -20,6 +20,14 @@ html.light p {
     color: black;
 }
 
+ol > li {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: black;
+    list-style-type: decimal;
+
+}
+
 
 @media (max-width: 768px) {
     p {
