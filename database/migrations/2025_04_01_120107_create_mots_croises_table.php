@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_solution');
             $table->string('code_vimeo');
             $table->string('pdf');
+            $table->string('pdf_solution');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

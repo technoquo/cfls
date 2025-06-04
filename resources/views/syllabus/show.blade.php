@@ -20,80 +20,85 @@
                     </svg>
                 </button>
 
-                <!-- Scrollable List -->
-                <div class="flex flex-col w-full max-w-xs lg:w-80 mt-4">
-                    <div class="flex justify-center mb-4 gap-4">
-                        <button
-                            @click="toggleAutoPlayNext"
-                            :disabled="searchQuery.length > 0"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                            x-text="autoPlayNext ? '🖱 Manuel' : '⏩ Automatique'">
-                        </button>
-                        <button
-                            @click="toggleSpeed"
-                            class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
-                            x-text="isSlow ? '⏱ Lent' : '🚀 Normal'">
-                        </button>
-                    </div>
-                    <div class="mb-4">
-                        <input
-                            type="text"
-                            x-model="searchQuery"
-                            placeholder="Rechercher..."
-                            class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
+                <div class="flex flex-col lg:flex-row gap-6 w-full max-w-screen-xl mx-auto">
+                    <!-- Video Player -->
+                    <div class="p-4 bg-white rounded-md shadow-md dark:bg-gray-800 w-full max-w-3xl mx-auto">
+                        <div class="flex justify-center mb-10">
+                            <button
+                                @click="togglePlayPause"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                                x-text="isPlaying ? '▶ Reprendre' : '⏸ Pause'">
+                            </button>
+                        </div>
+                        <video
+                            x-ref="videoPlayer"
+                            class="w-full aspect-video"
+                            @ended="handleEnded"
+                            @play="isPlaying = false"
+                            @pause="isPlaying = true"
                         >
+                            <source :src="currentVideo" type="video/mp4">
+                            Tu navigateur ne supporte pas la vidéo.
+                        </video>
+                        <h2 class="mb-4  text-base font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
+                            x-text="currentTitle"></h2>
                     </div>
 
-                    <div
-                        x-ref="scrollContainer"
-                        class="w-full max-w-md mx-auto space-y-4 overflow-y-auto px-2 max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96"
-                    >
-                        <template x-for="(video, index) in filteredVideos" :key="video.url">
-                            <div
-                                @click="setVideoByUrl(video.url)"
-                                :class="currentVideo === video.url ? 'bg-blue-100 dark:bg-blue-900' : ''"
-                                class="item pb-3 sm:pb-4 hover:bg-gray-200 rounded-lg dark:hover:bg-gray-700 p-2 cursor-pointer relative transition"
+                    <!-- Scrollable List -->
+                    <div class="flex flex-col w-full max-w-xs lg:w-80">
+                        <div class="flex justify-center mb-4 gap-4">
+                            <button
+                                @click="toggleAutoPlayNext"
+                                :disabled="searchQuery.length > 0"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                x-text="autoPlayNext ? '🖱 Manuel' : '⏩ Automatique'">
+                            </button>
+                            <button
+                                @click="toggleSpeed"
+                                class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
+                                x-text="isSlow ? '⏱ Lent' : '🚀 Normal'">
+                            </button>
+                        </div>
+                        <div class="mb-4">
+                            <input
+                                type="text"
+                                x-model="searchQuery"
+                                placeholder="Rechercher..."
+                                class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
                             >
-                                <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-base font-medium text-gray-900 truncate dark:text-white"
-                                           x-text="video.title">
-                                        </p>
+                        </div>
+
+                        <div
+                            x-ref="scrollContainer"
+                            class="w-full max-w-md mx-auto space-y-4 overflow-y-auto px-2 max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96"
+                        >
+                            <template x-for="(video, index) in filteredVideos" :key="video.url">
+                                <div
+                                    @click="setVideoByUrl(video.url)"
+                                    :class="currentVideo === video.url ? 'bg-blue-100 dark:bg-blue-900' : ''"
+                                    class="item pb-3 sm:pb-4 hover:bg-gray-200 rounded-lg dark:hover:bg-gray-700 p-2 cursor-pointer relative transition"
+                                >
+                                    <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-base font-medium text-gray-900 truncate dark:text-white"
+                                               x-text="video.title">
+                                            </p>
+                                        </div>
+                                        <template x-if="currentVideo === video.url">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 viewBox="0 0 24 24" class="size-5 text-green-500 animate-pulse">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </template>
                                     </div>
-                                    <template x-if="currentVideo === video.url">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             viewBox="0 0 24 24" class="size-5 text-green-500 animate-pulse">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                    </template>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Video Player -->
-                <div class="p-4 bg-white rounded-md shadow-md dark:bg-gray-800 w-full max-w-3xl">
-                    <div class="flex justify-center mb-10">
-                        <button
-                            @click="togglePlayPause"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                            x-text="isPlaying ? '▶ Reprendre' : '⏸ Pause'">
-                        </button>
-                    </div>
-                    <video
-                        x-ref="videoPlayer"
-                        class="w-full aspect-video"
-                        @ended="handleEnded"
-                        @play="isPlaying = false"
-                        @pause="isPlaying = true"
-                    >
-                        <source :src="currentVideo" type="video/mp4">
-                        Tu navegador no soporta el video.
-                    </video>
-                    <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
-                        x-text="currentTitle"></h2>
-                </div>
+
+
             </div>
         </div>
     </div>

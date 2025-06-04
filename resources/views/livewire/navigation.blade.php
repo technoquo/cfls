@@ -27,7 +27,7 @@
         </li>
         <li x-data="{ open: false }" class="px-4 py-2 min-w-[140px] text-center relative">
             <a href="#" @click.prevent="open = !open"
-               class="transition-colors duration-200 {{ request()->is('ressources/*') ? 'text-white' : 'text-black hover:text-gray-700' }}">
+               class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">
                 Vidéos
             </a>
             <ul x-show="open" x-cloak @click.outside="open = false"

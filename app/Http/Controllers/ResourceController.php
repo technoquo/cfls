@@ -14,6 +14,8 @@ class ResourceController extends Controller
     {
 
 
+
+
         // Array de vistas especiales
         $specialViews = [
             'mots-croises' => 'ressources.mots',

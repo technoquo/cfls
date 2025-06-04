@@ -2,7 +2,7 @@
     <div class="max-w-screen-2xl  mx-auto">
             <!-- Row -->
             <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-              <div>
+              <div class="mb-12">
                   <h2 class="mb-4 mt-8   md:text-3xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
                       {{ $mission->title }}
                   </h2>

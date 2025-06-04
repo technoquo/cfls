@@ -42,6 +42,11 @@ class MotsCroiseResource extends Resource
                     ->required()
                     ->acceptedFileTypes(['application/pdf'])
                     ->maxSize(1024),
+                Forms\Components\FileUpload::make('pdf_solution')
+                    ->label('PDF Solution')
+                    ->required()
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->maxSize(1024),
                 Forms\Components\Toggle::make('status')
                     ->label('Actif')
                     ->default(true),
@@ -56,8 +61,6 @@ class MotsCroiseResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_mot'),
                 Tables\Columns\ImageColumn::make('image_solution'),
-                Tables\Columns\TextColumn::make('code_vimeo')
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->label('Actif')
                     ->boolean()
