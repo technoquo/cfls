@@ -56,7 +56,7 @@
                             <button
                                 @click="toggleSpeed"
                                 class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
-                                x-text="isSlow ? '⏱ Lent' : '🚀 Normal'">
+                                x-text="isSlow ? '🚀 Normal' : '⏱ Lent'">
                             </button>
                         </div>
                         <div class="mb-4">
@@ -115,7 +115,7 @@
                     videos: allVideos,
                     currentIndex: 0,
                     isPlaying: true,
-                    autoPlayNext: false,
+                    autoPlayNext: true,
                     repeatCount: 0,
                     isSlow: false,
                     searchQuery: '',
@@ -196,7 +196,7 @@
                         const index = this.videos.findIndex(video => video.url === url);
 
                         if (index !== -1) {
-                            console.log(index);
+
                             if (index === this.currentIndex) {
                                 this.togglePlayPause();
                                 return;

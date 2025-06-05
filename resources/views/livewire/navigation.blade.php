@@ -17,17 +17,17 @@
 
     <ul class="hidden lg:flex flex-col lg:flex-row items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 gap-y-4 lg:gap-y-0 lg:gap-x-6">
         <li class="px-4 py-2 min-w-[140px] text-center md>">
-            <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-white' : 'text-black hover:text-gray-700' }}">Accueil</a>
+            <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Accueil</a>
         </li>
         <li class="px-4 py-2 min-w-[250px] text-center">
-            <a wire:navigate href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'text-white' : 'text-black hover:text-gray-700' }}">Qui sommes-nous ?</a>
+            <a wire:navigate href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Qui sommes-nous ?</a>
         </li>
         <li class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('formations.index') }}" class="{{ request()->routeIs('formations.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Formations</a>
+            <a wire:navigate href="{{ route('formations.index') }}" class="{{ request()->routeIs('formations.index') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Formations</a>
         </li>
         <li x-data="{ open: false }" class="px-4 py-2 min-w-[140px] text-center relative">
             <a href="#" @click.prevent="open = !open"
-               class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">
+               class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">
                 Vidéos
             </a>
             <ul x-show="open" x-cloak @click.outside="open = false"
@@ -50,13 +50,13 @@
             </ul>
         </li>
         <li class="px-4 py-2 min-w-[180px] text-center">
-            <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
+            <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
         </li>
         <li class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Boutique</a>
+            <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Boutique</a>
         </li>
         <li class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-white' : 'text-black hover:text-gray-700' }}">Contact</a>
+            <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Contact</a>
         </li>
         <li class="px-4 py-2 text-center">
             <div class="relative">

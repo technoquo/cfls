@@ -1,4 +1,4 @@
-<section class=" bg-white dark:bg-gray-900 " {{ $mission->status ? '' : 'hidden' }}>
+<section class=" bg-white dark:bg-gray-900 bg-fond-one" {{ $mission->status ? '' : 'hidden' }}>
     <div class="max-w-screen-2xl  mx-auto">
             <!-- Row -->
             <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">

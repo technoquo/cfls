@@ -12,11 +12,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
             <h2 class="mb-4 font-extrabold tracking-tight leading-none text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl dark:text-white text-black">{{ $don->title }}</h2>
             <hr class="border-b border-gray-200  dark:border-gray-700 my-5"/>
             <p class="mb-8 font-medium lg:text-xl">{!! $don->description !!}</p>
-            <!-- List -->
-            <div class="wow animate__animated animate__backInRight float-right">
-                <img class="w-44 h-auto max-w-none rounded-md"
+            <div class="flex items-center justify-center">
+                <img class=" w-52 h-auto max-w-none rounded-md"
                      src="{{  asset('storage/'. $don->image ) }}" alt="Don">
             </div>
+
         </div>
 
         <div class="wow animate__animated animate__backInRight">
@@ -26,6 +26,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
                class="w-full rounded-lg shadow-lg aspect-video">
            </video>
        </div>
+
+
+
 
     </div>
 

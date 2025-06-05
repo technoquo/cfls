@@ -28,6 +28,27 @@ ol > li {
 
 }
 
+.bg-fond-one,
+.bg-fond-two {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh; /* Usa min-height en lugar de height para permitir scroll si es necesario */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+.members-description > p {
+
+    color: black !important;
+}
 
 @media (max-width: 768px) {
     p {
@@ -40,5 +61,12 @@ ol > li {
     p {
         font-size: 1rem; /* 16px */
         line-height: 1.5rem; /* 24px */
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-fond-one,
+    .bg-fond-two {
+        background-position: top center;
     }
 }
