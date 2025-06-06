@@ -39,7 +39,7 @@ Route::get('/ressources/{category}/{slug}', [ResourceController::class, 'vimeo']
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 
 
-Route::get('/ue1-themes/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
+Route::get('/ue1-themes-1/a-bientôt', [SyllabusController::class, 'index'])->name('a-bientot');
 
 
 /// Boutique Routes
