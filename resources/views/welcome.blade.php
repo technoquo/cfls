@@ -14,9 +14,14 @@
         Nous travaillons actuellement d'arrache-pied pour lancer notre site très bientôt.
         Revenez nous voir dans quelques jours pour découvrir toutes les nouveautés que nous préparons.
     </p>
+    <p class="text-gray-600 mb-6">
+        En attendant, vous pouvez visiter notre site alternatif :
+        <a href="https://wix.cfls.be" class="text-blue-500 hover:underline">wix.clfs.be</a>
+    </p>
     <footer class="text-sm text-gray-500">
         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
     </footer>
 </div>
 </body>
 </html>
+
