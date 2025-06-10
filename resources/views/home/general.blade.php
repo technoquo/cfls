@@ -1,7 +1,10 @@
 <x-layout>
     <style>
         .general > ol > li {
-            color: white; /* Example color: a shade of blue */
+            color: black; /* White color for light mode */
+        }
+        .dark .general > ol > li {
+            color: white; /* Black color for dark mode */
         }
     </style>
     <x-slot name="title">Politique de confidentialité | C.F.L.S. asbl</x-slot>
