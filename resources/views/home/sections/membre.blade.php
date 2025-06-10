@@ -12,13 +12,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 {{--    </div>--}}
 
     <div class="grid max-w-screen-2xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <!-- Video -->
+        <div class="lg:mt-0 lg:col-span-5 wow animate__animated animate__backInDown">
+            <div class="w-full rounded-lg shadow-lg overflow-hidden">
+                <video
+                    src="{{ $members->video_url }}"
+                    controls
+                    class="w-full rounded-lg shadow-lg aspect-video">
+                </video>
+            </div>
+            <div class="flex justify-center mt-4">
+                <img src="{{ asset('storage/'. $members->image ) }}" alt="membre" class="w-1/2 rounded-lg shadow-lgt">
+            </div>
+        </div>
         <!-- Text & Image -->
-        <div class="mr-auto place-self-center lg:col-span-7 wow animate__animate animate__bounceInDown">
+        <div class="ml-auto place-self-center lg:col-span-7 wow animate__animate animate__bounceInDown dark:text-white">
             <h1 class="max-w-2xl mb-4 text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight leading-none  uppercase">
                 {{ $members->title }}
             </h1>
 
-            <div class="max-w-2xl mb-2 font-light lg:mb-4 md:text-lg lg:text-xl members-description">
+            <div class="max-w-2xl mb-2 font-light lg:mb-4 md:text-lg lg:text-xl members-description dark:text-white">
                 {!! $members->description !!}
 
             </div>
@@ -34,19 +47,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
             </div>
         </div>
 
-        <!-- Video -->
-        <div class="lg:mt-0 lg:col-span-5 wow animate__animated animate__backInDown">
-            <div class="w-full rounded-lg shadow-lg overflow-hidden">
-                <video
-                    src="{{ $members->video_url }}"
-                    controls
-                    class="w-full rounded-lg shadow-lg aspect-video">
-                </video>
-            </div>
-            <div class="flex justify-center mt-4">
-            <img src="{{ asset('storage/'. $members->image ) }}" alt="membre" class="w-1/2 rounded-lg shadow-lgt">
-            </div>
-        </div>
+
 
     </div>
 </section>

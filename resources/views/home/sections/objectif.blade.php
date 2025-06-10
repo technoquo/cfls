@@ -29,12 +29,12 @@
                                  class="block border-b border-gray-800/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0">
                                 <h2>
                                     <button type="button" x-on:click="expanded = !expanded" :aria-expanded="expanded"
-                                            class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-csfl font-bold text-xl sm:text-2xl md:text-3xl ">
+                                            class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-white font-bold text-xl sm:text-2xl md:text-3xl ">
                                         <span class="flex-1">{{ $objective->title }}</span>
 
                                         <!-- Heroicons mini chevron-up -->
                                         <svg x-show="expanded" x-cloak
-                                             class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
+                                             class="size-5 shrink-0 text-gray-950  dark:text-white"
                                              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                              fill="currentColor">
                                             <path fill-rule="evenodd"
@@ -44,7 +44,7 @@
 
                                         <!-- Heroicons mini chevron-down -->
                                         <svg x-show="!expanded"
-                                             class="size-5 shrink-0 text-gray-300 group-hover:text-gray-800"
+                                             class="size-5 shrink-0 text-gray-950  dark:text-white"
                                              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                              fill="currentColor" data-slot="icon">
                                             <path fill-rule="evenodd"

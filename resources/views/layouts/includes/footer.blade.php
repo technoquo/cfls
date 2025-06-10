@@ -1,6 +1,6 @@
 
 
-<footer class="bg-[#84DBF0] dark:bg-gray-900">
+<footer class="bg-[#84DBF0]">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
@@ -30,7 +30,7 @@
 {{--              </div>--}}
               <div>
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Suivez-nous us</h2>
-                  <ul class="dark:text-gray-400 font-medium">
+                  <ul class="font-medium">
                       <li class="mb-4">
                           <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="hover:underline ">Facebook</a>
                       </li>
@@ -41,7 +41,7 @@
               </div>
               <div>
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">LÉGAL</h2>
-                  <ul class="dark:text-gray-400 font-medium">
+                  <ul class="font-medium">
                       <li class="mb-4">
                           <a href="{{route('general-4')}}" class="hover:underline">Politique de confidentialité</a>
                       </li>
@@ -54,9 +54,17 @@
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm  sm:text-center dark:text-gray-400">© {{ date('Y') }} <a href="/" class="hover:underline">CFLS</a>. Tous droits réservés.
+          <span class="text-sm  sm:text-center ">© {{ date('Y') }} <a href="/" class="hover:underline">CFLS</a>. Tous droits réservés.
           </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
+              @php
+                  $soutiens = \App\Models\Soutien::where('status', 1)->get();
+              @endphp
+              @foreach ($soutiens as $soutien)
+                  <a href="{{$soutien->url}}" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                    <img src="{{ asset('storage/' . $soutien->image) }}" alt="{{ $soutien->name }}" class="w-20 h-auto mx-2">
+                  </a>
+              @endforeach
               <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>

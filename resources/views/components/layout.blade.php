@@ -65,7 +65,8 @@
         class="bg-gray-900 bg-opacity-50 fixed inset-0 z-30 sm:hidden"></div>
 
 
-       @include('layouts.includes.footer', ['logo' => $logo])
+       @include('layouts.includes.footer', ['logo' => $logo ])
+
 
        @stack('modals')
 

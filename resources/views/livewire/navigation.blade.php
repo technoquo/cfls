@@ -15,7 +15,7 @@
     id="navbar-user"
 >
 
-    <ul class="hidden lg:flex flex-col lg:flex-row items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 gap-y-4 lg:gap-y-0 lg:gap-x-6">
+    <ul class="hidden lg:flex flex-col lg:flex-row items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 w-full box-border">
         <li class="px-4 py-2 min-w-[140px] text-center md>">
             <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Accueil</a>
         </li>
@@ -66,6 +66,7 @@
                     </svg>
 
                     <span
+                        x-cloak
                         x-text="$store.cart.count"
                         x-show="$store.cart.count > 0"
                         class="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">

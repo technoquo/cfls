@@ -60,7 +60,7 @@
                     perView: 1,
                     focusAt: 'center',
                     gap: 0,
-                    autoplay: 3000,
+                    autoplay: 5000,
                 }).mount();
 
                 glideElement.classList.add('glide-initialized');

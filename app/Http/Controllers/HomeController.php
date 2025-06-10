@@ -28,12 +28,12 @@ class HomeController extends Controller
         $mission = Mission::first();
         $don = Don::first();
         $members = Member::first();
-        $soutens = Soutien::where('status', 1)->get();
+
         $testimonials = Testimonial::where('status', 1)->get();
 
 
 
-        return view('home.index', compact('data','features','history','mission','don','members','soutens','testimonials'));
+        return view('home.index', compact('data','features','history','mission','don','members','testimonials'));
     }
 
     public function contacto()

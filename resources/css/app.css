@@ -43,12 +43,11 @@ ol > li {
 }
 
 
-
-
-.members-description > p {
-
-    color: black !important;
+ul.fixed-width {
+    min-width: 100%;
 }
+
+
 
 @media (max-width: 768px) {
     p {

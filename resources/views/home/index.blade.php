@@ -4,9 +4,8 @@
     @include('home.sections.hero')
     @include('home.sections.objectif')
     @include('home.sections.donation')
-    @include('home.sections.commader')
     @include('home.sections.membre')
-    @include('home.sections.subsides')
+    @include('home.sections.commader')
     @include('home.sections.testimonial')
     @include('home.sections.subscribe')
 </x-layout>
