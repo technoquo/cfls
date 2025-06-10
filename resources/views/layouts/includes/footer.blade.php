@@ -62,7 +62,7 @@
               @endphp
               @foreach ($soutiens as $soutien)
                   <a href="{{$soutien->url}}" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                    <img src="{{ asset('storage/' . $soutien->image) }}" alt="{{ $soutien->name }}" class="w-20 h-auto mx-2">
+                    <img src="{{ asset('storage/' . $soutien->image) }}" alt="{{ $soutien->name }}" class=" w-28 h-auto mx-2">
                   </a>
               @endforeach
               <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
