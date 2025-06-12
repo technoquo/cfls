@@ -56,7 +56,7 @@
 
 
     <div
-        class="p-4  border-gray-200 border-dashed rounded-lg dark:border-gray-700  px-4 mx-auto">
+        class="border-gray-200 border-dashed rounded-lg dark:border-gray-70 mt-14">
         {{ $slot }}
     </div>
 

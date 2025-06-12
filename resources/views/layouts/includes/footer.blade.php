@@ -1,9 +1,9 @@
 
 
 <footer class="bg-[#84DBF0]">
-    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <div class="w-full p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
-          <div class="mb-6 md:mb-0">
+          <div class="mb-6 md:mb-0 ml-7">
               <a href="/" class="flex items-center">
                   <img
                       class="object-contain w-20 sm:w-24 md:w-32 h-auto"
@@ -15,7 +15,7 @@
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Suivez-nous us</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Suivez-nous</h2>
                   <ul class="font-medium">
                       <li class="mb-4">
                           <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="hover:underline ">Facebook</a>
@@ -26,7 +26,7 @@
                   </ul>
               </div>
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">LÉGAL</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">LÉGAL</h2>
                   <ul class="font-medium">
                       <li class="mb-4">
                           <a href="{{route('general-4')}}" class="hover:underline">Politique de confidentialité</a>
@@ -38,8 +38,8 @@
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
           <span class="text-sm  sm:text-center ">© {{ date('Y') }} <a href="/" class="hover:underline">CFLS</a>. Tous droits réservés.
-          </span>
-          <div class="flex mt-4 sm:justify-center sm:mt-0">
+          </span>`
+          <div class="flex mt-4 sm:justify-center sm:mt-0 mr-40">
               @php
                   $soutiens = \App\Models\Soutien::where('status', 1)->get();
               @endphp
@@ -48,7 +48,7 @@
                     <img src="{{ asset('storage/' . $soutien->image) }}" alt="{{ $soutien->name }}" class="w-28 h-auto mx-2">
                   </a>
               @endforeach
-              <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+             {{-- <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>
                   </svg>
@@ -68,7 +68,7 @@
                       <path d="M12.004 2.004a9.998 9.998 0 0 0-8.708 14.721L2 22l5.42-1.29a9.998 9.998 0 1 0 4.583-18.706zm0 18.175a8.177 8.177 0 0 1-4.166-1.147l-.298-.174-3.208.764.857-3.13-.197-.323a8.176 8.176 0 1 1 7.012 3.978z"/>
                   </svg>
                   <span class="sr-only">WhatsApp</span>
-              </a>
+              </a>--}}
           </div>
       </div>
     </div>

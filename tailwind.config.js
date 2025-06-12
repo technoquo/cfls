@@ -21,9 +21,8 @@ export default {
                 csfl: '#008bcf', // Define tu color personalizado aquí
                 csfllight: '#92D5FF', // Define tu color personalizado aquí
             },
-            backgroundImage: {
-                'fond-one': "url('/img/FOND_CLAIR_1.png')",
-                'fond-two': "url('/img/FOND_CLAIR_2.png')",
+            screens: {
+                'max1449': {'max': '1449px'},
             },
         },
     },

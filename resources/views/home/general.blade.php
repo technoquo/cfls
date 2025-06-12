@@ -4,7 +4,7 @@
             color: black; /* White color for light mode */
         }
         .dark .general > ol > li {
-            color: white; /* Black color for dark mode */
+            color: whiten; /* Black color for dark mode */
         }
     </style>
     <x-slot name="title">Politique de confidentialité | C.F.L.S. asbl</x-slot>

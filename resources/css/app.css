@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 [x-cloak] {
     display: none;
-}
-
-p {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    color: black;
 }
 
 html.dark p {
@@ -19,6 +14,15 @@ html.dark p {
 html.light p {
     color: black;
 }
+
+p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: black;
+}
+
+
+
 
 ol > li {
     font-size: 1.5rem;
@@ -34,7 +38,7 @@ ol > li {
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    min-height: 100vh; /* Usa min-height en lugar de height para permitir scroll si es necesario */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,12 +46,26 @@ ol > li {
     margin: 0;
 }
 
+.bg-fond-one {
+    background-image: url('/public/img/FOND_CLAIR_1.png');
+}
 
-ul.fixed-width {
-    min-width: 100%;
+.bg-fond-two {
+    background-image: url('/public/img/FOND_CLAIR_2.png');
 }
 
 
+.members-description > p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: black !important;
+}
+
+@media (max-width: 1023px) {
+    .bg-fond-one, .bg-fond-two {
+      background: #84DBF0;
+    }
+}
 
 @media (max-width: 768px) {
     p {

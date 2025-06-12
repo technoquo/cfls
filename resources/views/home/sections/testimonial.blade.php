@@ -1,5 +1,5 @@
 <section class="bg-white dark:bg-gray-900 py-12">
-    <h2 class="text-center text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight leading-none  uppercase mb-10 dark:text-white">
+    <h2 class="mb-8 uppercase text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
         Témoignage
     </h2>
 

@@ -36,8 +36,9 @@ class SoutienResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
+                    ->disk('public')
                     ->label('Image')
-                    ->acceptedFileTypes(['image/*']) // Optional: Restrict to specific file types
+                    ->acceptedFileTypes(['image/*'])
                     ->image()
                     ->required(),
                 Forms\Components\TextInput::make('url')
@@ -60,9 +61,9 @@ class SoutienResource extends Resource
             TextColumn::make('url')->label('URL'),
             IconColumn::make('status')
             ->label('Statut')
-            ->boolean(),        
+            ->boolean(),
             ])
-            
+
             ->filters([
                 //
             ])

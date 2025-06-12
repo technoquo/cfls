@@ -1,20 +1,21 @@
 <section class=" bg-white dark:bg-gray-900 bg-fond-one" {{ $mission->status ? '' : 'hidden' }}>
-    <div class="max-w-screen-2xl  mx-auto">
+    <div class="w-full max-w-screen-2xl  mx-auto">
             <!-- Row -->
             <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
               <div class="mb-12">
-                  <h2 class="mb-4 mt-8   md:text-3xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
+                  <h2 class="text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-gray-900 text-center uppercase mb-4">
                       {{ $mission->title }}
                   </h2>
-                  <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg">
+                  <div class="w-full rounded-lg shadow-lg overflow-hidden">
                       <video
-                          src="{{ $mission->video }}"
+                          src="{{ $mission->video_url }}"
                           controls
                           class="w-full rounded-lg shadow-lg aspect-video">
                       </video>
                   </div>
               </div>
-                <div class="text-gray-700 sm:text-lg dark:text-gray-400 block">
+                <div class="text-gray-700 sm:text-lg  block">
+
                     <div x-data="{ active: 1 }" class="mx-auto min-h-[16rem] w-full max-w-3xl">
                         @foreach ($mission->objectives as $key => $objective)
                             <div x-data="{
@@ -29,7 +30,7 @@
                                  class="block border-b border-gray-800/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0">
                                 <h2>
                                     <button type="button" x-on:click="expanded = !expanded" :aria-expanded="expanded"
-                                            class="group flex w-full items-center justify-between text-left  text-gray-800 dark:text-white font-bold text-xl sm:text-2xl md:text-3xl ">
+                                            class="group flex w-full items-center justify-between text-left  text-gray-800  font-bold  text-2xl ">
                                         <span class="flex-1">{{ $objective->title }}</span>
 
                                         <!-- Heroicons mini chevron-up -->
@@ -55,7 +56,7 @@
                                 </h2>
 
                                 <div x-show="expanded" x-collapse>
-                                    <div class="pt-2 text-gray-600 dark:text-white max-w-xl sm:text-2xl md:text-[1.5rem]">
+                                    <div class="pt-2 text-gray-900 dark:text-gray-900 max-w-xl font-light text-2xl">
                                         {{ $objective->description }} </div>
                                 </div>
                             </div>

@@ -27,7 +27,7 @@ class AdministrationResource extends Resource
     protected static ?string $model = Administration::class;
 
     protected static ?string $navigationLabel = 'Administrateurs';
-    protected static ?string $label = 'Administrateurs';   
+    protected static ?string $label = 'Administrateurs';
     protected static ?string $navigationGroup = 'Organisation';
     protected static ?int $navigationSort = 3;
 
@@ -55,8 +55,16 @@ class AdministrationResource extends Resource
                             ->options(\App\Models\Organe::pluck('name', 'id'))
                             ->required(),
                         FileUpload::make('image')
-                            ->image()                            
+                            ->image()
                             ->label('Photo')
+                            ->required(),
+                        FileUpload::make('image_two')
+                            ->image()
+                            ->label('Image 2')
+                            ->required(),
+                        FileUpload::make('image_three')
+                            ->image()
+                            ->label('Image 3')
                             ->required(),
                         Toggle::make('status')
                             ->label('Actif')
@@ -83,8 +91,8 @@ class AdministrationResource extends Resource
                     ->label('Photo'),
                 Tables\Columns\IconColumn::make('status')
                     ->label('Actif')
-                    ->boolean()      
-                   
+                    ->boolean()
+
             ])
             ->filters([
                 //

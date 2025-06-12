@@ -1,15 +1,15 @@
  {{-- menu for movil --}}
  <aside
- id="logo-sidebar"
- class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform duration-300 ease-in-out bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 md:hidden"
- :class="{
-   'translate-x-0': open,
-   '-translate-x-full': !open,
- }"
- x-cloak
- aria-hidden="true"
- aria-label="Sidebar"
->
+     id="logo-sidebar"
+     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform duration-300 ease-in-out bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 [@media(min-width:1450px)]:hidden"
+     :class="{
+    'translate-x-0': open,
+    '-translate-x-full': !open,
+  }"
+     x-cloak
+     aria-hidden="true"
+     aria-label="Sidebar"
+ >
  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
      <ul class="space-y-2 font-medium">
          <li>
@@ -82,9 +82,9 @@
      </ul>
  </div>
 </aside>
-<div
-x-show="open"
-x-on:click="open = false"
-class="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
-style="display: none"
-></div>
+ <div
+     x-show="open"
+     x-on:click="open = false"
+     class="fixed inset-0 z-30 bg-black bg-opacity-50 [@media(min-width:1450px)]:hidden"
+     style="display: none"
+ ></div>

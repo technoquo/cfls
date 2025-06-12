@@ -1,6 +1,14 @@
 {
+  "public/img/FOND_CLAIR_1.png": {
+    "file": "assets/FOND_CLAIR_1-CDY8aiJh.png",
+    "src": "public/img/FOND_CLAIR_1.png"
+  },
+  "public/img/FOND_CLAIR_2.png": {
+    "file": "assets/FOND_CLAIR_2-C7SYwdeh.png",
+    "src": "public/img/FOND_CLAIR_2.png"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-B555WlMl.css",
+    "file": "assets/app-B5UbEcqg.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

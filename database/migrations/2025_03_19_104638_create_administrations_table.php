@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignIdFor(Position::class);
             $table->foreignIdFor(Organe::class);
             $table->text('image')->nullable();
+            $table->text('image_two')->nullable();
+            $table->text('image_three')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

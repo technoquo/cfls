@@ -11,7 +11,7 @@
                 <li class="glide__slide">
                     <div class="grid lg:grid-cols-12">
                         <div class="mr-auto place-self-center lg:col-span-7">
-                            <h1 class="max-w-2xl mb-4 font-extrabold leading-none tracking-tight text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl dark:text-white">
+                            <h1 class="max-w-2xl mb-4 font-extrabold leading-none tracking-tight text-xl sm:text-2xl md:text-3xl lg:text-5xl dark:text-white">
                                 {{ $feature->title }}
                             </h1>
                             <hr class="border-b border-gray-200 dark:border-gray-700 my-5"/>
@@ -25,7 +25,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="lg:mt-0 lg:col-span-5 lg:flex justify-center">
+                        <div class="lg:mt-0 lg:col-span-5 lg:flex flex justify-center">
                             <img class="w-2/3 h-auto" src="{{ asset('storage/'. $feature->image) }}" alt="{{ $feature->title }}" />
                         </div>
                     </div>
