@@ -15,7 +15,7 @@
                                 {{ $feature->title }}
                             </h1>
                             <hr class="border-b border-gray-200 dark:border-gray-700 my-5"/>
-                            <div class="prose max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-2xl lg:text-2xl dark:text-white">
+                            <div class="prose prose-p:my-1 max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-2xl lg:text-2xl dark:text-white">
                                 {!!  $feature->description !!}
                             </div>
                             <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4 mt-4">
