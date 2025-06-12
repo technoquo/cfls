@@ -75,7 +75,8 @@
             </div>
 
             <!-- Redes sociales y switch -->
-            <div class="flex items-center space-x-6">
+
+            <div class="flex items-center space-x-4 lg:ml-4">
                 <!-- Facebook -->
                 <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="hover:opacity-80">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">

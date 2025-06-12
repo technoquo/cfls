@@ -15,9 +15,9 @@
                                 {{ $feature->title }}
                             </h1>
                             <hr class="border-b border-gray-200 dark:border-gray-700 my-5"/>
-                            <p class="max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-2xl lg:text-2xl dark:text-white">
+                            <div class="prose max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-2xl lg:text-2xl dark:text-white">
                                 {!!  $feature->description !!}
-                            </p>
+                            </div>
                             <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4 mt-4">
                                 <a href="{{$feature->link}}" target="{{$feature->target}}" class="inline-flex items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-sm font-medium text-white bg-[#008BCF] border border-gray-200 rounded-lg sm:w-auto focus:outline-none hover:bg-cyan-500 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-[#008BCF] dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 
@@ -69,5 +69,7 @@
 
         document.addEventListener('DOMContentLoaded', window.initGlide);
         document.addEventListener('livewire:navigated', window.initGlide);
+
     </script>
+
 @endpush

@@ -4,7 +4,7 @@
             {{ $data->name }}
         </h2>
 
-        <div class="font-light lg:text-2xl text-gray-800 dark:text-white text-center">
+        <div class="text-center font-light lg:text-2xl text-gray-800 dark:text-white max-w-6xl mx-auto">
             {!! $data->description !!}
         </div>
 

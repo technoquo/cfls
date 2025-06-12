@@ -36,10 +36,10 @@
           </div>
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-      <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="sm:flex sm:items-center sm:justify-center">
           <span class="text-sm  sm:text-center ">© {{ date('Y') }} <a href="/" class="hover:underline">CFLS</a>. Tous droits réservés.
-          </span>`
-          <div class="flex mt-4 sm:justify-center sm:mt-0 mr-40">
+          </span>
+          <div class="flex flex-wrap mt-4 sm:justify-start sm:mt-0 gap-4 ml-4 pt-12">
               @php
                   $soutiens = \App\Models\Soutien::where('status', 1)->get();
               @endphp
