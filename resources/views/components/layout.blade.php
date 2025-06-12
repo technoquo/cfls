@@ -25,6 +25,27 @@
             html.classList.add('light');
             html.classList.remove('dark');
         }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('cart', {
+                count: 0,
+                items: []
+            });
+
+            // Puedes sincronizarlo con localStorage si ya guardás el carrito ahí
+            const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
+            Alpine.store('cart').items = storedItems;
+            Alpine.store('cart').count = storedItems.length;
+        });
+
+        window.addEventListener('cart-updated', () => {
+            const updated = JSON.parse(localStorage.getItem('cart')) || [];
+
+            Alpine.store('cart').items = updated;
+            Alpine.store('cart').count = updated.length;
+        });
+
+
     </script>
 
 

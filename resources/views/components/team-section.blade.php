@@ -12,7 +12,7 @@
                     this.current = 0;
                     this.interval = setInterval(() => {
                         this.current = (this.current + 1) % this.overlayImages.length;
-                    }, 800);
+                    }, 500);
                 },
                 stopRotating() {
                     clearInterval(this.interval);
@@ -22,7 +22,7 @@
             class="flex flex-col items-center dark:bg-gray-900 rounded-lg overflow-hidden relative"
         >
             <div
-                class="relative flex justify-center overflow-hidden mt-4 w-[270px] h-[337.5px]"
+                class="relative flex justify-center overflow-hidden mt-4"
                 @mouseenter="startRotating()"
                 @mouseleave="stopRotating()"
             >
@@ -31,7 +31,9 @@
                     :style="current === null ? 'display: block' : 'display: none'"
                     src="{{ asset('storage/' . $member['image']) }}"
                     alt="{{ $member->user->name }}"
-                    class="w-full h-full object-cover rounded absolute top-0 left-0"
+                    width="270"
+                    height="338"
+                    class=" object-cover rounded  top-0 left-0"
                 >
 
                 <!-- Imagen rotativa -->
@@ -39,7 +41,9 @@
                     x-show="current !== null"
                     x-bind:src="overlayImages[current]"
                     :style="current !== null ? 'display: block' : 'display: none'"
-                    class="w-full h-full object-cover rounded absolute top-0 left-0"
+                    width="270"
+                    height="338"
+                    class="object-cover rounded  top-0 left-0"
                     alt="{{ $member->user->name }}"
                 >
             </div>

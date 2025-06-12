@@ -245,6 +245,7 @@
                 },
 
                 increaseQuantity(id) {
+                    console.log('Increasing quantity for item with ID:', id);
                     const item = this.items.find(i => i.id === id);
                     if (item) {
                         item.quantity++;
