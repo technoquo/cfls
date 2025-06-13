@@ -28,24 +28,23 @@
             >
                 <!-- Imagen principal -->
                 <img
-                    :style="current === null ? 'display: block' : 'display: none'"
+                    x-show="current === null"
                     src="{{ asset('storage/' . $member['image']) }}"
                     alt="{{ $member->user->name }}"
                     width="270"
                     height="338"
-                    class=" object-cover rounded  top-0 left-0"
-                >
+                    class="object-cover rounded top-0 left-0"
+                />
 
                 <!-- Imagen rotativa -->
                 <img
                     x-show="current !== null"
                     x-bind:src="overlayImages[current]"
-                    :style="current !== null ? 'display: block' : 'display: none'"
                     width="270"
                     height="338"
-                    class="object-cover rounded  top-0 left-0"
+                    class="object-cover rounded top-0 left-0"
                     alt="{{ $member->user->name }}"
-                >
+                  >
             </div>
 
             <div class="p-6 text-center">
