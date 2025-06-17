@@ -40,7 +40,7 @@
                 <!-- Imagen rotativa -->
                 <img
                     x-show="current !== null"
-                    x-bind:src="overlayImages[current]"
+                    :src="overlayImages[current]"
                     width="270"
                     height="338"
                     class="object-cover rounded top-0 left-0"
