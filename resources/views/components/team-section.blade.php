@@ -1,55 +1,13 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
     @foreach ($teamMembers as $member)
-        <div
-            wire:ignore
-            x-data="{
-                overlayImages: [
-                    @if (!empty($member['image_two'])) '{{ asset('storage/' . $member['image_two']) }}', @endif
-                    @if (!empty($member['image_three'])) '{{ asset('storage/' . $member['image_three']) }}' @endif
-                ].filter(Boolean),
-                current: null,
-                interval: null,
-                startRotating() {
-                    if (this.overlayImages.length === 0 || this.interval !== null) return;
-                    this.current = 0;
-                    this.interval = setInterval(() => {
-                        this.current = (this.current + 1) % this.overlayImages.length;
-                    }, 500);
-                },
-                stopRotating() {
-                    if (this.interval) {
-                        clearInterval(this.interval);
-                        this.interval = null;
-                    }
-                    this.current = null;
-                }
-            }"
-            class="flex flex-col items-center dark:bg-gray-900 rounded-lg overflow-hidden relative"
-        >
-            <div
-                class="relative flex justify-center overflow-hidden mt-4"
-                @mouseenter="startRotating()"
-                @mouseleave="stopRotating()"
-            >
+        <div class="flex flex-col items-center dark:bg-gray-900 rounded-lg overflow-hidden relative">
+            <div>
                 <!-- Imagen principal -->
-                <img
-                    x-show="current === null"
-                    src="{{ asset('storage/' . $member['image']) }}"
-                    alt="{{ $member->user->name }}"
-                    width="270"
-                    height="338"
-                    class="object-cover rounded top-0 left-0"
-                />
-
-                <!-- Imagen rotativa -->
-                <img
-                    x-show="current !== null"
-                    :src="overlayImages[current]"
-                    width="270"
-                    height="338"
-                    class="object-cover rounded top-0 left-0"
-                    alt="{{ $member->user->name }}"
-                >
+                <livewire:rotating-image :images="[
+                    $member['image'],
+                    $member['image_two'],
+                    $member['image_three'],
+                ]"/>
             </div>
 
             <div class="p-6 text-center">
