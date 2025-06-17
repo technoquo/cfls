@@ -1,6 +1,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
     @foreach ($teamMembers as $member)
         <div
+            wire:ignore
             x-data="{
                 overlayImages: [
                     @if (!empty($member['image_two'])) '{{ asset('storage/' . $member['image_two']) }}', @endif
@@ -9,14 +10,17 @@
                 current: null,
                 interval: null,
                 startRotating() {
-                    if (this.overlayImages.length === 0) return;
+                    if (this.overlayImages.length === 0 || this.interval !== null) return;
                     this.current = 0;
                     this.interval = setInterval(() => {
                         this.current = (this.current + 1) % this.overlayImages.length;
                     }, 500);
                 },
                 stopRotating() {
-                    clearInterval(this.interval);
+                    if (this.interval) {
+                        clearInterval(this.interval);
+                        this.interval = null;
+                    }
                     this.current = null;
                 }
             }"
@@ -45,7 +49,7 @@
                     height="338"
                     class="object-cover rounded top-0 left-0"
                     alt="{{ $member->user->name }}"
-                  >
+                >
             </div>
 
             <div class="p-6 text-center">
