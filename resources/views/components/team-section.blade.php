@@ -3,12 +3,13 @@
         <div
             x-data="{
                 overlayImages: [
-                    '{{ asset('storage/' . $member['image_two']) }}',
-                    '{{ asset('storage/' . $member['image_three']) }}'
-                ],
+                    @if (!empty($member['image_two'])) '{{ asset('storage/' . $member['image_two']) }}', @endif
+                    @if (!empty($member['image_three'])) '{{ asset('storage/' . $member['image_three']) }}' @endif
+                ].filter(Boolean),
                 current: null,
                 interval: null,
                 startRotating() {
+                    if (this.overlayImages.length === 0) return;
                     this.current = 0;
                     this.interval = setInterval(() => {
                         this.current = (this.current + 1) % this.overlayImages.length;
