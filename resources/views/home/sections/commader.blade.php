@@ -25,8 +25,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="lg:mt-0 lg:col-span-5 lg:flex flex justify-center">
-                            <img class="w-2/3 h-auto" src="{{ asset('storage/'. $feature->image) }}" alt="{{ $feature->title }}" />
+                        <div class="lg:mt-0 lg:col-span-5 flex justify-center">
+                            <img class="object-contain w-50 max-w-[500px]" src="{{ asset('storage/' . $feature->image) }}" alt="{{ $feature->title }}" />
                         </div>
                     </div>
                 </li>

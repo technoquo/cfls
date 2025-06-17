@@ -2,7 +2,7 @@
 
     <img class="rounded-t-lg" src="{{ $img }}"  />
     <div class="p-5">
-        <h5 class="mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white capitalize text-center">
+        <h5 class="mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
                 {{ $title }}</h5>
             <div class="text-center mt-4">
                 <a href="{{ $category }}/{{ $videoSlug }}"
