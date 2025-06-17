@@ -2,9 +2,11 @@
     <style>
         .general > ol > li {
             color: black; /* White color for light mode */
+            font-size: 1rem;
         }
         .dark .general > ol > li {
-            color: whiten; /* Black color for dark mode */
+            color: white;/* Black color for dark mode */
+
         }
     </style>
     <x-slot name="title">Politique de confidentialité | C.F.L.S. asbl</x-slot>

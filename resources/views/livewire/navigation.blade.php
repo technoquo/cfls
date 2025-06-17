@@ -16,17 +16,17 @@
 >
     <div role="list" class="hidden lg:flex flex-col lg:flex-row items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 w-full box-border">
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Accueil</a>
+            <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-white' : 'text-black hover:text-gray-700' }}">Accueil</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[250px] text-center">
-            <a wire:navigate href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Qui sommes-nous ?</a>
+            <a wire:navigate href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'text-white' : 'text-black hover:text-gray-700' }}">Qui sommes-nous ?</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('formations.index') }}" class="{{ request()->routeIs('formations.index') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Formations</a>
+            <a wire:navigate href="{{ route('formations.index') }}" class="{{ request()->routeIs('formations.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Formations</a>
         </div>
         <div role="listitem" x-data="{ open: false }" class="px-4 py-2 min-w-[140px] text-center relative">
             <a href="#" @click.prevent="open = !open"
-               class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">
+               class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">
                 Vidéos
             </a>
             <div x-show="open" x-cloak @click.outside="open = false"
@@ -50,32 +50,31 @@
             </div>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[180px] text-center">
-            <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
+            <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Boutique</a>
+            <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Boutique</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
-            <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-csfl' : 'text-black hover:text-gray-700' }}">Contact</a>
+            <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-white' : 'text-black hover:text-gray-700' }}">Contact</a>
+        </div>
+        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+            <!-- Botón del carrito -->
+
+            <button @click="window.dispatchEvent(new CustomEvent('open-slide-over'))" class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+                <span
+                    x-cloak
+                    x-text="$store.cart.count"
+                    x-show="$store.cart.count > 0"
+                    class="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                   </span>
+            </button>
         </div>
         <div class="ml-12 flex items-center justify-center space-x-8">
-            <!-- Botón del carrito -->
-            <div>
-                <button @click="window.dispatchEvent(new CustomEvent('open-slide-over'))" class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                    </svg>
-                    <span
-                        x-cloak
-                        x-text="$store.cart.count"
-                        x-show="$store.cart.count > 0"
-                        class="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-                   </span>
-                </button>
-            </div>
-
-            <!-- Redes sociales y switch -->
-
+           <!-- Redes sociales y switch -->
             <div class="flex items-center space-x-4 lg:ml-4">
                 <!-- Facebook -->
                 <a href="https://www.facebook.com/cfls.asbl" target="_blank" class="hover:opacity-80">
