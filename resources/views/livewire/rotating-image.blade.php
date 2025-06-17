@@ -6,10 +6,17 @@
     @endif
     class="w-[270px] h-[338px] overflow-hidden rounded relative cursor-pointer"
 >
-    @if (isset($images[$current]))
+
+    @if (!$rotating && isset($images[0]))
+        <img
+            src="{{ asset('storage/' . $images[0]) }}"
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+            alt="Imagen principal"
+        />
+    @elseif ($rotating && isset($images[$current]))
         <img
             src="{{ asset('storage/' . $images[$current]) }}"
-            class="object-cover w-full h-full transition-opacity duration-300"
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
             alt="Imagen rotativa"
         />
     @endif

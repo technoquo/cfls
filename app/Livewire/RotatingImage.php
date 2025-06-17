@@ -11,23 +11,27 @@ class RotatingImage extends Component
     public $rotating = false;
     public $polling = false;
 
-    public function mount(array $images)
+    public function mount($images)
     {
-        $this->images = array_filter($images);
+        // Solo usar imágenes adicionales (image_two y image_three)
+        $this->images = array_values(array_filter($images));
         $this->current = 0;
     }
 
     public function startRotating()
     {
-        $this->rotating = true;
-        $this->polling = true;
+        if (count($this->images) > 1) {
+            $this->rotating = true;
+            $this->polling = true;
+        }
     }
 
     public function stopRotating()
     {
         $this->rotating = false;
         $this->polling = false;
-        $this->current = 0;
+        // NO se reinicia la imagen actual
+        // $this->current = 0; ← Esto se elimina
     }
 
     public function nextImage()
