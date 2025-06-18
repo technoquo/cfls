@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Syllabu;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +28,6 @@ class SyllabusController extends Controller
             ->themes()
             ->where('status', 1)
             ->get();
-
-
 
 //        $videos = DB::table('video_themes_cloudinary')
 //            ->select('url as url_video', 'title')
@@ -76,6 +75,8 @@ class SyllabusController extends Controller
             if (!$syllabu) {
                 abort(404, 'Syllabus no encontrado');
             }
+
+
 
             $themeModel = $syllabu->themes()
                 ->where('slug', $theme)

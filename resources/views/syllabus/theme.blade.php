@@ -15,14 +15,15 @@
         @foreach($chunks as $chunk)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 @foreach($chunk as $index => $theme)
+
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center text-center p-6 h-auto">
                         <a href="{{ route('syllabus.theme', ['slug' => $slug, 'theme' => $theme->slug]) }}" class="flex flex-col items-center">
                             @if($theme->image)
                                 <img src="{{ asset('storage/' . $theme->image) }}" alt="{{ $theme->title }}"
-                                     class="mb-4 w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 object-cover rounded-full border border-gray-300 dark:border-gray-600">
+                                     class="mb-4 w-24 h-24 object-cover rounded-full border border-gray-300 dark:border-gray-600">
                             @else
-                                <div class="mb-4 w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 dark:bg-gray-700">
-                                    <span class="text-sm">Aucune image</span>
+                                <div class="mb-4 w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 dark:bg-gray-700">
+                                    <span class="text-sm">Sin imagen</span>
                                 </div>
                             @endif
                             <h5 class="text-xl font-semibold text-gray-900 dark:text-white uppercase">

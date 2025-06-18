@@ -9,7 +9,7 @@ class Syllabu extends Model
 {
     public function themes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Theme::class, 'syllabu_id','image');
+        return $this->hasMany(Theme::class, 'syllabu_id');
     }
 
     public function videos(): \Illuminate\Database\Eloquent\Relations\HasMany
