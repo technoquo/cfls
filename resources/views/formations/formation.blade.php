@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">{{ $formation->title }}</x-slot>
-    <section class="bg-white dark:bg-gray-900">
+    <section class="bg-white dark:bg-gray-900 py-12">
 
         <x-menuformation :slug="$slug" />
         <div

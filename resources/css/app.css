@@ -33,6 +33,13 @@ ol > li {
 }
 
 
+@media (prefers-color-scheme: dark) {
+    ol > li {
+        color: white;
+    }
+}
+
+
 
 
 /*** HERO ***/
