@@ -7,25 +7,31 @@
             class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-7xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img class="w-full" src="{{ asset('storage/' . $formation->image) }}" alt="{{ $formation->title }}">
 
-            <div class="mt-4 md:mt-0">
-                <h2 class="mb-4 text-7xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                    {{ $formation->title }}</h2>
-                <div class="mb-6 font-light text-gray-500 text-lg dark:text-gray-400 md:text-2xl">
+            <div class="mt-6 md:mt-0 px-4 sm:px-6 lg:px-8">
+                <!-- Título -->
+                <h2 class="mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center md:text-left">
+                    {{ $formation->title }}
+                </h2>
+
+                <!-- Descripción -->
+                <div class="mb-6 text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-600 dark:text-gray-400 text-justify">
                     {!! $formation->description !!}
                 </div>
 
-                @if ($formation->buttom != null)
-
-                    <a href="{{  $slug }}/calendrier" wire:navigate
-                        class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:focus:ring-primary-900  bg-blue-700 hover:bg-blue-800">
-                        {{ $formation->buttom }}
-                        <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
+                <!-- Botón (si existe) -->
+                @if ($formation->buttom)
+                    <div class="flex justify-center md:justify-start">
+                        <a href="{{ $slug }}/calendrier" wire:navigate
+                           class="inline-flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 font-medium rounded-lg text-lg sm:text-xl md:text-2xl px-5 py-2.5 transition-all duration-200">
+                            {{ $formation->buttom }}
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                      clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>
@@ -51,22 +57,34 @@
                 }" x-id="['tab']" class="w-full mx-auto max-w-screen-2xl">
 
                         <!-- Tab List -->
-                        <ul x-ref="tablist" @keydown.right.prevent.stop="$focus.wrap().next()"
-                            @keydown.home.prevent.stop="$focus.first()" @keydown.page-up.prevent.stop="$focus.first()"
-                            @keydown.left.prevent.stop="$focus.wrap().prev()" @keydown.end.prevent.stop="$focus.last()"
-                            @keydown.page-down.prevent.stop="$focus.last()" role="tablist"
-                            class="-mb-px flex w-full items-stretch overflow-x-auto  gap-2 md:mb-2">
+                        <ul x-ref="tablist"
+                            @keydown.right.prevent.stop="$focus.wrap().next()"
+                            @keydown.left.prevent.stop="$focus.wrap().prev()"
+                            @keydown.home.prevent.stop="$focus.first()"
+                            @keydown.end.prevent.stop="$focus.last()"
+                            @keydown.page-up.prevent.stop="$focus.first()"
+                            @keydown.page-down.prevent.stop="$focus.last()"
+                            role="tablist"
+                            class="flex w-full items-stretch gap-2 overflow-x-auto md:overflow-visible px-4 py-2 scroll-smooth whitespace-nowrap -mb-px md:mb-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
 
-                            <!-- Tab -->
                             @foreach ($formation->info_formation as $info)
-                                <li class="w-full text-center">
-                                    <button :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
-                                            @click="select($el.id)" @mousedown.prevent @focus="select($el.id)" type="button"
-                                            :tabindex="isSelected($el.id) ? 0 : -1" :aria-selected="isSelected($el.id)"
-                                            :class="isSelected($el.id) ? 'bg-gray-200 dark:bg-gray-600' :
-                                        'border-transparent dark:bg-slate-800'"
-                                            class="w-full inline-flex justify-center px-4 py-2 text-sm whitespace-nowrap border border-gray-500/50 rounded hover:bg-gray-300 dark:bg-gray-100 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 md:text-2xl"
-                                            role="tab">{{ $info->title }}</button>
+                                <li class="shrink-0 w-auto text-center">
+                                    <button
+                                        :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                                        @click="select($el.id)"
+                                        @mousedown.prevent
+                                        @focus="select($el.id)"
+                                        type="button"
+                                        :tabindex="isSelected($el.id) ? 0 : -1"
+                                        :aria-selected="isSelected($el.id)"
+                                        :class="isSelected($el.id)
+                                        ? 'bg-gray-200 dark:bg-gray-600'
+                                        : 'border-transparent dark:bg-slate-800'"
+                                        class="inline-flex justify-center items-center px-4 py-2 border border-gray-500/50 rounded text-sm md:text-lg lg:text-xl hover:bg-gray-300 dark:text-white dark:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                                        role="tab">
+                                        {{ $info->title }}
+                                    </button>
+
                                 </li>
                             @endforeach
 
@@ -101,13 +119,13 @@
                     @if ($index % 2 == 0)
                         <div class="max-w-screen-2xl px-4 py-8 mx-auto space-y-12">
                             <!-- Row -->
-                            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-                                <div class="text-gray-700 sm:text-lg dark:text-gray-400">
+                            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16 text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-600 dark:text-gray-400 text-justify">
 
-                                    <div class="mb-8 font-medium lg:text-2xl">
+
+
                                         {!! $info->description !!}
-                                    </div>
-                                </div>
+
+
                                 <div>
                                     <img class="h-auto max-w-full rounded-lg" src="{{ asset('storage/' . $info->image) }}"
                                          alt="course prive">
@@ -124,7 +142,7 @@
                                 </div>
                                 <div class="text-gray-700 sm:text-lg dark:text-gray-400">
 
-                                    <div class="mb-8 font-medium lg:text-2xl">
+                                    <div class="mb-8 text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-600 dark:text-gray-400 text-justify">
                                         {!! $info->description !!}
                                     </div>
                                 </div>

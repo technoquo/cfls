@@ -1,38 +1,41 @@
 <section class="bg-white dark:bg-gray-900 mb-4" {{ $history->status ? '' : 'hidden' }}>
-    <div class="max-w-screen-2xl mx-auto space-y-12">
-        <h2 class="text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
+    <div class="max-w-screen-2xl mx-auto px-4 py-12 space-y-8">
+        <!-- Main Title -->
+        <h2 class="responsive-title font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
             {{ $data->name }}
         </h2>
 
-        <div class="text-center font-light lg:text-2xl text-gray-800 dark:text-white max-w-6xl mx-auto">
+        <!-- Main Description -->
+        <div class="responsive-text prose prose-p:my-2 max-w-4xl mx-auto font-light text-gray-800 dark:text-white text-center">
             {!! $data->description !!}
         </div>
 
         <!-- Responsive Row -->
-        <div class="flex flex-col lg:grid lg:grid-cols-2 xl:gap-16 gap-8 items-center">
+        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-12 items-center">
             <!-- Video Player -->
-            <div class="order-1 lg:order-2 w-full  mt-6">
-
-                <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg">
+            <div class="order-1 lg:order-2 w-full">
+                <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg video-container">
                     <iframe
                         src="https://player.vimeo.com/video/{{ $history->video }}"
-                        class="absolute top-0 left-0 w-full h-full"
+                        class="absolute top-0 left-0 w-full h-full video-iframe"
                         frameborder="0"
                         allow="autoplay; fullscreen; picture-in-picture"
                         allowfullscreen
+                        title="{{ $history->title }}"
+                        loading="lazy"
                     ></iframe>
                 </div>
             </div>
 
             <!-- Description -->
-            <div class="order-2 lg:order-1 text-gray-700 sm:text-lg dark:text-gray-400 w-full">
-                <h2 class="mb-4 mt-8 md:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
+            <div class="order-2 lg:order-1 w-full px-4">
+                <h2 class="responsive-subtitle mb-4 font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase">
                     {{ $history->title }}
                 </h2>
-                <hr class="border-b border-gray-200 dark:border-gray-700 my-5" />
-                <p class="font-light lg:text-2xl text-gray-800 dark:text-white text-center">
+                <hr class="border-b border-gray-200 dark:border-gray-700 my-4" />
+                <div class="responsive-text prose prose-p:my-2 font-light text-gray-800 dark:text-white text-center">
                     {!! $history->description !!}
-                </p>
+                </div>
             </div>
         </div>
     </div>

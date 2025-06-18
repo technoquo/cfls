@@ -28,6 +28,8 @@ class SyllabusController extends Controller
             ->where('status', 1)
             ->get();
 
+
+
 //        $videos = DB::table('video_themes_cloudinary')
 //            ->select('url as url_video', 'title')
 //            ->where('syllabu_id', $syllabu->id)

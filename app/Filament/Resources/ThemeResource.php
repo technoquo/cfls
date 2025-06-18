@@ -45,6 +45,13 @@ class ThemeResource extends Resource
                     ->options(Syllabu::all()->pluck('title', 'id')->toArray())
                     ->required()
                     ->searchable(),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->image()
+                    ->required()
+                    ->maxSize(1024) // 1MB
+                    ->disk('public') // Specify the disk where the image will be stored
+                    ->directory('themes'), // Directory within the disk
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
                     ->required()

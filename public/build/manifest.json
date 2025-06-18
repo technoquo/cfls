@@ -3,12 +3,20 @@
     "file": "assets/FOND_CLAIR_1-CDY8aiJh.png",
     "src": "public/img/FOND_CLAIR_1.png"
   },
+  "public/img/FOND_CLAIR_1_988X911.png": {
+    "file": "assets/FOND_CLAIR_1_988X911-B7VlNBZG.png",
+    "src": "public/img/FOND_CLAIR_1_988X911.png"
+  },
   "public/img/FOND_CLAIR_2.png": {
     "file": "assets/FOND_CLAIR_2-C7SYwdeh.png",
     "src": "public/img/FOND_CLAIR_2.png"
   },
+  "public/img/FOND_CLAIR_2_988X911.png": {
+    "file": "assets/FOND_CLAIR_2_988X911-COKMaFoB.png",
+    "src": "public/img/FOND_CLAIR_2_988X911.png"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-BBo6TFkL.css",
+    "file": "assets/app-nkp_Gs3e.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

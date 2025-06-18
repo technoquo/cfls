@@ -32,10 +32,132 @@ ol > li {
 
 }
 
-.bg-fond-one,
-.bg-fond-two {
+
+
+
+/*** HERO ***/
+/* Responsive typography */
+.responsive-title {
+    font-size: clamp(1.75rem, 5vw, 3.5rem); /* Scales between 1.75rem and 3.5rem */
+}
+
+.responsive-subtitle {
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Scales between 1.5rem and 2.5rem */
+}
+
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Scales between 1rem and 1.25rem */
+}
+
+/* Ensure video iframe is crisp on high-DPI displays */
+.video-iframe {
+    image-rendering: -webkit-optimize-contrast; /* For Mac Retina displays */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    .video-container {
+        padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+    }
+}
+
+/* High-resolution display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .video-iframe {
+        transform: scale(1); /* Ensure no pixelation on Retina */
+    }
+}
+
+/***  OBJECTIVES ***/
+/* Responsive typography */
+.responsive-title {
+    font-size: clamp(1.75rem, 5vw, 3.5rem); /* Scales between 1.75rem and 3.5rem */
+}
+
+.responsive-objective-title {
+    font-size: clamp(1.25rem, 3vw, 1.5rem); /* Scales between 1.25rem and 1.5rem */
+}
+
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Scales between 1rem and 1.25rem */
+}
+
+/* Ensure video is crisp on high-DPI displays */
+.video-element {
+    image-rendering: -webkit-optimize-contrast; /* For Mac Retina displays */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    .video-container {
+        aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+    }
+    .accordion-container {
+        max-width: 100%; /* Full width on mobile */
+    }
+}
+
+/* High-resolution display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .video-element {
+        transform: scale(1); /* Ensure no pixelation on Retina */
+    }
+}
+
+/*** COMMANDER ***/
+/* Ensure images are fully responsive */
+.glide__slide img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Limit image height for consistency */
+    object-fit: contain;
+}
+
+/* Ensure carousel height is controlled */
+.glide__track {
+    overflow: hidden;
+}
+
+/* Responsive text sizes */
+.responsive-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Scales between 1.5rem and 2.5rem */
+}
+
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Scales between 1rem and 1.25rem */
+}
+
+/* Center arrows vertically on smaller screens */
+.glide__arrows {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.bg-fond-one {
+     background-image: url('/public/img/FOND_CLAIR_1.png');
     background-size: cover;
-    background-position: center;
+
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+ }
+
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .bg-fond-one {
+        background-image: url('/public/img/FOND_CLAIR_1_988X911.png');
+    }
+}
+
+.bg-fond-two {
+    background-image: url('/public/img/FOND_CLAIR_2.png');
+    background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
     min-height: 100vh;
@@ -45,15 +167,133 @@ ol > li {
     padding: 0;
     margin: 0;
 }
-
-.bg-fond-one {
-    background-image: url('/public/img/FOND_CLAIR_1.png');
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .bg-fond-two {
+        background-image: url('/public/img/FOND_CLAIR_2_988X911.png');
+    }
 }
 
-.bg-fond-two {
-    background-image: url('/public/img/FOND_CLAIR_2.png');
+@media (max-width: 1023px) {
+    .bg-fond-one {
+        background-image: url('/public/img/FOND_CLAIR_1_988X911.png');
+    }
+    .bg-fond-two {
+        background-image: url('/public/img/FOND_CLAIR_2_988X911.png');
+    }
 }
 
+/* High-resolution display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .glide__slide img {
+        image-rendering: -webkit-optimize-contrast; /* Crisp images on Retina */
+    }
+}
+
+
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    .glide__slide .grid {
+        grid-template-columns: 1fr;
+    }
+    .glide__slide img {
+        max-height: 250px; /* Smaller images on mobile */
+    }
+    .glide__arrows {
+        gap: 0.5rem;
+    }
+}
+
+/***  DONATION ***/
+/* Responsive typography */
+.responsive-title {
+    font-size: clamp(1.75rem, 5vw, 3.5rem); /* Scales between 1.75rem and 3.5rem */
+}
+
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Scales between 1rem and 1.25rem */
+}
+
+/* Ensure video and image are crisp on high-DPI displays */
+.video-element,
+.image-element {
+    image-rendering: -webkit-optimize-contrast; /* For Mac Retina displays */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    .video-container {
+        aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+    }
+    .image-element {
+        width: 100%;
+        max-width: 12rem; /* Smaller image on mobile */
+    }
+}
+
+/* High-resolution display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .video-element,
+    .image-element {
+        transform: scale(1); /* Ensure no pixelation on Retina */
+    }
+}
+
+/* Animation adjustments for mobile */
+@media (max-width: 640px) {
+    .wow {
+        animation-duration: 0.8s; /* Faster animations on mobile */
+    }
+}
+
+
+/*** MEMBERS ***/
+
+
+/* Responsive typography */
+.responsive-title {
+    font-size: clamp(1.75rem, 5vw, 3.5rem); /* Scales between 1.75rem and 3.5rem */
+}
+
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Scales between 1rem and 1.25rem */
+}
+
+/* Ensure video and image are crisp on high-DPI displays */
+.video-element,
+.image-element {
+    image-rendering: -webkit-optimize-contrast; /* For Mac Retina displays */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    .video-container {
+        aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+    }
+    .image-element {
+        width: 100%;
+        max-width: 12rem; /* Smaller image on mobile */
+    }
+    .download-button {
+        font-size: clamp(0.875rem, 2vw, 1rem); /* Smaller button text on mobile */
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* High-resolution display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .video-element,
+    .image-element {
+        transform: scale(1); /* Ensure no pixelation on Retina */
+    }
+}
+
+/* Animation adjustments for mobile */
+@media (max-width: 640px) {
+    .wow {
+        animation-duration: 0.8s; /* Faster animations on mobile */
+    }
+}
 
 .members-description > p {
     font-size: 1.5rem;
@@ -61,11 +301,7 @@ ol > li {
     color: black !important;
 }
 
-@media (max-width: 1023px) {
-    .bg-fond-one, .bg-fond-two {
-      background: #84DBF0;
-    }
-}
+
 
 @media (max-width: 768px) {
     p {
@@ -81,9 +317,4 @@ ol > li {
     }
 }
 
-@media (max-width: 768px) {
-    .bg-fond-one,
-    .bg-fond-two {
-        background-position: top center;
-    }
-}
+
