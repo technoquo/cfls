@@ -20,10 +20,10 @@
                         <a href="{{ route('syllabus.theme', ['slug' => $slug, 'theme' => $theme->slug]) }}" class="flex flex-col items-center">
                             @if($theme->image)
                                 <img src="{{ asset('storage/' . $theme->image) }}" alt="{{ $theme->title }}"
-                                     class="mb-4 w-24 h-24 object-cover rounded-full border border-gray-300 dark:border-gray-600">
+                                     class="mb-4 w-50 h-auto object-cover rounded-full border border-gray-300 dark:border-gray-600">
                             @else
                                 <div class="mb-4 w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 dark:bg-gray-700">
-                                    <span class="text-sm">Sin imagen</span>
+                                    <span class="text-sm">Aucune image</span>
                                 </div>
                             @endif
                             <h5 class="text-xl font-semibold text-gray-900 dark:text-white uppercase">
