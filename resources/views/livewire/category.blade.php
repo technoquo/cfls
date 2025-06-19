@@ -35,7 +35,8 @@
             @foreach ($groupedProducts as $subcategoryName => $products)
                 <div class="mb-6">
                     <h2 id="{{ Str::slug($subcategoryName) }}"
-                        class="mt-6 mb-8 text-xl font-semibold dark:text-white sm:text-2xl uppercase text-center">
+                        class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-8
+                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                         {{ $subcategoryName }}
                     </h2>
 
@@ -56,7 +57,7 @@
                                             <img src="{{ asset('img/new.png') }}" alt="Sold Out" class="w-48">
                                         </div>
                                     </div>
-                                 @elseif ($product->status == 3)
+                                @elseif ($product->status == 3)
                                     <div class="relative">
                                         <div class="absolute -top-10 -left-12 ">
                                             <img src="{{ asset('img/soldout.png') }}" alt="Sold Out" class="w-48 ">
@@ -88,12 +89,14 @@
                                     </div>
                                     @if($product->options->isNotEmpty())
                                         <div class="space-y-4 mt-2">
-                                            <label for="choice" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sélectionner:</label>
+                                            <label for="choice"
+                                                   class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sélectionner:</label>
                                             <div class="flex items-center gap-2">
                                                 <select x-ref="choice" id="choice" name="choice"
                                                         class="border rounded px-4 py-2 w-full sm:w-64 text-base bg-white dark:bg-gray-800 dark:text-white">
                                                     @foreach($product->options as $option)
-                                                        <option value="{{ $option->option_name }}">{{ $option->option_name }}</option>
+                                                        <option
+                                                            value="{{ $option->option_name }}">{{ $option->option_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -101,7 +104,8 @@
                                     @endif
 
                                     <div class="mt-3 flex items-center justify-between gap-4 min-h-[50px]">
-                                    <span class="text-2xl font-semibold text-gray-900 dark:text-white whitespace-nowrap">
+                                    <span
+                                        class="text-2xl font-semibold text-gray-900 dark:text-white whitespace-nowrap">
                                         {{$product->price}} €
                                     </span>
 
@@ -138,7 +142,7 @@
         </div>
     @endif
     <!-- Botón TOP -->
-   <x-top/>
+    <x-top/>
 
 
 </div>

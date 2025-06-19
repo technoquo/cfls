@@ -39,7 +39,7 @@
                                 <button type="button"
                                         x-on:click="expanded = !expanded"
                                         :aria-expanded="expanded"
-                                        class="group flex w-full items-center justify-between text-left font-bold text-gray-800  text-xl md:text-2xl">
+                                        class="group flex w-full items-center justify-between text-left font-bold text-gray-800  text-xl md:text-4xl">
                                     <span class="flex-1">{{ $objective->title }}</span>
 
                                     <!-- Iconos -->
