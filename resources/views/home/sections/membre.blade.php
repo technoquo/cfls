@@ -19,7 +19,8 @@
            </div>
             <div class="mt-10">
                 <div class="ml-auto place-self-center lg:col-span-7 wow animate__animated animate__bounceInDown" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <h1 class="responsive-title mb-6 max-w-2xl text-center font-extrabold tracking-tight text-gray-900  uppercase">
+                    <h1 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-4
+                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                         {{ $members->title }}
                     </h1>
                     <div class="responsive-text prose prose-p:my-2 max-w-2xl mb-6 font-light text-gray-800  members-description mt-8 mx-auto">
@@ -27,7 +28,7 @@
                     </div>
                     <div class="flex items-center justify-center mb-8">
                         <img
-                            class="w-1/2 max-w-xs h-auto rounded-md image-element"
+                            class="size-3/12 max-w-xs h-auto rounded-md image-element"
                             src="{{ asset('storage/' . $members->image) }}"
                             alt="{{ $members->title }}"
                             loading="lazy"
