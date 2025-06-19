@@ -77,7 +77,7 @@
 
 
     <div
-        class="border-gray-200 border-dashed rounded-lg dark:border-gray-70 mt-14">
+        class="border-gray-200 border-dashed rounded-lg dark:border-gray-70">
         {{ $slot }}
     </div>
 

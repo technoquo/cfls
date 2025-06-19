@@ -6,7 +6,7 @@
         </h2>
 
         <!-- Main Description -->
-        <div class="responsive-text prose prose-p:my-2 max-w-4xl mx-auto font-light md:text-2xl text-gray-800 dark:text-white text-center mb-10">
+        <div class="lg:text-2xl font-light text-gray-800 dark:text-white text-center">
             {!! $data->description !!}
         </div>
 
