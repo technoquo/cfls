@@ -1,5 +1,5 @@
 <!-- Darkmode Toggler -->
-<div x-data="themeSwitch" class="relative z-50">
+<div x-data="themeSwitch" class="relative">
     <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-3 bg-white dark:bg-gray-800 z-1">
         <img id="theme-toggle-icon" src="{{ asset('img/sombre.png') }}" class="w-16 h-auto" alt="Darkmode Icon" width="60" height="60" />
     </button>

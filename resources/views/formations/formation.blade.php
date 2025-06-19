@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">{{ $formation->title }}</x-slot>
-    <section class="bg-white dark:bg-gray-900 py-12">
+    <section class="bg-white dark:bg-gray-900 mb-40">
 
         <x-menuformation :slug="$slug" />
         <div
@@ -98,7 +98,10 @@
                                 <section x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
                                          :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))" role="tabpanel"
                                          class="p-8">
+                                    <div class="prose prose-lg dark:prose-invert">
+
                                     {!! $info->description !!}
+                                    </div>
                                 </section>
                             @endforeach
 

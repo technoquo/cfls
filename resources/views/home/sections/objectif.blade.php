@@ -4,8 +4,8 @@
         <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-16 items-center">
             <!-- Video y título -->
             <div class="w-full mb-12">
-                <h2 class="text-center uppercase font-extrabold tracking-tight text-gray-900 dark:text-white mb-4
-                    text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+                <h2 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-4
+                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                     {{ $mission->title }}
                 </h2>
 
@@ -33,13 +33,13 @@
                             }"
                              x-cloak
                              role="region"
-                             class="border-b border-gray-300 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0 transition-all">
+                             class="border-b border-gray-800 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0 transition-all">
 
                             <h2>
                                 <button type="button"
                                         x-on:click="expanded = !expanded"
                                         :aria-expanded="expanded"
-                                        class="group flex w-full items-center justify-between text-left font-bold text-gray-800 dark:text-white text-xl sm:text-2xl">
+                                        class="group flex w-full items-center justify-between text-left font-bold text-gray-800  text-xl md:text-2xl">
                                     <span class="flex-1">{{ $objective->title }}</span>
 
                                     <!-- Iconos -->
@@ -59,7 +59,7 @@
                             </h2>
 
                             <div x-show="expanded" x-collapse>
-                                <div class="pt-2 text-gray-900 dark:text-white max-w-xl text-base sm:text-lg">
+                                <div class="pt-2 text-gray-900 md:text-2xl  max-w-xl text-base sm:text-lg">
                                     {{ $objective->description }}
                                 </div>
                             </div>

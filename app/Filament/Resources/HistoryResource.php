@@ -36,7 +36,7 @@ class HistoryResource extends Resource
                  TextInput::make('title')
                     ->label('Titre')
                     ->required(),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->label('')
                     ->required(),
                 TextInput::make('video')

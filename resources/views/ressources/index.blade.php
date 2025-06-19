@@ -17,7 +17,7 @@ $vimeos = $videos->map(function ($video) {
         {{ $category->name }}
     </h1>
 
-    <section class="flex justify-evenly flex-wrap gap-4 mt-8">
+    <section class="flex justify-evenly flex-wrap gap-4 mt-8 py-12">
         @foreach ($vimeos as $video)
 
             <x-vimeo-thumbnail

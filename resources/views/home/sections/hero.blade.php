@@ -6,7 +6,7 @@
         </h2>
 
         <!-- Main Description -->
-        <div class="responsive-text prose prose-p:my-2 max-w-4xl mx-auto font-light text-gray-800 dark:text-white text-center">
+        <div class="responsive-text prose prose-p:my-2 max-w-4xl mx-auto font-light md:text-2xl text-gray-800 dark:text-white text-center">
             {!! $data->description !!}
         </div>
 
@@ -33,7 +33,7 @@
                     {{ $history->title }}
                 </h2>
                 <hr class="border-b border-gray-200 dark:border-gray-700 my-4" />
-                <div class="responsive-text prose prose-p:my-2 font-light text-gray-800 dark:text-white text-center">
+                <div class="responsive-text prose prose-p:my-2 font-light md:text-2xl  text-gray-800 dark:text-white text-center">
                     {!! $history->description !!}
                 </div>
             </div>
