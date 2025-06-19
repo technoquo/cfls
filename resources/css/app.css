@@ -122,49 +122,27 @@ p {
 
 .bg-fond-one {
      background-image: url('/public/img/FOND_CLAIR_1.png');
-    background-size: cover;
 
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
  }
 
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .bg-fond-one {
-        background-image: url('/public/img/FOND_CLAIR_1_988X911.png');
+        background-image: url('/public/img/fond_movil_1.png');
     }
 }
 
 .bg-fond-two {
-    background-image: url('/public/img/FOND_CLAIR_2.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .bg-fond-two {
-        background-image: url('/public/img/FOND_CLAIR_2_988X911.png');
-    }
+    background-image: url('/public/img/fond_movil_2.png');
+
 }
 
 @media (max-width: 1023px) {
     .bg-fond-one {
-        background-image: url('/public/img/FOND_CLAIR_1_988X911.png');
+        background-image: url('/public/img/fond_movil_1.png');
     }
     .bg-fond-two {
-        background-image: url('/public/img/FOND_CLAIR_2_988X911.png');
+        background-image: url('/public/img/fond_movil_2.png');
     }
 }
 

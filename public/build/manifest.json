@@ -1,22 +1,18 @@
 {
   "public/img/FOND_CLAIR_1.png": {
-    "file": "assets/FOND_CLAIR_1-CDY8aiJh.png",
+    "file": "assets/FOND_CLAIR_1-Cgh64pA5.png",
     "src": "public/img/FOND_CLAIR_1.png"
   },
-  "public/img/FOND_CLAIR_1_988X911.png": {
-    "file": "assets/FOND_CLAIR_1_988X911-B7VlNBZG.png",
-    "src": "public/img/FOND_CLAIR_1_988X911.png"
+  "public/img/fond_movil_1.png": {
+    "file": "assets/fond_movil_1-BovDgUYO.png",
+    "src": "public/img/fond_movil_1.png"
   },
-  "public/img/FOND_CLAIR_2.png": {
-    "file": "assets/FOND_CLAIR_2-C7SYwdeh.png",
-    "src": "public/img/FOND_CLAIR_2.png"
-  },
-  "public/img/FOND_CLAIR_2_988X911.png": {
-    "file": "assets/FOND_CLAIR_2_988X911-COKMaFoB.png",
-    "src": "public/img/FOND_CLAIR_2_988X911.png"
+  "public/img/fond_movil_2.png": {
+    "file": "assets/fond_movil_2-0QnRElOP.png",
+    "src": "public/img/fond_movil_2.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CPpmwlIW.css",
+    "file": "assets/app-DrpB-wDS.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

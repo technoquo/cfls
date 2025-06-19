@@ -31,7 +31,7 @@
                 </div>
                 <div class="flex items-center justify-center mb-8">
                     <img
-                        class="w-full max-w-xs h-auto rounded-md image-element"
+                        class="w-32 max-w-xs h-auto rounded-md image-element"
                         src="{{ asset('storage/' . $don->image) }}"
                         alt="{{ $don->title }}"
                         loading="lazy"

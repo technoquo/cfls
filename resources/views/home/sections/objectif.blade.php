@@ -1,7 +1,7 @@
-<section class="bg-white dark:bg-gray-900 bg-fond-one" {{ $mission->status ? '' : 'hidden' }}>
-    <div class="w-full max-w-screen-2xl px-4 md:px-8 mx-auto">
-        <!-- Row -->
-        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-16 items-center">
+<section class="w-full min-h-screen bg-cover bg-center sm:bg-top bg-no-repeat px-6 py-12 text-white bg-fond-one {{ $mission->status ? '' : 'hidden' }}">
+
+    <div class="w-full max-w-screen-2xl px-4 md:px-8 mx-auto flex items-center justify-center min-h-screen">
+        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-16 items-center w-full">
             <!-- Video y título -->
             <div class="w-full mb-12">
                 <h2 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-4
