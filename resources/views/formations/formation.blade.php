@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">{{ $formation->title }}</x-slot>
-    <section class="bg-white dark:bg-gray-900 mb-40">
+    <section class="bg-white dark:bg-gray-900">
 
         <x-menuformation :slug="$slug" />
         <div
@@ -38,7 +38,7 @@
 
         <div class="mb-16">
             @if (json_decode($formation->info_formation)[0]->title != null)
-                <div class="w-full md:h-[280px] dark:bg-slate-900 pb-32">
+                <div class="w-full  dark:bg-slate-900">
                     <!-- Tabs -->
                     <div x-data="{
                     selectedId: null,
@@ -95,14 +95,14 @@
                              class="w-full border text-2xl   dark:bg-slate-900 bg-white rounded-b-lg rounded-tr-lg  dark:text-slate-100">
                             <!-- Panel -->
                             @foreach ($formation->info_formation as $info)
-                                <section x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                                <div x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
                                          :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))" role="tabpanel"
                                          class="p-8">
                                     <div class="prose prose-lg dark:prose-invert">
 
                                     {!! $info->description !!}
                                     </div>
-                                </section>
+                                </div>
                             @endforeach
 
 
