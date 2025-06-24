@@ -21,6 +21,14 @@ p {
     color: black;
 }
 
+.ol > li {
+    margin-bottom: 1rem;
+}
+
+.general > ol > li {
+    font-size: 1.1rem;
+}
+
 /*** HERO ***/
 /* Responsive typography */
 .responsive-title {

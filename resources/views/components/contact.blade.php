@@ -12,7 +12,7 @@
 
         <!-- Transport public -->
         <div class="mb-4 text-center">
-            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Transport public</h3>
+            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Transports publics</h3>
             {!! $data->transport !!}
         </div>
 

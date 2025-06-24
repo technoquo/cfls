@@ -2,7 +2,7 @@
     <style>
         .general > ol > li {
             color: black; /* White color for light mode */
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         .dark .general > ol > li {
             color: white;/* Black color for dark mode */
@@ -15,7 +15,7 @@
             <h1 class="mb-6 font-extrabold leading-none tracking-tight text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl dark:text-white">
                 {{$data['title']}}
             </h1>
-            <div class="w-full dark:text-white general">
+            <div class="w-full dark:text-white general prose prose-lg dark:prose-invert text-black">
                 {!! $data['content'] !!}
             </div>
         </div>

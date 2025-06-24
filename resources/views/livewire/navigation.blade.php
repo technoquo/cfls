@@ -55,6 +55,9 @@
             <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+            <a wire:navigate href="" class="">Téléchargements gratuits</a>
+        </div>
+        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
             <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Boutique</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">

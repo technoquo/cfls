@@ -52,7 +52,7 @@
                                id="pickup"
                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="pickup" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
-                            Retrait en magasin (Gratuit)
+                            Retrait sur place (Gratuit)
                         </label>
                     </div>
                     <div class="flex items-center space-x-3">
@@ -93,11 +93,6 @@
                         <div>
                             <label for="ville" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Ville</label>
                             <input id="ville" type="text" placeholder="Ville"
-                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
-                        </div>
-                        <div>
-                            <label for="etat" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">État</label>
-                            <input id="etat" type="text" placeholder="État"
                                    class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
                         </div>
                         <div>

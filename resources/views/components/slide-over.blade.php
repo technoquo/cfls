@@ -137,7 +137,7 @@
                                     <input type="hidden" name="cart_data" x-model="JSON.stringify(items)">
                                 </form>
                                 <button
-                                    x-text="items.length > 0 ? 'Passer à la caisse' : 'Voir le panier'"
+                                    x-text="items.length > 0 ? 'Voir le panier' : 'Votre panier est vide'"
                                     @click="$nextTick(() => { document.getElementById('checkout-form').submit() })"
                                     :disabled="items.length === 0"
                                     :class="items.length === 0

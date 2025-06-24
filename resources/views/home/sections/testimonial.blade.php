@@ -3,7 +3,7 @@
 
     <div class="max-w-screen-xl px-4 mx-auto overflow-hidden relative">
         <h2 class="mb-8 uppercase text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
-            Témoignage
+            Témoignages
         </h2>
         <hr class="border-b border-gray-200 dark:border-gray-700 my-5">
         <!-- Glide.js Carousel -->
