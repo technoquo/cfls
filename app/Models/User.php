@@ -22,6 +22,7 @@ class User extends Authenticatable implements FilamentUser
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -76,6 +77,8 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Category::class);
     }
+
+
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {

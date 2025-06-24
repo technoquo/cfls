@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administration extends Model
 {
-    
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -21,4 +21,5 @@ class Administration extends Model
     {
         return $this->belongsTo(Organe::class);
     }
+
 }

@@ -59,7 +59,7 @@
                             </h2>
 
                             <div x-show="expanded" x-collapse>
-                                <div class="pt-2 text-gray-900 md:text-2xl  max-w-xl text-base sm:text-lg">
+                                <div class="pt-2 text-gray-900 md:text-2xl  max-w-xl text-base sm:text-lg font-light">
                                     {{ $objective->description }}
                                 </div>
                             </div>
