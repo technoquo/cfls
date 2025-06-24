@@ -27,7 +27,7 @@
                     {{ $don->title }}
                 </h2>
                 <hr class="border-b border-gray-200 dark:border-gray-700 my-4" />
-                <div class="lg:text-2xl font-light text-gray-800 dark:text-white text-center">
+                <div class="responsive-text prose prose-p:my-2 font-light md:text-2xl  text-gray-800 dark:text-white text-center">
                     {!! $don->description !!}
                 </div>
                 <div class="flex items-center justify-center mb-8">
