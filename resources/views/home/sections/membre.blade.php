@@ -19,20 +19,12 @@
            </div>
             <div class="mt-10">
                 <div class="ml-auto place-self-center lg:col-span-7 wow animate__animated animate__bounceInDown" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <h1 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-4
+                    <h1 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-8
                     text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                         {{ $members->title }}
                     </h1>
-                    <div class="responsive-text prose prose-p:my-2 max-w-2xl mb-6 font-light text-gray-800  members-description mt-8 mx-auto">
+                    <div class="responsive-text prose prose-p:my-2 font-light md:text-2xl  text-gray-800 dark:text-white text-center">
                         {!! $members->description !!}
-                    </div>
-                    <div class="flex items-center justify-center mb-8">
-                        <img
-                            class="size-3/12 max-w-xs h-auto rounded-md image-element"
-                            src="{{ asset('storage/' . $members->image) }}"
-                            alt="{{ $members->title }}"
-                            loading="lazy"
-                        />
                     </div>
                     <div class="flex items-center justify-center gap-4 mb-6">
                         <a
@@ -47,6 +39,15 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="flex items-center justify-center mb-8">
+                        <img
+                            class="size-1/2 max-w-xs h-auto rounded-md image-element"
+                            src="{{ asset('storage/' . $members->image) }}"
+                            alt="{{ $members->title }}"
+                            loading="lazy"
+                        />
+                    </div>
+
                 </div>
 
 
