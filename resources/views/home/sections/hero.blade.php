@@ -1,7 +1,7 @@
 <section class="bg-white dark:bg-gray-900 mb-4" {{ $history->status ? '' : 'hidden' }}>
     <div class="max-w-screen-2xl mx-auto px-4 py-12 space-y-8">
         <!-- Main Title -->
-        <h2 class="responsive-title text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
+        <h2 class="responsive-title text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center mb-10">
             {{ $data->name }}
         </h2>
 
@@ -16,15 +16,13 @@
                 <!-- Video Player -->
                 <div class="order-1 lg:order-2 w-full">
                     <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg video-container">
-                        <iframe
-                            src="https://player.vimeo.com/video/{{ $history->video }}"
-                            class="absolute top-0 left-0 w-full h-full video-iframe"
-                            frameborder="0"
-                            allow="autoplay; fullscreen; picture-in-picture"
-                            allowfullscreen
-                            title="{{ $history->title }}"
-                            loading="lazy"
-                        ></iframe>
+                        <video
+                            src="{{ $history->video }}"
+                            controls
+                            class="w-full h-auto aspect-video video-element"
+                            preload="metadata"
+                            aria-label="{{ $history->title }} video"
+                        ></video>
                     </div>
                 </div>
 

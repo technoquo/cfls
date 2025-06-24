@@ -9,7 +9,7 @@
                 {{ json_decode($organe)->name }}
             </h2>
             <div class="flex justify-center mx-auto">
-                <p class="text-black dark:text-white md:text-2xl text-sm">
+                <p class="font-light md:text-2xl  text-gray-800 dark:text-white text-center">
                     Découvrez chaque membre de notre équipe à travers son signe distinctif : </br>
                     la vidéo s'active automatiquement dès que vous bougez la souris.
                     <div class="mt-5 mr-5">

@@ -40,7 +40,7 @@ class HistoryResource extends Resource
                     ->label('')
                     ->required(),
                 TextInput::make('video')
-                    ->label('vidéo (code vimeo)')
+                    ->label('Url de la vidéo')
                     ->required(),
                 Toggle::make('status')
                     ->label('Statut')
