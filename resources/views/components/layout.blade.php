@@ -28,24 +28,24 @@
 
         document.addEventListener('alpine:init', () => {
             Alpine.store('cart', {
-                count: 0,
-                items: []
+                items: [],
+
+                // Getter dinámico que suma todas las cantidades
+                get count() {
+                    return this.items.reduce((total, item) => total + (item.quantity || 1), 0);
+                }
             });
 
-            // Puedes sincronizarlo con localStorage si ya guardás el carrito ahí
+            // Inicializar desde localStorage
             const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
             Alpine.store('cart').items = storedItems;
-            Alpine.store('cart').count = storedItems.length;
         });
 
+        // Escuchar cambios del carrito
         window.addEventListener('cart-updated', () => {
             const updated = JSON.parse(localStorage.getItem('cart')) || [];
-
             Alpine.store('cart').items = updated;
-            Alpine.store('cart').count = updated.length;
         });
-
-
     </script>
 
 

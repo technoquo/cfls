@@ -58,7 +58,7 @@
                             window.dispatchEvent(new CustomEvent('add-to-cart', {
                                 detail: {
                                     id: {{ $product->id }},
-                                    quantity: 1,
+                                    quantity: qty,
                                     choix: $refs.choice?.value ?? null
                                 }
                             }));">

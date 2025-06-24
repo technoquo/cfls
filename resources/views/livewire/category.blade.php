@@ -36,7 +36,7 @@
                 <div class="mb-6">
                     <h2 id="{{ Str::slug($subcategoryName) }}"
                         class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-8
-                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl dark:text-white">
                         {{ $subcategoryName }}
                     </h2>
 
