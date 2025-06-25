@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <link rel="icon" type="image/png" href="{{asset('img/favicon.ico')}}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{asset('img/favicon.svg')}}" />
+    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('img/apple-touch-icon.png')}}" />
+    <meta name="apple-mobile-web-app-title" content="cfls" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -92,6 +99,39 @@
        @stack('modals')
 
         @stack('scripts')
+
+        @livewireScripts
+
+
+     <x-top/>
+     <!-- Banner de preferencias de accesibilidad -->
+     <div id="accessibility-banner" style="display: none;"
+          class="fixed bottom-4 right-4 max-w-sm p-4 bg-white border border-gray-300 rounded-lg shadow-lg z-50 dark:bg-gray-800 dark:border-gray-700">
+
+         <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Gérer vos préférences de cookies</h2>
+         <p class="text-sm mb-4 text-gray-800 dark:text-gray-100">
+             Nous utilisons des cookies pour améliorer votre expérience de navigation, analyser le trafic et personnaliser les publicités.
+             Vous pouvez personnaliser vos choix ci-dessous. Les cookies essentiels seront activés quelle que soit votre décision.
+         </p>
+
+         <div class="mb-4">
+             <label for="theme" class="block text-sm font-medium text-gray-800 dark:text-gray-100">Thème:</label>
+             <select id="theme" class="w-full mt-1 border rounded p-1 dark:bg-gray-700 dark:text-white">
+                 <option value="light">Clair</option>
+                 <option value="dark">Sombre</option>
+             </select>
+         </div>
+
+         <div class="flex justify-end gap-2">
+             <button onclick="hideBanner()" class="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500">
+                 Annuler
+             </button>
+             <button onclick="savePreferences()" class="px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">
+                 OK
+             </button>
+         </div>
+     </div>
+
      @push('scripts')
          <script>
              document.addEventListener('alpine:init', () => {
@@ -193,18 +233,86 @@
                  };
              }
          </script>
-     @endpush
-        @livewireScripts
-        <script>
-            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark')
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
-        </script>
+         <script>
+             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                 document.documentElement.classList.add('dark')
+             } else {
+                 document.documentElement.classList.remove('dark')
+             }
+         </script>
 
-     <x-top/>
+     @endpush
+
+     <script>
+         function getAccessibilityCookie() {
+             const name = 'accessibility_preferences=';
+             const decodedCookie = decodeURIComponent(document.cookie);
+             const cookies = decodedCookie.split(';');
+
+             for (let i = 0; i < cookies.length; i++) {
+                 let c = cookies[i].trim();
+                 if (c.indexOf(name) === 0) {
+                     try {
+                         return JSON.parse(c.substring(name.length));
+                     } catch (e) {
+                         console.error('Erreur de cookie:', e);
+                         return null;
+                     }
+                 }
+             }
+             return null;
+         }
+
+         function hideBanner() {
+             document.getElementById('accessibility-banner').style.display = 'none';
+         }
+
+         function savePreferences() {
+             const themeElement = document.getElementById('theme');
+             if (!themeElement) {
+                 console.error('❌ Élément #theme introuvable');
+                 return;
+             }
+
+             const darkMode = themeElement.value === 'dark';
+
+             const preferences = {
+                 dark_mode: darkMode
+             };
+
+             const expires = new Date();
+             expires.setFullYear(expires.getFullYear() + 1);
+
+             document.cookie = `accessibility_preferences=${encodeURIComponent(JSON.stringify(preferences))}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+
+             localStorage.setItem('color-theme', darkMode ? 'dark' : 'light');
+
+             location.reload();
+         }
+
+         document.addEventListener('DOMContentLoaded', () => {
+             const prefs = getAccessibilityCookie();
+
+             if (!prefs) {
+                 document.getElementById('accessibility-banner').style.display = 'block';
+             } else {
+                 localStorage.setItem('color-theme', prefs.dark_mode ? 'dark' : 'light');
+             }
+
+             const html = document.documentElement;
+             const theme = localStorage.getItem('color-theme');
+
+             if (theme === 'dark') {
+                 html.classList.add('dark');
+                 html.classList.remove('light');
+             } else {
+                 html.classList.add('light');
+                 html.classList.remove('dark');
+             }
+         });
+     </script>
+
 </body>
 
 </html>
