@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <link rel="icon" type="image/png" href="{{asset('img/favicon.ico')}}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{{asset('img/favicon.svg')}}" />
-    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('img/apple-touch-icon.png')}}" />
+    <link rel="icon" type="image/png" href="{{asset('favicon.ico')}}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{asset('favicon.svg')}}" />
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}" />
     <meta name="apple-mobile-web-app-title" content="cfls" />
     <link rel="manifest" href="/site.webmanifest" />
 
