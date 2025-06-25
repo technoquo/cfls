@@ -8,7 +8,7 @@
 
     <section class="flex justify-evenly flex-wrap gap-4 mt-8 py-12">
      @foreach($downloads as $download)
-            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="max-w-sm bg-white rounded-lg shadow-sm dark:bg-gray-800 ">
 
                 <img class="rounded-t-lg" src="{{ asset('storage/'.$download->image) }}"  />
                 <div class="p-5">
