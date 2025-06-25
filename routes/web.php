@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoutiqueController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');;
 
-
+Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->name('telechargements-gratuits');
 // Formations Routes
 Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
 Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
