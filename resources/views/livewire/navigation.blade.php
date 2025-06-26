@@ -16,17 +16,18 @@
     class="w-full md:w-auto md:order-1"
     id="navbar-user"
 >
-    <div role="list" class="hidden lg:flex flex-col lg:flex-row items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 w-full box-border">
-        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+    <div role="list"
+         class="hidden lg:flex flex-wrap items-center justify-center font-medium text-2xl p-4 lg:p-0 mt-4 lg:mt-0 w-full box-border">
+        <div role="listitem" class="px-4 py-2 min-w-[120px] text-center">
             <a wire:navigate href="/" class="{{ request()->routeIs('home') ? 'text-white' : 'text-black hover:text-gray-700' }}">Accueil</a>
         </div>
         <div role="listitem" class="px-4 py-2 min-w-[250px] text-center">
             <a wire:navigate href="{{ route('equipe') }}" class="{{ request()->routeIs('equipe') ? 'text-white' : 'text-black hover:text-gray-700' }}">Qui sommes-nous ?</a>
         </div>
-        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+        <div role="listitem" class="px-4 py-2 min-w-[120px] text-center">
             <a wire:navigate href="{{ route('formations.index') }}" class="{{ request()->routeIs('formations.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Formations</a>
         </div>
-        <div role="listitem" x-data="{ open: false }" class="px-4 py-2 min-w-[140px] text-center relative">
+        <div role="listitem" x-data="{ open: false }" class="px-4 py-2 min-w-[120px] text-center relative">
             <a href="#" @click.prevent="open = !open"
                class="transition-colors duration-200 {{ request()->is('ressources/*') && !request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">
                 Vidéos
@@ -54,13 +55,13 @@
         <div role="listitem" class="px-4 py-2 min-w-[180px] text-center">
             <a wire:navigate href="/ressources/mots-croises" class="{{ request()->is('ressources/mots-croises') ? 'text-white' : 'text-black hover:text-gray-700' }}">Mots croisés</a>
         </div>
-        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+        <div role="listitem" class="px-4 py-2 min-w-[120px] text-center">
             <a wire:navigate href="{{route('telechargements-gratuits')}}" class="{{ request()->is('telechargements-gratuits') ? 'text-white' : 'text-black hover:text-gray-700' }}">Téléchargements gratuits</a>
         </div>
-        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+        <div role="listitem" class="px-4 py-2 min-w-[120px] text-center">
             <a wire:navigate href="{{ route('boutique.index') }}" class="{{ request()->routeIs('boutique.index') ? 'text-white' : 'text-black hover:text-gray-700' }}">Boutique</a>
         </div>
-        <div role="listitem" class="px-4 py-2 min-w-[140px] text-center">
+        <div role="listitem" class="px-4 py-2 min-w-[120px] text-center">
             <a wire:navigate href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-white' : 'text-black hover:text-gray-700' }}">Contact</a>
         </div>
         <div role="listitem" class="px-4 py-2  text-center">

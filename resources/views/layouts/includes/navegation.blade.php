@@ -43,17 +43,13 @@
     <!-- NAV incluido dentro del header -->
     <nav class="border-t border-gray-200 dark:border-gray-700  w-full">
         <div class="flex flex-wrap items-center justify-between lg:justify-center mx-auto px-4 py-2">
-            <!-- Botón hamburguesa móvil -->
+            <!-- Botón hamburguesa solo visible en pantallas < 2xl -->
             <div class="flex items-center ms-auto lg:hidden">
                 <button
                     x-on:click="open = !open"
-                    data-collapse-toggle="navbar-user"
                     type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-user"
-                    aria-expanded="false"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none"
                 >
-                    <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 17 14">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
