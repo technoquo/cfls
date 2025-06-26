@@ -11,8 +11,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     use HasApiTokens;
 

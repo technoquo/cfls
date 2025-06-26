@@ -5,17 +5,17 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="/">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+{{--                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">--}}
+{{--                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">--}}
+{{--                        {{ __('Dashboard') }}--}}
+{{--                    </x-nav-link>--}}
+{{--                </div>--}}
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -93,30 +93,30 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Account Management -->
+                            <!-- Gestion du compte -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Gérer le compte') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Profil') }}
                             </x-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
+                                    {{ __('Jetons API') }}
                                 </x-dropdown-link>
                             @endif
 
                             <div class="border-t border-gray-200"></div>
 
-                            <!-- Authentication -->
+                            <!-- Authentification -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                                 @click.prevent="$root.submit();">
+                                    {{ __('Se déconnecter') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
