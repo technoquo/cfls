@@ -3,6 +3,20 @@
 @endpush
 
 <section class="bg-white dark:bg-gray-900 mb-4">
+    <div class="max-w-screen-2xl mx-auto px-4 py-12 space-y-8">
+        <!-- Main Title -->
+        <h2 class="responsive-title text-xl sm:text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center mb-10">
+            {{ $data->name }}
+        </h2>
+
+
+        <!-- Main Description -->
+        <div class="lg:text-2xl font-light text-gray-800 dark:text-white text-center">
+            {!! $data->description !!}
+        </div>
+    </div>
+
+
     <div class="glide max-w-screen-2xl px-4 pt-12 pb-8 mx-auto lg:pt-16">
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
@@ -13,8 +27,9 @@
                                 <h1 class="responsive-title mb-4 font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ $feature->title }}
                                 </h1>
-                                <hr class="border-b border-gray-200 dark:border-gray-700 my-4" />
-                                <div class="responsive-text prose prose-p:my-1 mb-6 font-light md:text-2xl  text-gray-800 dark:text-white">
+                                <hr class="border-b border-gray-200 dark:border-gray-700 my-4"/>
+                                <div
+                                    class="responsive-text prose prose-p:my-1 mb-6 font-light md:text-2xl  text-gray-800 dark:text-white">
                                     {!! $feature->description !!}
                                 </div>
                                 <div class="flex flex-col sm:flex-row sm:space-x-4 mt-4">
@@ -29,7 +44,7 @@
                                 <img src="{{ asset('storage/' . $feature->image) }}"
                                      alt="{{ $feature->title }}"
                                      class="w-full max-w-[500px] h-auto object-contain"
-                                     loading="lazy" />
+                                     loading="lazy"/>
                             </div>
                         </div>
                     </li>
@@ -40,14 +55,16 @@
         <!-- Navigation Controls -->
         <div class="flex justify-center mt-6">
             <div class="glide__arrows" data-glide-el="controls">
-                <button class="glide__arrow glide__arrow--left bg-[#008BCF] hover:bg-cyan-500 p-3 rounded-full transition-colors duration-200"
-                        data-glide-dir="<"
-                        aria-label="Previous slide">
+                <button
+                    class="glide__arrow glide__arrow--left bg-[#008BCF] hover:bg-cyan-500 p-3 rounded-full transition-colors duration-200"
+                    data-glide-dir="<"
+                    aria-label="Previous slide">
                     <i class="fas fa-chevron-left text-white"></i>
                 </button>
-                <button class="glide__arrow glide__arrow--right bg-[#008BCF] hover:bg-cyan-500 p-3 rounded-full transition-colors duration-200"
-                        data-glide-dir=">"
-                        aria-label="Next slide">
+                <button
+                    class="glide__arrow glide__arrow--right bg-[#008BCF] hover:bg-cyan-500 p-3 rounded-full transition-colors duration-200"
+                    data-glide-dir=">"
+                    aria-label="Next slide">
                     <i class="fas fa-chevron-right text-white"></i>
                 </button>
             </div>
