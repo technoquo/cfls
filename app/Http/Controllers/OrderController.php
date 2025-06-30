@@ -13,6 +13,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+
         $rules = [
             'first_name' => 'required|string|max:255',
             'second_name' => 'required|string|max:255',
@@ -21,20 +22,15 @@ class OrderController extends Controller
             'delivery' => 'required|in:retrait,livraison',
             'total' => 'required|numeric|min:0',
             'deliveryFee' => 'nullable|numeric|min:0',
-            'address' => 'nullable|string|max:255',
             'products' => 'required|array',
-
+            'address.rue' => 'required_if:delivery,livraison|string|max:255',
+            'address.ville' => 'required_if:delivery,livraison|string|max:255',
+            'address.codepostal' => 'required_if:delivery,livraison|string|max:255',
+            'province' => 'required_if:delivery,livraison|string|max:255',
+            'region' => 'required_if:delivery,livraison|string|max:255',
         ];
-
-        // Validar inicialmente para acceder al campo 'delivery'
-        $initial = $request->validate([
-            'delivery' => 'required|in:retrait,livraison',
-        ]);
-
-
-
-
         $validated = $request->validate($rules);
+
 
 
         // Crear orden
@@ -47,6 +43,9 @@ class OrderController extends Controller
             'total'        => $validated['total'],
             'delivery_fee' => $validated['deliveryFee'] ?? 0,
             'address'      => isset($validated['address']) ? json_encode($validated['address']) : null,
+            'province'     => isset($validated['province']) ? $validated['province'] : null,
+            'region'       => isset($validated['region']) ? $validated['region'] : null,
+            'order_status' => 'pending', // Estado inicial de la orden
         ]);
 
 

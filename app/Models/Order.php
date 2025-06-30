@@ -15,10 +15,11 @@ class Order extends Model
         'total',
         'delivery_fee',
         'address',
+        'order_status',
 
     ];
     protected $casts = [
-        'adresse' => 'array',
+        'address' => 'array',
         'livraison' => 'boolean',
     ];
     public function products()

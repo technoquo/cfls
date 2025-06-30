@@ -63,18 +63,24 @@
                                                 <!-- Product image -->
                                                 <div
                                                     class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                    <img :src="item.image" alt="Product image"
-                                                         class="size-full object-cover">
-                                                </div>
+                                                    <a :href="'{{ url('boutique') }}/' + item.slug">
+                                                      <img :src="item.image" alt="Product image" class="size-full object-cover">
+                                                    </a>
+                                                  </div>
 
                                                 <!-- Product details -->
                                                 <div class="ml-4 flex flex-1 flex-col">
                                                     <!-- Name and price in a row -->
                                                     <a :href="'{{ url('boutique') }}/' + item.slug" x-text="item.name"
                                                        class="text-blue-500 hover:underline dark:text-white"></a>
-                                                    <div class="flex justify-between items-center mt-2">
-                                                        <p class="text-sm text-gray-500 dark:text-gray-300"
-                                                           x-text="item.choix ? 'Choix: ' + item.choix : ''"></p>
+                                                    <div
+                                                        class="flex justify-between items-center mt-2"
+                                                    >
+                                                        <p
+                                                            x-show="item.choix && item.choix !== '0'"
+                                                            class="text-sm text-gray-500 dark:text-gray-300"
+                                                            x-text="'Choix: ' + item.choix">
+                                                        </p>
                                                     </div>
 
                                                     <div
@@ -210,6 +216,7 @@
                                     price: parseFloat(data.price),
                                     quantity: quantity,
                                     choix: choix,
+                                    weight: data.weight,
                                     totalPrice: parseFloat(data.price) * quantity,
                                     image: data.images?.[0]
                                         ? `/storage/${data.images[0].image_path}`

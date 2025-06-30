@@ -35,10 +35,15 @@ class Category extends Component
 
             // Cargar subcategorías
             $this->subcategories = SubCategory::where('category_id', $this->selectedCategory)->get();
+
             // Agrupar productos por subcategoría
             $this->groupedProducts = [];
+
+
             foreach ($this->subcategories as $subcategory) {
-                $products = Product::where('sub_category_id', $subcategory->id)->get();
+                $products = Product::with('options')
+                    ->where('sub_category_id', $subcategory->id)
+                    ->get();
 
                 if ($products->isNotEmpty()) {
                     $this->groupedProducts[$subcategory->name] = $products;

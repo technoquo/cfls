@@ -47,11 +47,13 @@
 
                 @guest
                     <!-- Invitado -->
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:underline whitespace-nowrap">
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded p-4 hover:bg-cyan-500">
+                            {{-- Icono de inicio de sesión --}}
                             Se connecter
                         </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-sm text-gray-700 hover:underline whitespace-nowrap">
+                            <a href="{{ route('register') }}" class="text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded p-4 hover:bg-cyan-500">
+                                {{-- Icono de registro --}}
                                 S’inscrire
                             </a>
                         @endif

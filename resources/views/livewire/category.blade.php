@@ -41,9 +41,13 @@
                     </h2>
 
                     <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+
                         @foreach ($products as $product)
 
                             <div
+                                x-data="{
+                                    choiceValue: '0',
+                                }"
                                 @class([
                                     'rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800',
                                     'block' => $product->status == 1 || $product->status == 2 || $product->status == 3,
@@ -87,21 +91,29 @@
                                             {{$product->name}}
                                         </a>
                                     </div>
-                                    @if($product->options->isNotEmpty())
-                                        <div class="space-y-4 mt-2">
+
+
+
+                                        <div class="space-y-4 mt-2 @if($product->options->isEmpty()) hidden @endif">
                                             <label for="choice"
                                                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sélectionner:</label>
                                             <div class="flex items-center gap-2">
-                                                <select x-ref="choice" id="choice" name="choice"
-                                                        class="border rounded px-4 py-2 w-full sm:w-64 text-base bg-white dark:bg-gray-800 dark:text-white">
+                                                <select
+                                                    x-ref="choice"
+                                                    x-model="choiceValue"
+                                                    @change="if (choiceValue !== '0') console.log('✅ Option selected:', choiceValue)"
+                                                    id="choice"
+                                                    name="choice"
+                                                    class="border rounded px-4 py-2 w-full sm:w-64 text-base bg-white dark:bg-gray-800 dark:text-white"
+                                                >
+                                                    <option value="0" selected disabled>Choisissez une option</option>
                                                     @foreach($product->options as $option)
-                                                        <option
-                                                            value="{{ $option->option_name }}">{{ $option->option_name }}</option>
+                                                        <option value="{{ $option->option_name }}">{{ $option->option_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                    @endif
+
 
                                     <div class="mt-3 flex items-center justify-between gap-4 min-h-[50px]">
                                     <span
@@ -119,15 +131,19 @@
                                             <button
                                                 class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
                                                 @click="
-                                                   window.dispatchEvent(new CustomEvent('add-to-cart', {
+
+                                                    console.log('🛒 Option envoyée:', choiceValue);
+                                                    window.dispatchEvent(new CustomEvent('add-to-cart', {
                                                         detail: {
                                                             id: {{ $product->id }},
                                                             quantity: 1,
-                                                            choix: $refs.choice?.value ?? null
+                                                            choix: choiceValue,
+                                                            price: {{ $product->weight ?? 0 }},
                                                         }
                                                     }));
-                                                ">
-                                                Ajouter au panier
+                                                "
+                                              >
+                                                 Ajouter au panier
                                             </button>
                                         @endif
 

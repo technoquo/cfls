@@ -18,25 +18,55 @@
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations Personnelles</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Prénom -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Prénom</label>
-                        <input type="text" placeholder="Prénom" name="first_name"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <input type="text" name="first_name" placeholder="Prénom"
+                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                               :class="errors.first_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <template x-if="errors.first_name">
+                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                        </template>
                     </div>
+
+                    <!-- Nom -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom</label>
-                        <input type="text" placeholder="Nom" name="second_name"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <input type="text" name="second_name" placeholder="Nom"
+                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                               :class="errors.second_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <template x-if="errors.second_name">
+                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                        </template>
                     </div>
+
+                    <!-- Email -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Adresse E-mail</label>
-                        <input type="email" placeholder="Adresse E-mail"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <input type="email" name="email" placeholder="Adresse E-mail"
+                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                               :class="errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <template x-if="errors.email">
+                            <p class="mt-1 text-sm camp">Veuillez entrer une adresse email valide</p>
+                        </template>
                     </div>
+
+                    <!-- Téléphone -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Téléphone</label>
-                        <input type="tel" placeholder="Téléphone" name="telephone"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <input type="tel" name="telephone" placeholder="Téléphone"
+                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                               :class="errors.telephone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <template x-if="errors.telephone">
+                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                        </template>
+                    </div>
+
+                    <!-- Société -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom de la société</label>
+                        <input type="text" name="societe" placeholder="societe"
+                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
                     </div>
                 </div>
             </div>
@@ -83,45 +113,71 @@
                 <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations de livraison</h2>
 
                 <div class="space-y-4">
+                    <!-- Rue -->
                     <div>
                         <label for="rue" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Rue et numéro</label>
-                        <input id="rue" type="text" placeholder="Rue et numéro"
-                               class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <input id="rue" name="rue" type="text" placeholder="Rue et numéro"
+                               class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                               :class="errors.rue ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <template x-if="errors.rue">
+                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                        </template>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Ville -->
                         <div>
                             <label for="ville" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Ville</label>
-                            <input id="ville" type="text" placeholder="Ville"
-                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                            <input id="ville"  name="ville" type="text" placeholder="Ville"
+                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                                   :class="errors.ville ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.ville">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                            </template>
                         </div>
+
+                        <!-- Code Postal -->
                         <div>
                             <label for="codepostal" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Code Postal</label>
-                            <input id="codepostal" type="text" placeholder="Code Postal"
-                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                            <input id="codepostal" name="codepostal" type="text" placeholder="Code Postal"
+                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
+                                   :class="errors.codepostal ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.codepostal">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                            </template>
                         </div>
                     </div>
 
+                    <!-- Région -->
                     <div>
                         <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
-                        <select id="region" x-model="region" @change="mettreAJourProvinces()"
-                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <select id="region" x-model="region" name="region" @change="mettreAJourProvinces()"
+                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                                :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <option value="">Sélectionnez une région</option>
                             <template x-for="r in regionsDisponibles" :key="r.code">
                                 <option :value="r.code" x-text="r.nom"></option>
                             </template>
                         </select>
+                        <template x-if="errors.region">
+                            <p class="mt-1 text-sm camp">Veuillez sélectionner une région</p>
+                        </template>
                     </div>
 
+                    <!-- Province -->
                     <div x-show="provinces.length">
                         <label for="province" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Province</label>
-                        <select id="province" x-model="province"
-                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <select id="province" name="province" x-model="province"
+                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                                :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <option value="">Sélectionnez une province</option>
                             <template x-for="p in provinces" :key="p">
                                 <option x-text="p"></option>
                             </template>
                         </select>
+                        <template x-if="errors.province">
+                            <p class="mt-1 text-sm camp">Veuillez sélectionner une province</p>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -261,10 +317,18 @@
                             const email = document.querySelector('input[placeholder="Adresse E-mail"]').value.trim();
                             const telephone = document.querySelector('input[name="telephone"]').value.trim();
 
+                            this.errors.first_name = !first_name;
+                            this.errors.second_name = !second_name;
+                            this.errors.email = !email;
+                            this.errors.telephone = !telephone;
+
+
+
                             if (!first_name || !second_name || !email || !telephone ) {
                                 this.showNotification("Veuillez remplir tous les champs personnels.", 'error');
                                 return;
                             }
+
 
                             // Validation email
                             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -273,18 +337,30 @@
                                 return;
                             }
 
+
+
                             if (this.delivery === 'livraison') {
+
                                 const rue = document.getElementById('rue').value.trim();
-                                const ville = document.getElementById('ville').value.trim();
-                                const codepostal = document.getElementById('codepostal').value.trim();
+                                const ville = document.querySelector('input[name="ville"]').value.trim();
+                                const codepostal = document.querySelector('input[name="codepostal"]').value.trim();
 
-                                if (!rue || !ville || !codepostal) {
-                                    this.showNotification("Veuillez remplir les informations de livraison.", 'error');
-                                    return;
-                                }
+                                // Marcar errores primero
+                                this.errors.rue = !rue;
+                                this.errors.ville = !ville;
+                                this.errors.codepostal = !codepostal;
+                                this.errors.region = !this.region;
+                                this.errors.province = !this.province;
 
-                                if (!this.region || !this.province) {
-                                    this.showNotification("Veuillez sélectionner la région et la province.", 'error');
+                                // Validar si alguno es falso
+                                if (
+                                    this.errors.rue ||
+                                    this.errors.ville ||
+                                    this.errors.codepostal ||
+                                    this.errors.region ||
+                                    this.errors.province
+                                ) {
+                                    this.showNotification("Veuillez remplir correctement les informations de livraison.", 'error');
                                     return;
                                 }
                             }
@@ -313,15 +389,14 @@
                             if (this.delivery === 'livraison') {
                                 orderData.region = this.region;
                                 orderData.province = this.province;
-                                orderData.adresse = {
+                                orderData.address = {
                                     rue: document.getElementById('rue').value.trim(),
                                     ville: document.getElementById('ville').value.trim(),
-                                    etat: document.getElementById('etat').value.trim(),
                                     codepostal: document.getElementById('codepostal').value.trim()
                                 };
                             }
 
-                         //   console.log('Sending order data:', orderData); // Para debug
+                          //console.log('Sending order data:', orderData); // Para debug
 
 
                             // Envoyer vers le backend
@@ -393,6 +468,18 @@
                                 this.notification = '';
                             }, 3000);
                         });
+                    },
+
+                    errors: {
+                        first_name: false,
+                        second_name: false,
+                        email: false,
+                        telephone: false,
+                        rue: false,
+                        ville: false,
+                        codepostal: false,
+                        region: false,
+                        province: false,
                     },
                 };
             }

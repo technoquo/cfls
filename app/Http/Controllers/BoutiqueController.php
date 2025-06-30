@@ -24,6 +24,7 @@ class BoutiqueController extends Controller
     {
         $cart = [];
 
+
         if ($request->has('cart_data')) {
             $cart = json_decode($request->input('cart_data'), true);
         }

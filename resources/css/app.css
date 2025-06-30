@@ -21,6 +21,11 @@ p {
     color: black;
 }
 
+.camp {
+     color:red !important;
+     font-weight: bold;
+}
+
 .ol > li {
     margin-bottom: 1rem;
 }

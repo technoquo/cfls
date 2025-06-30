@@ -183,6 +183,7 @@
                          this.items.forEach(i => i.totalPrice = i.price * i.quantity);
 
                          window.addEventListener('open-slide-over', async (e) => {
+
                              this.isOpen = true;
                              this.selectedProductId = e.detail?.id ?? null;
                              if (this.selectedProductId) await this.loadProductDetails(this.selectedProductId);
@@ -191,8 +192,7 @@
 
                      async loadProductDetails(id) {
                          const res = await fetch(`/api/product/${id}`);
-                         const data = await res.json();
-                         this.productDetails = data;
+                         this.productDetails = await res.json();
                      },
 
                      async addToCart(productId, quantity = 1) {
@@ -202,6 +202,7 @@
                          } else {
                              const res = await fetch(`/api/product/${productId}`);
                              const data = await res.json();
+
                              this.items.push({
                                  id: data.id,
                                  name: data.name,

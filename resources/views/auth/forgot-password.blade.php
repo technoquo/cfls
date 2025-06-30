@@ -30,5 +30,8 @@
                 </x-button>
             </div>
         </form>
+        <a href="/" class="text-sm text-gray-600 hover:text-gray-900 underline">
+            {{ __('Retour à l\'accueil') }}
+        </a>
     </x-authentication-card>
 </x-guest-layout>
