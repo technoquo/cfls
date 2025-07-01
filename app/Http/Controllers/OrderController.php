@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -13,7 +17,6 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-
         $rules = [
             'first_name' => 'required|string|max:255',
             'second_name' => 'required|string|max:255',
@@ -23,32 +26,48 @@ class OrderController extends Controller
             'total' => 'required|numeric|min:0',
             'deliveryFee' => 'nullable|numeric|min:0',
             'products' => 'required|array',
-            'address.rue' => 'required_if:delivery,livraison|string|max:255',
-            'address.ville' => 'required_if:delivery,livraison|string|max:255',
-            'address.codepostal' => 'required_if:delivery,livraison|string|max:255',
+            'address' => 'required_if:delivery,livraison|string|max:255',
+            'postal_code' => 'required_if:delivery,livraison|string|max:255',
             'province' => 'required_if:delivery,livraison|string|max:255',
             'region' => 'required_if:delivery,livraison|string|max:255',
+            'society' => 'nullable|string|max:255',
         ];
+
         $validated = $request->validate($rules);
 
+        // Crear usuario invitado si no está autenticado
+        if (!Auth::check()) {
+            $user = User::firstOrCreate(
+                ['email' => $validated['email']],
+                [
+                    'name' => $validated['first_name'] . ' ' . $validated['second_name'],
+                    'password' => bcrypt(Str::random(12)),
+                    'role' => 'guest', // Asignar un rol de invitado
+                    'telephone'    => $validated['telephone'],
+                    'address'      => $validated['address'] ?? null,
+                    'postal_code'   => $validated['postal_code'] ?? null,
+                    'province'     => $validated['province'] ?? null,
+                    'region'       => $validated['region'] ?? null,
+                    'society'      => $validated['society'] ?? null,
+                ]
+            );
 
+            // Iniciar sesión automáticamente con el usuario recién creado
+            Auth::login($user);
+        } else {
+            $user = Auth::user();
+        }
 
         // Crear orden
-        $order = \App\Models\Order::create([
-            'first_name'   => $validated['first_name'],
-            'second_name'  => $validated['second_name'],
-            'email'        => $validated['email'],
-            'telephone'    => $validated['telephone'],
+        $order = Order::create([
+            'user_id'      => $user->id, // ahora se relaciona la orden con el usuario
             'delivery'     => $validated['delivery'],
             'total'        => $validated['total'],
             'delivery_fee' => $validated['deliveryFee'] ?? 0,
-            'address'      => isset($validated['address']) ? json_encode($validated['address']) : null,
-            'province'     => isset($validated['province']) ? $validated['province'] : null,
-            'region'       => isset($validated['region']) ? $validated['region'] : null,
-            'order_status' => 'pending', // Estado inicial de la orden
+            'order_status' => 'pending',
         ]);
 
-
+        // Asociar productos
         foreach ($validated['products'] as $product) {
             $order->products()->attach($product['id'], [
                 'quantity'    => $product['quantity'],
@@ -57,8 +76,12 @@ class OrderController extends Controller
             ]);
         }
 
-        return response()->json(['status' => 'ok', 'message' => 'Order created successfully']);
-      }
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Order created successfully',
+            'user_id' => $user->id,
+        ]);
+    }
 
 
 

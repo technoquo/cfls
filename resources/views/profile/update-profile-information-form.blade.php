@@ -81,6 +81,100 @@
                 @endif
             @endif
         </div>
+        <!-- Téléphone -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="telephone" value="{{ __('Téléphone') }}" />
+            <x-input id="telephone" type="text" class="mt-1 block w-full" wire:model.defer="state.telephone" />
+            <x-input-error for="telephone" class="mt-2" />
+        </div>
+
+        <!-- Société -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="society" value="{{ __('Société') }}" />
+            <x-input id="society" type="text" class="mt-1 block w-full" wire:model.defer="state.society" />
+            <x-input-error for="society" class="mt-2" />
+        </div>
+
+        <!-- Adresse -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="address" value="{{ __('Adresse complète') }}" />
+            <x-input id="address" type="text" class="mt-1 block w-full" wire:model.defer="state.address" />
+            <x-input-error for="address" class="mt-2" />
+        </div>
+
+        <!-- Code postal -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="postal_code" value="{{ __('Code postal') }}" />
+            <x-input id="postal_code" type="text" class="mt-1 block w-full" wire:model.defer="state.postal_code" />
+            <x-input-error for="postal_code" class="mt-2" />
+        </div>
+
+        <div
+            x-data="{
+        provinces: {
+            'Bruxelles-Capitale': ['Bruxelles'],
+            'Brabant wallon': ['Nivelles', 'Wavre'],
+            'Hainaut': ['Mons', 'Charleroi', 'Tournai', 'Soignies', 'Ath'],
+            'Liège': ['Liège', 'Verviers', 'Huy', 'Waremme'],
+            'Luxembourg': ['Arlon', 'Marche-en-Famenne', 'Neufchâteau', 'Bastogne'],
+            'Namur': ['Namur', 'Dinant', 'Philippeville'],
+            'Flandre orientale': ['Gand', 'Alost', 'Eeklo', 'Dendermonde', 'Saint-Nicolas'],
+            'Flandre occidentale': ['Bruges', 'Courtrai', 'Ypres', 'Furnes', 'Tielt'],
+            'Anvers': ['Anvers', 'Malines', 'Turnhout'],
+            'Limbourg': ['Hasselt', 'Tongres', 'Maaseik'],
+            'Brabant flamand': ['Louvain', 'Hal-Vilvorde']
+        },
+        selectedProvince: {{ Js::from(old('province', Auth::user()->province)) }},
+        selectedRegion: {{ Js::from(old('region', Auth::user()->region)) }},
+        init() {
+
+            if (!this.selectedProvince) {
+                this.selectedProvince = Object.keys(this.provinces)[0];
+
+            }
+            if (!this.provinces[this.selectedProvince]?.includes(this.selectedRegion)) {
+                this.selectedRegion = '';
+            }
+        }
+    }"
+            x-init="init(); console.log(' chargée:', selectedRegion);"
+            class="col-span-6 sm:col-span-4 grid grid-cols-1 gap-4"
+        >
+            <!-- Province -->
+            <div>
+                <x-label for="province" value="Province" />
+                <select
+                    id="province"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    x-model="selectedProvince"
+                    wire:model.defer="state.province"
+                >
+                    <option value="">-- Sélectionner une province --</option>
+                    <template x-for="(regions, prov) in provinces" :key="prov">
+                        <option :value="prov" x-text="prov" :selected="prov === selectedProvince"></option>
+                    </template>
+                </select>
+                <x-input-error for="province" class="mt-2" />
+            </div>
+
+            <!-- Région -->
+            <div>
+                <x-label for="region" value="Région" />
+                <select
+                    id="region"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                    x-model="selectedRegion"
+                    wire:model.defer="state.region"
+                >
+                    <option value="">-- Sélectionner un arrondissement --</option>
+                    <template x-for="region in provinces[selectedProvince] || []" :key="region">
+                        <option :value="region" x-text="region" :selected="region === selectedRegion"></option>
+                    </template>
+                </select>
+                <x-input-error for="region" class="mt-2" />
+            </div>
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">

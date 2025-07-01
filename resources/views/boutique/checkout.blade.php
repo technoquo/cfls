@@ -1,5 +1,8 @@
 <x-layout>
     <x-slot name="title">Paiement</x-slot>
+    @php
+        $nameParts = $user ? explode(' ', $user->name) : ['', ''];
+    @endphp
 
     <div x-data="checkout()" class="container mx-auto px-4 py-8">
         <div
@@ -22,6 +25,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Prénom</label>
                         <input type="text" name="first_name" placeholder="Prénom"
+                               value="{{ $nameParts[0] ?? '' }}"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
                                :class="errors.first_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                         <template x-if="errors.first_name">
@@ -33,6 +37,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom</label>
                         <input type="text" name="second_name" placeholder="Nom"
+                               value="{{ $nameParts[1] ?? '' }}"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
                                :class="errors.second_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                         <template x-if="errors.second_name">
@@ -44,6 +49,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Adresse E-mail</label>
                         <input type="email" name="email" placeholder="Adresse E-mail"
+                               value="{{ isset($user) ? $user->email : '' }}"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
                                :class="errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                         <template x-if="errors.email">
@@ -55,6 +61,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Téléphone</label>
                         <input type="tel" name="telephone" placeholder="Téléphone"
+                               value=" {{ isset($user) ? $user->telephone : '' }}"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
                                :class="errors.telephone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                         <template x-if="errors.telephone">
@@ -65,7 +72,8 @@
                     <!-- Société -->
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom de la société</label>
-                        <input type="text" name="societe" placeholder="societe"
+                        <input type="text" name="society" placeholder="society"
+                               value="{{ isset($user) ? $user->society : '' }}"
                                class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
                     </div>
                 </div>
@@ -118,6 +126,7 @@
                         <label for="rue" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Rue et numéro</label>
                         <input id="rue" name="rue" type="text" placeholder="Rue et numéro"
                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                               value="{{ isset($user) ? $user->address : '' }}"
                                :class="errors.rue ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                         <template x-if="errors.rue">
                             <p class="mt-1 text-sm camp">Ce champ est requis</p>
@@ -125,21 +134,13 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Ville -->
-                        <div>
-                            <label for="ville" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Ville</label>
-                            <input id="ville"  name="ville" type="text" placeholder="Ville"
-                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                                   :class="errors.ville ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                            <template x-if="errors.ville">
-                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                            </template>
-                        </div>
+
 
                         <!-- Code Postal -->
                         <div>
                             <label for="codepostal" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Code Postal</label>
                             <input id="codepostal" name="codepostal" type="text" placeholder="Code Postal"
+                                   value="{{ isset($user) ? $user->postal_code : '' }}"
                                    class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
                                    :class="errors.codepostal ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <template x-if="errors.codepostal">
@@ -148,21 +149,7 @@
                         </div>
                     </div>
 
-                    <!-- Région -->
-                    <div>
-                        <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
-                        <select id="region" x-model="region" name="region" @change="mettreAJourProvinces()"
-                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
-                                :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                            <option value="">Sélectionnez une région</option>
-                            <template x-for="r in regionsDisponibles" :key="r.code">
-                                <option :value="r.code" x-text="r.nom"></option>
-                            </template>
-                        </select>
-                        <template x-if="errors.region">
-                            <p class="mt-1 text-sm camp">Veuillez sélectionner une région</p>
-                        </template>
-                    </div>
+
 
                     <!-- Province -->
                     <div x-show="provinces.length">
@@ -171,12 +158,27 @@
                                 class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
                                 :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <option value="">Sélectionnez une province</option>
-                            <template x-for="p in provinces" :key="p">
+                            <template x-for="p in provinces" :key="p" >
                                 <option x-text="p"></option>
                             </template>
                         </select>
                         <template x-if="errors.province">
                             <p class="mt-1 text-sm camp">Veuillez sélectionner une province</p>
+                        </template>
+                    </div>
+                    <!-- Région -->
+                    <div>
+                        <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
+                        <select id="region" x-model="region" name="region" @change="mettreAJourProvinces()"
+                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                                :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <option value="">Sélectionnez une région</option>
+                            <template x-for="r in regionsDisponibles" :key="r.code">
+                                <option :value="r.code" x-text="r.nom" ></option>
+                            </template>
+                        </select>
+                        <template x-if="errors.region">
+                            <p class="mt-1 text-sm camp">Veuillez sélectionner une région</p>
                         </template>
                     </div>
                 </div>

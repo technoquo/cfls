@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoutiqueController extends Controller
 {
@@ -22,17 +23,15 @@ class BoutiqueController extends Controller
 
     public function checkout(Request $request)
     {
-        $cart = [];
+        $user = Auth::user(); // puede ser null si no está logueado
 
+        $cart = [];
 
         if ($request->has('cart_data')) {
             $cart = json_decode($request->input('cart_data'), true);
         }
 
-
-
-
-        return view('boutique.checkout', compact('cart'));
+        return view('boutique.checkout', compact('cart', 'user'));
     }
 
     public function clear(Request $request)
