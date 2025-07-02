@@ -4,7 +4,9 @@
         $nameParts = $user ? explode(' ', $user->name) : ['', ''];
     @endphp
 
-    <div x-data="checkout()" class="container mx-auto px-4 py-8">
+    <div x-data="checkout()"
+         x-init="init()"
+         class="container mx-auto px-4 py-8">
         <div
             x-show="notification"
             x-cloak
@@ -151,30 +153,30 @@
 
 
 
+
                     <!-- Province -->
-                    <div x-show="provinces.length">
+                    <div>
                         <label for="province" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Province</label>
-                        <select id="province" name="province" x-model="province"
-                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
-                                :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                        <select id="province" name="province" x-model="province" @change="mettreAJourRegion()" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <option value="">Sélectionnez une province</option>
-                            <template x-for="p in provinces" :key="p" >
-                                <option x-text="p"></option>
+                            <template x-for="(regions, prov) in provinces" :key="prov">
+                                <option :value="prov" x-text="prov" :selected="prov === province"></option>
                             </template>
                         </select>
                         <template x-if="errors.province">
                             <p class="mt-1 text-sm camp">Veuillez sélectionner une province</p>
                         </template>
                     </div>
-                    <!-- Région -->
-                    <div>
+
+                    <!-- Region -->
+                    <div x-show="regionOptions.length">
                         <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
-                        <select id="region" x-model="region" name="region" @change="mettreAJourProvinces()"
+                        <select id="region" name="region" x-model="region"
                                 class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
                                 :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                             <option value="">Sélectionnez une région</option>
-                            <template x-for="r in regionsDisponibles" :key="r.code">
-                                <option :value="r.code" x-text="r.nom" ></option>
+                            <template x-for="r in regionOptions" :key="r">
+                                <option :value="r" x-text="r" :selected="r === region"></option>
                             </template>
                         </select>
                         <template x-if="errors.region">
@@ -260,15 +262,13 @@
                 return {
                     notification: '',
                     notificationType: 'success',
-                    delivery: 'retrait', // Valor por defecto
+                    delivery: 'retrait',
                     baseTotal: {{ collect($cart)->sum('totalPrice') }},
-                    totalWeight: {{ collect($cart)->sum('weight') }}, // peso en kilogramos o gramos
+                    totalWeight: {{ collect($cart)->sum('weight') }},
 
                     get deliveryFee() {
-                        if (this.delivery === 'retrait') return 0; // Sin costo para recoger
-
-                        const weight = this.totalWeight; // en gramos, por ejemplo
-
+                        const weight = this.totalWeight;
+                        if (this.delivery === 'retrait') return 0;
                         if (weight <= 100) return 3.00;
                         if (weight <= 350) return 4.50;
                         if (weight <= 500) return 7.60;
@@ -276,39 +276,47 @@
                         if (weight <= 1800) return 7.90;
                         if (weight <= 10000) return 10.70;
                         if (weight <= 30000) return 18.60;
-
-                        return 0; // fuera de rango o entrega especial
+                        return 0;
                     },
 
                     get finalTotal() {
                         return this.baseTotal + this.deliveryFee;
                     },
 
-                    region: '',
-                    province: '',
-                    regionsDisponibles: [
-                        {
-                            nom: "Bruxelles-Capitale",
-                            code: "bruxelles",
-                            provinces: ["Bruxelles"]
-                        },
-                        {
-                            nom: "Flandre",
-                            code: "flandre",
-                            provinces: ["Anvers", "Limbourg", "Flandre orientale", "Flandre occidentale", "Brabant flamand"]
-                        },
-                        {
-                            nom: "Wallonie",
-                            code: "wallonie",
-                            provinces: ["Brabant Wallon", "Hainaut", "Liège", "Luxembourg", "Namur"]
-                        }
-                    ],
-                    provinces: [],
+                    region: @json(old('region', $user->region)),
+                    province: @json(old('province', $user->province)),
+                    regionOptions: [],
+                    provinces: {
+                        'Bruxelles-Capitale': ['Bruxelles'],
+                        'Brabant wallon': ['Nivelles', 'Wavre'],
+                        'Hainaut': ['Mons', 'Charleroi', 'Tournai', 'Soignies', 'Ath'],
+                        'Liège': ['Liège', 'Verviers', 'Huy', 'Waremme'],
+                        'Luxembourg': ['Arlon', 'Marche-en-Famenne', 'Neufchâteau', 'Bastogne'],
+                        'Namur': ['Namur', 'Dinant', 'Philippeville'],
+                        'Flandre orientale': ['Gand', 'Alost', 'Eeklo', 'Dendermonde', 'Saint-Nicolas'],
+                        'Flandre occidentale': ['Bruges', 'Courtrai', 'Ypres', 'Furnes', 'Tielt'],
+                        'Anvers': ['Anvers', 'Malines', 'Turnhout'],
+                        'Limbourg': ['Hasselt', 'Tongres', 'Maaseik'],
+                        'Brabant flamand': ['Louvain', 'Hal-Vilvorde']
+                    },
 
-                    mettreAJourProvinces() {
-                        const regionChoisie = this.regionsDisponibles.find(r => r.code === this.region);
-                        this.provinces = regionChoisie ? regionChoisie.provinces : [];
-                        this.province = '';
+                    mettreAJourRegion() {
+                        this.regionOptions = this.provinces[this.province] || [];
+                        if (!this.regionOptions.includes(this.region)) {
+                            this.region = '';
+                        }
+                    },
+
+                    init() {
+                        this.mettreAJourRegion();
+                        if (this.province && this.provinces[this.province]) {
+                            this.regionOptions = this.provinces[this.province];
+
+                            // Si la región actual no está incluida, selecciona la primera región disponible
+                            if (!this.regionOptions.includes(this.region)) {
+                                this.region = this.regionOptions[0];
+                            }
+                        }
                     },
 
                     async confirmerAchat() {
