@@ -24,6 +24,7 @@ class SyllabusController extends Controller
             ->where('status', 1)
             ->first();
 
+
         $themes = $syllabu
             ->themes()
             ->where('status', 1)

@@ -131,14 +131,12 @@
                                             <button
                                                 class="w-full bg-csfl text-white py-3 rounded-lg p-2 text-center"
                                                 @click="
-
-                                                    console.log('🛒 Option envoyée:', choiceValue);
                                                     window.dispatchEvent(new CustomEvent('add-to-cart', {
                                                         detail: {
                                                             id: {{ $product->id }},
                                                             quantity: 1,
                                                             choix: choiceValue,
-                                                            price: {{ $product->weight ?? 0 }},
+
                                                         }
                                                     }));
                                                 "

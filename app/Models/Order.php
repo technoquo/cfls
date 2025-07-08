@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
@@ -17,10 +18,17 @@ class Order extends Model
         'address' => 'array',
         'livraison' => 'boolean',
     ];
-    public function products()
+    public function products(): belongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_orders')
-            ->withPivot('quantity', 'choix', 'unit_price')
+            ->withPivot('quantity', 'choix', 'price')
             ->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

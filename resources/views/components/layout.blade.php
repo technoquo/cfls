@@ -210,7 +210,7 @@
                                  price: parseFloat(data.price),
                                  image: data.images?.[0]?.image_path ? `/storage/${data.images[0].image_path}` : '/img/default.jpg',
                                  quantity,
-                                 totalPrice: data.price * quantity,
+                                // totalPrice: data.price * quantity,
                              });
                          }
                          this.updateTotal();

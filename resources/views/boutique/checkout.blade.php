@@ -4,258 +4,226 @@
         $nameParts = $user ? explode(' ', $user->name) : ['', ''];
     @endphp
 
-    <div x-data="checkout()"
-         x-init="init()"
-         class="container mx-auto px-4 py-8">
-        <div
-            x-show="notification"
-            x-cloak
-            x-transition
-            :class="notificationType === 'error'
-        ? 'bg-red-100 text-red-800'
-        : 'bg-green-100 text-green-800'"
-            class="fixed top-4 right-4 z-50 px-4 py-2 rounded shadow flex items-center space-x-2">
+    @if (count($cart) === 0)
+        <div class="text-center text-xl text-red-600 font-semibold py-10">Votre panier est vide.</div>
+    @else
+        @auth
+           <form x-data="checkout()" x-init="init()" @submit.prevent="confirmerAchat" class="container mx-auto px-4 py-8" enctype="multipart/form-data">
+        <div x-show="notification" x-cloak x-transition :class="notificationType === 'error' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'" class="fixed top-4 right-4 z-50 px-4 py-2 rounded shadow flex items-center space-x-2">
             <span x-text="notification"></span>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Información Personal -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations Personnelles</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Prénom -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Prénom</label>
-                        <input type="text" name="first_name" placeholder="Prénom"
-                               value="{{ $nameParts[0] ?? '' }}"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                               :class="errors.first_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                        <template x-if="errors.first_name">
-                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                        </template>
-                    </div>
-
-                    <!-- Nom -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom</label>
-                        <input type="text" name="second_name" placeholder="Nom"
-                               value="{{ $nameParts[1] ?? '' }}"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                               :class="errors.second_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                        <template x-if="errors.second_name">
-                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                        </template>
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Adresse E-mail</label>
-                        <input type="email" name="email" placeholder="Adresse E-mail"
-                               value="{{ isset($user) ? $user->email : '' }}"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                               :class="errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                        <template x-if="errors.email">
-                            <p class="mt-1 text-sm camp">Veuillez entrer une adresse email valide</p>
-                        </template>
-                    </div>
-
-                    <!-- Téléphone -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Téléphone</label>
-                        <input type="tel" name="telephone" placeholder="Téléphone"
-                               value=" {{ isset($user) ? $user->telephone : '' }}"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                               :class="errors.telephone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                        <template x-if="errors.telephone">
-                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                        </template>
-                    </div>
-
-                    <!-- Société -->
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom de la société</label>
-                        <input type="text" name="society" placeholder="society"
-                               value="{{ isset($user) ? $user->society : '' }}"
-                               class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Opciones de Entrega -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                <h2 class="text-3xl font-semibold mb-4 dark:text-white">Mode de Livraison</h2>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <input type="radio"
-                               x-model="delivery"
-                               value="retrait"
-                               id="pickup"
-                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="pickup" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
-                            Retrait sur place (Gratuit)
-                        </label>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <input type="radio"
-                               x-model="delivery"
-                               value="livraison"
-                               id="delivery"
-                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="delivery" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
-                            Livraison à domicile
-                            <span class="text-sm text-gray-500 dark:text-gray-400" x-show="delivery === 'livraison'">
-                                (+<span x-text="deliveryFee.toFixed(2)"></span> €)
-                            </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formulaire de livraison (visible seulement si livraison standard) -->
-            <div x-show="delivery === 'livraison'"
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0 transform scale-95"
-                 x-transition:enter-end="opacity-100 transform scale-100"
-                 x-transition:leave="transition ease-in duration-150"
-                 x-transition:leave-start="opacity-100 transform scale-100"
-                 x-transition:leave-end="opacity-0 transform scale-95"
-                 class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations de livraison</h2>
-
-                <div class="space-y-4">
-                    <!-- Rue -->
-                    <div>
-                        <label for="rue" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Rue et numéro</label>
-                        <input id="rue" name="rue" type="text" placeholder="Rue et numéro"
-                               class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
-                               value="{{ isset($user) ? $user->address : '' }}"
-                               :class="errors.rue ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                        <template x-if="errors.rue">
-                            <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                        </template>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-
-                        <!-- Code Postal -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Colonne Gauche -->
+            <div class="md:col-span-2 space-y-8">
+                <!-- Información Personal -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations Personnelles</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Prénom -->
                         <div>
-                            <label for="codepostal" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Code Postal</label>
-                            <input id="codepostal" name="codepostal" type="text" placeholder="Code Postal"
-                                   value="{{ isset($user) ? $user->postal_code : '' }}"
-                                   class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white"
-                                   :class="errors.codepostal ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                            <template x-if="errors.codepostal">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Prénom</label>
+                            <input type="text" name="first_name" placeholder="Prénom" value="{{ $nameParts[0] ?? '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white" :class="errors.first_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.first_name">
                                 <p class="mt-1 text-sm camp">Ce champ est requis</p>
                             </template>
                         </div>
-                    </div>
 
-
-
-
-                    <!-- Province -->
-                    <div>
-                        <label for="province" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Province</label>
-                        <select id="province" name="province" x-model="province" @change="mettreAJourRegion()" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                            <option value="">Sélectionnez une province</option>
-                            <template x-for="(regions, prov) in provinces" :key="prov">
-                                <option :value="prov" x-text="prov" :selected="prov === province"></option>
+                        <!-- Nom -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom</label>
+                            <input type="text" name="second_name" placeholder="Nom" value="{{ $nameParts[1] ?? '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white" :class="errors.second_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.second_name">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
                             </template>
-                        </select>
-                        <template x-if="errors.province">
-                            <p class="mt-1 text-sm camp">Veuillez sélectionner une province</p>
-                        </template>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Adresse E-mail</label>
+                            <input type="email" name="email" placeholder="Adresse E-mail" value="{{ isset($user) ? $user->email : '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white" :class="errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.email">
+                                <p class="mt-1 text-sm camp">Veuillez entrer une adresse email valide</p>
+                            </template>
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Téléphone</label>
+                            <input type="tel" name="telephone" placeholder="Téléphone" value=" {{ isset($user) ? $user->telephone : '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white" :class="errors.telephone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.telephone">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                            </template>
+                        </div>
+
+                        <!-- Société -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Nom de la société</label>
+                            <input type="text" name="society" placeholder="society" value="{{ isset($user) ? $user->society : '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opciones de Entrega -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-semibold mb-4 dark:text-white">Mode de Livraison</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" x-model="delivery" value="retrait" id="pickup" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="pickup" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
+                                Retrait sur place (Gratuit)
+                            </label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" x-model="delivery" value="livraison" id="delivery" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="delivery" class="text-lg font-medium text-gray-700 dark:text-white cursor-pointer">
+                                Livraison à domicile
+                                <span class="text-sm text-gray-500 dark:text-gray-400" x-show="delivery === 'livraison'">
+                                    (+<span x-text="deliveryFee.toFixed(2)"></span> €)
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de livraison -->
+                <div x-show="delivery === 'livraison'" x-transition class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-semibold mb-4 dark:text-white">Informations de livraison</h2>
+
+                    <div class="space-y-4">
+                        <!-- Address -->
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Adresse complète</label>
+                            <input id="address" name="address" type="text" placeholder="Adresse complète" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" value="{{ isset($user) ? $user->address : '' }}" :class="errors.address ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.address">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                            </template>
+                        </div>
+
+                        <!-- Code Postal -->
+                        <div>
+                            <label for="code postal" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Code Postal</label>
+                            <input id="postal_code" name="postal_code" type="text" placeholder="Code Postal" value="{{ isset($user) ? $user->postal_code : '' }}" class="p-2 border rounded w-full dark:bg-gray-700 dark:text-white" :class="errors.postal_code ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                            <template x-if="errors.postal_code">
+                                <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                            </template>
+                        </div>
+
+                        <!-- Province -->
+                        <div>
+                            <label for="province" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Province</label>
+                            <select id="province" name="province" x-model="province" @change="mettreAJourRegion()" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.province ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                                <option value="">Sélectionnez une province</option>
+                                <template x-for="(regions, prov) in provinces" :key="prov">
+                                    <option :value="prov" x-text="prov" :selected="prov === province"></option>
+                                </template>
+                            </select>
+                            <template x-if="errors.province">
+                                <p class="mt-1 text-sm camp">Veuillez sélectionner une province</p>
+                            </template>
+                        </div>
+
+                        <!-- Region -->
+                        <div x-show="regionOptions.length">
+                            <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
+                            <select id="region" name="region" x-model="region" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                                <option value="">Sélectionnez une région</option>
+                                <template x-for="r in regionOptions" :key="r">
+                                    <option :value="r" x-text="r" :selected="r === region"></option>
+                                </template>
+                            </select>
+                            <template x-if="errors.region">
+                                <p class="mt-1 text-sm camp">Veuillez sélectionner une région</p>
+                            </template>
+                        </div>
+
                     </div>
 
-                    <!-- Region -->
-                    <div x-show="regionOptions.length">
-                        <label for="region" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Région</label>
-                        <select id="region" name="region" x-model="region"
-                                class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
-                                :class="errors.region ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                            <option value="">Sélectionnez une région</option>
-                            <template x-for="r in regionOptions" :key="r">
-                                <option :value="r" x-text="r" :selected="r === region"></option>
-                            </template>
-                        </select>
-                        <template x-if="errors.region">
-                            <p class="mt-1 text-sm camp">Veuillez sélectionner une région</p>
-                        </template>
-                    </div>
+                </div>
+                <!-- Comprobante de paiement -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Justificatif de paiement <span class="text-red-600">*</span></label>
+                    <input type="file" name="proof" id="proof" accept="image/*,application/pdf" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.proof ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
+                    <template x-if="errors.proof">
+                        <p class="mt-1 text-sm camp">Ce champ est requis</p>
+                    </template>
                 </div>
             </div>
 
-            <!-- Productos -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-7">
-                <h2 class="text-3xl font-semibold mb-4 dark:text-white">Vos Produits</h2>
-                <div class="space-y-4">
-                    @foreach ($cart as $product)
-                        <div class="flex justify-between items-center border-b pb-4 dark:border-gray-600">
-                            <div class="flex items-center space-x-4">
-                                <img src="{{ asset($product['image']) }}" alt="Produit" class="w-24 h-auto rounded">
-                                <div>
-                                    <h3 class="font-medium dark:text-white">{{ $product['name'] }}</h3>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Quantité
-                                        : {{ $product['quantity'] }}</p>
+            <!-- Colonne Droite: Produits -->
+
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md sticky top-4">
+                    <h2 class="text-3xl font-semibold mb-4 dark:text-white sticky top-0 z-10 bg-white dark:bg-gray-800 py-2">Vos Produits</h2>
+                    <div class="space-y-4">
+                        @foreach ($cart as $product)
+                            <div class="flex justify-between items-center border-b pb-4 dark:border-gray-600">
+                                <div class="flex items-center space-x-4">
+                                    <img src="{{ asset($product['image']) }}" alt="Produit" class="w-24 h-auto rounded">
+                                    <div>
+                                        <h3 class="font-medium dark:text-white">{{ $product['name'] }}</h3>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Quantité : {{ $product['quantity'] }}</p>
+                                    </div>
                                 </div>
+                                @if($product['choix'] > 0)
+                                    <div>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
+                                    </div>
+                                @endif
+                                <p class="text-lg font-semibold dark:text-white">{{ number_format($product['price'], 2) }} €</p>
                             </div>
-                            @if($product['choix'] > 0)
-                                <div>
-                                    <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
-                                </div>
-                            @endif
+                        @endforeach
 
-                            <p class="text-lg font-semibold dark:text-white">{{ number_format($product['totalPrice'], 2) }}
-                                €</p>
-                        </div>
-                    @endforeach
-
-                    <!-- Resumen de precios -->
-                    <div class="mt-4 pt-4 border-t dark:border-gray-600">
-                        <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
-                            <span>Subtotal :</span>
-                            <span x-text="`${baseTotal.toFixed(2)} €`"></span>
-                        </div>
-
-                        <template x-if="delivery === 'livraison'">
+                        <!-- Résumé -->
+                        <div class="mt-4 pt-4 border-t dark:border-gray-600">
                             <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
-                                <span>Frais de livraison :</span>
-                                <span x-text="`+${deliveryFee.toFixed(2)} €`"></span>
+                                <span>Subtotal :</span>
+                                <span x-text="`${baseTotal.toFixed(2)} €`"></span>
                             </div>
-                        </template>
 
-                        <template x-if="delivery === 'recoger'">
-                            <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
-                                <span>Retrait en magasin :</span>
-                                <span>Gratuit</span>
+                            <template x-if="delivery === 'livraison'">
+                                <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+                                    <span>Frais de livraison :</span>
+                                    <span x-text="`+${deliveryFee.toFixed(2)} €`"></span>
+                                </div>
+                            </template>
+
+                            <template x-if="delivery === 'recoger'">
+                                <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
+                                    <span>Retrait en magasin :</span>
+                                    <span>Gratuit</span>
+                                </div>
+                            </template>
+
+                            <div class="flex justify-between items-center text-xl font-bold">
+                                <span class="dark:text-white">Total :</span>
+                                <span class="dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
                             </div>
-                        </template>
-
-                        <div class="flex justify-between items-center text-xl font-bold">
-                            <span class="dark:text-white">Total :</span>
-                            <span class="dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
                         </div>
                     </div>
-                </div>
 
-                <div class="flex flex-col md:flex-row gap-4 mt-5">
-                    <button
-                        @click.prevent="confirmerAchat"
-                        class="w-full md:w-1/2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
-                        Confirmer l'Achat
-                    </button>
+                    <div class="flex flex-col md:flex-row gap-4 mt-5">
+                        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                            Confirmer l'Achat
+                        </button>
 
-                    <button
-                        @click="annulerAchat"
-                        class="w-full md:w-1/2 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
-                        Annuler
-                    </button>
+                        <button @click="annulerAchat" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                            Annuler
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-
-    </div>
+    </form>
+        @else
+            <div class="text-center py-10">
+                <p class="text-xl text-gray-700 dark:text-white font-semibold mb-4">Vous devez être connecté pour finaliser votre commande.</p>
+                <a href="{{ route('login') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Se connecter
+                </a>
+            </div>
+        @endauth
+    @endif
     @push('scripts')
         <script>
             function checkout() {
@@ -263,7 +231,7 @@
                     notification: '',
                     notificationType: 'success',
                     delivery: 'retrait',
-                    baseTotal: {{ collect($cart)->sum('totalPrice') }},
+                    baseTotal: {{ collect($cart)->sum('price') }},
                     totalWeight: {{ collect($cart)->sum('weight') }},
 
                     get deliveryFee() {
@@ -283,8 +251,8 @@
                         return this.baseTotal + this.deliveryFee;
                     },
 
-                    region: @json(old('region', $user->region)),
-                    province: @json(old('province', $user->province)),
+                    region: @json(old('region', $user->region ?? '')),
+                    province: @json(old('province', $user->province ?? '')),
                     regionOptions: [],
                     provinces: {
                         'Bruxelles-Capitale': ['Bruxelles'],
@@ -321,131 +289,112 @@
 
                     async confirmerAchat() {
                         try {
-                            // Validations basiques
+                            // Obtener valores
                             const first_name = document.querySelector('input[name="first_name"]').value.trim();
                             const second_name = document.querySelector('input[name="second_name"]').value.trim();
-                            const email = document.querySelector('input[placeholder="Adresse E-mail"]').value.trim();
+                            const email = document.querySelector('input[name="email"]').value.trim();
                             const telephone = document.querySelector('input[name="telephone"]').value.trim();
+                            const society = document.querySelector('input[name="society"]').value.trim();
+                            const proofFile = document.querySelector('input[name="proof"]').files[0];
 
+
+                            const address = document.getElementById('address')?.value.trim();
+                            const postal_code = document.querySelector('input[name="postal_code"]')?.value.trim();
+
+                            // Validación de campos obligatorios
                             this.errors.first_name = !first_name;
                             this.errors.second_name = !second_name;
                             this.errors.email = !email;
                             this.errors.telephone = !telephone;
+                            this.errors.proof = !proofFile;
 
+                            if (this.delivery === 'livraison') {
+                                this.errors.address = !address;
+                                this.errors.postal_code = !postal_code;
+                                this.errors.region = !this.region;
+                                this.errors.province = !this.province;
+                            }
 
-
-                            if (!first_name || !second_name || !email || !telephone ) {
-                                this.showNotification("Veuillez remplir tous les champs personnels.", 'error');
+                            // Verifica errores
+                            if (Object.values(this.errors).some(e => e)) {
+                                this.showNotification("Veuillez remplir tous les champs requis.", 'error');
                                 return;
                             }
 
-
-                            // Validation email
                             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                             if (!emailRegex.test(email)) {
                                 this.showNotification("Veuillez entrer une adresse email valide.", 'error');
                                 return;
                             }
 
-
-
-                            if (this.delivery === 'livraison') {
-
-                                const rue = document.getElementById('rue').value.trim();
-                                const ville = document.querySelector('input[name="ville"]').value.trim();
-                                const codepostal = document.querySelector('input[name="codepostal"]').value.trim();
-
-                                // Marcar errores primero
-                                this.errors.rue = !rue;
-                                this.errors.ville = !ville;
-                                this.errors.codepostal = !codepostal;
-                                this.errors.region = !this.region;
-                                this.errors.province = !this.province;
-
-                                // Validar si alguno es falso
-                                if (
-                                    this.errors.rue ||
-                                    this.errors.ville ||
-                                    this.errors.codepostal ||
-                                    this.errors.region ||
-                                    this.errors.province
-                                ) {
-                                    this.showNotification("Veuillez remplir correctement les informations de livraison.", 'error');
-                                    return;
-                                }
-                            }
-
-                            // Preparar los productos con el formato correcto
-                            const products = @json($cart).map(product => ({
-                                ...product,
-                                choix: product.choix || 0 // Asegurar que choix sea un número
+                            // Preparar productos
+                            const products = @json($cart).map(p => ({
+                                ...p,
+                                choix: p.choix || 0
                             }));
 
 
 
-                            // Préparer les données
-                            const orderData = {
-                                first_name,
-                                second_name,
-                                email,
-                                telephone,
-                                delivery: this.delivery,
-                                products: products,
-                                total: Number(parseFloat(this.finalTotal).toFixed(2)),
-                                deliveryFee: Number(parseFloat(this.deliveryFee).toFixed(2))
-                            };
 
-                            // Solo agregar datos de dirección si es entrega
+                            // Crear FormData
+                            const formData = new FormData();
+                            formData.append('first_name', first_name);
+                            formData.append('second_name', second_name);
+                            formData.append('email', email);
+                            formData.append('telephone', telephone);
+                            formData.append('society', society);
+                            formData.append('delivery', this.delivery);
+                            formData.append('total', this.finalTotal.toFixed(2));
+                            formData.append('deliveryFee', this.deliveryFee.toFixed(2));
+                            if (proofFile) {
+                                formData.append('proof', proofFile);
+                            }
+                            formData.append('products', JSON.stringify(products));
+
+
+
                             if (this.delivery === 'livraison') {
-                                orderData.region = this.region;
-                                orderData.province = this.province;
-                                orderData.address = {
-                                    rue: document.getElementById('rue').value.trim(),
-                                    ville: document.getElementById('ville').value.trim(),
-                                    codepostal: document.getElementById('codepostal').value.trim()
-                                };
+                                formData.append('address', address);
+                                formData.append('postal_code', postal_code);
+                                formData.append('province', this.province);
+                                formData.append('region', this.region);
                             }
 
-                          //console.log('Sending order data:', orderData); // Para debug
 
 
-                            // Envoyer vers le backend
+
+                            // Enviar solicitud
                             const response = await fetch("{{ route('order.store') }}", {
                                 method: "POST",
                                 headers: {
                                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json',
+                                    'Accept': 'application/json'
                                 },
-                                body: JSON.stringify(orderData)
+                                body: formData
                             });
-
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
 
                             const data = await response.json();
 
-                            if (data.error) {
-                                this.showNotification(data.error, 'error');
+
+
+                            if (!response.ok || data.error) {
+                                this.showNotification(data.error || "Erreur inconnue.", 'error');
                                 return;
                             }
 
-                            // Éxito
                             this.showNotification("Commande enregistrée avec succès !");
 
-                            // Limpiar carrito
+                            // Limpiar almacenamiento local y redirigir
                             localStorage.removeItem('cart');
                             localStorage.removeItem('cart-total');
 
-                            // Redirección después de un breve delay
                             setTimeout(() => {
-                                window.location.href = "{{ route('boutique.index') }}";
+                                window.location.href = `/facture/${data.order_id}`;
                             }, 2000);
 
-                        } catch (error) {
-                            console.error('Error:', error);
-                            this.showNotification("Une erreur est survenue lors de l'enregistrement de la commande.", 'error');
+                        } catch (err) {
+                            console.error(err);
+                            this.showNotification("Erreur lors de l'envoi du formulaire.", 'error');
                         }
                     },
 
@@ -485,9 +434,8 @@
                         second_name: false,
                         email: false,
                         telephone: false,
-                        rue: false,
-                        ville: false,
-                        codepostal: false,
+                        address: false,
+                        postal_code: false,
                         region: false,
                         province: false,
                     },

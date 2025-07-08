@@ -23,12 +23,19 @@ class BoutiqueController extends Controller
 
     public function checkout(Request $request)
     {
+
         $user = Auth::user(); // puede ser null si no está logueado
 
         $cart = [];
 
         if ($request->has('cart_data')) {
             $cart = json_decode($request->input('cart_data'), true);
+
+            foreach ($cart as &$item) {
+                unset($item['totalPrice']);
+            }
+
+            unset($item); // break the reference
         }
 
         return view('boutique.checkout', compact('cart', 'user'));

@@ -36,10 +36,16 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function mainImage() : \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        // Si tienes una sola imagen principal, o simplemente una imagen
+        return $this->hasOne(ProductImage::class);
+    }
+
     public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Order::class, 'product_orders')
-            ->withPivot('quantity', 'choix', 'unit_price')
+            ->withPivot('quantity', 'choix', 'price')
             ->withTimestamps();
     }
 

@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-
-    }
 
     public function store(Request $request)
     {
+
+        // Convertir el JSON de productos en array
+        $request->merge([
+            'products' => json_decode($request->input('products'), true),
+        ]);
+
         $rules = [
             'first_name' => 'required|string|max:255',
             'second_name' => 'required|string|max:255',
@@ -31,9 +35,13 @@ class OrderController extends Controller
             'province' => 'required_if:delivery,livraison|string|max:255',
             'region' => 'required_if:delivery,livraison|string|max:255',
             'society' => 'nullable|string|max:255',
+            'proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
 
         $validated = $request->validate($rules);
+
+
+
 
         // Crear usuario invitado si no está autenticado
         if (!Auth::check()) {
@@ -42,46 +50,91 @@ class OrderController extends Controller
                 [
                     'name' => $validated['first_name'] . ' ' . $validated['second_name'],
                     'password' => bcrypt(Str::random(12)),
-                    'role' => 'guest', // Asignar un rol de invitado
+                    'role' => 'guest',
                     'telephone'    => $validated['telephone'],
                     'address'      => $validated['address'] ?? null,
-                    'postal_code'   => $validated['postal_code'] ?? null,
+                    'postal_code'  => $validated['postal_code'] ?? null,
                     'province'     => $validated['province'] ?? null,
                     'region'       => $validated['region'] ?? null,
                     'society'      => $validated['society'] ?? null,
                 ]
             );
 
-            // Iniciar sesión automáticamente con el usuario recién creado
             Auth::login($user);
         } else {
             $user = Auth::user();
+
+            if ($validated['delivery'] === 'livraison') {
+                $user->update([
+                    'telephone'    => $validated['telephone'],
+                    'address'      => $validated['address'],
+                    'postal_code'  => $validated['postal_code'],
+                    'province'     => $validated['province'],
+                    'region'       => $validated['region'],
+                    'society'      => $validated['society'] ?? $user->society,
+                ]);
+            }
         }
 
+
+        $path = $request->file('proof')->store('proofs', 'public');
         // Crear orden
         $order = Order::create([
             'user_id'      => $user->id, // ahora se relaciona la orden con el usuario
             'delivery'     => $validated['delivery'],
             'total'        => $validated['total'],
             'delivery_fee' => $validated['deliveryFee'] ?? 0,
+            'proof_path' => $path,
             'order_status' => 'pending',
         ]);
 
+
+
         // Asociar productos
         foreach ($validated['products'] as $product) {
+            $randomCode = strtoupper(Str::random(8));
             $order->products()->attach($product['id'], [
                 'quantity'    => $product['quantity'],
-                'unit_price'  => $product['totalPrice'],
+                'price'  => $product['price'],
                 'choix'       => isset($product['choix']) ? json_encode($product['choix']) : null,
+                'code'        => $randomCode,
             ]);
         }
+
+        Mail::to($user->email)
+            ->cc('cfls.leonel@gmail.com') // o usa ->cc() si deseas que el usuario vea la copia
+            ->send(new OrderConfirmationMail($order));
 
         return response()->json([
             'status' => 'ok',
             'message' => 'Order created successfully',
             'user_id' => $user->id,
+            'order_id' => $order->id,
         ]);
     }
+
+    public function facture(Order $order)
+    {
+        // Verificar si el usuario autenticado es el propietario de la orden
+        if (Auth::check() && Auth::user()->id !== $order->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+        // Verificar si la orden existe
+        if (!$order) {
+            abort(404, 'Order not found.');
+        }
+        // Verificar si la orden está pendiente
+        if ($order->order_status !== 'pending') {
+            abort(403, 'You cannot view the invoice for this order.');
+        }
+
+        // Cargar imágenes relacionadas
+        $order->load('products.mainImage');
+
+
+        return view('orders.facture', compact('order'));
+    }
+
 
 
 
