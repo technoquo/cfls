@@ -25,6 +25,7 @@ Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->n
 Route::get('/formations/{slug}/calendrier', [FormationsController::class, 'calendrier'])->name('calendrier');
 //Route::get('/formations/{slug}/semain', [FormationsController::class, 'semain'])->name('semain');
 Route::get('/formations/{slug}/calendrier/{formation}', [FormationsController::class, 'formation'])->name('formation');
+Route::post('/formations/{id}', [FormationsController::class, 'inscrits'])->name('inscription.formation');
 Route::get('/formations/{slug}/courses', [FormationsController::class, 'courses'])->name('courses');
 Route::get('/formations/{slug}/courses/{nivel}', [FormationsController::class, 'niveau'])->name('niveau');
 Route::get('/formations/{slug}/{id}', [FormationsController::class, 'inscription'])->name('inscription');
