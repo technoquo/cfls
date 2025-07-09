@@ -18,13 +18,13 @@
 
                         <p><strong>Nom :</strong> {{ $inscription->first_name }} {{ $inscription->last_name }}</p>
                         <p><strong>Email :</strong> {{ $inscription->email }}</p>
-                        <p><strong>Entreprise :</strong> {{ $inscription->company }}</p>
                         <p><strong>Téléphone :</strong> {{ $inscription->phone }}</p>
                         <p><strong>Formation :</strong> {{ $formation->title}}</p>
                         <p><strong> Date debut </strong>{{ $calendar->start_date }}</p>
                         <p><strong>Date de fin :</strong> {{ $calendar->end_date }}</p>
                         <p><strong>Horarie :</strong>{{ $calendar->hour_start }} - {{ $calendar->hour_end }}</p>
                         <p><strong>Montant :</strong> {{ $calendar->price ?? '0' }} €</p>
+                        <p><strong>Tarif réduit:</strong> {{ $inscription->reduit_rate ? 'Oui' : 'Non' }}</p>
 
                         <p style="margin-top: 30px;">Nous vous contacterons prochainement avec plus d'informations.</p>
 

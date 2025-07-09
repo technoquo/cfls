@@ -32,37 +32,44 @@ class FormationsController extends Controller
 
     public function inscrits(Request $request, $id)
     {
+        $user = auth()->user();
 
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'company' => 'nullable|string|max:255',
+        if (!$user) {
+            // Validación para usuarios no conectados
+            $request->validate([
+                'first_name' => 'required|string|max:255',
+                'last_name'  => 'required|string|max:255',
+                'email'      => 'required|email|max:255',
+                'phone'      => 'required|string|max:20',
+            ], [
+                'first_name.required' => 'Le champ prénom est obligatoire.',
+                'last_name.required'  => 'Le champ nom de famille est obligatoire.',
+                'email.required'      => 'Le champ adresse e-mail est obligatoire.',
+                'phone.required'      => 'Le champ numéro de téléphone est obligatoire.',
+            ]);
+        }
 
-        ]);
+        $calendar = Calendar::find($id);
 
-        $calendar = Calendar::where('id', $id)->first();
-
-        $formation = Formations::where('id', $calendar->formations_id)->first();
         if (!$calendar) {
             return redirect()->back()->with('error', 'Calendrier non trouvé.');
         }
 
-
-
+        $formation = Formations::find($calendar->formations_id);
 
         $inscription = InscriptionFormation::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'company' => $request->company,
-            'formations_id' => $calendar->formations_id,
-            'levels_id' => $calendar->levels_id
+            'first_name'     => $user->first_name ?? $request->first_name,
+            'last_name'      => $user->last_name ?? $request->last_name,
+            'email'          => $user->email ?? $request->email,
+            'phone'          => $user->phone ?? $request->phone,
+            'reduit_rate'    => $request->reduit_rate ? 1 : 0,
+            'formations_id'  => $calendar->formations_id,
+            'levels_id'      => $calendar->levels_id,
         ]);
 
-        Mail::to($request->email)->send(new InscriptionConfirmationMail($inscription,$formation,$calendar));
+        Mail::to($user->email ?? $request->email)->send(
+            new InscriptionConfirmationMail($inscription, $formation, $calendar)
+        );
 
         return redirect()->back()->with('success', 'Inscription réussie !');
     }
