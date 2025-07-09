@@ -15,6 +15,9 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+
 
 class ProductOrderReportResource extends Resource
 {
@@ -67,9 +70,10 @@ class ProductOrderReportResource extends Resource
                         'cancelado' => 'Annulée',
                     ])
                     ->searchable(),
+
                 SelectFilter::make('delivery')
                     ->label('Méthode de livraison')
-
+                    ->relationship('order', 'delivery')
                     ->options([
                         'livraison' => 'Livraison',
                         'retrait' => 'Retrait',
@@ -87,6 +91,10 @@ class ProductOrderReportResource extends Resource
                             ->when($data['from'], fn ($q, $date) => $q->whereHas('order', fn ($q2) => $q2->whereDate('created_at', '>=', $date)))
                             ->when($data['until'], fn ($q, $date) => $q->whereHas('order', fn ($q2) => $q2->whereDate('created_at', '<=', $date)));
                     }),
+            ])
+            ->headerActions([
+                ExportAction::make('export_all')
+                    ->label('Exporter tout')
             ]);
     }
 

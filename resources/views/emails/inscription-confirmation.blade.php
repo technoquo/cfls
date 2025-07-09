@@ -19,10 +19,10 @@
                         <p><strong>Nom :</strong> {{ $inscription->first_name }} {{ $inscription->last_name }}</p>
                         <p><strong>Email :</strong> {{ $inscription->email }}</p>
                         <p><strong>Téléphone :</strong> {{ $inscription->phone }}</p>
-                        <p><strong>Formation :</strong> {{ $formation->title}}</p>
-                        <p><strong> Date debut </strong>{{ $calendar->start_date }}</p>
-                        <p><strong>Date de fin :</strong> {{ $calendar->end_date }}</p>
-                        <p><strong>Horarie :</strong>{{ $calendar->hour_start }} - {{ $calendar->hour_end }}</p>
+                        <p><strong>Formation :</strong> {{ str_replace('Formations accélérées', 'Formation accélérée', $formation->title) }} - {{$calendar->levels->name}}</p>
+                        <p><strong>Date début :</strong> {{ \Carbon\Carbon::parse($calendar->start_date)->format('d-m-Y H:i') }}</p>
+                        <p><strong>Date de fin :</strong> {{ \Carbon\Carbon::parse($calendar->end_date)->format('d-m-Y H:i') }}</p>
+                        <p><strong>Horaire :</strong>{{ $calendar->hour_start }} - {{ $calendar->hour_end }}</p>
                         <p><strong>Montant :</strong> {{ $calendar->price ?? '0' }} €</p>
                         <p><strong>Tarif réduit:</strong> {{ $inscription->reduit_rate ? 'Oui' : 'Non' }}</p>
 
