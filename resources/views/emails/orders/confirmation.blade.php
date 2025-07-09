@@ -37,6 +37,9 @@
                                 </p>
                                 <p><strong>{{ $product->name }}</strong></p>
                                 <p>Quantité : {{ $product->pivot->quantity }}</p>
+                                @isset($product->pivot->choix)
+                                    <p><strong>Choix :</strong> {{ $product->pivot->choix }}</p>
+                                @endisset
                                 <p>Prix unitaire : {{ number_format($product->pivot->price, 2) }} €</p>
                                 <p><strong>Sous-total :</strong> {{ number_format($product->pivot->quantity * $product->pivot->price, 2) }} €</p>
                             </div>

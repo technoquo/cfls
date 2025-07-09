@@ -16,6 +16,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+
         // Convertir el JSON de productos en array
         $request->merge([
             'products' => json_decode($request->input('products'), true),
@@ -92,14 +93,17 @@ class OrderController extends Controller
 
         // Asociar productos
         foreach ($validated['products'] as $product) {
+
             $randomCode = strtoupper(Str::random(8));
             $order->products()->attach($product['id'], [
                 'quantity'    => $product['quantity'],
                 'price'  => $product['price'],
-                'choix'       => isset($product['choix']) ? json_encode($product['choix']) : null,
+                'choix'       => $product['choix'],
                 'code'        => $randomCode,
             ]);
         }
+
+
 
         Mail::to($user->email)
             ->cc(config('mail.from.address'))
