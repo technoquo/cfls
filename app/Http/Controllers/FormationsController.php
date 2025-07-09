@@ -67,7 +67,9 @@ class FormationsController extends Controller
             'levels_id'      => $calendar->levels_id,
         ]);
 
-        Mail::to($user->email ?? $request->email)->send(
+        Mail::to($user->email ?? $request->email)
+            ->cc(config('mail.from.address'))
+            ->send(
             new InscriptionConfirmationMail($inscription, $formation, $calendar)
         );
 

@@ -109,8 +109,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@cfls.be'),
+        'name' => env('MAIL_FROM_NAME', 'Centre Francophone de la Langue des Signes'),
     ],
 
 ];
