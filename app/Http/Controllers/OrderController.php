@@ -102,7 +102,7 @@ class OrderController extends Controller
         }
 
         Mail::to($user->email)
-            ->cc('cfls.leonel@gmail.com') // o usa ->cc() si deseas que el usuario vea la copia
+            ->cc(config('mail.from.address'))
             ->send(new OrderConfirmationMail($order));
 
         return response()->json([
