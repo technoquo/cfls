@@ -15,4 +15,9 @@ class Level extends Model
     {
         return $this->hasMany(Formations::class);
     }
+
+    public function inscriptions()
+    {
+        return $this->hasMany(InscriptionFormation::class);
+    }
 }

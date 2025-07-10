@@ -52,6 +52,18 @@
                         <span class="block sm:inline">{{ session('success') }}</span>
                     </div>
                 @endif
+                @if(session('info'))
+                    <div
+                        x-data="{ show: true }"
+                        x-init="setTimeout(() => show = false, 5000)"
+                        x-show="show"
+                        class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 transition-opacity duration-500 ease-in-out"
+                        role="alert"
+                        >
+                        <strong class="font-bold">Information !</strong>
+                        <span class="block sm:inline">{{ session('info') }}</span>
+                    </div>
+                  @endif
                     @auth
                         @php $readonly = 'readonly'; @endphp
                     @else

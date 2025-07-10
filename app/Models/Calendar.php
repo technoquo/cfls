@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Calendar extends Model
@@ -28,5 +29,10 @@ class Calendar extends Model
     public function levels(): BelongsTo
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function inscriptions()
+    {
+        return $this->hasMany(InscriptionFormation::class);
     }
 }

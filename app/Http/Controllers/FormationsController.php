@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Mail\InscriptionConfirmationMail;
 use App\Models\Calendar;
 use App\Models\Company;
-use App\Models\CoursPrive;
-use App\Models\FormationAccelere;
-use App\Models\FormationAnne;
 use App\Models\Formations;
 use App\Models\InscriptionFormation;
 use Illuminate\Http\Request;
-use App\Models\Sensibilisation;
 use App\Models\TableConversation;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class FormationsController extends Controller
 {
@@ -32,10 +30,19 @@ class FormationsController extends Controller
 
     public function inscrits(Request $request, $id)
     {
+        $calendar = Calendar::where('id', $id)->first();
+
+
+        if (!$calendar) {
+            return redirect()->back()->with('info', 'Calendrier non trouvé.');
+        }
+
+        $formation = Formations::find($calendar->formations_id);
+
         $user = auth()->user();
 
         if (!$user) {
-            // Validación para usuarios no conectados
+            // Validate the request data
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name'  => 'required|string|max:255',
@@ -47,31 +54,57 @@ class FormationsController extends Controller
                 'email.required'      => 'Le champ adresse e-mail est obligatoire.',
                 'phone.required'      => 'Le champ numéro de téléphone est obligatoire.',
             ]);
+
+            // Find user by email
+            $user = \App\Models\User::where('email', $request->email)->first();
+
+            if (!$user) {
+                // Craate a new user if not found
+                $user = \App\Models\User::create([
+                    'name'       => $request->first_name . ' ' . $request->last_name,
+                    'email'      => $request->email,
+                    'telephone'      => $request->phone,
+                    'password'    => bcrypt(Str::random(12)),
+                    'role'        => 'guest', // Asignar rol guest por defecto
+                    'address'     =>  null,
+                    'postal_code' => null,
+                    'province'    => null,
+                    'region'      => null,
+                    'society'     => null,
+
+                ]);
+
+
+                Password::sendResetLink(['email' => $user->email]);
+
+
+            }
         }
 
-        $calendar = Calendar::find($id);
 
-        if (!$calendar) {
-            return redirect()->back()->with('error', 'Calendrier non trouvé.');
+        // Verificar si ya está inscrito
+        $alreadyInscribed = InscriptionFormation::where('user_id', $user->id)
+            ->where('formations_id', $calendar->formations_id)
+            ->where('levels_id', $calendar->levels_id)
+            ->exists();
+
+        if ($alreadyInscribed) {
+            return redirect()->back()->with('info', 'Vous êtes déjà inscrit à cette formation.');
         }
 
-        $formation = Formations::find($calendar->formations_id);
-
+        // Crear inscripción
         $inscription = InscriptionFormation::create([
-            'first_name'     => $user->first_name ?? $request->first_name,
-            'last_name'      => $user->last_name ?? $request->last_name,
-            'email'          => $user->email ?? $request->email,
-            'phone'          => $user->phone ?? $request->phone,
             'reduit_rate'    => $request->reduit_rate ? 1 : 0,
             'formations_id'  => $calendar->formations_id,
             'levels_id'      => $calendar->levels_id,
+            'calendar_id'    => $calendar->id,
+            'user_id'        => $user->id,
         ]);
 
-        Mail::to($user->email ?? $request->email)
+        // Enviar correo de confirmación
+        Mail::to($user->email)
             ->cc(config('mail.from.address'))
-            ->send(
-            new InscriptionConfirmationMail($inscription, $formation, $calendar)
-        );
+            ->send(new InscriptionConfirmationMail($inscription, $formation, $calendar));
 
         return redirect()->back()->with('success', 'Inscription réussie !');
     }

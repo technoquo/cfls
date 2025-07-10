@@ -16,9 +16,9 @@
 
                         <hr style="margin: 20px 0;">
 
-                        <p><strong>Nom :</strong> {{ $inscription->first_name }} {{ $inscription->last_name }}</p>
-                        <p><strong>Email :</strong> {{ $inscription->email }}</p>
-                        <p><strong>Téléphone :</strong> {{ $inscription->phone }}</p>
+                        <p><strong>Nom :</strong> {{ $inscription->user->name }}</p>
+                        <p><strong>Email :</strong> {{ $inscription->user->email }}</p>
+                        <p><strong>Téléphone :</strong> {{ $inscription->user->telephone }}</p>
                         <p><strong>Formation :</strong> {{ str_replace('Formations accélérées', 'Formation accélérée', $formation->title) }} - {{$calendar->levels->name}}</p>
                         <p><strong>Date début :</strong> {{ \Carbon\Carbon::parse($calendar->start_date)->format('d-m-Y H:i') }}</p>
                         <p><strong>Date de fin :</strong> {{ \Carbon\Carbon::parse($calendar->end_date)->format('d-m-Y H:i') }}</p>
