@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InscriptionConfirmationMail;
+use App\Mail\InscriptionTableConversationMail;
 use App\Models\Calendar;
 use App\Models\Company;
 use App\Models\Formations;
 use App\Models\InscriptionFormation;
+use App\Models\InscriptionTableConversation;
 use Illuminate\Http\Request;
 use App\Models\TableConversation;
 use Illuminate\Support\Facades\Mail;
@@ -30,7 +32,9 @@ class FormationsController extends Controller
 
     public function inscrits(Request $request, $id)
     {
+
         $calendar = Calendar::where('id', $id)->first();
+
 
 
         if (!$calendar) {
@@ -109,6 +113,8 @@ class FormationsController extends Controller
         return redirect()->back()->with('success', 'Inscription réussie !');
     }
 
+
+
     public function inscription($slug, $id){
 
 
@@ -118,11 +124,80 @@ class FormationsController extends Controller
         return view('formations.inscription.tableconversation', compact('slug','inscription','company','availables'));
     }
 
+    public function tabledeconversation(Request $request)
+    {
+        $request->validate([
+            'tableconversation_id' => 'required|exists:table_conversations,id',
+            'first_name' => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'email'      => 'required|email|max:255',
+            'phone'      => 'required|string|max:20',
+        ], [
+            'first_name.required' => 'Le champ prénom est obligatoire.',
+            'last_name.required'  => 'Le champ nom de famille est obligatoire.',
+            'email.required'      => 'Le champ adresse e-mail est obligatoire.',
+            'phone.required'      => 'Le champ numéro de téléphone est obligatoire.',
+        ]);
+
+        $tableconvertation = TableConversation::find((int)$request->tableconversation_id);
+
+        $jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+        $mois = [
+            1 => 'janvier',
+            2 => 'février',
+            3 => 'mars',
+            4 => 'avril',
+            5 => 'mai',
+            6 => 'juin',
+            7 => 'juillet',
+            8 => 'août',
+            9 => 'septembre',
+            10 => 'octobre',
+            11 => 'novembre',
+            12 => 'décembre',
+        ];
+
+        $date = \Carbon\Carbon::parse($tableconvertation->date_start);
+        $jourSemaine = $jours[$date->dayOfWeek];
+        $moisFr = $mois[$date->month];
+
+        $dateFr = $jourSemaine . ' ' . $date->format('j') . ' ' . $moisFr . ' ' . $date->format('Y');
+        $heure = $tableconvertation->hour_start . ' à ' . $tableconvertation->hour_end;
+
+        // Pour tester :
+       // dd(['date' => $dateFr, 'heure' => $heure]);
+        // Créer l'inscription à la table de conversation
+        $inscription = InscriptionTableConversation::create([
+            'tableconversation_id' => $request->tableconversation_id,
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'inscription_message'  => $dateFr .' à ' . $heure,
+            'status'     => 1,
+        ]);
+        // Guardar o enviar email aquí...
+        Mail::to($request->email)
+            ->cc(config('mail.from.address'))
+            ->send(new InscriptionTableConversationMail($inscription, $tableconvertation));
+
+
+        return redirect()->back()->with('success', 'Inscription à la table de conversation réussie !');
+    }
+
     public function calendrier($slug){
 
+
+
         $formation = Formations::where('slug', $slug)->first();
-        $calendars = Calendar::whereStatus(1)->where('formations_id',$formation->id)->get();
-        return view('formations.calendrier', compact('calendars', 'slug', 'formation'));
+        if ($slug == 'tables-de-conversation') {
+             return view('formations.tabledeconversation', compact('formation', 'slug'));
+        } else {
+            $calendars = Calendar::whereStatus(1)->where('formations_id', $formation->id)->get();
+            return view('formations.calendrier', compact('calendars', 'slug', 'formation'));
+        }
+
+
     }
 
 

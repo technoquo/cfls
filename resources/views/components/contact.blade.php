@@ -5,20 +5,20 @@
 
         <!-- Adresse -->
         <div class="mb-4 text-center">
-            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Adresse</h3>
+            <h3 class="md:text-2xl font-semibold dark:text-white">Adresse</h3>
             <p> {{ $data->address }}</p>
             <p> {{ $data->zip }}  {{ $data->city }} ( {{ $data->state }})</p>
         </div>
 
         <!-- Transport public -->
         <div class="mb-4 text-center">
-            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Transports publics</h3>
+            <h3 class="md:text-2xl font-semibold dark:text-white">Transports publics</h3>
             {!! $data->transport !!}
         </div>
 
         <!-- Informations de contact -->
         <div class="mb-4 text-center">
-            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Contact</h3>
+            <h3 class="md:text-2xl font-semibold dark:text-white">Contact</h3>
             <p>Email : <a href="mailto:info@cfls.be" class="text-blue-500"> {{ $data->email }}</a></p>
             <p>Téléphone: <a href="tel:+3224781448" class="text-blue-500"> {{ $data->phone }}</a></p>
             <p>Whatsapp: <a href="https://wa.me/32483841011" target="_blank" class="text-green-500 font-bold"> {{ $data->mobile }}</a></p>
@@ -27,7 +27,7 @@
 
         <!-- Horaires d'ouverture -->
         <div class="mb-4 text-center">
-            <h3 class="md:text-2xl font-semibold dark:text-gray-400">Horaires d'ouverture</h3>
+            <h3 class="md:text-2xl font-semibold dark:text-white">Horaires d'ouverture</h3>
             <p> {{ $data->scheduler }}</p>
         </div>
     </div>

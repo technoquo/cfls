@@ -108,7 +108,6 @@ class CalendarResource extends Resource
                 Tables\Columns\TextColumn::make('formation.title')
                     ->label('Formation')
                     ->searchable()
-                    ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('levels.name')
                     ->label('Niveau')
@@ -196,6 +195,12 @@ class CalendarResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with(['formation', 'levels']);
+
     }
 
     public static function getRelations(): array

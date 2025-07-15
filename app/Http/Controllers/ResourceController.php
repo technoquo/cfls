@@ -46,7 +46,9 @@ class ResourceController extends Controller
         }
 
         // Manejo estándar de categorías
-        $category = Category::with('videos')->where('slug', $slug)->firstOrFail();
+        $category = Category::with(['videos' => fn($q) => $q->orderBy('id', 'desc')->where('status', 1)])
+            ->where('slug', $slug)
+            ->first();
 
         return view('ressources.index')->with([
             'category' => $category,

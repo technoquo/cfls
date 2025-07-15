@@ -14,7 +14,7 @@ class Formations extends Model
 
     public function calendar(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Calendar::class, 'formation_id');
+        return $this->hasMany(Calendar::class, 'formations_id');
     }
 
 

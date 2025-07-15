@@ -23,7 +23,7 @@
                     text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                         {{ $members->title }}
                     </h1>
-                    <div class="responsive-text prose prose-p:my-2 font-light md:text-2xl  text-gray-800 dark:text-white text-center">
+                    <div class="responsive-text prose prose-p:my-2 font-light md:text-2xl  text-gray-800 text-center members">
                         {!! $members->description !!}
                     </div>
                     <div class="flex items-center justify-center gap-4 mb-6">

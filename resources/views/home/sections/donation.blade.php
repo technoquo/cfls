@@ -22,8 +22,7 @@
 
             <!-- Description and Image -->
             <div class="order-2 lg:order-1 w-full px-4 wow animate__animated animate__backInLeft" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h2 class="text-center uppercase font-extrabold tracking-tight text-gray-900 md:text-2xl  mb-4
-                    text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+                <h2 class="text-center uppercase font-extrabold tracking-tight text-gray-900 dark:text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                     {{ $don->title }}
                 </h2>
                 <hr class="border-b border-gray-200 dark:border-gray-700 my-4" />

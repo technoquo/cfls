@@ -11,6 +11,10 @@ html.dark p {
     color: white;
 }
 
+.members p {
+    color: black !important;
+}
+
 html.light p {
     color: black;
 }

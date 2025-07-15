@@ -24,7 +24,7 @@ class Calendar extends Model
 
     public function formation(): BelongsTo
     {
-        return $this->belongsTo(Formations::class);
+        return $this->belongsTo(Formations::class, 'formations_id');
     }
     public function levels(): BelongsTo
     {
