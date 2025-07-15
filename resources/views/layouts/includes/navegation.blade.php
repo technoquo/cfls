@@ -41,20 +41,20 @@
                 </div>
             @endauth
             @guest
-                <a href="{{ route('login') }}" class="text-xs sm:text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded px-2 py-1 sm:px-4 sm:py-2 hover:bg-cyan-500 flex items-center">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-                    </svg>
-                    Se connecter
-                </a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="text-xs sm:text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded px-2 py-1 sm:px-4 sm:py-2 hover:bg-cyan-500 flex items-center">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                        </svg>
-                        S’inscrire
-                    </a>
-                @endif
+{{--                <a href="{{ route('login') }}" class="text-xs sm:text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded px-2 py-1 sm:px-4 sm:py-2 hover:bg-cyan-500 flex items-center">--}}
+{{--                    <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">--}}
+{{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>--}}
+{{--                    </svg>--}}
+{{--                    Se connecter--}}
+{{--                </a>--}}
+{{--                @if (Route::has('register'))--}}
+{{--                    <a href="{{ route('register') }}" class="text-xs sm:text-sm text-gray-700 hover:underline whitespace-nowrap bg-cyan-400 rounded px-2 py-1 sm:px-4 sm:py-2 hover:bg-cyan-500 flex items-center">--}}
+{{--                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">--}}
+{{--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>--}}
+{{--                        </svg>--}}
+{{--                        S’inscrire--}}
+{{--                    </a>--}}
+{{--                @endif--}}
             @endguest
         </div>
 
