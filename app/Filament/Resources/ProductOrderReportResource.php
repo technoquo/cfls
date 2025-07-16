@@ -4,34 +4,73 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductOrderReportResource\Pages;
 use App\Filament\Resources\ProductOrderReportResource\RelationManagers;
+use App\Mail\OrderCompletedClientNotification;
+use App\Mail\OrderCancelledClientNotification;
+use App\Models\Order;
 use App\Models\ProductOrder;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Mail;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Filament\Notifications\Notification;
+
+
 
 
 class ProductOrderReportResource extends Resource
 {
-    protected static ?string $model = ProductOrder::class;
+    protected static ?string $model = Order::class;
 
-    protected static ?string $navigationLabel = 'Rapport de commandes de produits';
-    protected static ?string $label = 'Rapport des commandes de produits';
+    protected static ?string $navigationLabel = 'Commandes de produits';
+    protected static ?string $label = 'Commandes de produits';
     protected static ?string $navigationGroup = 'Rapports';
     protected static ?int $navigationSort = 1;
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
+                Forms\Components\Select::make('order_id')
+                    ->relationship('order', 'id') // asume que 'name' es visible
+                    ->disabled()
+                    ->label('ID de la commande'),
+                Forms\Components\Select::make('product_id')
+                    ->relationship('product', 'name') // asume que 'name' es visible
+                    ->disabled()
+                    ->label('Produit'),
+                Forms\Components\TextInput::make('quantity')
+                    ->numeric()
+                    ->required()
+                    ->label('Quantité'),
+                Forms\Components\TextInput::make('choix')
+                    ->required()
+                    ->label('Choix sélectionné'),
+                Forms\Components\TextInput::make('price')
+                    ->numeric()
+                    ->required()
+                    ->label('Prix unitaire')
+                    ->prefix('€'),
+                Forms\Components\TextInput::make('order.total')
+                    ->numeric()
+                    ->required()
+                    ->label('Total de la commande')
+                    ->prefix('€'),
+
+
+
                 //
             ]);
     }
@@ -40,43 +79,60 @@ class ProductOrderReportResource extends Resource
     {
         return $table
             ->query(
-                ProductOrder::query()
-                    ->select('product_orders.*')
-                    ->join('orders', 'product_orders.order_id', '=', 'orders.id')
-                    ->with(['order.user', 'product'])
-                    ->orderBy('orders.created_at', 'desc')
+                Order::query()
+                    ->with(['user', 'productOrders.product'])
+                    ->orderBy('created_at', 'desc')
             )
             ->columns([
-                TextColumn::make('order.id')->label('N° de commande'),
-                TextColumn::make('order.created_at')->label('Date')->dateTime('d/m/Y H:i'),
-                TextColumn::make('order.user.name')->label('Client')->sortable()->searchable(),
-                TextColumn::make('order.delivery')->label('Méthode de livraison'),
-                TextColumn::make('product.name')->label('Produit')->sortable()->searchable(),
-                TextColumn::make('quantity')->label('Quantité'),
-                TextColumn::make('choix')->label('Choix sélectionné'),
-                TextColumn::make('price')->label('Prix unitaire')->money('eur'),
-                TextColumn::make('order.total')->label('Total de la commande')->money('eur'),
-                TextColumn::make('order.order_status')->label('Statut')->badge(),
-                TextColumn::make('order.user.address')->label('Adresse')->wrap(),
-                TextColumn::make('order.user.province')->label('Province'),
-                TextColumn::make('order.user.region')->label('Région'),
+                TextColumn::make('id')->label('N° de commande'),
+                TextColumn::make('created_at')->label('Date')->dateTime('d/m/Y H:i'),
+                TextColumn::make('user.name')
+                    ->label('Client')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('delivery')->label('Méthode de livraison'),
+                TextColumn::make('productOrders')
+                    ->label('Produits')
+                    ->getStateUsing(function ($record) {
+                        return $record->productOrders->map(function ($po) {
+                            $name = $po->product->name ?? '—';
+                            $quantity = $po->quantity;
+                            return "{$name} ×{$quantity}";
+                        })->implode(', ');
+                    }),
+                TextColumn::make('total')->label('Total de la commande')->money('eur'),
+                TextColumn::make('order_status')
+                    ->label('Statut')
+                    ->badge()
+                    ->color(fn ($state) => match($state) {
+                        'attente' => 'warning',
+                        'complétée' => 'success',
+                        'annulée' => 'danger',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn ($state) => match($state) {
+                        'attente' => 'En attente',
+                        'complétée' => 'Complétée',
+                        'annulée' => 'Annulée',
+                        default => ucfirst($state),
+                    }),
+                TextColumn::make('user.address')->label('Adresse')->wrap(),
+                TextColumn::make('user.province')->label('Province'),
+                TextColumn::make('user.region')->label('Région'),
             ])
-            ->defaultSort('orders.created_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('order_status')
                     ->label('Statut de la commande')
-                    ->relationship('order', 'order_status')
                     ->options([
-                        'pendiente' => 'En attente',
-                        'procesando' => 'En cours de traitement',
-                        'completado' => 'Complétée',
-                        'cancelado' => 'Annulée',
+                        'attente' => 'En attente',
+                        'complétée' => 'Complétée',
+                        'annulée' => 'Annulée',
                     ])
                     ->searchable(),
 
                 SelectFilter::make('delivery')
                     ->label('Méthode de livraison')
-                    ->relationship('order', 'delivery')
                     ->options([
                         'livraison' => 'Livraison',
                         'retrait' => 'Retrait',
@@ -91,9 +147,69 @@ class ProductOrderReportResource extends Resource
                     ])
                     ->query(function (Builder $query, array $data) {
                         return $query
-                            ->when($data['from'], fn ($q, $date) => $q->whereHas('order', fn ($q2) => $q2->whereDate('created_at', '>=', $date)))
-                            ->when($data['until'], fn ($q, $date) => $q->whereHas('order', fn ($q2) => $q2->whereDate('created_at', '<=', $date)));
+                            ->when($data['from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                            ->when($data['until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
                     }),
+            ])
+            ->actions([
+                Action::make('voir_details')
+                    ->label('Voir détails')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading('Détails de la commande')
+                    ->modalSubheading(fn ($record) => 'Commande N° ' . $record->id)
+                    ->modalContent(fn ($record) => view('filament.components.order-details', ['order' => $record])),
+
+                Action::make('changer_statut')
+                    ->label('Changer le statut')
+                    ->icon('heroicon-o-pencil-square')
+                    ->form([
+                        \Filament\Forms\Components\Select::make('order_status')
+                            ->label('Nouveau statut')
+                            ->options([
+                                'attente' => 'En attente',
+                                'complétée' => 'Complétée',
+                                'annulée' => 'Annulée',
+                            ])
+                            ->required()
+                    ])
+                    ->action(function ($record, array $data) {
+                        $record->update([
+                            'order_status' => $data['order_status'],
+                        ]);
+
+                        // Traducción del statut
+                        $statusLabel = match($data['order_status']) {
+                            'attente' => 'En attente',
+                            'complétée' => 'Complétée',
+                            'annulée' => 'Annulée',
+                            default => ucfirst($data['order_status']),
+                        };
+
+                        $mailSent = false;
+
+                        if ($data['order_status'] === 'complétée') {
+                            if ($record->delivery === 'livraison' || $record->delivery === 'retrait') {
+                                Mail::to($record->user->email)->send(new OrderCompletedClientNotification($record));
+                                $mailSent = true;
+                            }
+                        } elseif ($data['order_status'] === 'annulée') {
+                            Mail::to($record->user->email)->send(new OrderCancelledClientNotification($record));
+                            $mailSent = true;
+                        }
+
+                        Notification::make()
+                            ->title('Commande mise à jour')
+                            ->body($mailSent
+                                ? "Le statut est passé à « {$statusLabel} » et un email a été envoyé au client."
+                                : "Le statut est passé à « {$statusLabel} ».")
+                            ->success()
+                            ->icon('heroicon-o-check-circle')
+                            ->iconColor('success')
+                            ->send();
+                    })
+                    ->modalHeading('Modifier le statut')
+                    ->modalSubmitActionLabel('Enregistrer')
+                    ->color('primary'),
             ])
             ->headerActions([
                 ExportAction::make('export_all')
@@ -112,6 +228,7 @@ class ProductOrderReportResource extends Resource
     {
         return [
             'index' => Pages\ListProductOrderReports::route('/'),
+           // 'edit' => Pages\EditProductOrderReport::route('/{record}/edit'),
         ];
     }
 }

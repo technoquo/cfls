@@ -86,7 +86,7 @@ class OrderController extends Controller
             'total'        => $validated['total'],
             'delivery_fee' => $validated['deliveryFee'] ?? 0,
             'proof_path' => $path,
-            'order_status' => 'pending',
+            'order_status' => 'attente',
         ]);
 
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
             abort(404, 'Order not found.');
         }
         // Verificar si la orden está pendiente
-        if ($order->order_status !== 'pending') {
+        if ($order->order_status !== 'attente'  && Auth::user()->id !== $order->user_id) {
             abort(403, 'You cannot view the invoice for this order.');
         }
 

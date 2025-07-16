@@ -51,7 +51,7 @@ Route::middleware([AuthOrUnderConstruction::class])->group(function () {
 // Cloudinary (libre)
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 
-// Syllabus Routes (libres)
+// Syllabus Routes (librest)
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
 Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
 Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');

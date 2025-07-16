@@ -31,6 +31,11 @@
                                 <h2 class="font-medium text-gray-800">{{ $product->name }}</h2>
                                 <span class="text-sm text-gray-600">Qté : {{ $product->pivot->quantity }}</span>
                             </div>
+                            @if($product->pivot->choix)
+                                   <div  class="text-sm text-gray-700">
+                                        Choix : {{ $product->pivot->choix }}
+                                    </div>
+                            @endif
                             <div class="text-sm text-gray-700">
                                 Prix unitaire : {{ number_format($product->pivot->price, 2) }} €
                             </div>

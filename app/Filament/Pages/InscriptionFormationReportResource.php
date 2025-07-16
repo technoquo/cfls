@@ -10,15 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\InscriptionFormation;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 
-class InscriptionFormationReport extends Page implements HasTable
+class InscriptionFormationReportResource extends Page implements HasTable
 {
     use InteractsWithTable;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected static string $view = 'filament.pages.inscription-formation-report';
-    protected static ?string $title = 'Rapport des Inscriptions';
-    protected static ?string $navigationLabel = 'Rapport des Inscriptions';
-    protected static ?string $slug = 'rapport-inscriptions';
+    protected static ?string $navigationLabel = 'Inscriptions aux formations avec export';
+    protected static ?string $label = 'Inscriptions aux formations avec export';
+    protected static ?string $navigationGroup = 'Rapports';
     protected static ?int $navigationSort = 3;
 
     public function getTableQuery(): Builder

@@ -97,5 +97,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         $this->notify(new CustomResetPasswordNotification($token));
     }
 
+    public function productOrders(): HasMany
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
+
 
 }
