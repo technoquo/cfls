@@ -142,6 +142,14 @@
                 </div>
                 <!-- Comprobante de paiement -->
                 <div class="md:col-span-2">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        <strong>Note :</strong> Une fois votre commande validée, vous recevrez un e-mail de confirmation.
+                        Versez ensuite le montant sur le compte <strong>BE38 3100 5385 3072</strong> en précisant dans la communication le numéro de commande repris dans le mail de confirmation.
+                        <br>
+                        Dès réception de votre paiement, nous vous enverrons la commande à l’adresse clairement indiquée.
+                        <br><br>
+                        Merci de joindre ci-dessous un <strong>justificatif de paiement</strong> pour le traitement de votre commande.
+                    </p>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Justificatif de paiement <span class="text-red-600">*</span></label>
                     <input type="file" name="proof" id="proof" accept="image/*,application/pdf" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.proof ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
                     <template x-if="errors.proof">
