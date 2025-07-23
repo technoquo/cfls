@@ -1,10 +1,12 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
     @foreach ($teamMembers as $index => $member)
         @php
+
+
             $images = array_filter([
                 $member['image_three'],
-                 $member['image_two'],
-            ]);
+                $member['image_two'],
+            ], fn($img) => $img && \Illuminate\Support\Facades\Storage::disk('public')->exists($img));
         @endphp
 
         <div class="flex flex-col items-center dark:bg-gray-900 rounded-lg overflow-hidden relative">
@@ -32,6 +34,7 @@
                 src="{{ asset('storage/' . $member['image']) }}"
                 data-main="{{ asset('storage/' . $member['image']) }}"
                 data-images='@json(array_values($images))'
+                onerror="this.onerror=null;this.src='/images/default.png';"
                 class="w-[270px] h-[338px] object-cover rounded cursor-pointer"
             />
 
