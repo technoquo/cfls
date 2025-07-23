@@ -21,7 +21,7 @@
                             if (!images.length) return;
                             rotate = setInterval(() => {
                                 index = (index + 1) % images.length;
-                                $el.src = '/storage/' + images[index];
+                                $el.src = `${window.location.origin}/storage/${images[index]}`;
                                 $el.dataset.current = index;
                             }, 800);
                         });
@@ -35,6 +35,8 @@
                 data-main="{{ asset('storage/' . $member['image']) }}"
                 data-images='@json(array_values($images))'
                 onerror="this.onerror=null;this.src='/images/default.png';"
+                referrerpolicy="no-referrer"
+                crossorigin="anonymous"
                 class="w-[270px] h-[338px] object-cover rounded cursor-pointer"
             />
 
