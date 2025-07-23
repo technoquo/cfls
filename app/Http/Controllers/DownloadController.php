@@ -10,7 +10,7 @@ class DownloadController extends Controller
     public function index()
     {
         $downloads = Download::whereStatus(1)
-                    ->orderBy('created_at', 'asc')
+                    ->orderBy('created_at', 'desc')
                     ->get();
         return view('downloads.index', compact('downloads'));
     }

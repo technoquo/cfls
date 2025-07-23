@@ -2,25 +2,38 @@
     @foreach ($teamMembers as $index => $member)
         @php
             $images = array_filter([
-
                 $member['image_three'],
                  $member['image_two'],
             ]);
         @endphp
 
         <div class="flex flex-col items-center dark:bg-gray-900 rounded-lg overflow-hidden relative">
-            <div>
-                <img
-                    id="photo-{{ $index }}"
-                    src="{{ asset('storage/' . $member['image']) }}"
-                    data-main="{{ asset('storage/' . $member['image']) }}"
-                    data-images='@json(array_values($images))'
-                    data-current="0"
-                    class="w-[270px] h-[338px] object-cover rounded cursor-pointer transition-all duration-300"
-                    onmouseenter="startRotation(this)"
-                    onmouseleave="stopRotation(this)"
-                />
-            </div>
+            <img
+                x-data="{ rotate: null }"
+                x-init="
+                        let images = JSON.parse($el.dataset.images);
+                        let index = 0;
+                        $el.dataset.current = 0;
+
+                        $el.addEventListener('mouseenter', () => {
+                            if (!images.length) return;
+                            rotate = setInterval(() => {
+                                index = (index + 1) % images.length;
+                                $el.src = '/storage/' + images[index];
+                                $el.dataset.current = index;
+                            }, 800);
+                        });
+
+                        $el.addEventListener('mouseleave', () => {
+                            clearInterval(rotate);
+                            $el.src = $el.dataset.main;
+                        });
+                    "
+                src="{{ asset('storage/' . $member['image']) }}"
+                data-main="{{ asset('storage/' . $member['image']) }}"
+                data-images='@json(array_values($images))'
+                class="w-[270px] h-[338px] object-cover rounded cursor-pointer"
+            />
 
             <div class="p-6 text-center">
                 <h3 class="text-xl font-semibold dark:text-white">{{ $member->user->name }}</h3>
@@ -28,29 +41,4 @@
             </div>
         </div>
     @endforeach
-
-
-    @push('scripts')
-            <script>
-                const intervals = {};
-
-                function startRotation(img) {
-                    const images = JSON.parse(img.dataset.images);
-                    if (!images.length) return;
-
-                    let i = 0;
-                    intervals[img.id] = setInterval(() => {
-                        i = (i + 1) % images.length;
-                        img.src = `/storage/${images[i]}`;
-                    }, 500);
-                }
-
-                function stopRotation(img) {
-                    clearInterval(intervals[img.id]);
-                    delete intervals[img.id];
-                    // Restaurar imagen principal
-                    img.src = img.dataset.main;
-                }
-            </script>
-        @endpush
 </div>
