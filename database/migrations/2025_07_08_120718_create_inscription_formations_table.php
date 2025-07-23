@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inscription_formations', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone')->nullable();
-            $table->string('company')->nullable();
-            $table->foreignId('formations_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('levels_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->timestamps();
+//            $table->id();
+//            $table->string('first_name');
+//            $table->string('last_name');
+//            $table->string('email');
+//            $table->string('phone')->nullable();
+//            $table->string('company')->nullable();
+//            $table->foreignId('formations_id')->constrained()->cascadeOnDelete();
+//            $table->foreignId('levels_id')->nullable()->constrained()->cascadeOnDelete();
+//            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inscription_formations');
+        //Schema::dropIfExists('inscription_formations');
     }
 };

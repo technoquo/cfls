@@ -28,6 +28,16 @@
 
                         <p style="margin-top: 30px;">Nous vous contacterons prochainement avec plus d'informations.</p>
 
+                        <p style="margin-top: 20px;">
+                            Afin de confirmer votre réservation, veuillez verser le montant sur le compte suivant :
+                            <br><strong>BE38 3100 5385 3072</strong>
+                        </p>
+
+                        <p>
+                            Ensuite, envoyez votre <strong>preuve de paiement</strong> à l’adresse :
+                            <a href="mailto:info@votresite.com">info@cfls.be</a>.
+                        </p>
+
                         <p style="color: #4b5563; margin-top: 20px;">Cordialement,<br>Équipe {{ config('app.name') }}</p>
                     </td>
                 </tr>

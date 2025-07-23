@@ -103,6 +103,7 @@ class FormationsController extends Controller
             'levels_id'      => $calendar->levels_id,
             'calendar_id'    => $calendar->id,
             'user_id'        => $user->id,
+            'status'         => 0, // Par défaut, le statut est 0 (non confirmé)
         ]);
 
         // Enviar correo de confirmación
@@ -157,6 +158,19 @@ class FormationsController extends Controller
             12 => 'décembre',
         ];
 
+        // Vérifier si la table de conversation existe
+        if (!$tableconvertation) {
+            return redirect()->back()->with('error', 'Table de conversation non trouvée.');
+        }
+
+        // Verifier si email existe déjà
+        $existingInscription = InscriptionTableConversation::where('email', $request->email)
+            ->where('tableconversation_id', $request->tableconversation_id)
+            ->first();
+        if ($existingInscription) {
+            return redirect()->back()->with('info', 'Vous êtes déjà inscrit à cette table de conversation.');
+        }
+
         $date = \Carbon\Carbon::parse($tableconvertation->date_start);
         $jourSemaine = $jours[$date->dayOfWeek];
         $moisFr = $mois[$date->month];
@@ -174,7 +188,7 @@ class FormationsController extends Controller
             'email'      => $request->email,
             'phone'      => $request->phone,
             'inscription_message'  => $dateFr .' à ' . $heure,
-            'status'     => 1,
+            'status'     => 0, // Par défaut, le statut est 0 (non confirmé)
         ]);
         // Guardar o enviar email aquí...
         Mail::to($request->email)

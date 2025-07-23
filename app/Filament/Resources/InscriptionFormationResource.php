@@ -42,9 +42,20 @@ class InscriptionFormationResource extends Resource
                     ->relationship('user', 'name')
                     ->required(),
 
-                Forms\Components\TextInput::make('reduit_rate')
-                    ->numeric()
-                    ->required(),
+                Forms\Components\Toggle::make('reduit_rate')
+                    ->label('Reduit'),
+
+
+                Forms\Components\Toggle::make('status')
+                    ->label('Statut')
+                    ->afterStateUpdated(function ($record, $state) {
+
+                        // Solo si el estado cambió a confirmado (1)
+                        if ($state && !$record->getOriginal('status')) {
+                            \Mail::to($record->user->email)->send(new \App\Mail\ConfirmationInscritpionMail($record));
+                        }
+                    }),
+
             ]);
     }
 
@@ -58,6 +69,7 @@ class InscriptionFormationResource extends Resource
                 TextColumn::make('calendar.start_date')->date('d/m/Y')->label('Calendrier'),
                 TextColumn::make('calendar.price')->label('Tarif')->money('EUR'),
                 Tables\Columns\IconColumn::make('reduit_rate')->label('Tarif Réduit')->boolean(),
+                Tables\Columns\IconColumn::make('status')->label('Statut')->boolean(),
                 TextColumn::make('created_at')->dateTime()->label('Inscription'),
             ])
             ->filters([

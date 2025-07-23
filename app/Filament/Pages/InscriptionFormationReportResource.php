@@ -18,6 +18,7 @@ class InscriptionFormationReportResource extends Page implements HasTable
     protected static ?string $label = 'Inscriptions aux formations avec export';
     protected static ?string $navigationGroup = 'Rapports';
     protected static ?int $navigationSort = 3;
+    protected static string $view = 'filament.pages.inscription-formation-report';
 
     public function getTableQuery(): Builder
     {
@@ -52,4 +53,6 @@ class InscriptionFormationReportResource extends Page implements HasTable
                 ->label('Exporter tout')
         ];
     }
+
+
 }

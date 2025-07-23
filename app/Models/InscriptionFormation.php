@@ -6,17 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class InscriptionFormation extends Model
+class  InscriptionFormation extends Model
 {
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'company',
-        'formations_id',
-        'levels_id',
-    ];
+
 
     // Relación con la formación
     public function formation(): BelongsTo
