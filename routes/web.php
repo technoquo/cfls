@@ -56,6 +56,11 @@ Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
 Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
 Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');
 
+
+Route::get('/test-error', function () {
+     return 'hola mundo';
+});
+
 // Jetstream dashboard (autenticación nativa)
 Route::middleware([
     'auth:sanctum',
