@@ -2,39 +2,73 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmation d'inscription</title>
+    <style>
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; padding: 15px !important; }
+            h1 { font-size: 20px !important; }
+            .button { padding: 10px 20px !important; font-size: 14px !important; }
+        }
+    </style>
 </head>
-<body style="font-family: sans-serif; background-color: #f9fafb; padding: 30px;">
-<table width="100%" cellpadding="0" cellspacing="0">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px;">
+<table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto;">
     <tr>
         <td align="center">
-            <table width="600" style="background-color: white; border-radius: 8px; padding: 30px;">
+            <table width="100%" cellpadding="0" cellspacing="0" class="container" style="background-color: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <tr>
+                    <td style="text-align: center; padding-bottom: 20px;">
+                        <img src="{{asset('img/cfls.png')}}" alt="Company Logo" style="max-width: 150px; height: auto; display: block; margin: 0 auto;">
+                    </td>
+                </tr>
                 <tr>
                     <td>
-                        <h1 style="color: #2563eb;">Merci {{ $inscription->first_name }} pour votre inscription !</h1>
-                        <p>Votre inscription à <strong>{{ $inscription->formation->title ?? 'la table de conversation' }}</strong> a bien été enregistrée.</p>
+                        <h1 style="font-size: 24px; color: #4f46e5; margin: 0 0 15px; line-height: 1.4;">
+                            Merci {{ $inscription->first_name }} pour votre inscription !
+                        </h1>
+                        <p style="font-size: 16px; color: #333; margin: 0 0 20px; line-height: 1.6;">
+                            Votre inscription à <strong>{{ $inscription->formation->title ?? 'la table de conversation' }}</strong> a bien été enregistrée.
+                        </p>
 
-                        <hr style="margin: 20px 0;">
+                        <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
 
-                        <p><strong>Nom :</strong> {{ $inscription->first_name }}</p>
-                        <p><strong>Email :</strong> {{ $inscription->email }}</p>
-                        <p><strong>Date :</strong> {{ $inscription->inscription_message }}</p>
+                        <table style="width: 100%; font-size: 14px; color: #374151; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Nom :</strong></td>
+                                <td style="padding: 5px 0;">{{ $inscription->first_name }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Email :</strong></td>
+                                <td style="padding: 5px 0;">{{ $inscription->email }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Date :</strong></td>
+                                <td style="padding: 5px 0;">{{ $inscription->inscription_message }}</td>
+                            </tr>
+                        </table>
 
-                        <p style="margin-top: 30px;">
+                        <p style="font-size: 16px; color: #333; line-height: 1.6; margin: 25px 0;">
                             Nous vous contacterons prochainement avec plus d'informations.
                         </p>
 
-                        <p style="margin-top: 20px;">
-                            Afin de confirmer votre réservation, veuillez verser le montant sur le compte suivant :
-                            <br><strong>BE38 3100 5385 3072</strong>
-                        </p>
+                        <div style="background-color: #eef2ff; padding: 16px; border-radius: 6px; margin: 25px 0; font-size: 14px; color: #374151;">
+                            <p style="margin: 0 0 10px;">
+                                Afin de confirmer votre réservation, veuillez verser le montant sur le compte suivant :<br>
+                                <strong>BE38 3100 5385 3072</strong>
+                            </p>
+                            <p style="margin: 0;">
+                                Ensuite, envoyez votre <strong>preuve de paiement</strong> à l’adresse :
+                                <a href="mailto:info@cfls.be" style="color: #4f46e5; text-decoration: none;">info@cfls.be</a>.
+                            </p>
+                        </div>
 
-                        <p>
-                            Ensuite, envoyez votre <strong>preuve de paiement</strong> à l’adresse :
-                            <a href="mailto:info@votresite.com">info@cfls.be</a>.
-                        </p>
+                        <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
 
-                        <p style="color: #4b5563; margin-top: 20px;">Cordialement,<br>Équipe {{ config('app.name') }}</p>
+                        <p style="font-size: 16px; color: #4f46e5; font-weight: 600; margin: 0; text-align: center;">
+                            Cordialement,<br>
+                            L’équipe de {{ config('app.name') }}
+                        </p>
                     </td>
                 </tr>
             </table>

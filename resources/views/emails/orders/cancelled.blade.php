@@ -2,55 +2,86 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commande annulée</title>
+    <style>
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; padding: 15px !important; }
+            .product-image { width: 60px !important; }
+            h1 { font-size: 20px !important; }
+            h2 { font-size: 18px !important; }
+            .info-box { padding: 12px !important; }
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f8fafc; padding: 20px; color: #111827;">
-<div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; padding: 24px;">
-    <h1 style="font-size: 24px;">Bonjour {{ $order->user->name }},</h1>
-
-    <p style="font-size: 16px; line-height: 1.6;">
-        Nous sommes désolés de vous informer que votre commande <strong>#{{ $order->id }}</strong> a été <strong>annulée</strong>.
-    </p>
-
-    <div style="background-color: #fef2f2; padding: 16px; border-radius: 6px; margin: 24px 0;">
-        <p style="margin: 0; font-size: 16px;">
-            <strong>Total :</strong> €{{ number_format($order->total, 2, ',', ' ') }}<br>
-            <strong>Méthode de livraison :</strong> {{ ucfirst($order->delivery) }}
-        </p>
-    </div>
-
-    @if($order->productOrders->count())
-        <h2 style="font-size: 18px; margin-top: 30px;">Produits dans la commande :</h2>
-        <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 16px; margin-bottom: 20px;">
-            @foreach($order->productOrders as $po)
-                <tr style="vertical-align: top;">
-                    <td style="padding: 8px 0; width: 60px;">
-                        @if($po->product->mainImage?->image_path)
-                            <img src="{{ asset('storage/' . $po->product->mainImage->image_path) }}"
-                                 alt="{{ $po->product->name }}"
-                                 style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover;">
-                        @else
-                            <div style="width: 60px; height: 60px; background: #e5e7eb; border-radius: 6px;"></div>
-                        @endif
-                    </td>
-                    <td style="padding: 8px 12px;">
-                        <strong>{{ $po->product->name }}</strong><br>
-                        Quantité : {{ $po->quantity }}<br>
-                        Prix unitaire : €{{ number_format($po->price, 2, ',', ' ') }}
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px;">
+<table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto;">
+    <tr>
+        <td align="center">
+            <table width="100%" cellpadding="0" cellspacing="0" class="container" style="background-color: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <tr>
+                    <td style="text-align: center; padding-bottom: 20px;">
+                        <img src="{{asset('img/cfls.png')}}" alt="Company Logo" style="max-width: 150px; height: auto; display: block; margin: 0 auto;">
                     </td>
                 </tr>
-            @endforeach
-        </table>
-    @endif
+                <tr>
+                    <td>
+                        <h1 style="font-size: 24px; color: #4f46e5; margin: 0 0 15px; line-height: 1.4;">
+                            Bonjour {{ $order->user->name }},
+                        </h1>
+                        <p style="font-size: 16px; color: #333; margin: 0 0 20px; line-height: 1.6;">
+                            Nous sommes désolés de vous informer que votre commande <strong>#{{ $order->id }}</strong> a été <strong>annulée</strong>.
+                        </p>
 
-    <p style="font-size: 16px;">
-        Si vous avez des questions, n’hésitez pas à nous contacter.
-    </p>
+                        <div class="info-box" style="background-color: #fef2f2; padding: 16px; border-radius: 6px; margin: 25px 0; font-size: 14px; color: #374151;">
+                            <p style="margin: 0 0 10px;">
+                                <strong>Total :</strong> €{{ number_format($order->total, 2, ',', ' ') }}<br>
+                                <strong>Méthode de livraison :</strong> {{ ucfirst($order->delivery) }}
+                            </p>
+                        </div>
 
-    <p style="font-size: 16px; margin-top: 40px;">
-        Merci,<br>
-        <strong>L’équipe de {{ config('app.name') }}</strong>
-    </p>
-</div>
+                        @if($order->productOrders->count())
+                            <h2 style="font-size: 20px; color: #111827; margin: 25px 0 15px;">
+                                📦 Produits dans la commande
+                            </h2>
+                            <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 14px; color: #374151; margin-bottom: 20px;">
+                                @foreach($order->productOrders as $po)
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: 10px 0; width: 80px;">
+                                            @if($po->product?->mainImage?->image_path)
+                                                <img src="{{ asset('storage/' . $po->product->mainImage->image_path) }}"
+                                                     alt="{{ $po->product->name }}"
+                                                     class="product-image"
+                                                     style="width: 80px; height: auto; border-radius: 6px; object-fit: cover; margin-right: 15px;">
+                                            @else
+                                                <div style="width: 80px; height: 80px; background: #e5e7eb; border-radius: 6px;"></div>
+                                            @endif
+                                        </td>
+                                        <td style="padding: 10px 12px;">
+                                            <p style="margin: 0 0 5px; font-weight: 600;">{{ $po->product->name }}</p>
+                                            <p style="margin: 0 0 5px;">Quantité : {{ $po->quantity }}</p>
+                                            <p style="margin: 0;">Prix unitaire : €{{ number_format($po->price, 2, ',', ' ') }}</p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        @endif
+
+                        <p style="font-size: 16px; color: #333; line-height: 1.6; margin: 0 0 20px;">
+                            Si vous avez des questions, n’hésitez pas à nous contacter.
+                        </p>
+
+                        <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                        <p style="font-size: 16px; color: #4f46e5; font-weight: 600; margin: 0; text-align: center;">
+                            Merci pour votre compréhension,<br>
+                            L’équipe de {{ config('app.name') }}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

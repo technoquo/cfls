@@ -13,8 +13,8 @@ use App\Http\Controllers\FormationsController;
 use App\Http\Controllers\SyllabusController;
 
 // Home Routes
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+//Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
@@ -23,7 +23,7 @@ Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->n
 
 
 // ⚠️ RUTAS RESTRINGIDAS PARA USUARIOS AUTENTICADOS
-Route::middleware([AuthOrUnderConstruction::class])->group(function () {
+
     // Formations Routes
     Route::get('/formations', [FormationsController::class, 'index'])->name('formations.index');
     Route::get('/formations/{slug}', [FormationsController::class, 'formations'])->name('formations.slug');
@@ -46,7 +46,7 @@ Route::middleware([AuthOrUnderConstruction::class])->group(function () {
     Route::post('/cart/clear', [BoutiqueController::class, 'clear'])->name('cart.clear');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::get('/facture/{order}', [OrderController::class, 'facture'])->name('order.facture');
-});
+
 
 // Cloudinary (libre)
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);

@@ -89,7 +89,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return true;
+        return $this->role === 'admin';
     }
 
     public function sendPasswordResetNotification($token)
