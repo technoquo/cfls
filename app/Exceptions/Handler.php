@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -13,20 +15,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        // Manejo de error 404
+        // En local → mostrar errores reales
+        if (app()->environment('local')) {
+            return parent::render($request, $exception);
+        }
+
+        // En producción → páginas personalizadas
         if ($exception instanceof NotFoundHttpException) {
             return response()->view('errors.404', [], 404);
         }
 
-        if ($exception instanceof NotFoundHttpException) {
+        if ($exception instanceof AuthorizationException ||
+            ($exception instanceof HttpException && $exception->getStatusCode() === 403)) {
             return response()->view('errors.403', [], 403);
         }
 
-        // Manejo de error 500
-        if ($exception instanceof \Exception) {
-            return response()->view('errors.500', [], 500);
-        }
-
-        return parent::render($request, $exception);
+        // Cualquier otro error → 500
+        return response()->view('errors.500', [], 500);
     }
 }
