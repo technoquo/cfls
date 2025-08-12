@@ -8,7 +8,11 @@
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}" />
     <meta name="apple-mobile-web-app-title" content="cfls" />
-    <meta name="robots" content="noindex,nofollow">
+    @if(app()->environment('production'))
+        <meta name="robots" content="index,follow">
+    @else
+        <meta name="robots" content="noindex,nofollow">
+    @endif
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta charset="utf-8">
@@ -16,13 +20,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta property="og:title" content="Cfls | Centre Francophone de la Langue des Signes">
     <meta property="og:description" content="Le Centre Francophone de la Langue des Signes s'est donné pour mission de diffuser la langue des signes par des cours, des publications et de la recherche en L.S.">
+    <meta name="keywords" content="langue des signes, cours LSF, CFLS, formation LSF, centre francophone, langue des signes Belgique">
     <meta property="og:image" content="{{ asset('img/logo_cfls.png') }}">
     <meta property="og:image:width" content="296">
     <meta property="og:image:height" content="354">
     <meta property="og:url" content="https://cfls.be">
     <meta property="og:site_name" content="C.F.L.S. asbl">
     <meta property="og:type" content="website">
-    <meta name="keywords" content="langue des signes, cours LSF, CFLS, formation LSF, centre francophone, langue des signes Belgique">
+
     <title>{{ $title . ' - ' .  config('app.name', 'Laravel') ?? config('app.name', 'Laravel') }}</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
