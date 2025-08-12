@@ -6,5 +6,5 @@
     @include('home.sections.donation')
     @include('home.sections.membre')
     @include('home.sections.testimonial')
-    @include('home.sections.subscribe')
+{{--    @include('home.sections.subscribe')--}}
 </x-layout>
