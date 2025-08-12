@@ -7,13 +7,14 @@
     <link rel="icon" type="image/svg+xml" href="{{asset('favicon.svg')}}" />
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta name="apple-mobile-web-app-title" content="cfls" />
     @if(app()->environment('production'))
-        <meta name="robots" content="index,follow">
+    <meta name="robots" content="index,follow">
     @else
-        <meta name="robots" content="noindex,nofollow">
+    <meta name="robots" content="noindex,nofollow">
     @endif
-    <link rel="manifest" href="/site.webmanifest" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +22,7 @@
     <meta property="og:title" content="Cfls | Centre Francophone de la Langue des Signes">
     <meta property="og:description" content="Le Centre Francophone de la Langue des Signes s'est donné pour mission de diffuser la langue des signes par des cours, des publications et de la recherche en L.S.">
     <meta name="keywords" content="langue des signes, cours LSF, CFLS, formation LSF, centre francophone, langue des signes Belgique">
-    <meta property="og:image" content="{{ asset('img/logo_cfls.png') }}">
-    <meta property="og:image:width" content="296">
-    <meta property="og:image:height" content="354">
+    <meta property="og:image" content="{{ asset('img/og-cfls-1200x630.png') }}">
     <meta property="og:url" content="https://cfls.be">
     <meta property="og:site_name" content="C.F.L.S. asbl">
     <meta property="og:type" content="website">
