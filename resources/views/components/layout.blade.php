@@ -8,12 +8,8 @@
     <meta name="description" content="Cours, publications et recherche en Langue des Signes – CFLS.">
     <link rel="canonical" href="https://cfls.be/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
 
-    @if(app()->environment('production'))
-        <meta name="robots" content="index,follow">
-    @else
-        <meta name="robots" content="noindex,nofollow">
-    @endif
 
     <!-- Open Graph -->
     <meta property="og:title" content="Centre Francophone de la Langue des Signes (CFLS)">
