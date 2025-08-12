@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <meta name="google-site-verification" content="K2SNTPwGYEhcovT80QeRMqnj9ZJUn6NvzzY2haOq5M8" />
     <meta name="apple-mobile-web-app-title" content="cfls" />
     @if(app()->environment('production'))
     <meta name="robots" content="index,follow">
