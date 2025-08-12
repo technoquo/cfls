@@ -3,88 +3,83 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <link rel="icon" type="image/png" href="{{asset('favicon.ico')}}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{asset('favicon.svg')}}" />
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}" />
+    <meta name="apple-mobile-web-app-title" content="cfls" />
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta charset="utf-8">
-    <title>{{ $title ?? 'Centre Francophone de la Langue des Signes' }} - {{ config('app.name', 'Laravel') }}</title>
-    <meta name="description" content="Cours, publications et recherche en Langue des Signes – CFLS.">
-    <link rel="canonical" href="https://cfls.be/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    @if(app()->environment('production'))
-        <meta name="robots" content="index,follow">
-    @else
-        <meta name="robots" content="noindex,nofollow">
-    @endif
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Centre Francophone de la Langue des Signes (CFLS)">
-    <meta property="og:description" content="Cours, publications et recherche en Langue des Signes – CFLS.">
-    <meta property="og:image" content="https://cfls.be/img/og-cfls-1200x630.jpg">
-    <meta property="og:url" content="https://cfls.be/">
-    <meta property="og:site_name" content="CFLS asbl">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:title" content="Cfls | Centre Francophone de la Langue des Signes">
+    <meta property="og:description" content="Le Centre Francophone de la Langue des Signes s'est donné pour mission de diffuser la langue des signes par des cours, des publications et de la recherche en L.S.">
+    <meta property="og:image" content="{{ asset('img/logo_cfls.png') }}">
+    <meta property="og:image:width" content="296">
+    <meta property="og:image:height" content="354">
+    <meta property="og:url" content="https://cfls.be">
+    <meta property="og:site_name" content="C.F.L.S. asbl">
     <meta property="og:type" content="website">
-
     <meta name="keywords" content="langue des signes, cours LSF, CFLS, formation LSF, centre francophone, langue des signes Belgique">
-
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Hreflang -->
-    <link rel="alternate" href="https://cfls.test/formations" hreflang="fr-BE">
-    <link rel="alternate" href="https://cfls.test/formations" hreflang="x-default">
-
-    <!-- Favicon -->
-    <link rel="icon" href="https://cfls.be/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cfls.be/apple-touch-icon.png">
-    <link rel="manifest" href="https://cfls.be/site.webmanifest">
-    <meta name="google-site-verification" content="xbePHPB9fX0-MdmYfI2y4yxummqOUDbrRg99KpkAYUU" />
-
-    <!-- Schema.org -->
-    <script type="application/ld+json">
-        {
-            "@context":"https://schema.org",
-            "@type":"Organization",
-            "name":"CFLS asbl",
-            "url":"https://cfls.be",
-            "logo":"https://cfls.be/img/logo_cfls.png"
-        }
-    </script>
-    <script type="application/ld+json">
-        {
-            "@context":"https://schema.org",
-            "@type":"WebSite",
-            "url":"https://cfls.be",
-            "name":"Centre Francophone de la Langue des Signes",
-            "potentialAction":{
-                "@type":"SearchAction",
-                "target":"https://cfls.be/recherche?q={search_term_string}",
-                "query-input":"required name=search_term_string"
-            }
-        }
-    </script>
-
+    <title>{{ $title . ' - ' .  config('app.name', 'Laravel') ?? config('app.name', 'Laravel') }}</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+{{--    <link href="https://fonts.bunny.net/css?family=alata:400,500&display=swap" rel="stylesheet" />--}}
     <link href="https://fonts.bunny.net/css?family=assistant:200,300,400,500,600,700,800" rel="stylesheet" />
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/ccc950231e.js" crossorigin="anonymous"></script>
+    <script>
+        const html = document.documentElement;
+        const theme = localStorage.getItem('color-theme');
 
-    <!-- Scripts & Styles -->
+        if (theme === 'dark') {
+            html.classList.add('dark');
+            html.classList.remove('light');
+        } else {
+            html.classList.add('light');
+            html.classList.remove('dark');
+        }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('cart', {
+                items: [],
+
+                // Getter dinámico que suma todas las cantidades
+                get count() {
+                    return this.items.reduce((total, item) => total + (item.quantity || 1), 0);
+                }
+            });
+
+            // Inicializar desde localStorage
+            const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
+            Alpine.store('cart').items = storedItems;
+        });
+
+        // Escuchar cambios del carrito
+        window.addEventListener('cart-updated', () => {
+            const updated = JSON.parse(localStorage.getItem('cart')) || [];
+            Alpine.store('cart').items = updated;
+        });
+    </script>
+
+
+
+    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @stack('css')
-
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52KWCPNS4C"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-52KWCPNS4C');
     </script>
-
+    <!-- End Google Analytics -->
 </head>
 
 <body
