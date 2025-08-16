@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,6 +19,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     use HasApiTokens;
+    use Notifiable;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -34,6 +37,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_active',
         'telephone',
         'address',
         'province',
@@ -51,6 +55,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+
     ];
 
     /**
@@ -61,6 +66,8 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+
 
     /**
      * Get the attributes that should be cast.
@@ -74,6 +81,8 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+
 
     public function administracions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -100,6 +109,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function productOrders(): HasMany
     {
         return $this->hasMany(ProductOrder::class);
+    }
+
+    public function bookCodes()
+    {
+        return $this->hasMany(\App\Models\BookCode::class);
     }
 
 

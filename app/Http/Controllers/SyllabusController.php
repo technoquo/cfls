@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Syllabu;
 use App\Models\Theme;
+use App\Models\User;
+use App\Models\VerifyCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SyllabusController extends Controller
@@ -20,15 +23,36 @@ class SyllabusController extends Controller
 
     public function syllabu($slug)
     {
-        $syllabu = Syllabu::where('slug', $slug)
-            ->where('status', 1)
-            ->first();
 
 
-        $themes = $syllabu
-            ->themes()
-            ->where('status', 1)
-            ->get();
+
+        if (Auth::check()) {
+            $user = Auth::user();
+
+
+            if ($user->is_active == 0) {
+                return redirect()->route('verification.notice');
+            }
+
+            $bookCode = $user->bookCodes()
+                ->where('code_livre', '!=', null)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if (!$bookCode) {
+                return redirect()->route('code-livre', ['slug' => $slug]);
+
+            }
+
+            $syllabu = Syllabu::where('slug', $slug)
+                ->where('status', 1)
+                ->first();
+
+
+            $themes = $syllabu
+                ->themes()
+                ->where('status', 1)
+                ->get();
 
 //        $videos = DB::table('video_themes_cloudinary')
 //            ->select('url as url_video', 'title')
@@ -40,11 +64,103 @@ class SyllabusController extends Controller
 //            })
 //            ->toArray();
 
-        return view('syllabus.theme', compact('syllabu', 'slug', 'themes'));
+
+            return view('syllabus.theme', compact('syllabu', 'slug', 'themes'));
+
+        } else {
+            return redirect()->route('login');
+        }
+
+
+
+
     }
 
-    public function theme($slug, $theme)
+    public function codelivre($slug){
+
+
+        if (Auth::check()) {
+            $user = Auth::user();
+
+
+            $bookCode = $user->bookCodes()
+                ->where('code_livre', '!=', null)
+                ->first();
+
+
+            if (!$bookCode) {
+                return view('syllabus.codelivre', [
+                    'slug' => $slug,
+                ]);
+            } else {
+                return route('syllabus.slug', ['slug' => $slug]);
+            }
+
+
+        } else {
+            return redirect()->route('login');
+        }
+
+
+    }
+
+    public function store()
     {
+
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            $codeLivre = request()->input('code_livre');
+            $themes = VerifyCode::where('theme', request()->input('slug'))->first();
+
+            $verifyCode = VerifyCode::where('code', $codeLivre)
+                ->where('theme', $themes->theme)
+                ->where('active', 1)
+                ->first();
+
+
+            if (!$verifyCode) {
+
+
+                return redirect()
+                    ->back() // o ->route('code-livre.form') si tienes una ruta GET del formulario
+                    ->withErrors(['error' => 'Code de livre invalide'])
+                    ->withInput(['slug' => $themes->theme]); // <-- mantiene el valor
+            }
+
+            $user->bookCodes()
+                ->updateOrCreate(
+                    ['user_id' => $user->id, 'code_livre' => $codeLivre]
+                );
+
+            return redirect()
+                ->route('syllabus.slug', ['slug' => $themes->theme]);
+        }
+    }
+
+    public function theme($slug, $theme, $code = null)
+    {
+
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        } else {
+            $user = Auth::user();
+
+            if ($user->is_active == 0) {
+                return redirect()->route('verification.notice');
+            }
+
+            $bookCode = $user->bookCodes()
+                ->where('code_livre', '!=', null)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if (!$bookCode) {
+                return redirect()->route('code-livre', ['slug' => $slug]);
+            }
+        }
+
+
 
         if ($theme == 'a-bientôt') {
             $validSlugs = [
