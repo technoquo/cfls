@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\AuthOrUnderConstruction;
 use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\OrderController;
@@ -55,27 +54,20 @@ Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->n
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
 
 // Syllabus Routes (librest)
+Route::middleware(['auth', 'single.session'])->group(function () {
 Route::get('/syllabus', [SyllabusController::class, 'index'])->name('syllabus');
 Route::get('/code-livre/{slug}', [SyllabusController::class, 'codelivre'])->name('code-livre');
 Route::post('/code-livre/verify', [SyllabusController::class, 'store'])->name('code-livre.store');
 Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.slug');
 Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');
-
+});
 
 Route::get('/test-error', function () {
      return 'hola mundo';
 });
 
-// Jetstream dashboard (autenticación nativa)
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+
+
 
 // Show verification notice
 Route::get('/email/verify', function () {
