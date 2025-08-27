@@ -137,13 +137,16 @@ class SyllabusController extends Controller
             ->firstOrFail();
 
         $videos = DB::table('video_themes_cloudinary')
-            ->select('url as url_video', 'title')
+            ->select('id','url as url_video', 'title')
             ->where('syllabu_id', $syllabu->id)
             ->where('theme_id', $themeModel->id)
+            ->where('active', 1)
             ->orderBy('title', 'asc')
             ->get()
             ->map(fn ($item) => (array) $item)
             ->toArray();
+
+
 
         return view('syllabus.show', compact('syllabu', 'themeModel', 'videos'));
     }

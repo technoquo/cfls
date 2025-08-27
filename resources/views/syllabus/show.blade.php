@@ -1,14 +1,16 @@
 <x-layout>
     <x-slot name="title">Syllabus</x-slot>
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Include Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+
 
     <div class="flex flex-col lg:flex-row min-h-screen gap-4 px-4">
         <!-- Main Content -->
         <div class="flex-1 p-4">
             <div class="flex justify-center">
-                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $themeModel->title }}</h2>
+                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $themeModel->title }} adfadf</h2>
             </div>
 
             <div class="flex flex-col lg:flex-row justify-center items-start gap-x-4 w-full"
@@ -72,7 +74,7 @@
                             x-ref="scrollContainer"
                             class="w-full max-w-md mx-auto space-y-4 overflow-y-auto px-2 max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96"
                         >
-                            <template x-for="(video, index) in filteredVideos" :key="video.url">
+                            <template x-for="(video, index) in filteredVideos" :key="video.id">
                                 <div
                                     @click="setVideoByUrl(video.url)"
                                     :class="currentVideo === video.url ? 'bg-blue-100 dark:bg-blue-900' : ''"
@@ -107,6 +109,7 @@
         <script>
             function videoPlaylist(themes) {
                 const allVideos = themes.map(video => ({
+                    id: video.id,
                     url: video.url_video,
                     title: video.title
                 }));
