@@ -139,6 +139,18 @@ class OrderController extends Controller
         return view('orders.facture', compact('order'));
     }
 
+    public function commanders()
+    {
+        $user = Auth::user();
+        $orders = Order::where('user_id', $user->id)
+            ->with('products.mainImage')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        return view('orders.commandes', compact('orders'));
+    }
+
 
 
 

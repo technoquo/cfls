@@ -215,7 +215,7 @@
                             Confirmer l'Achat
                         </button>
 
-                        <button @click="annulerAchat" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                        <button @click.prevent="annulerAchat" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                             Annuler
                         </button>
                     </div>
@@ -296,6 +296,7 @@
                     },
 
                     async confirmerAchat() {
+                       
                         try {
                             // Obtener valores
                             const first_name = document.querySelector('input[name="first_name"]').value.trim();
@@ -407,9 +408,10 @@
                     },
 
                     annulerAchat() {
+
                         if (confirm("Voulez-vous vraiment annuler l'achat ? Les produits seront supprimés du panier.")) {
                             fetch("{{ route('cart.clear') }}", {
-                                method: "POST",
+                                method: "DELETE",
                                 headers: {
                                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                                     'Content-Type': 'application/json',

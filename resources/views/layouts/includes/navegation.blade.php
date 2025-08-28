@@ -29,6 +29,13 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profil') }}
                             </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('syllabus') }}">
+                                {{ __('Mon Syllabus') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('order.list') }}">
+                                {{ __('Mes Commandes') }}
+                            </x-dropdown-link>
+
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
                                 <x-dropdown-link href="{{ route('logout') }}"

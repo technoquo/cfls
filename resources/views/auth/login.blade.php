@@ -44,8 +44,14 @@
                 </x-button>
             </div>
         </form>
-        <a href="/" class="text-sm text-gray-600 hover:text-gray-900 underline">
-            {{ __('Retour à l\'accueil') }}
-        </a>
+        <div class="flex justify-between items-center mt-5">
+            <a href="/" class="text-sm text-gray-600 hover:text-gray-900 underline">
+                {{ __('Retour à l\'accueil') }}
+            </a>
+                <a href="/register" class="text-sm text-gray-600 hover:text-gray-900 underline">
+                    {{ __('S\'inscrire') }}
+                </a>
+
+         </div>
     </x-authentication-card>
 </x-guest-layout>
