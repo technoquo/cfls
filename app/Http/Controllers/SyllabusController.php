@@ -38,7 +38,6 @@ class SyllabusController extends Controller
     public function syllabu(string $slug)
     {
 
-
             if ($slug != 'ue1-themes') {   //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
 
                 if ($redirect = $this->ensureActiveUser()) {
@@ -51,6 +50,13 @@ class SyllabusController extends Controller
                     return redirect()->route('code-livre', ['slug' => $slug]);
                 }
             }
+
+
+        // Caso especial Wix
+        if (request()->path() === 'ue1-themes' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
+            return redirect()->away("https://wix.cfls.be/{$slug}/" . rawurlencode('a-bientôt'));
+        }
+
 
         $syllabu = Syllabu::where('slug', $slug)->where('status', 1)->firstOrFail();
         $themes  = $syllabu->themes()->where('status', 1)->get();
@@ -110,6 +116,7 @@ class SyllabusController extends Controller
     /** Página de un tema específico del syllabus. */
     public function theme(string $slug, string $theme, ?string $code = null)
     {
+
 
 
         if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX

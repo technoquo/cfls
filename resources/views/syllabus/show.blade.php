@@ -10,7 +10,7 @@
         <!-- Main Content -->
         <div class="flex-1 p-4">
             <div class="flex justify-center">
-                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $themeModel->title }} adfadf</h2>
+                <h2 class="font-semibold text-gray-800 dark:text-gray-200 mb-5 md:text-7xl text-3xl uppercase">{{ $themeModel->title }}</h2>
             </div>
 
             <div class="flex flex-col lg:flex-row justify-center items-start gap-x-4 w-full"
