@@ -117,7 +117,7 @@ class SyllabusController extends Controller
     public function theme(string $slug, string $theme, ?string $code = null)
     {
 
-
+       dd('aqui');
 
         if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
             if ($redirect = $this->ensureActiveUser()) {
@@ -134,7 +134,7 @@ class SyllabusController extends Controller
             }
         }
 
-      dd(request()->segment(2));
+
         // Caso especial Wix
         if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
             return redirect()->away("https://wix.cfls.be/{$slug}/a-bient%C3%B4t");
