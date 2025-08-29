@@ -69,12 +69,13 @@ class FormationsController extends Controller
                     'email'      => $request->email,
                     'telephone'      => $request->phone,
                     'password'    => bcrypt(Str::random(12)),
-                    'role'        => 'guest', // Asignar rol guest por defecto
+                    'role'        => 'etudiant', // Asignar rol guest por defecto
                     'address'     =>  null,
                     'postal_code' => null,
                     'province'    => null,
                     'region'      => null,
                     'society'     => null,
+                    'is_active'   => 0, // Inactivo hasta que verifique su email
 
                 ]);
 

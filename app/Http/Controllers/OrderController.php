@@ -51,7 +51,7 @@ class OrderController extends Controller
                 [
                     'name' => $validated['first_name'] . ' ' . $validated['second_name'],
                     'password' => bcrypt(Str::random(12)),
-                    'role' => 'guest',
+                    'role' => 'etudiant',
                     'telephone'    => $validated['telephone'],
                     'address'      => $validated['address'] ?? null,
                     'postal_code'  => $validated['postal_code'] ?? null,

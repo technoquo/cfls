@@ -24,9 +24,11 @@ class VerifyCodeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('code')
+                    ->label('Code') // 🔹 Traduction
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('active')
+                    ->label('Actif') // 🔹 Traduction
                     ->required(),
             ]);
     }
@@ -36,27 +38,41 @@ class VerifyCodeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('code')
+                    ->label('Code') // 🔹 Traduction
+                    ->searchable()
+                    ->sortable(), // 🔹 Permite ordenar manualmente desde la tabla
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Utilisateur') // 🔹 Traduction
                     ->searchable(),
+
                 Tables\Columns\IconColumn::make('active')
+                    ->label('Actif') // 🔹 Traduction
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Créé le') // 🔹 Traduction
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Mis à jour le') // 🔹 Traduction
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('active')
+                    ->label('Actif') // 🔹 Traduction
+                    ->boolean(),     // 🔹 Te crea opciones: Tous / Oui / Non
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Modifier'), // 🔹 Traduction
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'), // 🔹 Traduction
                 ]),
             ]);
     }
@@ -71,9 +87,9 @@ class VerifyCodeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVerifyCodes::route('/'),
-            'create' => Pages\CreateVerifyCode::route('/create'),
-            'edit' => Pages\EditVerifyCode::route('/{record}/edit'),
+            'index' => Pages\ListVerifyCodes::route('/'),   // Liste
+            'create' => Pages\CreateVerifyCode::route('/create'), // Créer
+            'edit' => Pages\EditVerifyCode::route('/{record}/edit'), // Modifier
         ];
     }
 }

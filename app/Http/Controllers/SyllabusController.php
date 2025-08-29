@@ -41,13 +41,16 @@ class SyllabusController extends Controller
             return $redirect;
         }
 
+
         $user = Auth::user();
 
-        $book = VerifyCode::where('theme', $slug)->where('active', 1)->first();
+        // Exige código válido para ESTE slug
+        $exists = VerifyCode::where('user_id', $user->id)->where('theme',$slug)->where('active', 1)->first();
 
-        if (!$book || !$user->bookCodes()->where('code_livre', $book->code)->exists()) {
+        if (!$exists) {
             return redirect()->route('code-livre', ['slug' => $slug]);
         }
+
 
         $syllabu = Syllabu::where('slug', $slug)->where('status', 1)->firstOrFail();
         $themes  = $syllabu->themes()->where('status', 1)->get();
@@ -60,14 +63,6 @@ class SyllabusController extends Controller
     {
         if ($redirect = $this->ensureLoggedIn()) {
             return $redirect;
-        }
-
-        $user = Auth::user();
-
-        $book = VerifyCode::where('theme', $slug)->where('active', 1)->first();
-
-        if ($book && $user->bookCodes()->where('code_livre', $book->code)->exists()) {
-            return redirect()->route('syllabus.slug', ['slug' => $slug]);
         }
 
         return view('syllabus.codelivre', compact('slug'));
@@ -91,8 +86,7 @@ class SyllabusController extends Controller
         $code = $data['code_livre'];
 
         $verifyCode = VerifyCode::where('code', $code)
-            ->where('theme', $slug)
-            ->where('active', 1)
+            ->where('active', 0)
             ->first();
 
         if (!$verifyCode) {
@@ -101,9 +95,13 @@ class SyllabusController extends Controller
                 ->withInput(['slug' => $slug]);
         }
 
-        $user->bookCodes()->updateOrCreate(
-            ['user_id' => $user->id, 'code_livre' => $code],
-            []
+        VerifyCode::updateOrCreate(
+            ['code' => $code],
+            [
+                'user_id'=> $user->id,
+                'active' => 1,
+                'theme'  => $slug,
+            ]
         );
 
         return redirect()->route('syllabus.slug', ['slug' => $slug]);
@@ -119,8 +117,9 @@ class SyllabusController extends Controller
         $user = Auth::user();
 
         // Exige código válido para ESTE slug
-        $book = VerifyCode::where('theme', $slug)->where('active', 1)->first();
-        if (!$book || !$user->bookCodes()->where('code_livre', $book->code)->exists()) {
+        $exists = VerifyCode::where('user_id', $user->id)->where('theme',$slug)->where('active', 1)->first();
+
+        if (!$exists) {
             return redirect()->route('code-livre', ['slug' => $slug]);
         }
 

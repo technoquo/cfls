@@ -14,8 +14,8 @@ use App\Http\Controllers\SyllabusController;
 use Illuminate\Http\Request;
 
 // Home Routes
-//Route::get('/', [HomeController::class, 'index']);
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
