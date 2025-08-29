@@ -117,7 +117,12 @@ class SyllabusController extends Controller
     public function theme(string $slug, string $theme, ?string $code = null)
     {
 
-       dd('slug'. $slug, 'theme'. $theme, 'code'. $code);
+       
+
+        // Caso especial Wix
+        if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
+            return redirect()->away("https://wix.cfls.be/{$slug}/a-bient%C3%B4t");
+        }
 
         if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
             if ($redirect = $this->ensureActiveUser()) {
@@ -135,10 +140,7 @@ class SyllabusController extends Controller
         }
 
 
-        // Caso especial Wix
-        if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
-            return redirect()->away("https://wix.cfls.be/{$slug}/a-bient%C3%B4t");
-        }
+
 
         $syllabu = Syllabu::where('slug', $slug)->where('status', 1)->firstOrFail();
 
