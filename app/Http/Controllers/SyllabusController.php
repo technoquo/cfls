@@ -134,7 +134,7 @@ class SyllabusController extends Controller
             }
         }
 
-
+      dd(request()->segment(2));
         // Caso especial Wix
         if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
             return redirect()->away("https://wix.cfls.be/{$slug}/a-bient%C3%B4t");
