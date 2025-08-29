@@ -117,7 +117,7 @@ class SyllabusController extends Controller
     public function theme(string $slug, string $theme, ?string $code = null)
     {
 
-       dd('aqui');
+       dd('slug'. $slug, 'theme'. $theme, 'code'. $code);
 
         if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
             if ($redirect = $this->ensureActiveUser()) {
