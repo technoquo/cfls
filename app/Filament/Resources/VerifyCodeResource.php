@@ -17,6 +17,8 @@ class VerifyCodeResource extends Resource
 {
     protected static ?string $model = VerifyCode::class;
 
+    protected static ?string $label = 'Vérifier les codes';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

@@ -37,20 +37,20 @@ class SyllabusController extends Controller
     /** Página de un syllabus (lista de temas). */
     public function syllabu(string $slug)
     {
-        if ($redirect = $this->ensureActiveUser()) {
-            return $redirect;
-        }
 
 
-        $user = Auth::user();
+            if ($slug != 'ue1-themes') {   //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
 
-        // Exige código válido para ESTE slug
-        $exists = VerifyCode::where('user_id', $user->id)->where('theme',$slug)->where('active', 1)->first();
-
-        if (!$exists) {
-            return redirect()->route('code-livre', ['slug' => $slug]);
-        }
-
+                if ($redirect = $this->ensureActiveUser()) {
+                    return $redirect;
+                }
+                $user = Auth::user();
+                // Exige código válido para ESTE slug
+                $exists = VerifyCode::where('user_id', $user->id)->where('theme', $slug)->where('active', 1)->first();
+                if (!$exists) {
+                    return redirect()->route('code-livre', ['slug' => $slug]);
+                }
+            }
 
         $syllabu = Syllabu::where('slug', $slug)->where('status', 1)->firstOrFail();
         $themes  = $syllabu->themes()->where('status', 1)->get();
@@ -110,17 +110,21 @@ class SyllabusController extends Controller
     /** Página de un tema específico del syllabus. */
     public function theme(string $slug, string $theme, ?string $code = null)
     {
-        if ($redirect = $this->ensureActiveUser()) {
-            return $redirect;
-        }
 
-        $user = Auth::user();
 
-        // Exige código válido para ESTE slug
-        $exists = VerifyCode::where('user_id', $user->id)->where('theme',$slug)->where('active', 1)->first();
+        if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
+            if ($redirect = $this->ensureActiveUser()) {
+                return $redirect;
+            }
 
-        if (!$exists) {
-            return redirect()->route('code-livre', ['slug' => $slug]);
+            $user = Auth::user();
+
+            // Exige código válido para ESTE slug
+            $exists = VerifyCode::where('user_id', $user->id)->where('theme', $slug)->where('active', 1)->first();
+
+            if (!$exists) {
+                return redirect()->route('code-livre', ['slug' => $slug]);
+            }
         }
 
         // Caso especial Wix
