@@ -38,18 +38,18 @@ class SyllabusController extends Controller
     public function syllabu(string $slug)
     {
 
-            if ($slug != 'ue1-themes') {   //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
+        if ($slug != 'ue1-themes') {   //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
 
-                if ($redirect = $this->ensureActiveUser()) {
-                    return $redirect;
-                }
-                $user = Auth::user();
-                // Exige código válido para ESTE slug
-                $exists = VerifyCode::where('user_id', $user->id)->where('theme', $slug)->where('active', 1)->first();
-                if (!$exists) {
-                    return redirect()->route('code-livre', ['slug' => $slug]);
-                }
+            if ($redirect = $this->ensureActiveUser()) {
+                return $redirect;
             }
+            $user = Auth::user();
+            // Exige código válido para ESTE slug
+            $exists = VerifyCode::where('user_id', $user->id)->where('theme', $slug)->where('active', 1)->first();
+            if (!$exists) {
+                return redirect()->route('code-livre', ['slug' => $slug]);
+            }
+        }
 
 
         // Caso especial Wix
@@ -117,7 +117,7 @@ class SyllabusController extends Controller
     public function theme(string $slug, string $theme, ?string $code = null)
     {
 
-       
+
 
         // Caso especial Wix
         if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
