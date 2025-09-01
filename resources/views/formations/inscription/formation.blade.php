@@ -23,18 +23,18 @@
                 à {{ \Carbon\Carbon::createFromFormat('H:i', $inscription->hour_start)->format('g:i A') }}
             </p>
             <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
-                Avenue du Four à Briques
+                Avenue du four à briques, 3A - 1140 Evere ( Bruxelles)
             </p>
-            <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">
-                @php
+{{--            <p class="max-w-2xl  font-semibold  md:text-lg lg:text-xl dark:text-gray-400 ">--}}
+{{--                @php--}}
 
 
-                    $start = \Carbon\Carbon::parse($inscription->start_date);
-                    $end = \Carbon\Carbon::parse($inscription->end_date);
-                    $totalDays = $start->diffInDays($end) + 1;
-                @endphp
-                {{$totalDays}} séances au total
-            </p>
+{{--                    $start = \Carbon\Carbon::parse($inscription->start_date);--}}
+{{--                    $end = \Carbon\Carbon::parse($inscription->end_date);--}}
+{{--                    $totalDays = $start->diffInDays($end) + 1;--}}
+{{--                @endphp--}}
+{{--                {{$totalDays}} séances au total--}}
+{{--            </p>--}}
 
             <p class="max-w-2xl mb-2  font-semibold lg:mb-4 md:text-lg lg:text-xl dark:text-gray-400 mt-3">
                 Détails du paiement <span class="text-blue-500"> {{ $inscription->price }} €</span>
