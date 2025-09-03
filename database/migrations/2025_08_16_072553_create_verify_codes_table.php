@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('verify_codes', function (Blueprint $table) {
             $table->id();
+
+            // Clave foránea nullable
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('users', 'id')
+                ->nullOnDelete()      // si borran el user → se pone NULL
+                ->cascadeOnUpdate();
+
             $table->string('code')->unique();
+            $table->string('theme')->nullable();
             $table->boolean('active')->default(false);
             $table->timestamps();
         });

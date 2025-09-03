@@ -16,7 +16,7 @@ class CodeSeeder extends Seeder
         VerifyCode::factory()
             ->count(3000)
             ->state(fn () => [
-                'user_id' => 0,
+                'user_id' => null,
                 'theme'   => null,
                 'active'  => 0,
             ])
