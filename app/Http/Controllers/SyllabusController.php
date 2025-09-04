@@ -38,7 +38,7 @@ class SyllabusController extends Controller
     public function syllabu(string $slug)
     {
 
-        if ($slug != 'ue1-themes') {   //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
+
 
             if ($redirect = $this->ensureActiveUser()) {
                 return $redirect;
@@ -46,16 +46,17 @@ class SyllabusController extends Controller
             $user = Auth::user();
             // Exige código válido para ESTE slug
             $exists = VerifyCode::where('user_id', $user->id)->where('theme', $slug)->where('active', 1)->first();
+
             if (!$exists) {
                 return redirect()->route('code-livre', ['slug' => $slug]);
             }
-        }
 
 
-        // Caso especial Wix
-        if (request()->path() === 'ue1-themes' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
-            return redirect()->away("https://wix.cfls.be/{$slug}/" . rawurlencode('a-bientôt'));
-        }
+
+//        // Caso especial Wix
+//        if (request()->path() === 'ue1-themes' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
+//            return redirect()->away("https://wix.cfls.be/{$slug}/" . rawurlencode('a-bientôt'));
+//        }
 
 
         $syllabu = Syllabu::where('slug', $slug)->where('status', 1)->firstOrFail();
@@ -119,12 +120,7 @@ class SyllabusController extends Controller
 
 
 
-        // Caso especial Wix
-        if (request()->segment(2) === 'a-bientôt' && in_array($slug, self::WIX_VALID_SLUGS, true)) {
-            return redirect()->away("https://wix.cfls.be/{$slug}/a-bient%C3%B4t");
-        }
 
-        if ($slug != 'ue1-themes') {  //OJO TEMPORAL POR ESTE MOMENTO USANDO WIX
             if ($redirect = $this->ensureActiveUser()) {
                 return $redirect;
             }
@@ -137,7 +133,7 @@ class SyllabusController extends Controller
             if (!$exists) {
                 return redirect()->route('code-livre', ['slug' => $slug]);
             }
-        }
+
 
 
 
