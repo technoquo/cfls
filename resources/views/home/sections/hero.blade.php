@@ -12,7 +12,7 @@
 
         <!-- Responsive Row -->
         <div class="py-12 space-y-8  mt-5">
-            <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-12 items-center ">
+            <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 xl:gap-12 items-center wow animate__animated animate__backInLeft" data-wow-duration="1s" data-wow-delay="0.2s" >
                 <!-- Video Player -->
                 <div class="order-1 lg:order-2 w-full">
                     <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg video-container">

@@ -68,20 +68,12 @@ Route::get('/test-error', function () {
 });
 
 
-
-
-// Show verification notice
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-// Handle verification link
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // Mark email as verified
     // Update user keyaccess to 1 after verification
     $user = $request->user();
     $user->update(['is_active' => 1]);
-    return redirect()->route('syllabus');
+    return redirect()->to('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // Resend verification link

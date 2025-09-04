@@ -46,7 +46,9 @@ class VerifyCodeResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Utilisateur') // 🔹 Traduction
                     ->searchable(),
-
+                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Email') // 🔹 Traduction
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('active')
                     ->label('Actif') // 🔹 Traduction
                     ->boolean(),
