@@ -1,7 +1,7 @@
 <header class="w-full bg-[#84DBF0]">
     <div class="flex justify-between items-center px-4 py-2 max-w-7xl mx-auto">
     <!-- Logo -->
-    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a wire:navigate href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img class="object-contain w-16 sm:w-20 h-auto" src="{{ asset('storage/' . $logo) }}" alt="CFLS Logo" />
     </a>
 
@@ -26,13 +26,13 @@
                                 {{ Auth::user()->email }}
                             </div>
                             <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link wire:navigate href="{{ route('profile.show') }}">
                                 {{ __('Profil') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('syllabus') }}">
+                            <x-dropdown-link wire:navigate href="{{ route('syllabus') }}">
                                 {{ __('Mon Syllabus') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('order.list') }}">
+                            <x-dropdown-link wire:navigate href="{{ route('order.list') }}">
                                 {{ __('Mes Commandes') }}
                             </x-dropdown-link>
 

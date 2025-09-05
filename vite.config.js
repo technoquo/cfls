@@ -10,7 +10,7 @@ export default defineConfig({
     ],
     server: {
         cors: {
-            origin: 'http://cfls.test',
+            origin: process.env.VITE_APP_URL || 'http://cfls.test',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
           },

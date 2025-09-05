@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="glide max-w-screen-2xl px-4 pt-12 pb-8 mx-auto lg:pt-16">
+    <div class="glide max-w-screen-2xl px-4 pt-12 pb-8 mx-auto lg:pt-16" x-data x-init="initGlide($el)">
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
                 @foreach ($features as $feature)
@@ -75,28 +75,44 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/glide.min.js"></script>
     <script>
-        window.initGlide = function () {
-            const glideElement = document.querySelector('.glide');
-            if (glideElement && !glideElement.classList.contains('glide-initialized')) {
-                new Glide('.glide', {
-                    type: 'carousel',
-                    perView: 1,
-                    focusAt: 'center',
-                    gap: 0,
-                    autoplay: 5000,
-                    breakpoints: {
-                        640: {
-                            gap: 10,
-                            autoplay: 3000 // Faster transitions on mobile
-                        }
+        function mountGlide(el) {
+            new Glide(el, {
+                type: 'carousel',
+                perView: 1,
+                focusAt: 'center',
+                gap: 0,
+                autoplay: 5000,
+                hoverpause: true,
+                breakpoints: {
+                    640: {
+                        gap: 10,
+                        autoplay: 3000
                     }
-                }).mount();
+                }
+            }).mount();
+        }
 
-                glideElement.classList.add('glide-initialized');
+        function initGlide(el) {
+            if (!el) return;
+            if (el.classList.contains('glide-initialized')) return; // evita doble init
+            if (window.Glide) {
+                mountGlide(el);
+                el.classList.add('glide-initialized');
+            } else {
+                // espera a que Glide esté disponible
+                const interval = setInterval(() => {
+                    if (window.Glide) {
+                        mountGlide(el);
+                        el.classList.add('glide-initialized');
+                        clearInterval(interval);
+                    }
+                }, 50);
             }
-        };
+        }
 
-        document.addEventListener('DOMContentLoaded', window.initGlide);
-        document.addEventListener('livewire:navigated', window.initGlide);
+        // Re-montar cuando Livewire refresque el DOM
+        document.addEventListener('livewire:navigated', () => {
+            document.querySelectorAll('.glide').forEach(initGlide);
+        });
     </script>
 @endpush

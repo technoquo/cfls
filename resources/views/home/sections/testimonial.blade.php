@@ -7,14 +7,7 @@
         </h2>
         <hr class="border-b border-gray-200 dark:border-gray-700 my-5">
         <!-- Glide.js Carousel -->
-        <div class="glide" x-init="
-            new Glide($el, {
-                type: 'carousel',
-                perView: 1,
-                autoplay: 5000,
-                hoverpause: true
-            }).mount()
-        ">
+        <div class="glide" x-data x-init="initGlide($el)">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     @foreach ($testimonials as $testimonial)
@@ -45,4 +38,27 @@
 @push('scripts')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script>
+        function mountGlide(el) {
+            new Glide(el, {
+                type: 'carousel',
+                perView: 1,
+                autoplay: 5000,
+                hoverpause: true
+            }).mount();
+        }
+
+        function initGlide(el) {
+            // Si ya existe, montar de una
+            if (window.Glide) return mountGlide(el);
+
+            // Si no, espera a que cargue el script
+            const tryLater = () => {
+                if (window.Glide) return mountGlide(el);
+                // pequeño backoff
+                setTimeout(tryLater, 50);
+            };
+            tryLater();
+        }
+    </script>
 @endpush

@@ -69,7 +69,7 @@
             Alpine.store('cart').items = updated;
         });
     </script>
-
+    <script src="{{asset('/js/cookies.js')}}" defer></script>
 
 
     <!-- Scripts -->
@@ -79,10 +79,27 @@
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52KWCPNS4C"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-52KWCPNS4C');
+        function enableGoogleAnalytics() {
+            // Cargar el script de GA dinámicamente
+            let gtagScript = document.createElement('script');
+            gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-52KWCPNS4C";
+            gtagScript.async = true;
+            document.head.appendChild(gtagScript);
+
+            gtagScript.onload = () => {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-52KWCPNS4C');
+            };
+        }
+
+        // Mostrar GA solo si el usuario ya aceptó cookies
+        document.addEventListener("DOMContentLoaded", () => {
+            if (getCookie("cookie_consent") === "accepted") {
+                enableGoogleAnalytics();
+            }
+        });
     </script>
     <!-- End Google Analytics -->
 </head>
@@ -131,26 +148,28 @@
      <div id="accessibility-banner" style="display: none;"
           class="fixed bottom-4 right-4 max-w-sm p-4 bg-white border border-gray-300 rounded-lg shadow-lg z-50 dark:bg-gray-800 dark:border-gray-700">
 
-         <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Gérer vos préférences de cookies</h2>
+         <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+             Gérer vos préférences de cookies
+         </h2>
+
          <p class="text-sm mb-4 text-gray-800 dark:text-gray-100">
-             Nous utilisons des cookies pour améliorer votre expérience de navigation, analyser le trafic et personnaliser les publicités.
-             Vous pouvez personnaliser vos choix ci-dessous. Les cookies essentiels seront activés quelle que soit votre décision.
+             Nous utilisons des cookies pour comprendre comment vous interagissez avec notre site.
+             En acceptant, vous consentez à notre utilisation de ces cookies.
+             <a href="{{route('general-4')}}" target="_self"
+                class="text-blue-600 hover:underline dark:text-blue-400">
+                 Politique de confidentialité
+             </a>.
          </p>
 
-         <div class="mb-4">
-             <label for="theme" class="block text-sm font-medium text-gray-800 dark:text-gray-100">Thème:</label>
-             <select id="theme" class="w-full mt-1 border rounded p-1 dark:bg-gray-700 dark:text-white">
-                 <option value="light">Clair</option>
-                 <option value="dark">Sombre</option>
-             </select>
-         </div>
-
+         <!-- Botones -->
          <div class="flex justify-end gap-2">
-             <button onclick="hideBanner()" class="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500">
-                 Annuler
+             <button onclick="savePreferences('rejected')"
+                     class="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-sm">
+                 Refuser
              </button>
-             <button onclick="savePreferences()" class="px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">
-                 OK
+             <button onclick="savePreferences('accepted')"
+                     class="px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700 text-sm">
+                 Accepter
              </button>
          </div>
      </div>
@@ -268,74 +287,7 @@
 
      @endpush
 
-     <script>
-         function getAccessibilityCookie() {
-             const name = 'accessibility_preferences=';
-             const decodedCookie = decodeURIComponent(document.cookie);
-             const cookies = decodedCookie.split(';');
 
-             for (let i = 0; i < cookies.length; i++) {
-                 let c = cookies[i].trim();
-                 if (c.indexOf(name) === 0) {
-                     try {
-                         return JSON.parse(c.substring(name.length));
-                     } catch (e) {
-                         console.error('Erreur de cookie:', e);
-                         return null;
-                     }
-                 }
-             }
-             return null;
-         }
-
-         function hideBanner() {
-             document.getElementById('accessibility-banner').style.display = 'none';
-         }
-
-         function savePreferences() {
-             const themeElement = document.getElementById('theme');
-             if (!themeElement) {
-                 console.error('❌ Élément #theme introuvable');
-                 return;
-             }
-
-             const darkMode = themeElement.value === 'dark';
-
-             const preferences = {
-                 dark_mode: darkMode
-             };
-
-             const expires = new Date();
-             expires.setFullYear(expires.getFullYear() + 1);
-
-             document.cookie = `accessibility_preferences=${encodeURIComponent(JSON.stringify(preferences))}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
-
-             localStorage.setItem('color-theme', darkMode ? 'dark' : 'light');
-
-             location.reload();
-         }
-
-         document.addEventListener('DOMContentLoaded', () => {
-             const prefs = getAccessibilityCookie();
-
-             if (!prefs) {
-                 document.getElementById('accessibility-banner').style.display = 'block';
-             } else {
-                 localStorage.setItem('color-theme', prefs.dark_mode ? 'dark' : 'light');
-             }
-
-             const html = document.documentElement;
-             const theme = localStorage.getItem('color-theme');
-
-             if (theme === 'dark') {
-                 html.classList.add('dark');
-                 html.classList.remove('light');
-             } else {
-                 html.classList.add('light');
-                 html.classList.remove('dark');
-             }
-         });
-     </script>
 
 </body>
 
