@@ -41,6 +41,9 @@ class VerifyCodeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->label('Code') // 🔹 Traduction
+                    ->copyable() // 🔹 Activa el botón de copiar
+                    ->copyMessage('Code copié !') // 🔹 Mensaje de confirmación
+                    ->copyMessageDuration(1500) // 🔹 Duración en ms
                     ->searchable()
                     ->sortable(), // 🔹 Permite ordenar manualmente desde la tabla
                 Tables\Columns\TextColumn::make('user.name')

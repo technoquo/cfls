@@ -3,6 +3,20 @@
 
     <div x-data="{ qty: 1, isOpen: false }" class="min-h-screen">
         <div class="container mx-auto p-8">
+            <div class="mb-4">
+                <button onclick="history.back()" class="flex items-center text-gray-600 hover:text-gray-900">
+                    <!-- Heroicon Flecha Izquierda -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         class="w-6 h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                    </svg>
+                    <span>Retour</span>
+                </button>
+            </div>
             <div class="flex flex-col md:flex-row gap-8 mt-6">
                 <!-- Image Section -->
                 <div class="w-full md:w-1/2" x-data="{ selectedImage: '{{ asset('storage/'.$imagefirst) }}', fade: false }">

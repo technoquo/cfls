@@ -4,6 +4,13 @@
     <div class="flex items-center justify-center min-h-screen">
         <div class="w-full max-w-md bg-white p-6 rounded-xl shadow-md">
 
+            {{-- Note informative --}}
+            <div class="mb-4 p-3 bg-yellow-100 text-yellow-800 text-sm rounded-lg">
+                Pour obtenir le code, veuillez en faire la demande par email à
+                <a href="mailto:info@cfls.be" class="font-semibold underline">info@cfls.be</a>
+                en joignant le justificatif de paiement avec votre nom complet et votre adresse e-mail.
+            </div>
+
             @if ($errors->any())
                 <div class="mt-2 p-3 bg-red-100 text-red-700 rounded-lg">
                     <ul class="list-disc list-inside">

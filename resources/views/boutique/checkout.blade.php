@@ -239,6 +239,7 @@
                     notification: '',
                     notificationType: 'success',
                     delivery: 'retrait',
+                    quantity: {{ collect($cart)->sum('quantity') }},
                     baseTotal: {{ collect($cart)->sum('price') }},
                     totalWeight: {{ collect($cart)->sum('weight') }},
 
@@ -256,7 +257,7 @@
                     },
 
                     get finalTotal() {
-                        return this.baseTotal + this.deliveryFee;
+                        return this.baseTotal * this.quantity + this.deliveryFee;
                     },
 
                     region: @json(old('region', $user->region ?? '')),
@@ -296,7 +297,7 @@
                     },
 
                     async confirmerAchat() {
-                       
+
                         try {
                             // Obtener valores
                             const first_name = document.querySelector('input[name="first_name"]').value.trim();
