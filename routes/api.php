@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register']);
+
+Route::get('auth/syllabus', function () {;
+    return \App\Models\Syllabu::all();
+});
 
 Route::get('/user', function (Request $request) {
     return $request->user();
