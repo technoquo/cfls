@@ -143,6 +143,18 @@ class FormationsController extends Controller
 
         $tableconvertation = TableConversation::find((int)$request->tableconversation_id);
 
+        $qty = $tableconvertation->inscription - 1;
+
+
+        if ($tableconvertation->inscription > 0) {
+            $tableconvertation->decrement('inscription');
+        }
+
+        if ($tableconvertation->inscription == 0) {
+            $tableconvertation->update(['open' => 0]);
+        }
+
+
         $jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
         $mois = [
             1 => 'janvier',

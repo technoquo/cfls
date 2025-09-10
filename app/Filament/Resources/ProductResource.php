@@ -95,6 +95,7 @@ class ProductResource extends Resource
                     ->numeric(),
                 Forms\Components\Select::make('status')
                     ->label('Statut')
+                    ->boolean()
                     ->options([
                         3 => 'Épuisé',
                         2 => 'Nouveau',
@@ -125,8 +126,22 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('stock')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('status')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut')
+                    ->formatStateUsing(fn ($state) => match($state) {
+                        3 => 'Épuisé',
+                        2 => 'Nouveau',
+                        1 => 'Actif',
+                        0 => 'Inactif',
+                        default => 'Inconnu',
+                    })
+                    ->badge()
+                    ->color(fn ($state) => match($state) {
+                        3 => 'danger',
+                        2 => 'success',
+                        1 => 'primary',
+                        0 => 'secondary',
+                    }),
 
             ])
             ->filters([
