@@ -13,7 +13,7 @@
 
     <div class="w-full max-w-screen-xl mx-auto px-4">
         @foreach($chunks as $chunk)
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div class="grid grid-cols-1  md:grid-cols-3 gap-6 mb-6">
                 @foreach($chunk as $index => $theme)
 
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center text-center p-6 h-auto">

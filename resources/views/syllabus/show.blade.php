@@ -38,11 +38,15 @@
                             @ended="handleEnded"
                             @play="isPlaying = false"
                             @pause="isPlaying = true"
+                            laysinline
+                            webkit-playsinline
+                            controls
+                            controlsList="nodownload"
                         >
                             <source :src="currentVideo" type="video/mp4">
                             Tu navigateur ne supporte pas la vidéo.
                         </video>
-                        <h2 class="mb-4  text-base font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
+                        <h2 class="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
                             x-text="currentTitle"></h2>
                     </div>
 
