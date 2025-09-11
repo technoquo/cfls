@@ -178,6 +178,7 @@
                                         <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
                                     </div>
                                 @endif
+                                {{$product['choix']}}
                                 <p class="text-lg font-semibold dark:text-white">{{ number_format($product['price'], 2) }} €</p>
                             </div>
                         @endforeach
@@ -236,12 +237,20 @@
         <script>
             function checkout() {
                 return {
+                    cart: @js($cart),
                     notification: '',
                     notificationType: 'success',
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
                     baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
-                    totalWeight: {{ collect($cart)->sum(fn($item) => $item['weight'] * $item['quantity']) }},
+
+                    get totalWeight() {
+                        this.cart.forEach(item => {
+                            console.log(item); // Muestra cada objeto del carrito
+                        });
+
+                        return this.cart.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+                    },
 
                     get deliveryFee() {
                         const weight = this.totalWeight;
