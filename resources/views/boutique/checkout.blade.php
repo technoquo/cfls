@@ -178,7 +178,7 @@
                                         <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold"> {{$product['choix']}}</span>
                                     </div>
                                 @endif
-                               
+
                                 <p class="text-lg font-semibold dark:text-white">{{ number_format($product['price'], 2) }} €</p>
                             </div>
                         @endforeach
