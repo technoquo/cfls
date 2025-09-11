@@ -175,10 +175,10 @@
                                 </div>
                                 @if($product['choix'] > 0)
                                     <div>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold"> {{$product['choix']}}</span>
                                     </div>
                                 @endif
-                                {{$product['choix']}}
+                               
                                 <p class="text-lg font-semibold dark:text-white">{{ number_format($product['price'], 2) }} €</p>
                             </div>
                         @endforeach
@@ -243,25 +243,27 @@
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
                     baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
-                    totalWeight: {{ collect($cart)->sum(fn($item) => $item['weight'] * $item['quantity']) }},
+                    get totalWeight() {
+                        return this.cart.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+                    },
 
                     get deliveryFee() {
-
-
                         const weight = this.totalWeight;
+                        console.log('Total Weight:', weight);
                         if (this.delivery === 'retrait') return 0;
-                        if (weight <= 100) return 3.00;
-                        if (weight <= 350) return 4.50;
-                        if (weight <= 500) return 7.60;
-                        if (weight <= 1000) return 7.60;
-                        if (weight <= 1800) return 7.90;
-                        if (weight <= 10000) return 10.70;
-                        if (weight <= 30000) return 18.60;
+
+                        if (weight > 0 && weight <= 100) return 3.00;
+                        if (weight > 100 && weight <= 350) return 4.50;
+                        if (weight > 350 && weight <= 1000) return 7.60;
+                        if (weight > 1000 && weight <= 2000) return 7.90;
+                        if (weight > 2000 && weight <= 10000) return 10.70;
+                        if (weight > 10000 && weight <= 30000) return 18.60;
+
                         return 0;
                     },
 
                     get finalTotal() {
-                        console.log('deliveryFee:', this.deliveryFee);
+                       // console.log('deliveryFee:', this.deliveryFee);
                         return this.baseTotal + this.deliveryFee;
                     },
 
