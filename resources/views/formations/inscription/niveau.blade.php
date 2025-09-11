@@ -5,7 +5,7 @@
         <div class="mr-auto place-self-center lg:col-span-7">
             <h1
                 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                Vos coordonées
+                Vos coordonnées
             </h1>
             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Vous avez
                 déjà un compte ? Connectez-vous pour réserver plus rapidement.
@@ -44,7 +44,7 @@
                       <label for="floating_email"
                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Adresse
                           e-mail</label>
-                  </div>                 
+                  </div>
                   <div class="grid md:grid-cols-2 md:gap-6">
                       <div class="relative z-0 w-full mb-5 group">
                           <input type="text" name="floating_first_name" id="floating_first_name"
