@@ -86,6 +86,9 @@ class ProductResource extends Resource
                             ->label('Nom de l\'option')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('total_weight')
+                            ->label('Poids total (g)')
+
                     ])
                     ->label('Options du produit')
                     ->columns(1),

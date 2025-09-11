@@ -9,5 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/product/{id}', function ($id) {
-    return Product::with('images')->findOrFail($id);
+    return Product::with(['images', 'options'])->findOrFail($id);
 });
