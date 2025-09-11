@@ -13,13 +13,17 @@ class CodeSeeder extends Seeder
      */
     public function run(): void
     {
-        VerifyCode::factory()
-            ->count(3000)
-            ->state(fn () => [
-                'user_id' => null,
-                'theme'   => null,
-                'active'  => 0,
-            ])
-            ->create();
+        $totalPerGroup = 3000;
+
+        foreach (range(1, 7) as $group) {
+            for ($i = 1; $i <= $totalPerGroup; $i++) {
+                VerifyCode::create([
+                    'user_id' => null,
+                    'code'    => $group . str_pad($i, 7, '0', STR_PAD_LEFT),
+                    'theme'   => 'theme' . $group,
+                    'active'  => 0,
+                ]);
+            }
+        }
     }
 }
