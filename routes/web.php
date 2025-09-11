@@ -63,9 +63,7 @@ Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.sl
 Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');
 //});
 
-Route::get('/test-error', function () {
-     return 'hola mundo';
-});
+
 
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {

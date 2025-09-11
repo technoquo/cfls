@@ -240,8 +240,8 @@
                     notificationType: 'success',
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
-                    baseTotal: {{ collect($cart)->sum('price') }},
-                    totalWeight: {{ collect($cart)->sum('weight') }},
+                    baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
+                    totalWeight: {{ collect($cart)->sum(fn($item) => $item['weight'] * $item['quantity']) }},
 
                     get deliveryFee() {
                         const weight = this.totalWeight;
@@ -257,7 +257,7 @@
                     },
 
                     get finalTotal() {
-                        return this.baseTotal * this.quantity + this.deliveryFee;
+                        return this.baseTotal + this.deliveryFee;
                     },
 
                     region: @json(old('region', $user->region ?? '')),
