@@ -243,16 +243,11 @@
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
                     baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
-
-                    get totalWeight() {
-                        this.cart.forEach(item => {
-                            console.log(item); // Muestra cada objeto del carrito
-                        });
-
-                        return this.cart.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
-                    },
+                    totalWeight: {{ collect($cart)->sum(fn($item) => $item['weight'] * $item['quantity']) }},
 
                     get deliveryFee() {
+
+
                         const weight = this.totalWeight;
                         if (this.delivery === 'retrait') return 0;
                         if (weight <= 100) return 3.00;
@@ -266,6 +261,7 @@
                     },
 
                     get finalTotal() {
+                        console.log('deliveryFee:', this.deliveryFee);
                         return this.baseTotal + this.deliveryFee;
                     },
 

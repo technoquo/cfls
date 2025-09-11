@@ -198,14 +198,14 @@
                     fetch(`/api/product/${productId}`)
                         .then(res => res.json())
                         .then(data => {
-                            console.log("📦 Producto recibido:", data);
+                         //  console.log("📦 Producto recibido:", data);
 
                             // 👉 Verificar si existen opciones
-                            if (Array.isArray(data.options) && data.options.length > 0) {
-                                console.log("✅ Este producto tiene opciones:", data.options);
-                            } else {
-                                console.log("⚠️ Este producto no tiene opciones");
-                            }
+                            // if (Array.isArray(data.options) && data.options.length > 0) {
+                            //     console.log("✅ Este producto tiene opciones:", data.options);
+                            // } else {
+                            //     console.log("⚠️ Este producto no tiene opciones");
+                            // }
 
                             const existingItem = this.items.find(
                                 item => item.id === data.id && JSON.stringify(item.choix) === JSON.stringify(choix)
@@ -227,6 +227,8 @@
                                     }
                                 }
 
+                                console.log('weight' + data.weight);
+                                console.log('optionWeight' + optionWeight);
                                 const newItem = {
                                     id: data.id,
                                     name: data.name,
@@ -234,15 +236,14 @@
                                     price: parseFloat(data.price),
                                     quantity: quantity,
                                     choix: choix,
-                                    weight: optionWeight ?? data.weight, // usa el peso de la opción si existe
+                                    weight: data.weight ?? optionWeight, // usa el peso de la opción si existe
                                     totalPrice: parseFloat(data.price) * quantity,
                                     image: data.images?.[0]
                                         ? `/storage/${data.images[0].image_path}`
                                         : '/img/default.jpg'
                                 };
 
-                                console.log("🛒 Nuevo item al carrito:", newItem);
-
+                               // console.log("🛒 Nuevo item al carrito:", newItem);
                                 this.items.push(newItem);
                                 this.updateTotal();
                                 this.showNotification('Produit ajouté au panier');
@@ -261,10 +262,13 @@
                 },
 
                 updateTotal() {
+
                     this.total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                     this.items.forEach(item => {
                         item.totalPrice = item.price * item.quantity;
                     });
+
+
 
                     localStorage.setItem('cart', JSON.stringify(this.items));
                     localStorage.setItem('cart-total', this.total.toFixed(2));
@@ -272,7 +276,7 @@
                 },
 
                 increaseQuantity(id) {
-                    console.log('Increasing quantity for item with ID:', id);
+                   // console.log('Increasing quantity for item with ID:', id);
                     const item = this.items.find(i => i.id === id);
                     if (item) {
                         item.quantity++;
