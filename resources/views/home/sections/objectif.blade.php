@@ -11,10 +11,12 @@
 
                 <div class="w-full rounded-lg shadow-lg overflow-hidden">
                     <video
-                        src="{{ $mission->video_url }}"
+                        src="{{ $members->video_url }}"
                         controls
-                        class="w-full aspect-video rounded-lg shadow-lg">
-                    </video>
+                        class="w-full h-auto aspect-video video-element"
+                        preload="metadata"
+                        aria-label="{{ $members->title }} video"
+                    ></video>
                 </div>
             </div>
 
