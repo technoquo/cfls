@@ -17,10 +17,10 @@ class VerifyCodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 0, // Default to 0 as per seeder
-            'code' => $this->faker->unique()->numerify('########'), // 8-digit unique random code
-            'theme' => null, // Default to null as per seeder
-            'active' => 0, // Default to inactive
+            'user_id' => 0,
+            'code' => null, // lo definimos en el seeder
+            'theme' => null,
+            'active' => 0,
         ];
     }
 }

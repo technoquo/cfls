@@ -21,6 +21,18 @@ Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
 Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->name('telechargements-gratuits');
 
+// Redirecciones de URLs antiguas Wix (deben ir ANTES de las rutas dinámicas)
+Route::get('ue1-themes/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes', 301));
+Route::get('ue1-themes-1/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/je-me-presente', 301));
+Route::get('ue1-themes-3/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/ma-famille', 301));
+Route::get('ue1-themes-4/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/jhabite', 301));
+Route::get('ue1-themes-5/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/je-me-deplace', 301));
+Route::get('ue1-themes-6/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/quel-jour-sommes-nous', 301));
+Route::get('ue1-themes-7/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/ma-routine', 301));
+Route::get('ue1-themes-8/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/quel-temps-fait-il', 301));
+Route::get('ue1-themes-9/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/chez-le-medecin', 301));
+Route::get('ue1-themes-10/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/je-decouvre-mes-sentiments', 301));
+Route::get('ue1-themes-11/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes/au-restaurant', 301));
 
 
 
@@ -63,9 +75,7 @@ Route::get('/{slug}', [SyllabusController::class, 'syllabu'])->name('syllabus.sl
 Route::get('/{slug}/{theme}', [SyllabusController::class, 'theme'])->name('syllabus.theme');
 //});
 
-Route::get('/test-error', function () {
-     return 'hola mundo';
-});
+
 
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {

@@ -150,11 +150,11 @@
                         <br><br>
                         Merci de joindre ci-dessous un <strong>justificatif de paiement</strong> pour le traitement de votre commande.
                     </p>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Justificatif de paiement <span class="text-red-600">*</span></label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Justificatif de paiement
                     <input type="file" name="proof" id="proof" accept="image/*,application/pdf" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" :class="errors.proof ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'">
-                    <template x-if="errors.proof">
-                        <p class="mt-1 text-sm camp">Ce champ est requis</p>
-                    </template>
+{{--                    <template x-if="errors.proof">--}}
+{{--                        <p class="mt-1 text-sm camp">Ce champ est requis</p>--}}
+{{--                    </template>--}}
                 </div>
             </div>
 
@@ -175,9 +175,10 @@
                                 </div>
                                 @if($product['choix'] > 0)
                                     <div>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold">3 affiches au choix: {{$product['choix']}}</span>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400 font-semibold"> {{$product['choix']}}</span>
                                     </div>
                                 @endif
+
                                 <p class="text-lg font-semibold dark:text-white">{{ number_format($product['price'], 2) }} €</p>
                             </div>
                         @endforeach
@@ -236,28 +237,34 @@
         <script>
             function checkout() {
                 return {
+                    cart: @js($cart),
                     notification: '',
                     notificationType: 'success',
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
-                    baseTotal: {{ collect($cart)->sum('price') }},
-                    totalWeight: {{ collect($cart)->sum('weight') }},
+                    baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
+                    get totalWeight() {
+                        return this.cart.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+                    },
 
                     get deliveryFee() {
                         const weight = this.totalWeight;
+                        console.log('Total Weight:', weight);
                         if (this.delivery === 'retrait') return 0;
-                        if (weight <= 100) return 3.00;
-                        if (weight <= 350) return 4.50;
-                        if (weight <= 500) return 7.60;
-                        if (weight <= 1000) return 7.60;
-                        if (weight <= 1800) return 7.90;
-                        if (weight <= 10000) return 10.70;
-                        if (weight <= 30000) return 18.60;
+
+                        if (weight > 0 && weight <= 100) return 3.00;
+                        if (weight > 100 && weight <= 350) return 4.50;
+                        if (weight > 350 && weight <= 1000) return 7.60;
+                        if (weight > 1000 && weight <= 2000) return 7.90;
+                        if (weight > 2000 && weight <= 10000) return 10.70;
+                        if (weight > 10000 && weight <= 30000) return 18.60;
+
                         return 0;
                     },
 
                     get finalTotal() {
-                        return this.baseTotal * this.quantity + this.deliveryFee;
+                       // console.log('deliveryFee:', this.deliveryFee);
+                        return this.baseTotal + this.deliveryFee;
                     },
 
                     region: @json(old('region', $user->region ?? '')),
@@ -305,7 +312,7 @@
                             const email = document.querySelector('input[name="email"]').value.trim();
                             const telephone = document.querySelector('input[name="telephone"]').value.trim();
                             const society = document.querySelector('input[name="society"]').value.trim();
-                            const proofFile = document.querySelector('input[name="proof"]').files[0];
+                          //  const proofFile = document.querySelector('input[name="proof"]').files[0];
 
 
                             const address = document.getElementById('address')?.value.trim();
@@ -316,7 +323,7 @@
                             this.errors.second_name = !second_name;
                             this.errors.email = !email;
                             this.errors.telephone = !telephone;
-                            this.errors.proof = !proofFile;
+                          //  this.errors.proof = !proofFile;
 
                             if (this.delivery === 'livraison') {
                                 this.errors.address = !address;
@@ -356,9 +363,9 @@
                             formData.append('delivery', this.delivery);
                             formData.append('total', this.finalTotal.toFixed(2));
                             formData.append('deliveryFee', this.deliveryFee.toFixed(2));
-                            if (proofFile) {
-                                formData.append('proof', proofFile);
-                            }
+                            // if (proofFile) {
+                            //     formData.append('proof', proofFile);
+                            // }
                             formData.append('products', JSON.stringify(products));
 
 
@@ -383,11 +390,14 @@
                                 body: formData
                             });
 
+
+
                             const data = await response.json();
 
 
 
                             if (!response.ok || data.error) {
+
                                 this.showNotification(data.error || "Erreur inconnue.", 'error');
                                 return;
                             }

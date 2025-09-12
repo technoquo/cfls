@@ -5,9 +5,10 @@
         Mots croisés
     </h1>
 
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8 mx-auto max-w-screen-2xl py-12">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8 mx-auto max-w-screen-2xl py-12 px-4 md:px-6 lg:px-8">
 
-        @foreach($videos as $croise)
+
+    @foreach($videos as $croise)
             <div x-data="{ active: 'mots' }"
                  class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
@@ -42,11 +43,11 @@
                 </div>
 
                 <!-- Imágenes con Alpine.js -->
-                <img x-show="active === 'mots'" x-cloak class="rounded-t-lg  w-full h-[350px] bg-white"
+                <img x-show="active === 'mots'" x-cloak class=""
                      src="{{ asset('storage/'.$croise->image_mot) }}"
                      alt="{{ $croise->title }}"/>
 
-                <img x-show="active === 'solutions'" x-cloak class="rounded-t-lg w-full h-[350px] bg-white"
+                <img x-show="active === 'solutions'" x-cloak class=""
                      src="{{ asset('storage/'.$croise->image_solution) }}"
                      alt="Solutions"/>
 

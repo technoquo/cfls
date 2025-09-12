@@ -36,7 +36,7 @@ class OrderController extends Controller
             'province' => 'required_if:delivery,livraison|string|max:255',
             'region' => 'required_if:delivery,livraison|string|max:255',
             'society' => 'nullable|string|max:255',
-            'proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
 
         $validated = $request->validate($rules);
@@ -78,7 +78,11 @@ class OrderController extends Controller
         }
 
 
-        $path = $request->file('proof')->store('proofs', 'public');
+        $path = null;
+        if ($request->hasFile('proof')) {
+            $path = $request->file('proof')->store('proofs', 'public');
+        }
+
         // Crear orden
         $order = Order::create([
             'user_id'      => $user->id, // ahora se relaciona la orden con el usuario

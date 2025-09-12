@@ -17,7 +17,7 @@ class VerifyCodeResource extends Resource
 {
     protected static ?string $model = VerifyCode::class;
 
-    protected static ?string $label = 'Vérifier les codes';
+    protected static ?string $pluralLabel = 'Codes pour Syllabus';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -52,6 +52,9 @@ class VerifyCodeResource extends Resource
                 Tables\Columns\TextColumn::make('user.email')
                     ->label('Email') // 🔹 Traduction
                     ->searchable(),
+                Tables\Columns\TextColumn::make('theme')
+                    ->label('Theme') // 🔹 Traduction
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('active')
                     ->label('Actif') // 🔹 Traduction
                     ->boolean(),
@@ -70,7 +73,18 @@ class VerifyCodeResource extends Resource
             ->filters([
                 Tables\Filters\TernaryFilter::make('active')
                     ->label('Actif') // 🔹 Traduction
-                    ->boolean(),     // 🔹 Te crea opciones: Tous / Oui / Non
+                    ->boolean(),
+                Tables\Filters\SelectFilter::make('theme')
+                    ->label('Thème')
+                    ->options([
+                        'theme1' => 'Theme 1',
+                        'theme2' => 'Theme 2',
+                        'theme3' => 'Theme 3',
+                        'theme4' => 'Theme 4',
+                        'theme5' => 'Theme 5',
+                        'theme6' => 'Theme 6',
+                        'theme7' => 'Theme 7',
+                    ])// 🔹 Te crea opciones: Tous / Oui / Non
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
