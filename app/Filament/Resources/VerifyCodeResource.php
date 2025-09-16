@@ -19,7 +19,9 @@ class VerifyCodeResource extends Resource
 
     protected static ?string $pluralLabel = 'Codes pour Syllabus';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationGroup = 'Syllabus';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

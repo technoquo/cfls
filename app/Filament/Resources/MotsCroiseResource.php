@@ -18,7 +18,7 @@ class MotsCroiseResource extends Resource
     protected static ?string $model = MotsCroise::class;
     protected static ?string $navigationLabel = 'Mots croisés';
     protected static ?string $label = 'Mots croisés';
-    protected static ?string $navigationGroup = 'Vidéos';
+    protected static ?string $navigationGroup = 'Vidéos & Mots Croisés';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form

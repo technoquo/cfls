@@ -20,7 +20,7 @@ class InscriptionTableConversationResource extends Resource
 
     protected static ?string $navigationLabel = 'Inscriptions aux tables de conversation';
     protected static ?string $label = 'Inscription à une table de conversation';
-    protected static ?string $navigationGroup = 'Rapports';
+    protected static ?string $navigationGroup = 'Commandes & Inscriptions';
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form

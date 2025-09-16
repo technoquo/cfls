@@ -19,7 +19,7 @@ class InscriptionFormationResource extends Resource
 
     protected static ?string $navigationLabel = 'Inscriptions aux formations';
     protected static ?string $label = 'Inscriptions aux formations';
-    protected static ?string $navigationGroup = 'Rapports';
+    protected static ?string $navigationGroup = 'Commandes & Inscriptions';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
