@@ -212,8 +212,11 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row gap-4 mt-5">
-                        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
-                            Confirmer l'Achat
+                        <button type="submit"
+                                :disabled="loading"
+                                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                 Confirmer l'Achat
+                           
                         </button>
 
                         <button @click.prevent="annulerAchat" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">
@@ -304,6 +307,8 @@
                     },
 
                     async confirmerAchat() {
+                        if (this.loading) return; // evita doble submit
+                        this.loading = true;
 
                         try {
                             // Obtener valores
@@ -415,6 +420,7 @@
                         } catch (err) {
                             console.error(err);
                             this.showNotification("Erreur lors de l'envoi du formulaire.", 'error');
+                            // this.loading = false;
                         }
                     },
 
