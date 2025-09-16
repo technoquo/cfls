@@ -58,6 +58,17 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationGroups([
+                'Gestion des sociétés',
+                'Organisation',
+                'Annonces',
+                'Formations',
+                'Vidéos & Mots Croisés',
+                'Téléchargements gratuits',
+                'Boutique',
+                'Syllabus',
+                'Commandes & Inscriptions',
             ]);
     }
 }

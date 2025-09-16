@@ -18,9 +18,9 @@ use App\Filament\Resources\VimeoResource\RelationManagers;
 class VimeoResource extends Resource
 {
     protected static ?string $model = Vimeo::class;
-    protected static ?string $navigationLabel = 'Vimeo';
-    protected static ?string $label = 'Vimeo';
-    protected static ?string $navigationGroup = 'Vidéos';
+    protected static ?string $navigationLabel = 'Video';
+    protected static ?string $label = 'Video';
+    protected static ?string $navigationGroup = 'Vidéos & Mots Croisés';
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
