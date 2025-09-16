@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::apiResource('syllabus', SyllabuController::class);
+Route::middleware('auth:sanctum')->apiResource('syllabus', SyllabuController::class);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
