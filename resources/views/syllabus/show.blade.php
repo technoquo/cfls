@@ -35,7 +35,7 @@
                         <div class="flex justify-center mb-10">
                             <video
                                 x-ref="videoPlayer"
-                                class="w-[500px] h-[350px] object-cover"
+                                class="w-[400px] h-[250px] object-cover"
                                 @ended="handleEnded"
                                 @play="isPlaying = false"
                                 @pause="isPlaying = true"
