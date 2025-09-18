@@ -15,7 +15,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="flex text-sm bg-gray-800 rounded-full focus:ring-2 focus:ring-gray-300">
-                                <img class="w-6 h-6 sm:w-8 sm:h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
+                                <img class="w-10 h-10 sm:w-10 sm:h-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
                             </button>
                         </x-slot>
                         <x-slot name="content">
