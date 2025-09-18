@@ -32,21 +32,23 @@
                                 x-text="isPlaying ? '▶ Reprendre' : '⏸ Pause'">
                             </button>
                         </div>
-                        <video
-                            x-ref="videoPlayer"
-                            class="w-full aspect-video"
-                            @ended="handleEnded"
-                            @play="isPlaying = false"
-                            @pause="isPlaying = true"
-                            laysinline
-                            webkit-playsinline
-                            controls
-                            controlsList="nodownload"
-                        >
-                            <source :src="currentVideo" type="video/mp4">
-                            Tu navigateur ne supporte pas la vidéo.
-                        </video>
-                        <h2 class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
+                        <div class="flex justify-center mb-10">
+                            <video
+                                x-ref="videoPlayer"
+                                class="w-[400px] h-[250px] object-cover"
+                                @ended="handleEnded"
+                                @play="isPlaying = false"
+                                @pause="isPlaying = true"
+                                laysinline
+                                webkit-playsinline
+                                controls
+                                controlsList="nodownload"
+                            >
+                                <source :src="currentVideo" type="video/mp4">
+                                Tu navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                        <h2 class="mb-4  md:text-2xl  lg:text-4xl  font-extrabold tracking-tight text-gray-900 dark:text-white text-center uppercase mt-10"
                             x-text="currentTitle"></h2>
                     </div>
 
