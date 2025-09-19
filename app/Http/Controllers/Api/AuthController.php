@@ -35,7 +35,27 @@ class AuthController extends Controller
         return $this->ok('Logged out');
     }
 
-    public function register() {
+    public function register(Request $request) {
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'in:etudiant,admin,enseignant',
+            'is_active' => 'boolean'
+
+        ]);
+
+
+       User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'etudiant',
+            'is_active' => 0
+        ]);
+
         return $this->ok('Register successful');
     }
 }
