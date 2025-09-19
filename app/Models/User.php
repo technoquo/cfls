@@ -40,6 +40,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'is_active',
         'telephone',
         'address',
+        'ville',
         'province',
         'region',
         'society',

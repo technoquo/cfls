@@ -56,6 +56,42 @@
 
                         <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
 
+                        <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                        <h2 style="font-size: 20px; color: #111827; margin: 0 0 15px;">
+                            👤 Détails du client
+                        </h2>
+                        <table style="width: 100%; font-size: 14px; color: #374151; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Nom :</strong></td>
+                                <td style="padding: 5px 0;">{{ $order->user->name }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Email :</strong></td>
+                                <td style="padding: 5px 0;">{{ $order->user->email }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 0;"><strong>Téléphone :</strong></td>
+                                <td style="padding: 5px 0;">{{ $order->user->telephone }}</td>
+                            </tr>
+                            @if(!empty($order->society))
+                                <tr>
+                                    <td style="padding: 5px 0;"><strong>Société :</strong></td>
+                                    <td style="padding: 5px 0;">{{ $order->user->society }}</td>
+                                </tr>
+                            @endif
+                            @if($order->delivery === 'livraison')
+                                <tr>
+                                    <td style="padding: 5px 0;"><strong>Adresse :</strong></td>
+                                    <td style="padding: 5px 0;">
+                                        {{ $order->user->address }}, {{$order->user->ville}}<br>
+                                        {{ $order->user->postal_code }} {{ $order->user->region }}, {{ $order->user->province }}
+                                    </td>
+                                </tr>
+                            @endif
+                        </table>
+
+
                         <h2 style="font-size: 20px; color: #111827; margin: 0 0 15px;">
                             📦 Produits commandés
                         </h2>
@@ -126,6 +162,25 @@
                             Merci pour votre confiance,<br>
                             {{ config('app.name') }}
                         </p>
+                        <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                        <h2 style="font-size: 20px; color: #111827; margin: 0 0 15px;">
+                            🏦 Coordonnées bancaires
+                        </h2>
+                        <p style="font-size: 14px; color: #374151; margin: 0 0 10px; line-height: 1.6;">
+                            CFLS – Centre Francophone de la Langue des Signes<br>
+                            IBAN : <strong>BE38 3100 5385 3072</strong><br>
+                        </p>
+
+                        <h2 style="font-size: 20px; color: #111827; margin: 20px 0 15px;">
+                            📞 Coordonnées de contact
+                        </h2>
+                        <p style="font-size: 14px; color: #374151; margin: 0; line-height: 1.6;">
+                            Adresse : Avenue du four à briques, 3A, 1140 Evere ( Bruxelles)<br>
+                            Téléphone : +322 478 14 48<br>
+                            Email : info@cfls.be
+                        </p>
+
                     </td>
                 </tr>
             </table>

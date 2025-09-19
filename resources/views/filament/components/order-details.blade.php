@@ -2,7 +2,9 @@
     <div>
         <strong>Client:</strong> {{ $order->user->name }}<br>
         <strong>Adresse:</strong> {{ $order->user->address }}<br>
-        <strong>Province / Région:</strong> {{ $order->user->province }} / {{ $order->user->region }}
+        <strong>Ville:</strong> {{ $order->user->ville }}<br>
+        <strong>Province / Région:</strong> {{ $order->user->province }} / {{ $order->user->region }}<br>
+        <strong>Code postal:</strong> {{ $order->user->postal_code }}<br>
     </div>
 
     <div>

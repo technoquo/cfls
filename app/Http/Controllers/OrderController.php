@@ -32,11 +32,13 @@ class OrderController extends Controller
             'deliveryFee' => 'nullable|numeric|min:0',
             'products' => 'required|array',
             'address' => 'required_if:delivery,livraison|string|max:255',
+            'ville' => 'required|string|max:255',
             'postal_code' => 'required_if:delivery,livraison|string|max:255',
             'province' => 'required_if:delivery,livraison|string|max:255',
             'region' => 'required_if:delivery,livraison|string|max:255',
             'society' => 'nullable|string|max:255',
-            'proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+
+           // 'proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
 
         $validated = $request->validate($rules);
@@ -54,10 +56,12 @@ class OrderController extends Controller
                     'role' => 'etudiant',
                     'telephone'    => $validated['telephone'],
                     'address'      => $validated['address'] ?? null,
+                    'ville'        => $validated['ville'] ?? null,
                     'postal_code'  => $validated['postal_code'] ?? null,
                     'province'     => $validated['province'] ?? null,
                     'region'       => $validated['region'] ?? null,
                     'society'      => $validated['society'] ?? null,
+
                 ]
             );
 
@@ -69,10 +73,12 @@ class OrderController extends Controller
                 $user->update([
                     'telephone'    => $validated['telephone'],
                     'address'      => $validated['address'],
+                    'ville'       => $validated['ville'],
                     'postal_code'  => $validated['postal_code'],
                     'province'     => $validated['province'],
                     'region'       => $validated['region'],
-                    'society'      => $validated['society'] ?? $user->society,
+                    'society'      => $validated['society'],
+
                 ]);
             }
         }
