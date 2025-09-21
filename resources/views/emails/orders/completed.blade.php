@@ -39,7 +39,7 @@
                                 <strong>Total :</strong> €{{ number_format($order->total, 2, ',', ' ') }}<br>
                                 <strong>Méthode de livraison :</strong> {{ ucfirst($order->delivery) }}<br>
                                 @if($order->delivery === 'livraison')
-                                    <strong>Adresse de livraison :</strong> {{ $order->user->address }}, {{ $order->user->postal_code }}, {{ $order->user->region }}, {{ $order->user->province }}
+                                    <strong>Adresse de livraison :</strong> {{ $order->user->address }}, {{$order->ville}} {{ $order->user->postal_code }}, {{ $order->user->region }}, {{ $order->user->province }}
                                 @else
                                     <strong>Point de retrait :</strong> Avenue du Four à Briques, 3A, 1140 Evere (Bruxelles)<br>
                                     <strong>Horaires :</strong> 9h00 - 17h00 du lundi au vendredi
