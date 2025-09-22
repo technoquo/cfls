@@ -102,6 +102,13 @@
             <x-input-error for="address" class="mt-2" />
         </div>
 
+        <!-- Ville -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="ville" value="{{ __('Ville') }}" />
+            <x-input id="ville" type="text" class="mt-1 block w-full" wire:model.defer="state.ville" />
+            <x-input-error for="ville" class="mt-2" />
+        </div>
+
         <!-- Code postal -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="postal_code" value="{{ __('Code postal') }}" />

@@ -117,6 +117,8 @@ class ProductOrderReportResource extends Resource
                         default => ucfirst($state),
                     }),
                 TextColumn::make('user.address')->label('Adresse')->wrap(),
+                TextColumn::make('user.ville')->label('Ville'),
+                TextColumn::make('user.postal_code')->label('Code postal'),
                 TextColumn::make('user.province')->label('Province'),
                 TextColumn::make('user.region')->label('Région'),
             ])
