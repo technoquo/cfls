@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Models\User;
 use App\Traits\ApiResponses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     use ApiResponses;
-    public function login(LoginUserRequest $request) {
+    public function login(LoginUserRequest $request): JsonResponse {
        $request->validated($request->all());
 
        if (!Auth::attempt($request->only('email', 'password'))) {
@@ -30,12 +31,12 @@ class AuthController extends Controller
          );
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request): JsonResponse {
         $request->user()->currentAccessToken()->delete();
         return $this->ok('Logged out');
     }
 
-    public function register(Request $request) {
+    public function register(Request $request): JsonResponse {
 
 
         $request->validate([
@@ -57,5 +58,24 @@ class AuthController extends Controller
         ]);
 
         return $this->ok('Register successful');
+    }
+
+    public function user(Request $request): JsonResponse {
+
+        return response()->json([
+            'user' => [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email,
+//                'initials' => $request->user()->initials(),
+//                'phone' => $request->user()->phone,
+//                'company' => $request->user()->company,
+//                'job_title' => $request->user()->job_title,
+//                'country' => $request->user()->country,
+//                'city' => $request->user()->city,
+//                'socials' => $request->user()->socials,
+            ],
+        ]);
+
     }
 }
