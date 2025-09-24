@@ -232,8 +232,8 @@ class FormationsController extends Controller
     public function formation($slug, $formation){
 
 
-        $inscription = Calendar::where('slug', $formation)->first();
-        $formation = Formations::where('slug', $slug)->first();
+        $inscription = Calendar::where('slug', $formation)->whereStatus(1)->first();
+        $formation = Formations::where('slug', $slug)->whereStatus(1)->first();
 
 
         return view('formations.inscription.formation', compact('slug', 'inscription', 'formation'));
