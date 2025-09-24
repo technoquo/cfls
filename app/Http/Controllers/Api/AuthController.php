@@ -13,30 +13,38 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     use ApiResponses;
-    public function login(LoginUserRequest $request): JsonResponse {
-       $request->validated($request->all());
 
-       if (!Auth::attempt($request->only('email', 'password'))) {
-           return $this->error('Invalid credentials', 401);
-       }
+    public function login(LoginUserRequest $request): JsonResponse
+    {
+        $request->validated($request->all());
 
-         $user = User::firstWhere('email', $request->email);
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return $this->error('Invalid credentials', 401);
+        }
 
-         return $this->ok(
-             'Authenticated',
-             [
+        $user = User::firstWhere('email', $request->email);
 
-                 'token' => $user->createToken('API Token for' . $user->email,['*'],now()->addMonth())->plainTextToken
-             ]
-         );
+        return $this->ok(
+            'Authenticated',
+            [
+                'token' => $user->createToken(
+                    'API Token for ' . $user->email,
+                    ['*'],
+                    now()->addMonth()
+                )->plainTextToken,
+                'user'  => $user, // 👈 aquí
+            ]
+        );
     }
 
-    public function logout(Request $request): JsonResponse {
+    public function logout(Request $request): JsonResponse
+    {
         $request->user()->currentAccessToken()->delete();
         return $this->ok('Logged out');
     }
 
-    public function register(Request $request): JsonResponse {
+    public function register(Request $request): JsonResponse
+    {
 
 
         $request->validate([
@@ -49,7 +57,7 @@ class AuthController extends Controller
         ]);
 
 
-       User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -60,22 +68,11 @@ class AuthController extends Controller
         return $this->ok('Register successful');
     }
 
-    public function user(Request $request): JsonResponse {
-
-        return response()->json([
-            'user' => [
-                'id' => $request->user()->id,
-                'name' => $request->user()->name,
-                'email' => $request->user()->email,
-//                'initials' => $request->user()->initials(),
-//                'phone' => $request->user()->phone,
-//                'company' => $request->user()->company,
-//                'job_title' => $request->user()->job_title,
-//                'country' => $request->user()->country,
-//                'city' => $request->user()->city,
-//                'socials' => $request->user()->socials,
-            ],
-        ]);
-
+    public function user(Request $request): JsonResponse
+    {
+        return $this->ok(
+            'User retrieved',
+            $request->user()
+        );
     }
 }
