@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\V1\QuizController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,10 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/product/{id}', function ($id) {
     return Product::with(['images', 'options'])->findOrFail($id);
+});
+
+Route::prefix('v1')->group(function () {
+    Route::get('/questions', [QuizController::class, 'index']);
+    Route::get('/questions/{id}', [QuizController::class, 'show']);
+    Route::post('/answer', [QuizController::class, 'checkAnswer']);
 });

@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('video_themes');
+        Schema::dropIfExists('video_themes_cloudinary');
     }
 };

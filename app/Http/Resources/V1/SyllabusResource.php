@@ -17,11 +17,8 @@ class SyllabusResource extends JsonResource
             'id' => $this->id,
             'attributes' =>[
                 "title" => $this->title,
-                "slug" => $this->when(
-                    $request->routeIs('syllabus.show'),
-                    $this->slug,
-                ),
-                "image" => $this->image,
+                "slug" =>  $this->slug,
+                "image" => asset('storage/' . $this->image),
                 "status" => $this->status,
                 "created_at" => $this->created_at,
                 "updated_at" => $this->updated_at,
