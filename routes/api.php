@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\SectionController;
+use App\Http\Controllers\Api\V1\ThemeController;
+use App\Http\Controllers\SyllabusController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +33,6 @@ Route::prefix('v1')->group(function () {
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
     Route::post('/sections', [SectionController::class, 'store']);
+    Route::get('/themes', [ThemeController::class, 'index']);
 
 });

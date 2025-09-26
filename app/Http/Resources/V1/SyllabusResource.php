@@ -23,12 +23,12 @@ class SyllabusResource extends JsonResource
                 "created_at" => $this->created_at,
                 "updated_at" => $this->updated_at,
             ],
-            'relationships' => [
-                'Videos' => 'Todpos los videos del syllabus',
-            ],
-            'links' => [
-                'self' => route('syllabus.show', $this->id),
-            ],
+//            'relationships' => [
+//                'Videos' => 'Todpos los videos del syllabus',
+//            ],
+//            'links' => [
+//                'self' => route('syllabus.show', $this->id),
+//            ],
         ];
     }
 }
