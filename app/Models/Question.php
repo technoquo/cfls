@@ -6,15 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable = ['video_id', 'question_text'];
+    protected $fillable = [
+        'syllabu_id',
+        'video_id',
+        'question_text',
+        'type',
+        'options',
+        'answer'
+    ];
+
+    protected $casts = [
+        'options' => 'array', // convierte JSON a array automáticamente
+    ];
+
+    public function syllabus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Syllabu::class, 'syllabu_id');
+    }
 
     public function video()
     {
-        return $this->belongsTo(VideoTheme::class);
-    }
-
-    public function answers()
-    {
-        return $this->hasMany(Answer::class);
+        return $this->belongsTo(VideoTheme::class, 'video_id');
     }
 }

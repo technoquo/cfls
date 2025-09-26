@@ -14,13 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(QuestionSeeder::class);
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Cfls',
-            'email' => 'info@cfls.be',           
-            'role' => Roles::ADMIN->value,
-        ]);
+//        User::factory()->create([
+//            'name' => 'Cfls',
+//            'email' => 'info@cfls.be',
+//            'role' => Roles::ADMIN->value,
+//        ]);
 
         // User::factory()->count(15)->sequence(
         //     ['name' => 'Raymond Ann', 'email' => 'raymondeahn@hotmail.com', 'role' => Roles::USER->value],

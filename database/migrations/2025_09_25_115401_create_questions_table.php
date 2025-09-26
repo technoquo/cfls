@@ -13,8 +13,22 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('video_id')->constrained('video_themes_cloudinary')->onDelete('cascade');
-            $table->string('question_text'); // ej: "¿Qué significa esta seña?"
+            $table->foreignId('video_id')
+                ->nullable()
+                ->constrained('video_themes_cloudinary')
+                ->onDelete('cascade');
+
+            $table->string('question_text')->nullable();
+
+            // 👇 Aquí la columna TYPE
+            $table->enum('type', ['choice', 'text', 'video-choice', 'yes-no']);
+
+            // 👇 Opciones en formato JSON
+            $table->json('options')->nullable();
+
+            // 👇 Respuesta correcta
+            $table->string('answer')->nullable();
+
             $table->timestamps();
         });
     }

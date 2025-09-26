@@ -28,6 +28,7 @@ Route::get('/product/{id}', function ($id) {
 
 Route::prefix('v1')->group(function () {
     Route::get('/questions', [QuizController::class, 'index']);
-    Route::get('/questions/{id}', [QuizController::class, 'show']);
-    Route::post('/answer', [QuizController::class, 'checkAnswer']);
+    Route::get('/questions/{slug}', [QuizController::class, 'show']);
+    Route::post('/check-answer', [QuizController::class, 'checkAnswer']);
+
 });

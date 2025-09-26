@@ -12,16 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->enum('type', ['choice', 'text', 'video-choice', 'yes-no'])->after('question_text');
-            $table->json('options')->nullable()->after('type');
-            $table->string('answer')->nullable()->after('options');
+            $table->foreignId('syllabu_id')
+                ->after('id') // opcional: define dónde va la columna
+                ->constrained('syllabus')
+                ->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn(['type', 'options', 'answer']);
+            $table->dropForeign(['syllabu_id']);
+            $table->dropColumn('syllabu_id');
         });
     }
+
 };
