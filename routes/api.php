@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\QuizController;
+use App\Http\Controllers\Api\V1\SectionController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,6 @@ Route::get('/product/{id}', function ($id) {
 Route::prefix('v1')->group(function () {
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
-    Route::post('/check-answer', [QuizController::class, 'checkAnswer']);
+    Route::post('/sections', [SectionController::class, 'store']);
 
 });

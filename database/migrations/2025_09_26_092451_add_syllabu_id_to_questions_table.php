@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->foreignId('syllabu_id')
-                ->after('id') // opcional: define dónde va la columna
-                ->constrained('syllabus')
-                ->onDelete('cascade');
+            if (!Schema::hasColumn('questions', 'syllabu_id')) {
+                $table->foreignId('syllabu_id')
+                    ->after('id') // opcional: define dónde va la columna
+                    ->constrained('syllabus')
+                    ->onDelete('cascade');
+            }
         });
     }
 
