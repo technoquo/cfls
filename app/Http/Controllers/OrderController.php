@@ -31,14 +31,15 @@ class OrderController extends Controller
             'total' => 'required|numeric|min:0',
             'deliveryFee' => 'nullable|numeric|min:0',
             'products' => 'required|array',
+
+            // Solo obligatorios si es "livraison"
             'address' => 'required_if:delivery,livraison|string|max:255',
-            'ville' => 'required|string|max:255',
+            'ville' => 'required_if:delivery,livraison|string|max:255',
             'postal_code' => 'required_if:delivery,livraison|string|max:255',
             'province' => 'required_if:delivery,livraison|string|max:255',
             'region' => 'required_if:delivery,livraison|string|max:255',
-            'society' => 'nullable|string|max:255',
 
-           // 'proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'society' => 'nullable|string|max:255',
         ];
 
         $validated = $request->validate($rules);
@@ -72,13 +73,12 @@ class OrderController extends Controller
             if ($validated['delivery'] === 'livraison') {
                 $user->update([
                     'telephone'    => $validated['telephone'],
-                    'address'      => $validated['address'],
-                    'ville'       => $validated['ville'],
-                    'postal_code'  => $validated['postal_code'],
-                    'province'     => $validated['province'],
-                    'region'       => $validated['region'],
-                    'society'      => $validated['society'],
-
+                    'address'      => null,
+                    'ville'        => null,
+                    'postal_code'  => null,
+                    'province'     => null,
+                    'region'       => null,
+                    'society'      => null,
                 ]);
             }
         }

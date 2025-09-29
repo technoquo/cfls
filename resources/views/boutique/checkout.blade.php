@@ -507,7 +507,17 @@
                                 formData.append('postal_code', postal_code);
                                 formData.append('province', this.province);
                                 formData.append('region', this.region);
+                            } else {
+                                formData.append('address', null);
+                                formData.append('ville', null);
+                                formData.append('postal_code', null);
+                                formData.append('province', null);
+                                formData.append('region', null);
                             }
+
+
+
+
 
                             const response = await fetch("{{ route('order.store') }}", {
                                 method: "POST",
@@ -519,6 +529,8 @@
                             });
 
                             const data = await response.json();
+                            console.log(data);
+
 
                             if (!response.ok || data.error) {
                                 this.showNotification(data.error || "Erreur inconnue.", 'error');
