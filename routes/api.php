@@ -30,9 +30,15 @@ Route::get('/product/{id}', function ($id) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get('/questions', [QuizController::class, 'index']);
-    Route::get('/questions/{slug}', [QuizController::class, 'show']);
+
+    Route::get('/sections/{slug?}', [SectionController::class, 'index']);
+    Route::get('/sections/show/{section}', [SectionController::class, 'show']);
     Route::post('/sections', [SectionController::class, 'store']);
     Route::get('/themes', [ThemeController::class, 'index']);
+    Route::get('/themes/{theme}', [ThemeController::class, 'show']);
+    Route::get('/questions', [QuizController::class, 'index']);
+    Route::get('/questions/{slug}', [QuizController::class, 'show']);
+
+
 
 });

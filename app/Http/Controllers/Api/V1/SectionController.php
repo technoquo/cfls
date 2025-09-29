@@ -12,9 +12,10 @@ class SectionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($slug = null)
     {
-        return SectionResource::collection(Section::all());
+        $sections = Section::where('name_syllabu', $slug)->get();
+        return SectionResource::collection($sections);
     }
 
 
