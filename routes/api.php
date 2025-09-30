@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\ThemeController;
@@ -40,6 +41,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/themes/{theme}/{slug}/{id}', [ThemeController::class, 'video']);
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
+    Route::get('/dictionnaire', [DictionaryController::class, 'index']);
+
+
 
 
 

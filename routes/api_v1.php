@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SyllabusController;
@@ -17,6 +18,7 @@ Route::middleware('auth:sanctum')->apiResource('users', UsersController::class);
 Route::middleware('auth:sanctum')->apiResource('sections', SectionController::class);
 Route::middleware('auth:sanctum')->apiResource('themes', ThemeController::class);
 Route::middleware('auth:sanctum')->apiResource('quiz', QuizController::class);
+Route::middleware('auth:sanctum')->apiResource('dictionary', DictionaryController::class);
 
 
 Route::get('/user', function (Request $request) {
