@@ -39,6 +39,15 @@ class ThemeController extends Controller
         return ThemeResource::collection($themes);
     }
 
+    public function theme($slugTheme, $slugVideo){
+
+
+        $themes =  Theme::with('videos')->where('slug', $slugVideo)->firstOrFail();
+
+
+        return new ThemeResource($themes);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -61,5 +70,22 @@ class ThemeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function video($slugTheme, $slugVideo, $id){
+
+
+        $theme = Theme::where('slug', $slugVideo)->firstOrFail();
+        $video = $theme->videos()->where('id', $id)->firstOrFail();
+        return response()->json([
+            'data' => [
+                'type' => 'videos',
+                'id' => $video->id,
+                'attributes' => [
+                    'title' => $video->title,
+                    'url' => $video->url
+                ]
+            ]
+        ]);
     }
 }

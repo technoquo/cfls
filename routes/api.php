@@ -36,6 +36,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/sections', [SectionController::class, 'store']);
     Route::get('/themes', [ThemeController::class, 'index']);
     Route::get('/themes/{theme}', [ThemeController::class, 'show']);
+    Route::get('/themes/{theme}/{slug}', [ThemeController::class, 'theme']);
+    Route::get('/themes/{theme}/{slug}/{id}', [ThemeController::class, 'video']);
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
 

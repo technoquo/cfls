@@ -21,6 +21,8 @@ class ThemeResource extends JsonResource
                 "title" => $this->title,
                 "slug" => $this->slug,
                 "slug_syllabu" => $this->syllabus->slug,
+                "image" => asset('storage/' . $this->image),
+                "videos" => VideoResource::collection($this->whenLoaded('videos'))
                 ]
 
         ];
