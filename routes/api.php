@@ -42,6 +42,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
     Route::get('/dictionnaire', [DictionaryController::class, 'index']);
+    Route::get('/dictionnaire/{id}', [DictionaryController::class, 'show']);
 
 
 

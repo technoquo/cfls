@@ -19,6 +19,7 @@ class DictionaryController extends Controller
             ->orderBy('title', 'asc')
             ->get();
 
+
         return DictionaryResource::collection($signs);
     }
 
@@ -43,7 +44,12 @@ class DictionaryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $video = VideoTheme::where('id', $id)
+            ->where('active', true)
+            ->get();
+
+
+        return DictionaryResource::collection($video);
     }
 
     /**
