@@ -75,4 +75,40 @@ class AuthController extends Controller
             $request->user()
         );
     }
+
+    public function updateProfile(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($request->only('name', 'email'));
+
+        return $this->ok('Profile updated', $user);
+    }
+
+    public function updatePassword(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if (!password_verify($request->current_password, $user->password)) {
+            return $this->error('Current password is incorrect', 422);
+        }
+
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        return $this->ok('Password updated');
+    }
 }
