@@ -32,9 +32,15 @@ class QuizResultController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(QuizResult $quizResult)
+    public function show($userId)
     {
-        //
+
+        $results = QuizResult::where('user_id', $userId)
+            ->get();
+
+        return response()->json([
+            'data' => $results
+        ]);
     }
 
     /**
