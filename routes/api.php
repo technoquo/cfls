@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\QuizController;
+use App\Http\Controllers\Api\V1\QuizResultController;
 use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\ThemeController;
@@ -49,6 +50,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/questions/{slug}', [QuizController::class, 'show']);
     Route::get('/dictionnaire', [DictionaryController::class, 'index']);
     Route::get('/dictionnaire/{id}', [DictionaryController::class, 'show']);
+    Route::post('/quiz-results', [QuizResultController::class, 'store']);
 
 
 
