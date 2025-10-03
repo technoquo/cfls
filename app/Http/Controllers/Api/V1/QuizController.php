@@ -23,11 +23,11 @@ class QuizController
 
     public function show($slug)
     {
-        $questions = Question::with('syllabus')
-            ->whereHas('syllabus', function ($query) use ($slug) {
+        $questions = Question::with(['theme', 'video'])
+            ->whereHas('theme', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })
-            ->get(); // 🔹 trae varias
+            ->get();
 
         return QuestionResource::collection($questions);
     }

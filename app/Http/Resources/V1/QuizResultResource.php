@@ -19,7 +19,8 @@ class QuizResultResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'user_id'   => $this->user_id,
-                'slug'      => $this->slug,
+                'syllabus'  => $this->syllabus,
+                'theme'      => $this->theme,
                 'score'     => $this->score,
                 'played_at' => $this->played_at?->format('Y-m-d'), // formato limpio
             ]
