@@ -66,4 +66,41 @@ class QuizResultController extends Controller
     {
         //
     }
+
+    public function participationDays($userId)
+    {
+        return response()->json([
+            'data' => QuizResult::participationDays($userId)
+        ]);
+    }
+
+    public function daily($userId)
+    {
+        return response()->json([
+            'data' => QuizResult::dailyPoints($userId)
+        ]);
+    }
+
+    public function total($userId)
+    {
+        return response()->json([
+            'total' => QuizResult::totalPoints($userId)
+        ]);
+    }
+
+    public function rankingDaily()
+    {
+        return response()->json([
+            'data' => QuizResult::dailyRanking()
+        ]);
+    }
+
+    public function rankingTotal()
+    {
+        return response()->json([
+            'data' => QuizResult::totalRanking()
+        ]);
+    }
+
+
 }

@@ -52,6 +52,11 @@ Route::prefix('v1')->group(function () {
     Route::get('/dictionnaire/{id}', [DictionaryController::class, 'show']);
     Route::post('/quiz-results', [QuizResultController::class, 'store']);
     Route::get('/quiz-results/{user_id}', [QuizResultController::class, 'show']);
+    Route::get('/quiz-results/{user_id}/daily', [QuizResultController::class, 'participationDays']);
+    Route::get('/quiz-results/{user_id}/total', [QuizResultController::class, 'total']);
+    Route::get('/quiz-results/ranking/daily', [QuizResultController::class, 'rankingDaily']);
+    Route::get('/quiz-results/ranking/total', [QuizResultController::class, 'rankingTotal']);
+
 
 
 
