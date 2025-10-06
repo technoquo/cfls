@@ -17,9 +17,12 @@ class UserResource extends JsonResource
        return [
            'type' => 'users',
            'id' => $this->id,
-           'atributes' => [
+           'attributes' => [
                'name' => $this->name,
                'email' => $this->email,
+               'subscriptions' => SubscritpionResource::collection(
+                   $this->whenLoaded('subscriptions')
+               ),
                $this->mergeWhen($request->routeIs('users.*'), [
                    'role' => $this->role,
                    'email_verified_at' => $this->email_verified_at,

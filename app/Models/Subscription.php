@@ -20,7 +20,12 @@ class Subscription extends Model
         'status',
     ];
 
-    protected $dates = ['starts_at', 'ends_at'];
+    protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     public function user()
     {

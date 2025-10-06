@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\ThemeController;
+use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\SyllabusController;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -28,11 +29,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::get('/user/{user}', [UsersController::class,'show'])->middleware('auth:sanctum');
+
+
+
 
 Route::get('/product/{id}', function ($id) {
     return Product::with(['images', 'options'])->findOrFail($id);

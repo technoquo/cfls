@@ -18,7 +18,7 @@ class SubscritpionResource extends JsonResource
             'type' => 'subscriptions',
             'id' => $this->id,
             'attributes' => [
-                'plan_id'  => $this->id,
+                'plan_id'  =>   $this->plan->name, // nombre del plan
                 'price'      => $this->price,
                 'currency'   => $this->currency,
                 'duration_days'   => $this->duration_days,
