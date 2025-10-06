@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\DictionaryController;
+use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\QuizResultController;
 use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SpellingController;
+use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\SyllabusController;
 use App\Models\Product;
@@ -56,6 +58,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/quiz-results/{user_id}/total', [QuizResultController::class, 'total']);
     Route::get('/quiz-results/ranking/daily', [QuizResultController::class, 'rankingDaily']);
     Route::get('/quiz-results/ranking/total', [QuizResultController::class, 'rankingTotal']);
+    Route::get('/plans', [PlanController::class, 'index']);
+    Route::post('/subscriptions', [SubscriptionController::class, 'store']);
 
 
 

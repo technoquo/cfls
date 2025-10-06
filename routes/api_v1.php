@@ -2,10 +2,12 @@
 
 
 use App\Http\Controllers\Api\V1\DictionaryController;
+use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\QuizResultController;
 use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SpellingController;
+use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\SyllabusController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UsersController;
@@ -23,6 +25,8 @@ Route::middleware('auth:sanctum')->apiResource('quiz', QuizController::class);
 Route::middleware('auth:sanctum')->apiResource('spellings', SpellingController::class);
 Route::middleware('auth:sanctum')->apiResource('dictionary', DictionaryController::class);
 Route::middleware('auth:sanctum')->apiResource('quiz-results', QuizResultController::class);
+Route::middleware('auth:sanctum')->apiResource('plans', PlanController::class);
+Route::middleware('auth:sanctum')->apiResource('subscriptions', SubscriptionController::class);
 
 
 Route::get('/user', function (Request $request) {
