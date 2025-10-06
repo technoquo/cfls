@@ -65,6 +65,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/plans', [PlanController::class, 'index']);
     Route::get('/plans/{id}', [PlanController::class, 'show']);
     Route::post('/subscriptions', [SubscriptionController::class, 'store']);
+    Route::get('/subscriptions/{user_id}', [SubscriptionController::class, 'show']);
+    Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancel']);
 
 
 

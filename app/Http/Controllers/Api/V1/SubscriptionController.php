@@ -41,9 +41,13 @@ class SubscriptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subscription $subscription)
+    public function show($user_id)
     {
-        //
+        $subscriptions = Subscription::with('plan')
+            ->where('user_id', $user_id)
+            ->get();
+
+        return SubscritpionResource::collection($subscriptions);
     }
 
     /**
@@ -68,5 +72,22 @@ class SubscriptionController extends Controller
     public function destroy(Subscription $subscription)
     {
         //
+    }
+
+    public function cancel(Request $request)
+    {
+
+
+        $subscription = Subscription::where('user_id', $request->input('user_id'))
+            ->where('id', $request->input('subscription_id'))
+            ->where('status', 'active')
+            ->first();
+
+
+        $subscription->status = 'cancelled';
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        return response()->json(['message' => 'Subscription canceled successfully.']);
     }
 }
