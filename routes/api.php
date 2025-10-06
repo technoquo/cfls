@@ -59,7 +59,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/quiz-results/ranking/daily', [QuizResultController::class, 'rankingDaily']);
     Route::get('/quiz-results/ranking/total', [QuizResultController::class, 'rankingTotal']);
     Route::get('/plans', [PlanController::class, 'index']);
+    Route::get('/plans/{id}', [PlanController::class, 'show']);
     Route::post('/subscriptions', [SubscriptionController::class, 'store']);
+
 
 
 

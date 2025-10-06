@@ -30,15 +30,17 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Plan $plan)
+    public function show($id)
     {
-        //
+        $plan = Plan::where('id', $id)->firstOrFail();
+
+        return new PlanResource($plan);
     }
 
     /**

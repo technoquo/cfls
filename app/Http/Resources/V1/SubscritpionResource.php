@@ -25,7 +25,7 @@ class SubscritpionResource extends JsonResource
                 'starts_at' => $this->starts_at?->format('Y-m-d'), // formato limpio
                 'ends_at' => $this->ends_at?->format('Y-m-d'), // formato limpio
                 'status'     => $this->status,
-                'user_id'    => $this->user_id,
+                'user_id'    => session('data.user.id'),
                 'created_at' => $this->created_at?->format('Y-m-d'), // formato limpio
                 'updated_at' => $this->updated_at?->format('Y-m-d'), // formato limpio
             ]

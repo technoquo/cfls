@@ -30,6 +30,9 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $result = Subscription::create($request->all());
 
         return new SubscritpionResource($result);
