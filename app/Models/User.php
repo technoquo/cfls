@@ -119,13 +119,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscription::class)->where('status', 'active');
     }
 
-    public function activeSubscription()
-    {
-        return $this->hasOne(Subscription::class)->where('status', 'active');
-    }
+
+
 
 
 

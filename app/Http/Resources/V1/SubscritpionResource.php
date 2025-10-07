@@ -18,14 +18,15 @@ class SubscritpionResource extends JsonResource
             'type' => 'subscriptions',
             'id' => $this->id,
             'attributes' => [
-                'plan_id'  =>   $this->plan->name, // nombre del plan
+                'plan_id'    =>   $this->plan_id, // nombre del plan
+                'plan'       =>   $this->plan->name, // slug del plan
                 'price'      => $this->price,
                 'currency'   => $this->currency,
                 'duration_days'   => $this->duration_days,
                 'starts_at' => $this->starts_at?->format('Y-m-d'), // formato limpio
                 'ends_at' => $this->ends_at?->format('Y-m-d'), // formato limpio
                 'status'     => $this->status,
-                'user_id'    => session('data.user.id'),
+                'user_id'    => $this->user_id,
                 'created_at' => $this->created_at?->format('Y-m-d'), // formato limpio
                 'updated_at' => $this->updated_at?->format('Y-m-d'), // formato limpio
             ]

@@ -35,6 +35,7 @@ class UsersController extends Controller
     public function show(User $user)
     {
 
+
         $user->load(['subscriptions.plan']); // carga suscripciones y planes
         return new UserResource($user);
     }

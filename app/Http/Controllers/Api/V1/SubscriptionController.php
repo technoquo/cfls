@@ -45,6 +45,17 @@ class SubscriptionController extends Controller
     {
         $subscriptions = Subscription::with('plan')
             ->where('user_id', $user_id)
+            ->where('status', 'active')
+            ->get();
+
+        return SubscritpionResource::collection($subscriptions);
+    }
+
+    public function active($user_id)
+    {
+        $subscriptions = Subscription::with('plan')
+            ->where('user_id', $user_id)
+            ->where('status', 'active')
             ->get();
 
         return SubscritpionResource::collection($subscriptions);
@@ -61,9 +72,35 @@ class SubscriptionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(Request $request)
     {
-        //
+
+
+
+        $subscription = Subscription::where('user_id', $request->input('user_id'))
+            ->where('status', 'active')
+            ->first();
+
+
+
+        if ($subscription->plan_id !== $request->input('plan_id')) {
+
+
+
+            Subscription::where('user_id', $request->input('user_id'))
+                ->where('plan_id', $subscription->plan_id)
+                ->where('status', 'active')
+                ->update([
+                    'status' => 'cancelled',
+                    'ends_at' => now(),
+                ]);
+
+//            Subscription::where('user_id', $request->input('user_id')                -
+//                ->where('plan_id', $subscription->plan_id)
+//                ->update(['status' => 'cancelled']);
+        }
+
+
     }
 
     /**
