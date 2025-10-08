@@ -13,12 +13,14 @@ use App\Http\Controllers\FormationsController;
 use App\Http\Controllers\SyllabusController;
 use Illuminate\Http\Request;
 
+
 // Home Routes
 Route::get('/', [HomeController::class, 'index']);
 //Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
+Route::get('/lsfbgo', [HomeController::class, 'lsfbgo'])->name('lsfbgo');
 Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->name('telechargements-gratuits');
 
 // Redirecciones de URLs antiguas Wix (deben ir ANTES de las rutas dinámicas)
@@ -62,6 +64,8 @@ Route::get('ue1-themes-11/a-bientôt', fn() => redirect()->away('https://cfls.be
     Route::get('/order', [OrderController::class, 'commanders'])->name('order.list');
     Route::get('/facture/{order}', [OrderController::class, 'facture'])->name('order.facture');
 //});
+
+
 
 // Cloudinary (libre)
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);

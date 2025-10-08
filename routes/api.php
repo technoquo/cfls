@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\DictionaryController;
+use App\Http\Controllers\Api\V1\MemoryGameController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\QuizResultController;
@@ -69,6 +70,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/subscriptions/{user_id}/active', [SubscriptionController::class, 'active']);
     Route::patch('/subscriptions/update-status', [SubscriptionController::class, 'update']);
     Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancel']);
+    Route::get('/memory-game/{syllabu}/{theme}', [MemoryGameController::class, 'index']);
 
 
 

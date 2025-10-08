@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionSeeder::class);
         $this->call(SubscriptionSeeder::class);
         $this->call(PlanSeeder::class);
+        $this->call(CardSeeder::class);
 
         // User::factory(10)->create();
 

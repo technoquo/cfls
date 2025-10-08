@@ -32,6 +32,9 @@
                             <x-dropdown-link wire:navigate href="{{ route('syllabus') }}">
                                 {{ __('Mon Syllabus') }}
                             </x-dropdown-link>
+                            <x-dropdown-link wire:navigate href="{{ route('lsfbgo') }}">
+                                {{ __('Mon lsfbgo') }}
+                            </x-dropdown-link>
                             <x-dropdown-link wire:navigate href="{{ route('order.list') }}">
                                 {{ __('Mes Commandes') }}
                             </x-dropdown-link>

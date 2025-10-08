@@ -51,5 +51,10 @@ class HomeController extends Controller
         return view('home.general', compact('data'));
     }
 
+    public function lsfbgo()
+    {
+        return view('lsfbgo.index');
+    }
+
 
 }
