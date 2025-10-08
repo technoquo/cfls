@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Api\V1\DictionaryController;
+use App\Http\Controllers\Api\V1\LettersController;
 use App\Http\Controllers\Api\V1\MemoryGameController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\QuizController;
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->apiResource('quiz-results', QuizResultControl
 Route::middleware('auth:sanctum')->apiResource('plans', PlanController::class);
 Route::middleware('auth:sanctum')->apiResource('subscriptions', SubscriptionController::class);
 Route::middleware('auth:sanctum')->apiResource('memory-game', MemoryGameController::class);
+Route::middleware('auth:sanctum')->apiResource('letters', LettersController::class);
 
 
 Route::get('/user', function (Request $request) {

@@ -2,16 +2,17 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\DictionaryController;
+use App\Http\Controllers\Api\V1\LettersController;
 use App\Http\Controllers\Api\V1\MemoryGameController;
 use App\Http\Controllers\Api\V1\PlanController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\QuizResultController;
 use App\Http\Controllers\Api\V1\SectionController;
+use App\Http\Controllers\Api\V1\SpellController;
 use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UsersController;
-use App\Http\Controllers\SyllabusController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -71,11 +72,8 @@ Route::prefix('v1')->group(function () {
     Route::patch('/subscriptions/update-status', [SubscriptionController::class, 'update']);
     Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancel']);
     Route::get('/memory-game/{syllabu}/{theme}', [MemoryGameController::class, 'index']);
-
-
-
-
-
-
+    Route::get('/spell', [SpellController::class, 'index']);
+    Route::get('/spell/{id}', [SpellController::class, 'spell']);
+    Route::get('/letters', [LettersController::class, 'index']);
 
 });
