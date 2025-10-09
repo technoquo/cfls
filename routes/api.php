@@ -72,7 +72,7 @@ Route::prefix('v1')->group(function () {
     Route::patch('/subscriptions/update-status', [SubscriptionController::class, 'update']);
     Route::post('/subscriptions/cancel', [SubscriptionController::class, 'cancel']);
     Route::get('/memory-game/{syllabu}/{theme}', [MemoryGameController::class, 'index']);
-    Route::get('/spell', [SpellController::class, 'index']);
+    Route::get('/spell/{syllabu}/{theme}', [SpellController::class, 'index']);
     Route::get('/spell/{id}', [SpellController::class, 'spell']);
     Route::get('/letters', [LettersController::class, 'index']);
 

@@ -4,15 +4,26 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\WordsResource;
+use App\Models\Syllabu;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 use App\Models\Word;
 use App\Models\Letter;
 
 class SpellController extends Controller
 {
-    public function index()
+    public function index($syllabu = null, $theme = null)
     {
-        $words = Word::select('id', 'name', 'image')->get();
+        $theme = Theme::where('slug', $theme)->first();
+        $syllabus = Syllabu::where('slug', $syllabu)->first();
+
+
+        $words = Word::select('id', 'name', 'image')
+            ->where('theme_id', $theme->id)
+            ->where('syllabu_id', $syllabus->id)
+            ->whereStatus(true)
+            ->orderBy('name')
+            ->get();
 
 
         return  WordsResource::collection($words);

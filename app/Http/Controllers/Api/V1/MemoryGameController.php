@@ -14,7 +14,7 @@ class MemoryGameController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($syllabu = null, $theme = null,)
+    public function index($syllabu = null, $theme = null)
     {
         $theme = Theme::where('slug', $theme)->first();
         $syllabu = Syllabu::where('slug', $syllabu)->first();
