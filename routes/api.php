@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UsersController;
+use App\Http\Controllers\Api\V1\VideoQuizItemController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -75,5 +76,6 @@ Route::prefix('v1')->group(function () {
     Route::get('/spell/{syllabu}/{theme}', [SpellController::class, 'index']);
     Route::get('/spell/{id}', [SpellController::class, 'spell']);
     Route::get('/letters', [LettersController::class, 'index']);
+    Route::get('/video-quiz/{syllabu}/{theme}/{id}', [VideoQuizItemController::class, 'index']);
 
 });

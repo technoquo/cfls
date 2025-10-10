@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SubscriptionSeeder::class);
         $this->call(PlanSeeder::class);
         $this->call(CardSeeder::class);
+        $this->call(VideoQuizSeeder::class);
 
         // User::factory(10)->create();
 
