@@ -20,8 +20,9 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/equipe', [TeamController::class, 'index'])->name('equipe');
 Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
-Route::get('/lsfbgo', [HomeController::class, 'lsfbgo'])->name('lsfbgo');
 Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->name('telechargements-gratuits');
+
+
 
 // Redirecciones de URLs antiguas Wix (deben ir ANTES de las rutas dinámicas)
 Route::get('ue1-themes/a-bientôt', fn() => redirect()->away('https://cfls.be/ue1-themes', 301));

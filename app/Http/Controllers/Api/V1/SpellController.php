@@ -18,10 +18,10 @@ class SpellController extends Controller
         $syllabus = Syllabu::where('slug', $syllabu)->first();
 
 
-        $words = Word::select('id', 'name', 'image')
+        $words = Word::select('id', 'name', 'video_theme_cloudinary_id')
             ->where('theme_id', $theme->id)
             ->where('syllabu_id', $syllabus->id)
-            ->whereStatus(true)
+            ->whereActive(true)
             ->orderBy('name')
             ->get();
 

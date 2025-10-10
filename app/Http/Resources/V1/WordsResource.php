@@ -19,7 +19,7 @@ class WordsResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'image' => asset($this->image),
+                'video' => $this->videoThemeCloudinary->url ?? null,
             ]
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,5 +26,10 @@ class Vimeo extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function question_lsfb(): hasMany
+    {
+        return $this->hasMany(QuestionLsfb::class);
     }
 }

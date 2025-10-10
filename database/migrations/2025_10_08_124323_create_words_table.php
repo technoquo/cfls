@@ -11,12 +11,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('words', function (Blueprint $table) {
+        if (!Schema::hasTable('words')) {
+            Schema::create('words', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); // palabra: casa, perro, etc.
-            $table->string('image');          // ruta de la imagen
+
+            // Relación con la tabla de videos
+            // $table->foreignId('video_theme_cloudinary_id')
+            //     ->nullable()
+            //     ->constrained('video_theme_cloudinary')
+            //     ->onDelete('cascade');
+
+            // Relaciones adicionales
+            $table->foreignId('syllabu_id')
+                ->nullable()
+                ->constrained('syllabus')
+                ->onDelete('cascade');
+
+            $table->foreignId('theme_id')
+                ->nullable()
+                ->constrained('themes')
+                ->onDelete('cascade');
+
+
+
             $table->timestamps();
         });
+        }
     }
 
     /**
@@ -24,6 +45,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('words', function (Blueprint $table) {
+            // $table->dropConstrainedForeignId('video_theme_cloudinary_id');
+            $table->dropConstrainedForeignId('syllabu_id');
+            $table->dropConstrainedForeignId('theme_id');
+        });
+
         Schema::dropIfExists('words');
     }
 };
