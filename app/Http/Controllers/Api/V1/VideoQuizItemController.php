@@ -11,22 +11,21 @@ use Illuminate\Http\Request;
 
 class VideoQuizItemController extends Controller
 {
-    public function index($syllabu = null, $theme = null, $id = null)
+    public function index($syllabu = null, $theme = null)
     {
+        $theme = Theme::where('slug', $theme)->firstOrFail();
+        $syllabus = Syllabu::where('slug', $syllabu)->firstOrFail();
 
-        $theme = Theme::where('slug', $theme)->first();
-
-        $syllabus = Syllabu::where('slug', $syllabu)->first();
-
-
-        $video_item_quiz = VideoQuizItem::where('id', (int) $id)
-            ->where('theme_id', $theme->id)
+        $videos = VideoQuizItem::where('theme_id', $theme->id)
             ->where('syllabu_id', $syllabus->id)
             ->whereActive(true)
             ->get();
 
+        $count = $videos->count();
 
-        return  VideoQuizItemResource::collection($video_item_quiz);
-
+        return response()->json([
+            'count' => $count,
+            'videos' => VideoQuizItemResource::collection($videos),
+        ]);
     }
 }

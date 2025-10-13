@@ -24,4 +24,6 @@ class VideoQuizItem extends Model
     {
         return $this->belongsTo(VideoTheme::class);
     }
+
+
 }
