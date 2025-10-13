@@ -31,7 +31,7 @@
                         </h1>
                         <p style="font-size: 16px; color: #333; margin: 0 0 20px; line-height: 1.6;">
                             Merci pour votre commande ! 🎉<br>
-                            Nous avons bien reçu votre paiement et préparons votre commande.
+                            Elle est bien enregistrée. Nous préparons votre colis dès réception de votre paiement.
                         </p>
 
                         <hr style="margin: 25px 0; border: none; border-top: 1px solid #e5e7eb;">
