@@ -16,7 +16,10 @@ class VideoQuizItemResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'video_quiz_cloudinary_id' => $this->videoThemeCloudinary->url ?? null,
+            'video_quiz_id' => $this->id,
+            'video_quiz_cloudinary_id' => isset($this->videoThemeCloudinary->url)
+                ? urldecode(pathinfo($this->videoThemeCloudinary->url, PATHINFO_FILENAME))
+                : null,
             'question' => $this->question,
             'options' => $this->options,
             'correct_answer' => $this->correct_answer,
