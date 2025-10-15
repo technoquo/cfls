@@ -73,12 +73,12 @@ class OrderController extends Controller
             if ($validated['delivery'] === 'livraison') {
                 $user->update([
                     'telephone'    => $validated['telephone'],
-                    'address'      => null,
-                    'ville'        => null,
-                    'postal_code'  => null,
-                    'province'     => null,
-                    'region'       => null,
-                    'society'      => null,
+                    'address'      => $validated['address'],
+                    'ville'        => $validated['ville'],
+                    'postal_code'  => $validated['postal_code'],
+                    'province'     => $validated['province'],
+                    'region'       => $validated['region'],
+                    'society'      => $validated['society'],
                 ]);
             }
         }
@@ -107,7 +107,7 @@ class OrderController extends Controller
             $randomCode = strtoupper(Str::random(8));
             $order->products()->attach($product['id'], [
                 'quantity'    => $product['quantity'],
-                'price'  => $product['price'],
+                'price'  =>      $product['price'],
                 'choix'       => $product['choix'],
                 'code'        => $randomCode,
             ]);
