@@ -19,6 +19,7 @@ class VideoQuizItemController extends Controller
         $videos = VideoQuizItem::where('theme_id', $theme->id)
             ->where('syllabu_id', $syllabus->id)
             ->whereActive(true)
+            ->inRandomOrder()
             ->get();
 
         $count = $videos->count();

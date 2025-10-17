@@ -22,7 +22,7 @@ class SpellController extends Controller
             ->where('theme_id', $theme->id)
             ->where('syllabu_id', $syllabus->id)
             ->whereActive(true)
-            ->orderBy('name')
+            ->inRandomOrder()
             ->get();
 
 

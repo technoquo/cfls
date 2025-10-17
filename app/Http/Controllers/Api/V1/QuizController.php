@@ -27,6 +27,7 @@ class QuizController
             ->whereHas('theme', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })
+            ->inRandomOrder()
             ->get();
 
         return QuestionResource::collection($questions);

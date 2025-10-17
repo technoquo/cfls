@@ -25,7 +25,7 @@ class MemoryGameController extends Controller
             ->with(['theme', 'syllabus'])
             ->when($syllabu->id, fn($query) => $query->where('syllabu_id', $syllabu->id))
             ->when($theme->id, fn($query) => $query->where('theme_id', $theme->id))
-            ->orderBy('name')
+            ->inRandomOrder()
             ->get();
 
 
