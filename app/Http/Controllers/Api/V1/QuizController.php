@@ -23,10 +23,14 @@ class QuizController
 
     public function show($slug)
     {
+
+        $syllabus = Syllabu::where('slug', $slug)->firstOrFail();
+
+
         $questions = Question::with(['theme', 'video'])
-            ->whereHas('theme', function ($query) use ($slug) {
-                $query->where('slug', $slug);
-            })
+            ->whereHas('theme', fn($query) =>
+            $query->where('syllabu_id', $syllabus->id)
+            )
             ->inRandomOrder()
             ->get();
 

@@ -12,7 +12,7 @@ class QuestionResource extends JsonResource
         return [
             'id'            => $this->id,
             'slug'          => $this->syllabus->slug ?? '',
-            'theme'         => $this->themes ?? '',
+            'theme'         => $this->theme->title ?? '',
             'question_text' => $this->question_text ?? '',
             'type'          => $this->type ?? '',
             'video'         => isset($this->video->url)

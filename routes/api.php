@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\LettersController;
 use App\Http\Controllers\Api\V1\MemoryGameController;
 use App\Http\Controllers\Api\V1\PlanController;
+use App\Http\Controllers\Api\V1\ProgressController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\QuizResultController;
 use App\Http\Controllers\Api\V1\SectionController;
@@ -56,7 +57,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/themes/{theme}/{slug}/{id}', [ThemeController::class, 'video']);
     Route::get('/spellings', [SpellingController::class, 'index']);
     Route::get('/questions', [QuizController::class, 'index']);
-    Route::get('/questions/{slug}', [QuizController::class, 'show']);
+    Route::get('/questions/{theme}/{slug}', [QuizController::class, 'show']);
     Route::get('/dictionnaire', [DictionaryController::class, 'index']);
     Route::get('/dictionnaire/{id}', [DictionaryController::class, 'show']);
     Route::post('/quiz-results', [QuizResultController::class, 'store']);
@@ -65,6 +66,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/quiz-results/{user_id}/total', [QuizResultController::class, 'total']);
     Route::get('/quiz-results/ranking/daily', [QuizResultController::class, 'rankingDaily']);
     Route::get('/quiz-results/ranking/total', [QuizResultController::class, 'rankingTotal']);
+    Route::get('/syllabus-progress/{user_id}', [ProgressController::class, 'index']);
+
     Route::get('/plans', [PlanController::class, 'index']);
     Route::get('/plans/{id}', [PlanController::class, 'show']);
     Route::post('/subscriptions', [SubscriptionController::class, 'store']);
