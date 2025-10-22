@@ -25,6 +25,10 @@ class AuthController extends Controller
 
         $user = User::firstWhere('email', $request->email);
 
+        if (!$user->code && $user->verification_code) {
+            return $this->error('Your account is not verified. Please check your email.', 403);
+        }
+
         return $this->ok(
             'Authenticated',
             [
@@ -46,27 +50,89 @@ class AuthController extends Controller
 
     public function register(Request $request): JsonResponse
     {
-
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'in:etudiant,admin,enseignant',
-            'is_active' => 'boolean'
-
         ]);
 
+        // Generar código aleatorio de 6 dígitos
+        $verificationCode = rand(100000, 999999);
 
-        User::create([
+        // Crear el usuario con estado inactivo
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'etudiant',
-            'is_active' => 0
+            'is_active' => 0,
+            'verification_code' => $verificationCode,
         ]);
 
-        return $this->ok('Register successful');
+        // Enviar el correo con el código de verificación
+        try {
+            \Mail::raw(
+                "Bonjour {$user->name},\n\nVotre code de vérification est : {$verificationCode}",
+                function ($message) use ($user) {
+                    $message->to($user->email)
+                        ->subject('Vérification de votre compte');
+                }
+            );
+        } catch (\Exception $e) {
+            return $this->error('Échec de l’envoi du code de vérification : ' . $e->getMessage(), 500);
+        }
+
+        return $this->ok('Utilisateur enregistré. Vérifiez votre email pour le code de validation.');
+    }
+
+
+    public function verifyCode(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email',
+
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        // Enviar el correo con el código de verificación
+        try {
+            \Mail::raw(
+                "Bonjour {$user->name},\n\nVotre code de vérification est : {$user->verification_code}",
+                function ($message) use ($user) {
+                    $message->to($user->email)
+                        ->subject('Vérification de votre compte');
+                }
+            );
+        } catch (\Exception $e) {
+            return $this->error('Échec de l’envoi du code de vérification : ' . $e->getMessage(), 500);
+        }
+
+        return $this->ok('Resend code:', $user->verification_code);
+
+    }
+
+    public function verifyEmail(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'code' => 'required|string|size:6',
+        ]);
+
+        $user = User::where('email', $request->email)
+            ->where('verification_code', $request->code)
+            ->first();
+
+        if (!$user) {
+            return $this->error('Code de vérification invalide.', 422);
+        }
+
+        $user->update([
+            'is_active' => 1,
+            'verification_code' => null,
+        ]);
+
+        return $this->ok('Votre compte a été vérifié avec succès. Vous pouvez maintenant vous connecter.');
     }
 
     public function user(Request $request): JsonResponse
