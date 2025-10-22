@@ -102,5 +102,21 @@ class QuizResultController extends Controller
         ]);
     }
 
+    public function check($userId,$slug,$slug_theme,$type)
+    {
+        $results = QuizResult::where([
+            'user_id'  => $userId,
+            'syllabus' => $slug,
+            'theme'    => $slug_theme,
+            'type'     => $type,
+        ])->get();
+
+        return response()->json([
+            'data' => $results,
+            'exists' => $results->isNotEmpty(),
+        ]);
+
+    }
+
 
 }

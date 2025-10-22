@@ -57,11 +57,12 @@ Route::prefix('v1')->group(function () {
     Route::get('/themes/{theme}/{slug}/{id}', [ThemeController::class, 'video']);
     Route::get('/spellings', [SpellingController::class, 'index']);
     Route::get('/questions', [QuizController::class, 'index']);
-    Route::get('/questions/{theme}/{slug}', [QuizController::class, 'show']);
+    Route::get('/questions/{slug}/{theme}', [QuizController::class, 'show']);
     Route::get('/dictionnaire', [DictionaryController::class, 'index']);
     Route::get('/dictionnaire/{id}', [DictionaryController::class, 'show']);
     Route::post('/quiz-results', [QuizResultController::class, 'store']);
     Route::get('/quiz-results/{user_id}', [QuizResultController::class, 'show']);
+    Route::get('/quiz-results/check/{user_id}/{slug}/{slug_theme}/{type}', [QuizResultController::class, 'check']);
     Route::get('/quiz-results/{user_id}/daily', [QuizResultController::class, 'participationDays']);
     Route::get('/quiz-results/{user_id}/total', [QuizResultController::class, 'total']);
     Route::get('/quiz-results/ranking/daily', [QuizResultController::class, 'rankingDaily']);
