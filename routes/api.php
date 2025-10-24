@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UsersController;
+use App\Http\Controllers\Api\V1\VerifyCodeController;
 use App\Http\Controllers\Api\V1\VideoQuizItemController;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -57,6 +58,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/themes/{theme}', [ThemeController::class, 'show']);
     Route::get('/themes/{theme}/{slug}', [ThemeController::class, 'theme']);
     Route::get('/themes/{theme}/{slug}/{id}', [ThemeController::class, 'video']);
+    Route::get('/verify-codes/{user}', [VerifyCodeController::class, 'index']);
     Route::get('/spellings', [SpellingController::class, 'index']);
     Route::get('/questions', [QuizController::class, 'index']);
     Route::get('/questions/{slug}/{theme}', [QuizController::class, 'show']);

@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('video_quiz_items');
         Schema::create('video_quiz_items', function (Blueprint $table) {
             $table->id();
             $table->string('title'); // Ejemplo: "Saludo en LESCO"
@@ -19,6 +18,7 @@ return new class extends Migration
             $table->string('question'); // Pregunta
             $table->json('options'); // Respuestas posibles
             $table->string('correct_answer'); // Respuesta correcta
+            $table->boolean('active')->default(true);
             $table->foreignId('syllabu_id')->nullable()->constrained('syllabus')->onDelete('cascade');
             $table->foreignId('theme_id')->nullable()->constrained('themes')->onDelete('cascade');
             $table->timestamps();
