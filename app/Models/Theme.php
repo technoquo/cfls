@@ -3,17 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Theme extends Model
 {
+    protected $fillable = [
+        'title',
+        'slug',
+        'image',
+        'syllabu_id',
+    ];
 
-    public function syllabus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function syllabus(): BelongsTo
     {
         return $this->belongsTo(Syllabu::class, 'syllabu_id');
     }
 
-    public function videos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function videos(): HasMany
     {
-        return $this->hasMany(VideoTheme::class, 'theme_id');
+        return $this->hasMany(VideoTheme::class, 'theme_id')
+            ->where('active', 1)
+            ->orderBy('title', 'asc');
     }
+
+
 }

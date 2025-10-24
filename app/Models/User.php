@@ -38,6 +38,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'email',
         'password',
         'is_active',
+        'verification_code',
         'telephone',
         'address',
         'ville',
@@ -116,6 +117,15 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     {
         return $this->hasMany(\App\Models\BookCode::class);
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class)->where('status', 'active');
+    }
+
+
+
+
 
 
 }

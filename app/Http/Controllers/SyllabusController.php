@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Syllabu;
+use App\Models\Theme;
 use App\Models\VerifyCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,6 +160,8 @@ class SyllabusController extends Controller
 
         return view('syllabus.show', compact('syllabu', 'themeModel', 'videos'));
     }
+
+
 
     /* ======================== helpers ======================== */
 

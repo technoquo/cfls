@@ -17,4 +17,9 @@ class VideoTheme extends Model
     {
         return $this->belongsTo(Theme::class, 'theme_id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }
