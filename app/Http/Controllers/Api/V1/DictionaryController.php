@@ -13,15 +13,28 @@ class DictionaryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $signs = VideoTheme::where('active', true)
-            ->orderBy('title', 'asc')
-            ->get();
+        $letter  = $request->query('letter');
+        $search  = $request->query('search');
+        $perPage = $request->query('per_page');
 
+        $query = VideoTheme::where('active', true);
+
+        // 🔍 Si hay búsqueda, la letra NO aplica (search domina)
+        if ($search) {
+            $query->where('title', 'LIKE', "%{$search}%");
+        } elseif ($letter) {
+            $query->whereRaw("UPPER(SUBSTRING(title, 1, 1)) = ?", [strtoupper($letter)]);
+        }
+
+        $query->orderBy('title', 'asc');
+
+        $signs = $perPage ? $query->paginate((int)$perPage) : $query->get();
 
         return DictionaryResource::collection($signs);
     }
+
 
     /**
      * Show the form for creating a new resource.
