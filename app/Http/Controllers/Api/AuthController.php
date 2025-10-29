@@ -71,13 +71,8 @@ class AuthController extends Controller
 
         // Enviar el correo con el código de verificación
         try {
-            \Mail::raw(
-                "Bonjour {$user->name},\n\nVotre code de vérification est : {$verificationCode}",
-                function ($message) use ($user) {
-                    $message->to($user->email)
-                        ->subject('Vérification de votre compte');
-                }
-            );
+            \Mail::to($user->email)->send(new \App\Mail\VerificationCodeMail($user, $verificationCode));
+
         } catch (\Exception $e) {
             return $this->error('Échec de l’envoi du code de vérification : ' . $e->getMessage(), 500);
         }
@@ -97,13 +92,8 @@ class AuthController extends Controller
 
         // Enviar el correo con el código de verificación
         try {
-            \Mail::raw(
-                "Bonjour {$user->name},\n\nVotre code de vérification est : {$user->verification_code}",
-                function ($message) use ($user) {
-                    $message->to($user->email)
-                        ->subject('Vérification de votre compte');
-                }
-            );
+            \Mail::to($user->email)->send(new \App\Mail\VerificationCodeMail($user, $user->verification_code));
+           
         } catch (\Exception $e) {
             return $this->error('Échec de l’envoi du code de vérification : ' . $e->getMessage(), 500);
         }
