@@ -18,13 +18,28 @@ class QuestionResource extends JsonResource
             'video'         => isset($this->video->url)
                 ? urldecode(pathinfo($this->video->url, PATHINFO_FILENAME))
                 : null,
-            'options' => collect($this->options ?? [])->map(function ($option) {
-                if (isset($option['video'])) {
-                    $option['video'] = urldecode(pathinfo($option['video'], PATHINFO_FILENAME));
-                }
-                return $option;
-            })->toArray(),
+            'options'       => $this->formatOptions(),
             'answer'        => $this->answer ?? '',
         ];
+    }
+
+    private function formatOptions()
+    {
+        // Normalizar en caso de que venga en string JSON
+        $options = is_array($this->options)
+            ? $this->options
+            : json_decode($this->options, true);
+
+        if ($this->type === 'choice') {
+            return $options;
+        }
+
+        // Si es un tipo que tiene video dentro de cada opción
+        return collect($options)->map(function ($option) {
+            if (isset($option['video'])) {
+                $option['video'] = urldecode(pathinfo($option['video'], PATHINFO_FILENAME));
+            }
+            return $option;
+        })->toArray();
     }
 }

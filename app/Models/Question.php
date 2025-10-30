@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Syllabu;
+use App\Models\Theme;
+use App\Models\VideoTheme;
+
 
 class Question extends Model
 {
@@ -15,6 +19,8 @@ class Question extends Model
         'options',
         'answer'
     ];
+
+    public $timestamps = true;
 
     protected $casts = [
         'options' => 'array', // convierte JSON a array automáticamente
