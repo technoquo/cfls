@@ -6,6 +6,7 @@ use App\Enums\Roles;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use MatchQuestionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VideoQuizSeeder::class);
         $this->call(QuestionsSeeder::class);
         $this->call(WordsSeeder::class);
+        $this->call(MatchQuestionSeeder::class);
 
         // User::factory(10)->create();
 

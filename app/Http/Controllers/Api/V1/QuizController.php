@@ -25,6 +25,7 @@ class QuizController
     {
 
 
+
         $syllabus = Syllabu::where('slug', $slug)->firstOrFail();
 
 

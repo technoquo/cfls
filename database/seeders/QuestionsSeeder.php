@@ -9,7 +9,7 @@ class QuestionsSeeder extends Seeder
 {
     public function run(): void
     {
-        $path = storage_path('app/data/questions_theme2_dynamic_fixed.json');
+        $path = storage_path('app/public/app/data/questions_match_updated.json');
 
         if (!file_exists($path)) {
             $this->command->error("❌ No se encontró el archivo JSON: {$path}");
