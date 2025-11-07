@@ -6,9 +6,18 @@
 
             {{-- Note informative --}}
             <div class="mb-4 p-3 bg-yellow-100 text-yellow-800 text-sm rounded-lg">
-                Pour obtenir le code, veuillez en faire la demande par email à
+                Vous trouverez votre code unique à l'intérieur de la couverture arrière de votre syllabus.
+                Si il ne s'y trouve pas, veuillez en faire la demande par mail à
                 <a href="mailto:info@cfls.be" class="font-semibold underline">info@cfls.be</a>
-                en joignant le justificatif de paiement avec votre nom complet et votre adresse e-mail.
+                en joignant la preuve de votre commande.
+            </div>
+
+            {{-- Lien vers le tutoriel vidéo --}}
+            <div class="mb-6 text-center">
+                <a href="https://www.facebook.com/share/v/1BepzAgdKA/" target="_blank"
+                   class="font-medium no-underline">
+                    🎥 Voir le tutoriel vidéo
+                </a>
             </div>
 
             @if ($errors->any())
@@ -21,21 +30,19 @@
                 </div>
             @endif
 
-            <form action="{{route('code-livre.store')}}" method="POST" class="space-y-4">
+            <form action="{{ route('code-livre.store') }}" method="POST" class="space-y-4">
                 @csrf
-                <input
-                    type="hidden"
-                    id="slug"
-                    name="slug"
-                    value="{{ old('slug', $slug ?? '') }}"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
-           focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+                <input type="hidden" id="slug" name="slug" value="{{ old('slug', $slug ?? '') }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                              focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+
                 <div>
                     <label for="code_livre" class="block text-sm font-medium text-gray-700">
                         Code du livre
                     </label>
                     <input type="text" name="code_livre" id="code_livre"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                                  focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                            placeholder="Exemple : LIV12345">
                 </div>
 
