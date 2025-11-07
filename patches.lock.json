@@ -1,0 +1,17 @@
+{
+    "_hash": "cb752ab9190ece4249a217db6745a7e8af57d0c37f947aad723d13e2df34b20a",
+    "patches": {
+        "mironovdv/crossword": [
+            {
+                "package": "mironovdv/crossword",
+                "description": "Fix PHP syntax error in Field.php",
+                "url": "patches/fix-crossword-syntax.patch",
+                "sha256": "d69db3a112f5832067df7169b2f88352c533017b4e556eb6c4efc93ff804daa4",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\V1\CrosswordController;
 use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\LettersController;
 use App\Http\Controllers\Api\V1\MemoryGameController;
@@ -85,5 +86,6 @@ Route::prefix('v1')->group(function () {
     Route::get('/spell/{id}', [SpellController::class, 'spell']);
     Route::get('/letters', [LettersController::class, 'index']);
     Route::get('/video-quiz/{syllabu}/{theme}', [VideoQuizItemController::class, 'index']);
+    Route::get('/crossword', [CrosswordController::class, 'index']);
 
 });
