@@ -12,8 +12,7 @@ class CrosswordController extends Controller
 {
     public function index(Request $request)
     {
-        // Parámetros opcionales
-        $limit  = $request->query('limit', 6);
+        $limit  = 9;
         $size_x = $request->query('size_x', 15);
         $size_y = $request->query('size_y', 15);
 
@@ -45,25 +44,37 @@ class CrosswordController extends Controller
             ], 500);
         }
 
-        // 4️⃣ Convertir la matriz visual
+        // 4️⃣ Matriz visual
         $board = $crossword->toArray();
 
         // 5️⃣ Convertir datos de cada palabra colocada
         $wordsPlaced = $crossword->getWords();
         $enrichedWords = [];
 
-        foreach ($wordsPlaced as $wordObject) {
-            $wordsArray = json_decode(json_encode($wordObject), true);
-            $text = $wordsArray['text'] ?? null;
+        foreach ($wordsPlaced as $index => $wordObject) {
+            $text = $wordObject->getWord();
+            if (!$text) continue;
 
-            if (!$text) {
-                continue;
-            }
+            $baseCol = $wordObject->getBaseColumn();
+            $baseRow = $wordObject->getBaseRow();
 
-            $wordsArray['clue'] = $clues[$text] ?? 'Pista no disponible.';
-            $enrichedWords[] = $wordsArray;
+            $x = (!is_null($baseCol) && method_exists($baseCol, 'getIndex')) ? $baseCol->getIndex() : (is_numeric($baseCol) ? $baseCol : 0);
+            $y = (!is_null($baseRow) && method_exists($baseRow, 'getIndex')) ? $baseRow->getIndex() : (is_numeric($baseRow) ? $baseRow : 0);
+
+            // 💡 Mezcla automática según índice
+            $orientation = $index % 2 === 0 ? 'across' : 'down';
+
+            $enrichedWords[] = [
+                'text' => $text,
+                'clue' => asset('img/'. $clues[$text]) ?? '',
+                'x' => $x,
+                'y' => $y,
+                'orientation' => $orientation,
+            ];
         }
 
+
+        // 6️⃣ Respuesta final
         return response()->json([
             'success' => true,
             'board' => $board,
