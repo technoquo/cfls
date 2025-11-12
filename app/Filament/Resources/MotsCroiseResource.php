@@ -29,22 +29,22 @@ class MotsCroiseResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('code_vimeo')
-                    ->required()
+                   // ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image_mot')
-                    ->image()
-                    ->required(),
+                    ->image(),
+                  //  ->required(),
                 Forms\Components\FileUpload::make('image_solution')
-                    ->image()
-                    ->required(),
+                    ->image(),
+                   // ->required(),
                 Forms\Components\FileUpload::make('pdf')
                     ->label('PDF')
-                    ->required()
+                   // ->required()
                     ->acceptedFileTypes(['application/pdf'])
                     ->maxSize(1024),
                 Forms\Components\FileUpload::make('pdf_solution')
                     ->label('PDF Solution')
-                    ->required()
+                  //  ->required()
                     ->acceptedFileTypes(['application/pdf'])
                     ->maxSize(1024),
                 Forms\Components\Toggle::make('status')

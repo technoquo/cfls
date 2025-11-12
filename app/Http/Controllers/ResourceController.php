@@ -35,7 +35,9 @@ class ResourceController extends Controller
 //                              ->get();
 //                    break;
                 case 'mots-croises':
-                    $videos = MotsCroise::where('status', 1)->get();;
+                    $videos = MotsCroise::where('status', 1)
+                        ->orderBy('created_at', 'desc')
+                        ->get();;
                     break;
                 default:
                     abort(404);

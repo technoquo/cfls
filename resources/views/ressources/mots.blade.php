@@ -73,14 +73,18 @@
                             class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Mots croisés
                     </button>
+                    @if($croise->pdf_solution)
                     <button @click="active = 'solutions'"
                             class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Solutions
                     </button>
+                    @endif
+                    @if($publicId)
                     <button @click="active = 'solutions-signees'"
                             class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Solutions signées
                     </button>
+                    @endif
                 </div>
             </div>
         @endforeach
