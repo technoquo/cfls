@@ -30,7 +30,7 @@ class VideoController extends Controller
 
         $response = $search->expression("resource_type:video AND folder:\"$folderPath\"")
             ->sortBy('created_at','desc')
-            ->maxResults(200)
+            ->maxResults(250)
             ->execute();
         foreach ($response['resources'] as $video) {
             DB::table('video_themes_cloudinary')->insert([
