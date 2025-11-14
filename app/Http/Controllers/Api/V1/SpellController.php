@@ -7,7 +7,7 @@ use App\Http\Resources\V1\WordsResource;
 use App\Models\Syllabu;
 use App\Models\Theme;
 use Illuminate\Http\Request;
-use App\Models\Word;
+use App\Models\WordCross;
 use App\Models\Letter;
 
 class SpellController extends Controller
@@ -18,7 +18,7 @@ class SpellController extends Controller
         $syllabus = Syllabu::where('slug', $syllabu)->first();
 
 
-        $words = Word::select('id', 'name', 'video_theme_cloudinary_id')
+        $words = WordCross::select('id', 'name', 'video_theme_cloudinary_id')
             ->where('theme_id', $theme->id)
             ->where('syllabu_id', $syllabus->id)
             ->whereActive(true)
@@ -32,7 +32,7 @@ class SpellController extends Controller
 
     public function spell($id)
     {
-        $word = Word::findOrFail($id);
+        $word = WordCross::findOrFail($id);
         $letters = preg_split('//u', $word->name, -1, PREG_SPLIT_NO_EMPTY);
         $result = [];
 

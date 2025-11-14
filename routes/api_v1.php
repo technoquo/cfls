@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\V1\CrosswordController;
 use App\Http\Controllers\Api\V1\DictionaryController;
 use App\Http\Controllers\Api\V1\LettersController;
 use App\Http\Controllers\Api\V1\MemoryGameController;
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->apiResource('plans', PlanController::class);
 Route::middleware('auth:sanctum')->apiResource('subscriptions', SubscriptionController::class);
 Route::middleware('auth:sanctum')->apiResource('memory-game', MemoryGameController::class);
 Route::middleware('auth:sanctum')->apiResource('letters', LettersController::class);
+Route::middleware('auth:sanctum')->apiResource('crosswords', CrosswordController::class);
 
 
 Route::get('/user', function (Request $request) {

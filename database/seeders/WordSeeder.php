@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Word;
+use App\Models\WordCross;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +20,7 @@ class WordSeeder extends Seeder
         ];
 
         foreach ($words as $w) {
-            Word::updateOrCreate(['name' => $w['name']], $w);
+            WordCross::updateOrCreate(['name' => $w['name']], $w);
         }
     }
 }
