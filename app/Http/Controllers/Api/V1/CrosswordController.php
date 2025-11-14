@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryMotCross;
 use App\Models\WordCross;
 use Illuminate\Http\Request;
 use Crossword\Crossword;
@@ -12,15 +13,22 @@ class CrosswordController extends Controller
 {
     public function index(Request $request)
     {
-        $limit  = 9;
-        $size_x = $request->query('size_x', 15);
-        $size_y = $request->query('size_y', 15);
+        $limit  = $request->query('limit', 6);
+        $size_x = $request->query('size_x', 9);
+        $size_y = $request->query('size_y', 9);
 
+
+        $totalCategorias = WordCross::distinct('category_mot_crosses_id')
+            ->count('category_mot_crosses_id');
+        $num_aleatorio = rand(1, $totalCategorias);
+        $categoria = CategoryMotCross::find($num_aleatorio);
+        $nombreCategoria = $categoria ? $categoria->name : null;
         // 1️⃣ Seleccionar palabras aleatorias
         $dbWords = WordCross::inRandomOrder()
+            ->where('category_mot_crosses_id', $num_aleatorio) // palabras comunes
             ->limit((int)$limit)
             ->orderBy('length', 'desc')
-            ->get();
+            ->get(['text', 'clue']); // usamos clue como imagen
 
         if ($dbWords->isEmpty()) {
             return response()->json([
@@ -29,9 +37,8 @@ class CrosswordController extends Controller
             ], 404);
         }
 
-        // 2️⃣ Preparar palabras y pistas
+        // 2️⃣ Preparar palabras
         $wordsForGenerator = $dbWords->pluck('text')->toArray();
-        $clues = $dbWords->pluck('clue', 'text')->toArray();
 
         // 3️⃣ Generar crucigrama
         $crossword = new Crossword($size_x, $size_y, $wordsForGenerator);
@@ -47,7 +54,7 @@ class CrosswordController extends Controller
         // 4️⃣ Matriz visual
         $board = $crossword->toArray();
 
-        // 5️⃣ Convertir datos de cada palabra colocada
+        // 5️⃣ Obtener palabras colocadas
         $wordsPlaced = $crossword->getWords();
         $enrichedWords = [];
 
@@ -58,28 +65,46 @@ class CrosswordController extends Controller
             $baseCol = $wordObject->getBaseColumn();
             $baseRow = $wordObject->getBaseRow();
 
-            $x = (!is_null($baseCol) && method_exists($baseCol, 'getIndex')) ? $baseCol->getIndex() : (is_numeric($baseCol) ? $baseCol : 0);
-            $y = (!is_null($baseRow) && method_exists($baseRow, 'getIndex')) ? $baseRow->getIndex() : (is_numeric($baseRow) ? $baseRow : 0);
+            $x = (!is_null($baseCol) && method_exists($baseCol, 'getIndex'))
+                ? $baseCol->getIndex()
+                : (is_numeric($baseCol) ? $baseCol : 0);
 
-            // 💡 Mezcla automática según índice
+            $y = (!is_null($baseRow) && method_exists($baseRow, 'getIndex'))
+                ? $baseRow->getIndex()
+                : (is_numeric($baseRow) ? $baseRow : 0);
+
+            // Alternar orientación
             $orientation = $index % 2 === 0 ? 'across' : 'down';
 
+            // Obtener la pista (que en este caso es la URL o nombre del archivo)
+            $wordData = $dbWords->firstWhere('text', $text);
+            $clueValue = $wordData ? $wordData->clue : null;
+
+            // Si el valor no empieza con "http", asumimos que es nombre de archivo local
+            if ($clueValue && !str_starts_with($clueValue, 'http')) {
+                $clueValue = asset('img/' . $clueValue);
+            }
+
             $enrichedWords[] = [
-                'text' => $text,
-                'clue' => asset('img/'. $clues[$text]) ?? '',
+                'word' => $text,
+                'clue' => $clueValue ?? asset('img/default.png'),
                 'x' => $x,
                 'y' => $y,
                 'orientation' => $orientation,
             ];
         }
 
+        // 6️⃣ Solo mostrar 5 clues
+        $limitedWords = array_slice($enrichedWords, 0, 5);
 
-        // 6️⃣ Respuesta final
+        // 7️⃣ Respuesta final
         return response()->json([
             'success' => true,
+            'message' => 'Crucigrama generado correctamente.',
             'board' => $board,
-            'words' => $enrichedWords,
-            'total_words' => count($enrichedWords)
+            'clues' => $limitedWords,
+            'category_name' => $nombreCategoria,
+            'total_words' => count($limitedWords)
         ]);
     }
 }
