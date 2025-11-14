@@ -1,13 +1,13 @@
---- Field.broken	2025-11-06 12:02:23.996892200 +0100
-+++ vendor/mironovdv/crossword/src/Crossword/Field.php	2025-11-06 12:03:08.760351400 +0100
+--- a/src/Crossword/Field.php
++++ b/src/Crossword/Field.php
 @@ -2,8 +2,8 @@
- 
+
  namespace Crossword;
- 
+
 -use\Crossword\Line\Column;
 -use\Crossword\Line\Row;
 +use Crossword\Line\Column;
 +use Crossword\Line\Row;
- 
+
  /**
   * Поле кроссворда

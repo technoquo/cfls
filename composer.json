@@ -68,11 +68,11 @@
         "laravel": {
             "dont-discover": []
         },
-        "patches": {
-            "mironovdv/crossword": {
-                "Fix PHP syntax error in Field.php": "patches/fix-crossword-syntax.patch"
-            }
+      "patches": {
+        "mironovdv/crossword": {
+            "Fix PHP syntax errors in Field.php": "patches/fix-crossword-syntax.patch"
         }
+      }
     },
     "config": {
         "optimize-autoloader": true,
