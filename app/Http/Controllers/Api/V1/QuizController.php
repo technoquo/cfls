@@ -11,6 +11,7 @@ class QuizController
     public function index()
     {
         $questions = Question::with('video')
+
 //            ->inRandomOrder()
 //            ->take(5)
             ->get();
@@ -34,8 +35,11 @@ class QuizController
             $query->where('syllabu_id', $syllabus->id)
                    ->where('slug', $theme)
             )
+
           //  ->inRandomOrder()
             ->get();
+
+
 
         return QuestionResource::collection($questions);
     }
