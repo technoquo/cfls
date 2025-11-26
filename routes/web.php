@@ -70,6 +70,54 @@ Route::get('ue1-themes-11/a-bientôt', fn() => redirect()->away('https://cfls.be
 
 // Cloudinary (libre)
 Route::get('/cloudinary/get-video', [VideoController::class, 'getAllVideos']);
+Route::get('/fix-match-clean', function () {
+
+    $questions = \App\Models\Question::where('syllabu_id', 3)
+        ->where('type', 'match')
+        ->get();
+
+    foreach ($questions as $q) {
+
+        $raw = $q->options;
+
+        // Si viene doblemente escapado, decodifica:
+        $decoded = json_decode($raw, true);
+
+        // Si no decodifica porque estaba doble-encoded
+        if (!is_array($decoded)) {
+            // intenta decodificar una vez más
+            $decoded = json_decode(stripslashes($raw), true);
+        }
+
+        // Si sigue sin funcionar, saltamos
+        if (!is_array($decoded)) {
+            continue;
+        }
+
+        // Ahora decodificado correctamente → volver a formatear
+        $clean = [];
+
+        foreach ($decoded as $item) {
+
+            $clean[] = [
+                'word'  => $item['word'] ?? null,
+                'video' => str_replace('http://', 'https://', $item['video'] ?? null),
+            ];
+        }
+
+        // Guardar en formato PERFECTO:
+        $q->options = json_encode(
+            $clean,
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
+
+        $q->save();
+    }
+
+    return "✔ Estructura corregida SIN comillas escapadas ni \\";
+});
+
+
 
 // Syllabus Routes (librest)
 //Route::middleware(['auth', 'single.session'])->group(function () {
@@ -96,3 +144,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.confirmation');
+
+
+

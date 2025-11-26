@@ -30,11 +30,13 @@ class QuizController
         $syllabus = Syllabu::where('slug', $slug)->firstOrFail();
 
 
+
         $questions = Question::with(['theme', 'video'])
             ->whereHas('theme', fn($query) =>
             $query->where('syllabu_id', $syllabus->id)
                    ->where('slug', $theme)
             )
+            ->where('type', 'match')
 
           //  ->inRandomOrder()
             ->get();
