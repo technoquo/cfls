@@ -34,6 +34,9 @@ class CompanyResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label('Logo de la société'),
+                Forms\Components\FileUpload::make('image_event')
+                    ->image()
+                    ->label('Logo de la société'),
                 Forms\Components\Textarea::make('description')
                     ->label('Description de la société')
                     ->columnSpanFull(),

@@ -31,7 +31,7 @@ class SyllabusController extends Controller
     /** Lista de syllabus activos. */
     public function index()
     {
-        $syllabus = Syllabu::where('status', 1)->get();
+        $syllabus = Syllabu::all();
         return view('syllabus.index', compact('syllabus'));
     }
 

@@ -20,7 +20,8 @@ class VerifyCodeResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'user_id' => $this->user_id,
-                'theme' => $this->theme
+                'theme' => $this->theme,
+                'active' => $this->active,
 
             ]
         ];

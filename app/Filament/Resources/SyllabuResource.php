@@ -47,6 +47,8 @@ class SyllabuResource extends Resource
                 Forms\Components\Toggle::make('status')
                     ->label('Statut')
                     ->required(),
+                Forms\Components\TextInput::make('link')
+                    ->label('Lien')
             ]);
     }
 

@@ -2,7 +2,8 @@
     <div class="flex justify-between items-center px-4 py-2 max-w-7xl mx-auto">
     <!-- Logo -->
     <a wire:navigate href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img class="object-contain w-16 sm:w-20 h-auto" src="{{ asset('storage/' . $logo) }}" alt="CFLS Logo" />
+{{--        <img class="object-contain w-16 sm:w-20 h-auto" src="{{ asset('storage/' . $logo) }}" alt="CFLS Logo" />--}}
+        <img class="object-contain md:w-32 w-28 h-auto " src="{{ asset('storage/' . $logo) }}" alt="CFLS Logo" />
     </a>
 
     <!-- Redes sociales + switch + login/logout -->
