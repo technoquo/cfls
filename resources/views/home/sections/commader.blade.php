@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.core.min.css">
 @endpush
 
+
 <section class="bg-white dark:bg-gray-900 mb-4">
     <div class="max-w-screen-2xl mx-auto px-4 py-12 space-y-8">
 
@@ -24,8 +25,7 @@
             {!! $data->description !!}
         </div>
     </div>
-
-
+    <x-specials.calendaravdient />
     <div class="glide max-w-screen-2xl px-4 pt-12 pb-8 mx-auto lg:pt-16" x-data x-init="initGlide($el)">
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
@@ -81,6 +81,7 @@
     </div>
 </section>
 
+
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/glide.min.js"></script>
     <script>
@@ -123,5 +124,8 @@
         document.addEventListener('livewire:navigated', () => {
             document.querySelectorAll('.glide').forEach(initGlide);
         });
+
+
+
     </script>
 @endpush
