@@ -110,6 +110,28 @@
                     </div>
                 </template>
 
+                <!-- SI HAY VIDEO DE INSTAGRAM -->
+                <template x-if="videoDisponible(selectedDay) && useInstagramVideo(selectedDay)">
+                    <div class="w-full flex justify-center relative">
+
+                        <!-- LOADER -->
+                        <div
+                                x-show="loading"
+                                class="absolute inset-0 flex items-center justify-center bg-white/40 dark:bg-black/40 backdrop-blur-md rounded-xl z-20"
+                        >
+                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
+                        </div>
+
+                        <!-- IFRAME INSTAGRAM -->
+                        <iframe
+                                x-ref="igframe"
+                                class="h-[600px] w-[350px] rounded-xl shadow-lg"
+                                :src="instagramEmbed(selectedDay)"
+                                allowfullscreen
+                        ></iframe>
+                    </div>
+                </template>
+
 
 
 
@@ -140,7 +162,7 @@
                     2: "https://www.facebook.com/facebook/videos/1974780879746382/",
                     3: "https://www.facebook.com/facebook/videos/827793526536110/",
                     4: "https://www.facebook.com/facebook/videos/844559214964440/",
-                    5: "",
+                    5: "https://www.instagram.com/reel/DR4N5YujJRA",
                     6: "",
                     7: "",
                     8: "",
@@ -196,6 +218,7 @@
                             this.$refs.fbframe?.addEventListener("load", () => {
                                 this.loading = false;   // 🎉 Video cargó, quitamos loader
                             });
+                            this.$refs.igframe?.addEventListener("load", () => this.loading = false);
                         });
 
                         document.body.classList.add("overflow-hidden");
@@ -215,6 +238,13 @@
                     return "https://www.facebook.com/plugins/video.php?href=" +
                         encodeURIComponent(url) +
                         "&show_text=0&autoplay=1";
+                },
+                useInstagramVideo(day) {
+                    return this.videos[day]?.includes("instagram.com");
+                },
+                instagramEmbed(day) {
+                    const url = this.videos[day];
+                    return `https://www.instagram.com/reel/${url.split("/reel/")[1]}/embed`;
                 },
                 videoDisponible(day) {
                     return !!this.videos[day];
