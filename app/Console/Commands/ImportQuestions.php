@@ -15,7 +15,7 @@ class ImportQuestions extends Command
     {
         $this->info("Leyendo archivo...");
 
-        $filePath = storage_path('app/data/modificado.json');
+        $filePath = storage_path('app/data/questions_game_auto.json');
         
         if (!file_exists($filePath)) {
             $this->error("Error: el archivo no existe en " . $filePath);
@@ -55,8 +55,8 @@ class ImportQuestions extends Command
                     'type'          => $q['type'],
                     'options'       => $q['options'],
                     'answer'        => $q['answer'],
-                    'created_at'    => $q['created_at'],
-                    'updated_at'    => $q['updated_at'],
+                    'created_at'    => now(),
+                    'updated_at'    => now(),
                 ]);
             }
 
