@@ -15,7 +15,13 @@ class ImportQuestions extends Command
     {
         $this->info("Leyendo archivo...");
 
-        $filePath = storage_path('app/data/questions_game_auto.json');
+        if (app()->environment('local')) {
+            // 📌 Ruta en tu PC Windows / Mac
+            $filePath = storage_path('app/data/questions_game_auto.json');
+        } else {
+            // 🌍 Ruta en servidor/cloud (NO en public_html)
+            $filePath = base_path('storage/app/data/questions_game_auto.json');
+        }
         
         if (!file_exists($filePath)) {
             $this->error("Error: el archivo no existe en " . $filePath);
