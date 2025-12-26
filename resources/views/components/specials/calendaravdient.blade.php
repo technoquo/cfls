@@ -182,7 +182,7 @@
                     22: "https://www.facebook.com/facebook/videos/1423485942525272",
                     23: "https://www.facebook.com/facebook/videos/818282581247715",
                     24: "https://www.instagram.com/reel/DSpPTnqDNv7",
-                    25: "",
+                    25: "https://www.facebook.com/facebook/videos/1381189613753480",
                 },
 
                 icons: {
