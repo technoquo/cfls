@@ -7,11 +7,7 @@
     @close="isOpen = false"
 >
 
-    <div class="p-4 text-center text-lg font-medium text-gray-800 dark:text-gray-200 bg-yellow-50 dark:bg-yellow-900/40 rounded-lg border border-yellow-300 dark:border-yellow-700 mb-10">
-        ⚠️ Les commandes passées et réglées <strong>après le 19 décembre 2025</strong>
-        seront traitées et expédiées à partir du <strong>5 janvier 2026</strong>.<br>
-        🎄 Nous vous souhaitons de très belles fêtes de fin d’année !
-    </div>
+
 
     <form class="max-w-sm mx-auto justify-end mb-6">
         <label for="products" class="block mb-2 font-medium text-gray-900 dark:text-white text-2xl text-center">
