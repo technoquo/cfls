@@ -36,7 +36,7 @@ class QuizController
             $query->where('syllabu_id', $syllabus->id)
                    ->where('slug', $theme)
             )
-           ->where('type', 'match')
+           ->where('type', 'choice')
 
           //  ->inRandomOrder()
             ->get();
