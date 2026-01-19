@@ -36,7 +36,7 @@ class QuizController
             $query->where('syllabu_id', $syllabus->id)
                    ->where('slug', $theme)
             )
-           ->where('type', 'video-choice')
+           ->where('type', 'match')
 
           //  ->inRandomOrder()
             ->get();
