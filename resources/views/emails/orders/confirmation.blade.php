@@ -123,12 +123,29 @@
                             💰 Résumé
                         </h2>
                         <table style="width: 100%; font-size: 14px; color: #374151; margin-bottom: 20px;">
-                            <tr>
-                                <td style="padding: 5px 0;">Sous-total produits</td>
-                                <td style="padding: 5px 0; text-align: right;">
-                                    {{ number_format($order->products->sum(fn($p) => $p->pivot->quantity * $p->pivot->price), 2) }} €
-                                </td>
-                            </tr>
+
+                                <tr>
+                                    <td style="padding: 5px 0;">Sous-total produits</td>
+                                    <td style="padding: 5px 0; text-align: right;">
+                                        {{ number_format($order->products->sum(fn($p) => $p->pivot->quantity * $p->pivot->price), 2) }} €
+                                    </td>
+                                </tr>
+                            @if($order->member_discount > 0)
+                                <tr>
+                                    <td style="padding: 5px 0;">
+                                        Réduction membres ({{ number_format($order->member_discount) }}%)
+                                    </td>
+                                    <td style="padding: 5px 0; text-align: right;">
+                                        {{ number_format(
+                                            $order->products->sum(function ($p) use ($order) {
+                                                $subtotal = $p->pivot->quantity * $p->pivot->price;
+                                                return $subtotal * ($order->member_discount / 100);
+                                            }),
+                                            2
+                                        ) }} €
+                                    </td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td style="padding: 5px 0;">Frais de livraison</td>
                                 <td style="padding: 5px 0; text-align: right;">

@@ -93,6 +93,7 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id'      => $user->id, // ahora se relaciona la orden con el usuario
             'delivery'     => $validated['delivery'],
+            'member_discount' => $user->getMemberDiscount() ?? 0,
             'total'        => $validated['total'],
             'delivery_fee' => $validated['deliveryFee'] ?? 0,
             'proof_path' => $path,

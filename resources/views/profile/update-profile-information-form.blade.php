@@ -180,6 +180,61 @@
                 </select>
                 <x-input-error for="region" class="mt-2" />
             </div>
+            @php
+                $user = \Illuminate\Support\Facades\Auth::user();
+                $membership = $user->activeMembership;
+            @endphp
+
+            <div class="max-w-md rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+
+                <!-- Titre -->
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                    🎫 Membre
+                </h3>
+
+                @if($user->isMember() && $membership)
+                    <!-- Statut -->
+                    <div class="mb-3 flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+                            Active
+                        </span>
+                    </div>
+
+                    <!-- Dates -->
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">Début</p>
+                            <p class="font-medium text-gray-800">
+                                {{ $membership->start_date->format('d/m/Y') }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500">Fin</p>
+                            <p class="font-medium text-gray-800">
+                                {{ $membership->end_date->format('d/m/Y') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Réduction -->
+                    <div class="mt-4 rounded-lg bg-blue-50 p-3 text-sm text-blue-700">
+                        🎁 Réduction membre :
+                        <span class="font-semibold">
+                            {{ $membership->discount_percentage }}%
+                        </span>
+                    </div>
+                @else
+                    <!-- Non membre -->
+                    <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
+                        ❌ Vous n’avez actuellement aucune adhésion active.
+                    </div>
+                @endif
+
+            </div>
+
+
+
         </div>
 
     </x-slot>

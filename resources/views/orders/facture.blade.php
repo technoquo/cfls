@@ -49,10 +49,32 @@
 
             <!-- Résumé -->
             <div class="mt-6 border-t pt-4 text-sm text-gray-700 space-y-2">
+
+                @php
+                    $memberDiscount = $order->user->isMember() ? $order->user->getMemberDiscount() : 0;
+                    $discountAmount = ($subtotal * $memberDiscount) / 100;
+                    $subtotalAfterDiscount = $subtotal - $discountAmount;
+                @endphp
+
+                        <!-- Subtotal original -->
                 <div class="flex justify-between">
-                    <span>Sous-total</span>
+                    <span>Sous-total produits</span>
                     <span>{{ number_format($subtotal, 2) }} €</span>
                 </div>
+
+                @if($order->user->isMember() && $memberDiscount > 0)
+                    <!-- Descuento de membresía -->
+                    <div class="flex justify-between text-green-600">
+                        <span>Réduction membre ({{ number_format($memberDiscount, 2) }}%)</span>
+                        <span>-{{ number_format($discountAmount, 2) }} €</span>
+                    </div>
+
+                    <!-- Subtotal después del descuento -->
+                    <div class="flex justify-between font-semibold">
+                        <span>Sous-total après réduction</span>
+                        <span>{{ number_format($subtotalAfterDiscount, 2) }} €</span>
+                    </div>
+                @endif
 
                 <div class="flex justify-between">
                     <span>Mode de livraison</span>

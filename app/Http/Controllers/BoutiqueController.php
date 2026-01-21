@@ -26,6 +26,8 @@ class BoutiqueController extends Controller
 
         $user = Auth::user(); // puede ser null si no está logueado
 
+
+
         $cart = [];
 
         if ($request->has('cart_data')) {

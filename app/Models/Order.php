@@ -10,6 +10,7 @@ class Order extends Model
 {
     protected $fillable = [
         'delivery',
+        'member_discount',
         'total',
         'delivery_fee',
         'order_status',

@@ -316,31 +316,42 @@
                                 @endforeach
 
                                 <!-- Résumé -->
-                                <div class="mt-4 pt-4 border-t dark:border-gray-600">
-                                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
-                                        <span>Subtotal :</span>
-                                        <span x-text="`${baseTotal.toFixed(2)} €`"></span>
-                                    </div>
-
-                                    <template x-if="delivery === 'livraison'">
+                                    <div class="mt-4 pt-4 border-t dark:border-gray-600">
                                         <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
-                                            <span>Frais de livraison :</span>
-                                            <span x-text="`+${deliveryFee.toFixed(2)} €`"></span>
+                                            <span>Subtotal :</span>
+                                            <span x-text="`${subtotal.toFixed(2)} €`"></span>
                                         </div>
-                                    </template>
 
-                                    <template x-if="delivery === 'recoger'">
-                                        <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
-                                            <span>Retrait en magasin :</span>
-                                            <span>Gratuit</span>
+                                        @if($user->isMember() && $user->getMemberDiscount() > 0)
+                                            <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
+                                                <span>Réduction membre (<span x-text="memberDiscountPercent.toFixed(2)"></span>%) :</span>
+                                                <span>-<span x-text="discountAmount.toFixed(2)"></span> €</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                                                <span>Total après réduction :</span>
+                                                <span x-text="`${baseTotal.toFixed(2)} €`"></span>
+                                            </div>
+                                        @endif
+
+                                        <template x-if="delivery === 'livraison'">
+                                            <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+                                                <span>Frais de livraison :</span>
+                                                <span x-text="`+${deliveryFee.toFixed(2)} €`"></span>
+                                            </div>
+                                        </template>
+
+                                        <template x-if="delivery === 'retrait'">
+                                            <div class="flex justify-between text-sm text-green-600 dark:text-green-400 mb-2">
+                                                <span>Retrait en magasin :</span>
+                                                <span>Gratuit</span>
+                                            </div>
+                                        </template>
+
+                                        <div class="flex justify-between items-center text-xl font-bold pt-2 border-t dark:border-gray-600">
+                                            <span class="dark:text-white">Total final :</span>
+                                            <span class="dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
                                         </div>
-                                    </template>
-
-                                    <div class="flex justify-between items-center text-xl font-bold">
-                                        <span class="dark:text-white">Total :</span>
-                                        <span class="dark:text-white" x-text="finalTotal.toFixed(2) + ' €'"></span>
                                     </div>
-                                </div>
                             </div>
 
                             <div class="flex flex-col md:flex-row gap-4 mt-5">
@@ -381,15 +392,27 @@
                     notificationType: 'success',
                     delivery: 'retrait',
                     quantity: {{ collect($cart)->sum('quantity') }},
-                    baseTotal: {{ collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) }},
-                    loading: false, // 🔥 aquí definimos loading
+
+                    // 🔥 CALCULAR SUBTOTAL Y DESCUENTO
+                    @php
+                        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+                        $memberDiscount = $user->getMemberDiscount();
+                        $discountAmount = ($subtotal * $memberDiscount) / 100;
+                        $baseTotal = $subtotal - $discountAmount;
+                    @endphp
+
+                    subtotal: {{ $subtotal }},
+                    memberDiscountPercent: {{ $memberDiscount }},
+                    discountAmount: {{ $discountAmount }},
+                    baseTotal: {{ $baseTotal }},
+                    loading: false,
+
                     get totalWeight() {
                         return this.cart.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
                     },
 
                     get deliveryFee() {
                         const weight = this.totalWeight;
-                       // console.log('Total Weight:', weight);
                         if (this.delivery === 'retrait') return 0;
 
                         if (weight > 0 && weight <= 100) return 3.00;
@@ -403,7 +426,6 @@
                     },
 
                     get finalTotal() {
-                        // console.log('deliveryFee:', this.deliveryFee);
                         return this.baseTotal + this.deliveryFee;
                     },
 
@@ -436,7 +458,6 @@
                         if (this.province && this.provinces[this.province]) {
                             this.regionOptions = this.provinces[this.province];
 
-                            // Si la región actual no está incluida, selecciona la primera región disponible
                             if (!this.regionOptions.includes(this.region)) {
                                 this.region = this.regionOptions[0];
                             }
@@ -444,26 +465,24 @@
                     },
 
                     async confirmerAchat() {
-                        if (this.loading) return; // evita doble submit
+                        if (this.loading) return;
                         this.loading = true;
 
                         try {
-                            // Obtener valores
                             const first_name = document.querySelector('input[name="first_name"]').value.trim();
                             const second_name = document.querySelector('input[name="second_name"]').value.trim();
                             const email = document.querySelector('input[name="email"]').value.trim();
                             const telephone = document.querySelector('input[name="telephone"]').value.trim();
                             const society = document.querySelector('input[name="society"]').value.trim();
-                            const address = document.getElementById('address').value.trim();
-                            const ville = document.querySelector('input[name="ville"]').value.trim();
+                            const address = document.getElementById('address')?.value.trim();
+                            const ville = document.querySelector('input[name="ville"]')?.value.trim();
                             const postal_code = document.querySelector('input[name="postal_code"]')?.value.trim();
 
-                            // Validación de campos obligatorios
+                            // Validación
                             this.errors.first_name = !first_name;
                             this.errors.second_name = !second_name;
                             this.errors.email = !email;
                             this.errors.telephone = !telephone;
-
 
                             if (this.delivery === 'livraison') {
                                 this.errors.address = !address;
@@ -473,21 +492,19 @@
                                 this.errors.province = !this.province;
                             }
 
-                            // Verifica errores
                             if (Object.values(this.errors).some(e => e)) {
                                 this.showNotification("Veuillez remplir tous les champs requis.", 'error');
-                                this.loading = false; // 🔥 IMPORTANTE
+                                this.loading = false;
                                 return;
                             }
 
                             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                             if (!emailRegex.test(email)) {
                                 this.showNotification("Veuillez entrer une adresse email valide.", 'error');
-                                this.loading = false; // 🔥 IMPORTANTE
+                                this.loading = false;
                                 return;
                             }
 
-                            // ... tu código de envío aquí ...
                             // Crear FormData
                             const formData = new FormData();
                             formData.append('first_name', first_name);
@@ -495,10 +512,13 @@
                             formData.append('email', email);
                             formData.append('telephone', telephone);
                             formData.append('society', society);
-
                             formData.append('delivery', this.delivery);
-                            formData.append('total', this.finalTotal.toFixed(2));
+                            formData.append('subtotal', this.subtotal.toFixed(2));
+                            formData.append('member_discount_percent', this.memberDiscountPercent.toFixed(2));
+                            formData.append('discount_amount', this.discountAmount.toFixed(2));
+                            formData.append('base_total', this.baseTotal.toFixed(2));
                             formData.append('deliveryFee', this.deliveryFee.toFixed(2));
+                            formData.append('total', this.finalTotal.toFixed(2));
                             formData.append('products', JSON.stringify(@json($cart)));
 
                             if (this.delivery === 'livraison') {
@@ -507,17 +527,7 @@
                                 formData.append('postal_code', postal_code);
                                 formData.append('province', this.province);
                                 formData.append('region', this.region);
-                            } else {
-                                formData.append('address', null);
-                                formData.append('ville', null);
-                                formData.append('postal_code', null);
-                                formData.append('province', null);
-                                formData.append('region', null);
                             }
-
-
-
-
 
                             const response = await fetch("{{ route('order.store') }}", {
                                 method: "POST",
@@ -529,18 +539,15 @@
                             });
 
                             const data = await response.json();
-                           
-
 
                             if (!response.ok || data.error) {
                                 this.showNotification(data.error || "Erreur inconnue.", 'error');
-                                this.loading = false; // 🔥 IMPORTANTE
+                                this.loading = false;
                                 return;
                             }
 
                             this.showNotification("Commande enregistrée avec succès !");
 
-                            // Limpiar almacenamiento local y redirigir
                             localStorage.removeItem('cart');
                             localStorage.removeItem('cart-total');
 
@@ -549,14 +556,13 @@
                             }, 2000);
 
                         } catch (err) {
-                           // console.error(err);
+                            console.error(err);
                             this.showNotification("Erreur lors de l'envoi du formulaire.", 'error');
-                            this.loading = false; // 🔥 IMPORTANTE
+                            this.loading = false;
                         }
                     },
 
                     annulerAchat() {
-
                         if (confirm("Voulez-vous vraiment annuler l'achat ? Les produits seront supprimés du panier.")) {
                             fetch("{{ route('cart.clear') }}", {
                                 method: "DELETE",
@@ -565,13 +571,10 @@
                                     'Content-Type': 'application/json',
                                 }
                             }).then(() => {
-
-                                // Réinitialise les données locales
                                 this.items = [];
                                 this.total = 0;
                                 localStorage.removeItem('cart');
                                 localStorage.removeItem('cart-total');
-                                // Redirection vers la boutique
                                 window.location.href = "{{ route('boutique.index') }}";
                             });
                         }
@@ -593,6 +596,7 @@
                         email: false,
                         telephone: false,
                         address: false,
+                        ville: false,
                         postal_code: false,
                         region: false,
                         province: false,

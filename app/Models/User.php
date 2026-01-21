@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -124,7 +125,31 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     }
 
 
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(Membership::class);
+    }
 
+    // Membresía activa actual
+    public function activeMembership(): HasOne
+    {
+        return $this->hasOne(Membership::class)
+            ->where('status', 'active')
+            ->latestOfMany();
+    }
+
+    // Verificar si el usuario es miembro activo
+    public function isMember(): bool
+    {
+        return $this->activeMembership()->exists();
+    }
+
+    // Obtener el descuento del miembro
+    public function getMemberDiscount(): float
+    {
+        $membership = $this->activeMembership;
+        return $membership ? $membership->discount_percentage : 0;
+    }
 
 
 

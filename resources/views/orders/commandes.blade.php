@@ -4,18 +4,27 @@
     <div class="max-w-4xl mx-auto py-10 px-4">
         <h1 class="text-2xl font-semibold mb-6 dark:text-white">Mes commandes</h1>
 
+
         @if($orders->isEmpty())
             <p class="text-gray-600 ">Vous n'avez pas encore passé de commande.</p>
         @else
             <div class="space-y-6 p-5">
                 @foreach($orders as $order)
                     @php
-                        $subtotal = $order->products->reduce(fn($carry, $product) =>
-                            $carry + ($product->pivot->quantity * $product->pivot->price), 0
-                        );
 
-                        // Chequear si al menos un produit de la commande tiene "choix"
-                        $hasChoix = $order->products->contains(fn($product) => !empty($product->pivot->choix));
+
+                                    $subtotal = $order->products->reduce(fn($carry, $product) =>
+                                    $carry + ($product->pivot->quantity * $product->pivot->price), 0
+                                    );
+
+                                    // Luego aplicar el descuento al subtotal total
+                                     $subtotal =   $subtotal - ($subtotal * $order->member_discount / 100);
+
+
+
+
+                               // Chequear si al menos un produit de la commande tiene "choix"
+                               $hasChoix = $order->products->contains(fn($product) => !empty($product->pivot->choix));
                     @endphp
 
                     <div class="border rounded-md bg-white p-6 shadow-sm">
@@ -51,7 +60,12 @@
                                     @if($hasChoix)
                                         <th class="px-4 py-2 text-center border">Choix</th>
                                     @endif
+                                    @if($order->member_discount > 0)
+                                        <th class="px-4 py-2 text-center border">Réduction membre ({{number_format($order->member_discount)}}%) </th>
+
+                                    @endif
                                     <th class="px-4 py-2 text-right border">Prix unitaire</th>
+
                                     <th class="px-4 py-2 text-right border">Total</th>
                                 </tr>
                                 </thead>
@@ -71,11 +85,26 @@
                                                 {{ $product->pivot->choix ?? '-' }}
                                             </td>
                                         @endif
+                                            @if($order->member_discount > 0)
+                                                @php
+                                                $discountedMember = $product->pivot->price * $order->member_discount/100;
+                                                $discountedPrice = $product->pivot->price - $discountedMember;
 
-                                        <td class="px-4 py-2 text-right border">{{ number_format($product->pivot->price, 2) }} €</td>
-                                        <td class="px-4 py-2 text-right border font-semibold">
-                                            {{ number_format($product->pivot->quantity * $product->pivot->price, 2) }} €
-                                        </td>
+                                                @endphp
+                                             <td class="px-4 py-2 text-right border">{{$product->pivot->quantity * $discountedMember}} €</td>
+                                            <td class="px-4 py-2 text-right border">{{ number_format($product->pivot->price, 2) }} €</td>
+                                            <td class="px-4 py-2 text-right border font-semibold">
+                                                {{ number_format($product->pivot->quantity * $discountedPrice, 2) }} €
+                                            </td>
+                                          @else
+                                            <td class="px-4 py-2 text-right border">{{ number_format($product->pivot->price, 2) }} €</td>
+                                            <td class="px-4 py-2 text-right border font-semibold">
+                                                {{ number_format($product->pivot->quantity * $product->pivot->price, 2) }} €
+                                            </td>
+                                           @endif
+
+
+
                                     </tr>
                                 @endforeach
                                 </tbody>
