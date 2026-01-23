@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\OrderController;
@@ -22,6 +23,11 @@ Route::get('/contact', [HomeController::class, 'contacto'])->name('contact');
 Route::get('/general-4', [HomeController::class, 'general'])->name('general-4');
 Route::get('/telechargements-gratuits', [DownloadController::class, 'index'])->name('telechargements-gratuits');
 
+// Cuestionario
+
+Route::get('/questions', [QuizController::class, 'setting'])->name('question.setting');
+// routes/web.php
+Route::put('/questions/{id}', [QuizController::class, 'updateAnswer'])->name('questions.update');
 
 
 // Redirecciones de URLs antiguas Wix (deben ir ANTES de las rutas dinámicas)
@@ -146,4 +152,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.confirmation');
 
 
+
+// Questions
 
