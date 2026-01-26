@@ -22,7 +22,7 @@ class VideoController extends Controller
             'url' => ['secure' => true]
         ]);
         // Replace 'your-folder-name' with your actual folder name
-        $folderPath = "Syllabus 3/THEME 7";
+        $folderPath = "Syllabus 3/THEME 9";
 
         $search = new SearchApi();
 
@@ -33,16 +33,22 @@ class VideoController extends Controller
             ->maxResults(250)
             ->execute();
         foreach ($response['resources'] as $video) {
-            DB::table('video_themes_cloudinary')->insert([
-                'title' => $video['display_name'] ?? $video['public_id'], // por si no existe display_name
-                'slug' => Str::slug($video['display_name'] ?? $video['public_id']),
-                'theme_id' => 27, //10. À l'école
-                'syllabu_id' => 3, // Syllabuts 2
-                'url' => $video['url'],
-                'active' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+
+            $title = $video['display_name'] ?? $video['public_id'];
+            $slug  = Str::slug($title);
+
+            DB::table('video_themes_cloudinary')->updateOrInsert(
+                ['slug' => $slug], // condición única
+                [
+                    'title'      => $title,
+                    'theme_id'   => 29,
+                    'syllabu_id' => 3,
+                    'url'        => $video['url'],
+                    'active'     => 1,
+                    'updated_at' => now(),
+                    'created_at' => now(),
+                ]
+            );
         }
         return response()->json($response);
     }
