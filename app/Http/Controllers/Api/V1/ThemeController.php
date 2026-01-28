@@ -7,6 +7,7 @@ use App\Http\Resources\V1\ThemeResource;
 use App\Models\Syllabu;
 use App\Models\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ThemeController extends Controller
 {
@@ -33,19 +34,31 @@ class ThemeController extends Controller
     {
 
         $syllabu = Syllabu::where('slug', $theme)->firstOrFail();
-
         $themes = Theme::where('syllabu_id', $syllabu->id)->get();
-
         return ThemeResource::collection($themes);
     }
 
-    public function theme($slugTheme, $slugVideo){
+    public function theme($slugTheme, $slugVideo)
+    {
+        $cacheKey = "theme.{$slugTheme}.{$slugVideo}";
 
+        return Cache::remember($cacheKey, now()->addHours(24), function() use ($slugTheme, $slugVideo) {
+            // ✅ Obtener IDs directamente
+            $syllabusId = Syllabu::where('slug', $slugTheme)->value('id');
 
-        $themes =  Theme::with('videos')->where('slug', $slugVideo)->firstOrFail();
+            if (!$syllabusId) {
+                abort(404, 'Syllabus not found');
+            }
 
+            // ✅ Buscar theme
+            $theme = Theme::with('videos:id,theme_id,title,url')
+                ->select('id', 'slug', 'title', 'syllabu_id')
+                ->where('syllabu_id', $syllabusId)
+                ->where('slug', $slugVideo)
+                ->firstOrFail();
 
-        return new ThemeResource($themes);
+            return new ThemeResource($theme);
+        });
     }
 
     /**

@@ -14,7 +14,13 @@ class SyllabusController extends Controller
      */
     public function index()
     {
-        return SyllabusResource::collection(Syllabu::all());
+        $syllabus = Syllabu::query()
+            //->where('status', 1)
+            ->select('id','title','slug','image','link','status')
+            ->orderBy('id')
+            ->get();
+
+        return SyllabusResource::collection($syllabus);
     }
 
     /**

@@ -31,7 +31,7 @@ class QuestionResource extends JsonResource
 
         return [
             'id'            => $this->id,
-            'slug'          => $this->syllabus->slug ?? '',
+           // 'slug'          => $this->syllabus->slug ?? '',
             'theme'         => $this->theme->title ?? '',
             'question_text' => $this->question_text ?? '',
             'type'          => $this->type ?? '',
