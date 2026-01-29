@@ -15,7 +15,9 @@ class QuizController
     {
         $limit = 25;
 
-        $syllabu = Syllabu::where('slug', $slug.'-themes')->firstOrFail();
+
+
+        $syllabu = Syllabu::where('slug', $slug)->firstOrFail();
 
 // ✅ Usar directamente $syllabu->id
         $totalQuestions = Question::where('syllabu_id', $syllabu->id)->count();

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\SectionController;
 use App\Http\Controllers\Api\V1\SpellController;
 use App\Http\Controllers\Api\V1\SpellingController;
 use App\Http\Controllers\Api\V1\SubscriptionController;
+use App\Http\Controllers\Api\V1\SyllabusController;
 use App\Http\Controllers\Api\V1\ThemeController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\VerifyCodeController;
@@ -52,6 +53,7 @@ Route::get('/product/{id}', function ($id) {
 
 Route::prefix('v1')->group(function () {
 
+    Route::get('/syllabus/settings/{slug}', [SyllabusController::class, 'settings']);
     Route::get('/sections/{slug?}', [SectionController::class, 'index']);
     Route::get('/sections/show/{section}', [SectionController::class, 'show']);
     Route::post('/sections', [SectionController::class, 'store']);

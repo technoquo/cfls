@@ -21,6 +21,8 @@ class SyllabusResource extends JsonResource
                 "image" => asset('storage/' . $this->image),
                 "link" => $this->link,
                 "status" => $this->status,
+                "color_class" => $this->color_class,
+                "hex_color" => $this->hex_color
 //                "created_at" => $this->created_at,
 //                "updated_at" => $this->updated_at,
             ],

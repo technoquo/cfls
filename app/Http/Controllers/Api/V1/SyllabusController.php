@@ -62,4 +62,11 @@ class SyllabusController extends Controller
 
         return response()->noContent();
     }
+
+    public function settings($slug)
+    {
+        $syllabu = Syllabu::where('slug', $slug)->firstOrFail();
+
+        return new SyllabusResource($syllabu);
+    }
 }

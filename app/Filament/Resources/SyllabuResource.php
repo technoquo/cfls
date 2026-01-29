@@ -6,6 +6,7 @@ use App\Filament\Resources\SyllabuResource\Pages;
 use App\Filament\Resources\SyllabuResource\RelationManagers;
 use App\Models\Syllabu;
 use Filament\Forms;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -39,6 +40,11 @@ class SyllabuResource extends Resource
                     ->label('Slug')
                     ->required()
                     ->maxLength(255),
+                ColorPicker::make('hex_color')
+                    ->label('Color')
+                    ->format('hex')  // 'hex', 'rgb', 'rgba', 'hsl', 'hsla'
+                    ->required()
+                    ->default('#000000'),
                 Forms\Components\FileUpload::make('image')
                     ->label('Image')
                     ->image()
